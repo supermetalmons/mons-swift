@@ -7,23 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C01C6A129CAF4D500A25465 /* Mons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* Mons.swift */; };
+		2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A229CAF4E400A25465 /* Monsboard.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
-		2CC39E8429CA48B200EDF779 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* ViewController.swift */; };
+		2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */; };
 		2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8529CA48B200EDF779 /* Main.storyboard */; };
 		2CC39E8929CA48B300EDF779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8829CA48B300EDF779 /* Assets.xcassets */; };
 		2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2CC39E7C29CA48B200EDF779 /* super-metal-mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "super-metal-mons.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C01C6A029CAF4D500A25465 /* Mons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mons.swift; sourceTree = "<group>"; };
+		2C01C6A229CAF4E400A25465 /* Monsboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monsboard.swift; sourceTree = "<group>"; };
+		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2CC39E8329CA48B200EDF779 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsboardViewController.swift; sourceTree = "<group>"; };
 		2CC39E8629CA48B200EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CC39E8829CA48B300EDF779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CC39E8B29CA48B300EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CC39E8D29CA48B300EDF779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "super-metal-mons.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +53,7 @@
 		2CC39E7D29CA48B200EDF779 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2CC39E7C29CA48B200EDF779 /* super-metal-mons.app */,
+				2CC39E7C29CA48B200EDF779 /* mons.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,9 +61,12 @@
 		2CC39E7E29CA48B200EDF779 /* super-metal-mons */ = {
 			isa = PBXGroup;
 			children = (
+				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,
 				2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */,
 				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
-				2CC39E8329CA48B200EDF779 /* ViewController.swift */,
+				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
+				2C01C6A029CAF4D500A25465 /* Mons.swift */,
+				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
@@ -84,7 +92,7 @@
 			);
 			name = "super-metal-mons";
 			productName = "super-metal-mons";
-			productReference = 2CC39E7C29CA48B200EDF779 /* super-metal-mons.app */;
+			productReference = 2CC39E7C29CA48B200EDF779 /* mons.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,8 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CC39E8429CA48B200EDF779 /* ViewController.swift in Sources */,
+				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
+				2C01C6A129CAF4D500A25465 /* Mons.swift in Sources */,
+				2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,23 +295,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/super-metal-mons.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = mons;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -313,23 +331,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/super-metal-mons.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = mons;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

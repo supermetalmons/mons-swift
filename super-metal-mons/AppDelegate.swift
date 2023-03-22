@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  super-metal-mons
-//
-//  Created by Ivan Grachev on 21.03.2023.
-//
+// Copyright © 2023 super metal mons. All rights reserved.
 
 import UIKit
 
