@@ -16,9 +16,18 @@ class MonsboardViewController: UIViewController {
     private let boardSize = 11
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
 
+    lazy var game: MonsGame = {
+        return MonsGame()
+//        if let fen = UserDefaults.standard.string(forKey: "fen"), let game = MonsGame(fen: fen) {
+//            return game
+//        } else {
+//            return MonsGame()
+//        }
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupChessboard()
+        setupMonsboard()
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
@@ -31,7 +40,15 @@ class MonsboardViewController: UIViewController {
         // TODO: restart the game
     }
     
-    private func setupChessboard() {
+    // TODO: remove this one, this is for development only
+    func restartBoardForTest() {
+        boardContainerView.subviews.forEach { $0.removeFromSuperview() }
+        squares = Array(repeating: Array(repeating: nil, count: 11), count: 11)
+        monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
+        setupMonsboard()
+    }
+    
+    private func setupMonsboard() {
         #if targetEnvironment(macCatalyst)
         let screenWidth: CGFloat = 800
         let screenHeight: CGFloat = 1200
@@ -64,62 +81,77 @@ class MonsboardViewController: UIViewController {
             squares[i][j]?.backgroundColor = UIColor(hex: "#1407F5")
         }
         
-        for (i, j) in [(5, 0), (5, 10)] {
-            squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
-            imageView.image = UIImage(named: "potion")
-            imageView.contentMode = .scaleAspectFit
-            imageView.center = squares[i][j]?.center ?? CGPoint.zero
-            boardContainerView.addSubview(imageView)
-            
-            monsOnBoard[i][j] = imageView
-        }
-        
-        for (i, j) in [(3, 4), (3, 6), (7, 4), (7, 6), (4, 3), (4, 5), (4, 7), (6, 3), (6, 5), (6, 7)] {
-            squares[i][j]?.backgroundColor = UIColor(hex: "#9CE8FC")
-            
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-            imageView.image = UIImage(named: "mana")
-            imageView.contentMode = .scaleAspectFit
-            imageView.center = squares[i][j]?.center ?? CGPoint.zero
-            boardContainerView.addSubview(imageView)
-            
-            monsOnBoard[i][j] = imageView
-        }
-        
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-        imageView.image = UIImage(named: "super-mana")
-        imageView.contentMode = .scaleAspectFit
-        imageView.center = squares[5][5]?.center ?? CGPoint.zero
-        boardContainerView.addSubview(imageView)
-        monsOnBoard[5][5] = imageView
-        
-        let mons = ["demon": [(10, 3)], "angel": [(10, 4)], "drainer": [(10, 5)], "spirit": [(10, 6)], "mystic": [(10, 7)]]
-        for (key, value) in mons {
-            for (i, j) in value {
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-                imageView.image = UIImage(named: key)
-                imageView.contentMode = .scaleAspectFit
-                imageView.center = squares[i][j]?.center ?? CGPoint.zero
-                boardContainerView.addSubview(imageView)
-                
-                monsOnBoard[i][j] = imageView
+        // TODO: move to board class
+        for (i, line) in game.board.enumerated() {
+            for (j, space) in line.enumerated() {
+                switch space {
+                case .consumable:
+                    squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
+                    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
+                    imageView.image = UIImage(named: "potion") // TODO: get name from consumable enum
+                    imageView.contentMode = .scaleAspectFit
+                    imageView.center = squares[i][j]?.center ?? CGPoint.zero
+                    boardContainerView.addSubview(imageView)
+                    monsOnBoard[i][j] = imageView
+                case let .mon(mon: mon):
+                    
+                    // TODO: move it from here
+                    let name: String
+                    switch mon.kind {
+                    case .mystic: name = "mystic"
+                    case .demon: name = "demon"
+                    case .drainer: name = "drainer"
+                    case .angel: name = "angel"
+                    case .spirit: name = "spirit"
+                    }
+                    
+                    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
+                    imageView.image = UIImage(named: name)
+                    
+                    if mon.color == .blue {
+                        imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
+                    }
+                    
+                    imageView.contentMode = .scaleAspectFit
+                    imageView.center = squares[i][j]?.center ?? CGPoint.zero
+                    boardContainerView.addSubview(imageView)
+                    
+                    monsOnBoard[i][j] = imageView
+                    
+                case let .monWithMana(mon: mon, mana: mana):
+                    // TODO: implement
+                    print(mon, mana)
+                case let .mana(mana: mana):
+                    switch mana {
+                    case let .regular(color: color):
+                        squares[i][j]?.backgroundColor = UIColor(hex: "#9CE8FC")
+                        
+                        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
+                        imageView.image = UIImage(named: "mana")
+                        
+                        if color == .blue {
+                            imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
+                        }
+                        
+                        imageView.contentMode = .scaleAspectFit
+                        imageView.center = squares[i][j]?.center ?? CGPoint.zero
+                        boardContainerView.addSubview(imageView)
+                        monsOnBoard[i][j] = imageView
+                    case .superMana:
+                        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
+                        imageView.image = UIImage(named: "super-mana")
+                        imageView.contentMode = .scaleAspectFit
+                        imageView.center = squares[i][j]?.center ?? CGPoint.zero
+                        boardContainerView.addSubview(imageView)
+                        monsOnBoard[i][j] = imageView
+                    }
+                case .empty:
+                    break
+                }
             }
         }
         
-        let flippedMons = ["demon": [(0, 7)], "angel": [(0, 6)], "drainer": [(0, 5)], "spirit": [(0, 4)], "mystic": [(0, 3)]]
-        for (key, value) in flippedMons {
-            for (i, j) in value {
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-                imageView.image = UIImage(named: key)
-                imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
-                imageView.contentMode = .scaleAspectFit
-                imageView.center = squares[i][j]?.center ?? CGPoint.zero
-                boardContainerView.addSubview(imageView)
-                
-                monsOnBoard[i][j] = imageView
-            }
-        }
+        
     }
     
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
@@ -161,10 +193,10 @@ class MonsboardViewController: UIViewController {
             
             monsOnBoard[selectedSpace.row][selectedSpace.col] = nil
             monsOnBoard[i][j] = selectedMon
+            game.move(from: (selectedSpace.row, selectedSpace.col), to: (i, j))
+            UserDefaults.standard.setValue(game.fen, forKey: "fen")
+            restartBoardForTest()
         }
-        
-
-        
         
     }
 }

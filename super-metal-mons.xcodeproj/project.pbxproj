@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C01C6A129CAF4D500A25465 /* Mons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* Mons.swift */; };
 		2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A229CAF4E400A25465 /* Monsboard.swift */; };
+		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
 		2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C01C6A029CAF4D500A25465 /* Mons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mons.swift; sourceTree = "<group>"; };
+		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
 		2C01C6A229CAF4E400A25465 /* Monsboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monsboard.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 				2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */,
 				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
 				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
-				2C01C6A029CAF4D500A25465 /* Mons.swift */,
+				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
@@ -146,9 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
-				2C01C6A129CAF4D500A25465 /* Mons.swift in Sources */,
 				2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 			);
