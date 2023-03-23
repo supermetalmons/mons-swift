@@ -1,6 +1,7 @@
 // Copyright © 2023 super metal mons. All rights reserved.
 
 import UIKit
+import FirebaseDatabase
 
 class SpaceView: UIView {
     var row = 0
@@ -10,6 +11,9 @@ class SpaceView: UIView {
 
 class MonsboardViewController: UIViewController {
     
+    let database = Database.database().reference()
+    
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var boardContainerView: UIView!
     @IBOutlet weak var overlayView: UIView!
     
@@ -28,6 +32,42 @@ class MonsboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMonsboard()
+        statusLabel.text = game.fen
+        runFirebase()
+    }
+    
+    func runFirebase() {
+//        ref.child("https://console.firebase.google.com/u/1/project/mons-e34e5/database/mons-e34e5-default-rtdb/data/")
+        database.child("fen").observe(.value) { [weak self] (snapshot) in
+            guard let data = snapshot.value as? [String: AnyObject], let fen = data["fen"] as? String else {
+                print("No fen found")
+                return
+            }
+            self?.receivedFenFromNetwork(fen: fen)
+        }
+    }
+    
+    var lastSharedFen = ""
+    
+    func quitGame() {
+        game = MonsGame()
+        sendFen(game.fen)
+        restartBoardForTest()
+    }
+    
+    func receivedFenFromNetwork(fen: String) {
+        guard lastSharedFen != fen, !fen.isEmpty else { return }
+        DispatchQueue.main.async {
+            self.game = MonsGame(fen: fen)!
+            self.restartBoardForTest()
+            self.statusLabel.text = fen
+        }
+    }
+    
+    func sendFen(_ fen: String) {
+        guard lastSharedFen != fen else { return }
+        database.child("fen").setValue(["fen": fen])
+        lastSharedFen = fen
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
@@ -37,16 +77,18 @@ class MonsboardViewController: UIViewController {
     
     @IBAction func ggButtonTapped(_ sender: Any) {
         overlayView.isHidden = false
+        quitGame()
         // TODO: restart the game
     }
     
     // TODO: remove this one, this is for development only
     func restartBoardForTest() {
-        boardContainerView.subviews.forEach { $0.removeFromSuperview() }
-        squares = Array(repeating: Array(repeating: nil, count: 11), count: 11)
+        monsOnBoard.forEach { $0.forEach { $0?.removeFromSuperview() } }
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
         setupMonsboard()
     }
+    
+    private var didSetupBoard = false
     
     private func setupMonsboard() {
         #if targetEnvironment(macCatalyst)
@@ -60,25 +102,27 @@ class MonsboardViewController: UIViewController {
         let totalBoardSize = screenWidth
         let yOffset = (screenHeight - totalBoardSize) / 2
 
-        for row in 0..<boardSize {
-            for col in 0..<boardSize {
-                let x = CGFloat(col) * squareSize
-                let y = CGFloat(row) * squareSize + yOffset
+        if !didSetupBoard {
+            for row in 0..<boardSize {
+                for col in 0..<boardSize {
+                    let x = CGFloat(col) * squareSize
+                    let y = CGFloat(row) * squareSize + yOffset
 
-                let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                square.backgroundColor = (row + col) % 2 == 0 ? .white : UIColor(hex: "#CECECE")
-                boardContainerView.addSubview(square)
-                squares[row][col] = square
-                
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                square.addGestureRecognizer(tapGestureRecognizer)
-                square.col = col
-                square.row = row
+                    let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
+                    square.backgroundColor = (row + col) % 2 == 0 ? .white : UIColor(hex: "#CECECE")
+                    boardContainerView.addSubview(square)
+                    squares[row][col] = square
+                    
+                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
+                    square.addGestureRecognizer(tapGestureRecognizer)
+                    square.col = col
+                    square.row = row
+                }
             }
-        }
-        
-        for (i, j) in [(0, 0), (5, 5), (10, 10), (0, 10), (10, 0)] {
-            squares[i][j]?.backgroundColor = UIColor(hex: "#1407F5")
+            
+            for (i, j) in [(0, 0), (5, 5), (10, 10), (0, 10), (10, 0)] {
+                squares[i][j]?.backgroundColor = UIColor(hex: "#1407F5")
+            }
         }
         
         // TODO: move to board class
@@ -86,7 +130,9 @@ class MonsboardViewController: UIViewController {
             for (j, space) in line.enumerated() {
                 switch space {
                 case .consumable:
-                    squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
+                    if !didSetupBoard {
+                        squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
+                    }
                     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
                     imageView.image = UIImage(named: "potion") // TODO: get name from consumable enum
                     imageView.contentMode = .scaleAspectFit
@@ -124,7 +170,9 @@ class MonsboardViewController: UIViewController {
                 case let .mana(mana: mana):
                     switch mana {
                     case let .regular(color: color):
-                        squares[i][j]?.backgroundColor = UIColor(hex: "#9CE8FC")
+                        if !didSetupBoard {
+                            squares[i][j]?.backgroundColor = UIColor(hex: "#9CE8FC")
+                        }
                         
                         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
                         imageView.image = UIImage(named: "mana")
@@ -150,8 +198,7 @@ class MonsboardViewController: UIViewController {
                 }
             }
         }
-        
-        
+        didSetupBoard = true
     }
     
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
@@ -177,7 +224,7 @@ class MonsboardViewController: UIViewController {
                 selectedSpace = nil
                 selectedMon = nil
             } else {
-                spaceView.layer.borderWidth = 5
+                spaceView.layer.borderWidth = 3
                 spaceView.layer.borderColor = UIColor.green.cgColor
                 spaceView.isSelected = true
                 
@@ -194,8 +241,11 @@ class MonsboardViewController: UIViewController {
             monsOnBoard[selectedSpace.row][selectedSpace.col] = nil
             monsOnBoard[i][j] = selectedMon
             game.move(from: (selectedSpace.row, selectedSpace.col), to: (i, j))
-            UserDefaults.standard.setValue(game.fen, forKey: "fen")
-            restartBoardForTest()
+            
+            let fen = game.fen
+//            UserDefaults.standard.setValue(, forKey: "fen")
+            statusLabel.text = game.fen
+            sendFen(fen)
         }
         
     }

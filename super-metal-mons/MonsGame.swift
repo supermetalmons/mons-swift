@@ -5,18 +5,18 @@ import Foundation
 class MonsGame {
     let version: Int
     
-    let redScore: Int
-    let blueScore: Int
+    var redScore: Int
+    var blueScore: Int
     
-    let activeColor: Color
-    let actionUsed: Bool
-    let manaMoved: Bool
-    let monsMovesCount: Int
+    var activeColor: Color
+    var actionUsed: Bool
+    var manaMoved: Bool
+    var monsMovesCount: Int
     
-    let redPotionsCount: Int
-    let bluePotionsCount: Int
+    var redPotionsCount: Int
+    var bluePotionsCount: Int
     
-    let turnNumber: Int
+    var turnNumber: Int
     var board: [[Space]]
     
     init() {
@@ -120,8 +120,16 @@ class MonsGame {
     
     // TODO: implement better
     func move(from: (Int, Int), to: (Int, Int)) {
-        board[to.0][to.1] = board[from.0][from.1]
+        let item = board[from.0][from.1]
+        board[to.0][to.1] = item
         board[from.0][from.1] = .empty
+        
+        switch item {
+        case .mana(mana: .regular(color: .red)):
+            manaMoved = true
+        default:
+            monsMovesCount += 1
+        }
     }
     
     func endTurn() {

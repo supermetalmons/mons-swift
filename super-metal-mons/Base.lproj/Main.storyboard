@@ -20,6 +20,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="351-pd-Mp4">
+                                <rect key="frame" x="39.333333333333343" y="79" width="314.33333333333326" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-W8-eG0">
                                 <rect key="frame" x="329" y="763" width="44" height="35"/>
                                 <state key="normal" title="Button"/>
@@ -65,9 +71,12 @@
                             <constraint firstAttribute="trailing" secondItem="XeK-zK-lck" secondAttribute="trailing" id="F3T-s9-cyq"/>
                             <constraint firstItem="XeK-zK-lck" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GOq-zI-32S"/>
                             <constraint firstItem="XeK-zK-lck" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NG7-Dm-jUW"/>
+                            <constraint firstItem="351-pd-Mp4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WP3-pg-xnE"/>
+                            <constraint firstItem="351-pd-Mp4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="bJH-ZE-7bF"/>
                             <constraint firstAttribute="bottom" secondItem="XeK-zK-lck" secondAttribute="bottom" id="bQg-cM-QCt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EPq-W8-eG0" secondAttribute="trailing" constant="20" id="d9Q-hd-6l3"/>
                             <constraint firstAttribute="bottom" secondItem="FgO-1g-3sr" secondAttribute="bottom" id="f4L-xN-JS7"/>
+                            <constraint firstItem="351-pd-Mp4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="k88-AY-mqq"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="kKV-Mp-aQB"/>
                             <constraint firstItem="FgO-1g-3sr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="n3P-5c-hRv"/>
                             <constraint firstAttribute="trailing" secondItem="FgO-1g-3sr" secondAttribute="trailing" id="pRU-qh-UbZ"/>
@@ -77,6 +86,7 @@
                     <connections>
                         <outlet property="boardContainerView" destination="FgO-1g-3sr" id="2Gw-OJ-RU8"/>
                         <outlet property="overlayView" destination="XeK-zK-lck" id="dYz-e5-FAb"/>
+                        <outlet property="statusLabel" destination="351-pd-Mp4" id="d9w-rn-Yx9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
