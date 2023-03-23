@@ -3,6 +3,21 @@
 import Foundation
 
 class MonsGame {
+    
+    var prettyGameStatus: String {
+        let messages = [
+            (activeColor == .red ? "🔴" : "🔵"),
+            "🔻 \(redScore)",
+            "🔹 \(blueScore)",
+            "\n\n💧 \(manaMoved ? 0 : 1)",
+            "👻 \(5-monsMovesCount)",
+            "🪄 \(actionUsed ? 0 : 1)",
+            "\n\n🗓️ \(turnNumber)",
+            "🧪 r\(redPotionsCount)    🧪 b\(bluePotionsCount)"
+        ]
+        return messages.joined(separator: "    ")
+    }
+    
     let version: Int
     
     var redScore: Int

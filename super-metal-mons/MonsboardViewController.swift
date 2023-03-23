@@ -32,7 +32,7 @@ class MonsboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMonsboard()
-        statusLabel.text = game.fen
+        statusLabel.text = game.prettyGameStatus
         runFirebase()
     }
     
@@ -60,7 +60,7 @@ class MonsboardViewController: UIViewController {
         DispatchQueue.main.async {
             self.game = MonsGame(fen: fen)!
             self.restartBoardForTest()
-            self.statusLabel.text = fen
+            self.statusLabel.text = self.game.prettyGameStatus
         }
     }
     
@@ -209,6 +209,16 @@ class MonsboardViewController: UIViewController {
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let spaceView = sender.view as? SpaceView else { return }
         
+        // move it into game logic. board only reports touches.
+        guard !spaceView.isSelected else {
+            spaceView.layer.borderWidth = 0
+            spaceView.isSelected = false
+            
+            selectedSpace = nil
+            selectedMon = nil
+            return
+        }
+        
         let i = spaceView.row
         let j = spaceView.col
         
@@ -217,20 +227,12 @@ class MonsboardViewController: UIViewController {
         // allow moving only
         
         if let mon = monsOnBoard[i][j], selectedMon == nil {
-            if spaceView.isSelected {
-                spaceView.layer.borderWidth = 0
-                spaceView.isSelected = false
-                
-                selectedSpace = nil
-                selectedMon = nil
-            } else {
-                spaceView.layer.borderWidth = 3
-                spaceView.layer.borderColor = UIColor.green.cgColor
-                spaceView.isSelected = true
-                
-                selectedSpace = spaceView
-                selectedMon = mon
-            }
+            spaceView.layer.borderWidth = 3
+            spaceView.layer.borderColor = UIColor.green.cgColor
+            spaceView.isSelected = true
+            
+            selectedSpace = spaceView
+            selectedMon = mon
         } else if let selectedMon = selectedMon, let selectedSpace = selectedSpace {
             selectedMon.center = spaceView.center
             selectedSpace.layer.borderWidth =  0
@@ -244,7 +246,7 @@ class MonsboardViewController: UIViewController {
             
             let fen = game.fen
 //            UserDefaults.standard.setValue(, forKey: "fen")
-            statusLabel.text = game.fen
+            statusLabel.text = game.prettyGameStatus
             sendFen(fen)
         }
         
