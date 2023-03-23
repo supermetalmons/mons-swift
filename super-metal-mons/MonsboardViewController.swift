@@ -52,6 +52,7 @@ class MonsboardViewController: UIViewController {
     func quitGame() {
         game = MonsGame()
         sendFen(game.fen)
+        statusLabel.text = game.prettyGameStatus
         restartBoardForTest()
     }
     
