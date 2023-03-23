@@ -12,6 +12,14 @@ class SpaceView: UIView {
 class MonsboardViewController: UIViewController {
     
     let database = Database.database().reference()
+    private var lastSharedFen = ""
+    
+    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
+    
+    private var didSetupBoard = false
+    
+    var selectedSpace: SpaceView?
+    var selectedMon: UIImageView?
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var boardContainerView: UIView!
@@ -21,12 +29,7 @@ class MonsboardViewController: UIViewController {
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
 
     lazy var game: MonsGame = {
-        return MonsGame()
-//        if let fen = UserDefaults.standard.string(forKey: "fen"), let game = MonsGame(fen: fen) {
-//            return game
-//        } else {
-//            return MonsGame()
-//        }
+        return MonsGame() // TODO: load the last game if there is one
     }()
     
     override func viewDidLoad() {
@@ -37,7 +40,6 @@ class MonsboardViewController: UIViewController {
     }
     
     func runFirebase() {
-//        ref.child("https://console.firebase.google.com/u/1/project/mons-e34e5/database/mons-e34e5-default-rtdb/data/")
         database.child("fen").observe(.value) { [weak self] (snapshot) in
             guard let data = snapshot.value as? [String: AnyObject], let fen = data["fen"] as? String else {
                 print("No fen found")
@@ -45,15 +47,6 @@ class MonsboardViewController: UIViewController {
             }
             self?.receivedFenFromNetwork(fen: fen)
         }
-    }
-    
-    var lastSharedFen = ""
-    
-    func quitGame() {
-        game = MonsGame()
-        sendFen(game.fen)
-        statusLabel.text = game.prettyGameStatus
-        restartBoardForTest()
     }
     
     func receivedFenFromNetwork(fen: String) {
@@ -69,6 +62,13 @@ class MonsboardViewController: UIViewController {
         guard lastSharedFen != fen else { return }
         database.child("fen").setValue(["fen": fen])
         lastSharedFen = fen
+    }
+    
+    func quitGame() {
+        game = MonsGame()
+        sendFen(game.fen)
+        statusLabel.text = game.prettyGameStatus
+        restartBoardForTest()
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
@@ -89,7 +89,6 @@ class MonsboardViewController: UIViewController {
     @IBAction func ggButtonTapped(_ sender: Any) {
         overlayView.isHidden = false
         quitGame()
-        // TODO: restart the game
     }
     
     // TODO: remove this one, this is for development only
@@ -98,8 +97,6 @@ class MonsboardViewController: UIViewController {
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
         setupMonsboard()
     }
-    
-    private var didSetupBoard = false
     
     private func setupMonsboard() {
         #if targetEnvironment(macCatalyst)
@@ -142,6 +139,7 @@ class MonsboardViewController: UIViewController {
                 switch space {
                 case .consumable:
                     if !didSetupBoard {
+                        // TODO: this would brake when we start with the ongoing game
                         squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
                     }
                     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
@@ -212,11 +210,6 @@ class MonsboardViewController: UIViewController {
         didSetupBoard = true
     }
     
-    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
-    
-    var selectedSpace: SpaceView?
-    var selectedMon: UIImageView?
-    
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let spaceView = sender.view as? SpaceView else { return }
         
@@ -255,15 +248,14 @@ class MonsboardViewController: UIViewController {
             monsOnBoard[i][j] = selectedMon
             game.move(from: (selectedSpace.row, selectedSpace.col), to: (i, j))
             
-            let fen = game.fen
-//            UserDefaults.standard.setValue(, forKey: "fen")
             statusLabel.text = game.prettyGameStatus
-            sendFen(fen)
+            sendFen(game.fen)
         }
         
     }
 }
 
+// TODO: remove this extension. use colors assets catalog
 // UIColor extension for handling hex color strings
 extension UIColor {
     convenience init(hex: String) {
