@@ -75,6 +75,16 @@ class MonsboardViewController: UIViewController {
         overlayView.isHidden = true
     }
     
+    @IBAction func endTurnButtonTapped(_ sender: Any) {
+        game.endTurn()
+        
+        selectedSpace?.layer.borderWidth = 0
+        selectedSpace?.isSelected = false
+        selectedSpace = nil
+        selectedMon = nil
+        
+        statusLabel.text = game.prettyGameStatus
+    }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
         overlayView.isHidden = false

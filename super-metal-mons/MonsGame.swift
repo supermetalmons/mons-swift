@@ -148,7 +148,11 @@ class MonsGame {
     }
     
     func endTurn() {
-        // TODO: implement
+        activeColor = activeColor == .red ? .blue : .red
+        actionUsed = false
+        manaMoved = false
+        monsMovesCount = 0
+        turnNumber += 1
     }
     
     var isGameOver: Bool {
