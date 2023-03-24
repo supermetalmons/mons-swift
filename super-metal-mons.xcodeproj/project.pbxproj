@@ -11,6 +11,7 @@
 		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
 		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
+		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
 		2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */; };
@@ -23,6 +24,7 @@
 		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
 		2C01C6A229CAF4E400A25465 /* Monsboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monsboard.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
 				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C53FC5929CCF8F000F49668 /* Models.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
@@ -161,6 +164,7 @@
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
+				2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */,
 				2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 			);
