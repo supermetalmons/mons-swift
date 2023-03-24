@@ -4,6 +4,8 @@ import Foundation
 
 class MonsGame {
     
+    private let boardSize = 11 // TODO: use it when creating a board as well
+    
     var prettyGameStatus: String {
         let messages = [
             (activeColor == .red ? "🔴" : "🔵"),
@@ -25,7 +27,7 @@ class MonsGame {
     
     var activeColor: Color
     var actionUsed: Bool // TODO: use int here to make game more configurable
-    var manaMoved: Bool
+    var manaMoved: Bool // TODO: use int here to make game more configurable
     var monsMovesCount: Int
     
     var redPotionsCount: Int
@@ -33,6 +35,8 @@ class MonsGame {
     
     var turnNumber: Int
     var board: [[Space]]
+    
+    var isFirstTurn: Bool { return turnNumber == 1 }
     
     init() {
         self.version = 1
@@ -134,36 +138,115 @@ class MonsGame {
     }
     
     // TODO: implement better
-    func move(from: (Int, Int), to: (Int, Int)) {
-        /*
-         Makes a move on the board and returns a move object if the move was legal. The move argument can be either a string in Standard Algebraic Notation (SAN) or a move object. Throws an 'Illegal move' exception if the move was illegal.
-
-         .move() - Standard Algebraic Notation (SAN)
-
-         const chess = new Chess()
-
-         chess.move('e4')
-         // -> { color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4' }
-
-         chess.move('nf6') // SAN is case sensitive!!
-         // Error: Invalid move: nf6
-
-         chess.move('Nf6')
-         // -> { color: 'b', from: 'g8', to: 'f6', flags: 'n', piece: 'n', san: 'Nf6' }
-         .move() - Object Notation
-
-         A move object contains to, from and, promotion (only when necessary) fields.
-         */
+    // TODO: flag is needed when moving drainer with mana
+    func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
+        let source = board[from.0][from.1]
         
-        let item = board[from.0][from.1]
-        board[to.0][to.1] = item
-        board[from.0][from.1] = .empty
+        guard canMove(from: source) else { return [] }
         
-        switch item {
-        case .mana(mana: .regular(color: .red)):
-            manaMoved = true
+        let destination = board[to.0][to.1]
+        
+        let distance = max(abs(to.1 - from.1), abs(to.0 - from.0))
+        
+        switch source {
+        case .mon(let mon):
+            print(mon)
+            if distance == 1 {
+                switch destination {
+                case .mon, .monWithMana:
+                    return []
+                case .mana(let mana):
+                    // TODO: drainer can pick it up
+                    print(mana)
+                    return []
+                case .consumable(let consumable):
+                    switch consumable {
+                    case .potion:
+                        switch activeColor {
+                        case .red:
+                            redPotionsCount += 1
+                        case .blue:
+                            bluePotionsCount += 1
+                        }
+                    }
+                    board[from.0][from.1] = .empty
+                    board[to.0][to.1] = source
+                    monsMovesCount += 1
+                    return [from, to]
+                case .empty:
+                    // TODO: move this boilerplate moving into a separate function
+                    board[from.0][from.1] = .empty
+                    board[to.0][to.1] = source
+                    monsMovesCount += 1
+                    return [from, to]
+                }
+            } else {
+                // TODO: implement attacks
+                return []
+            }
+        case .mana:
+            if distance == 1 {
+                switch destination {
+                case .empty:
+                    if let poolColor = poolColor(to.0, to.1) {
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = .empty
+                        switch poolColor {
+                        case .red:
+                            redScore += 1
+                        case .blue:
+                            blueScore += 1
+                        }
+                    } else {
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = source
+                    }
+                    manaMoved = true
+                    return [from, to]
+                case .mana, .monWithMana, .mon, .consumable:
+                    return []
+                }
+            } else {
+                return []
+            }
+        case .monWithMana(let mon, let mana):
+            print(mon, mana)
+            // TODO: can score
+            return [from, to]
+        case .consumable, .empty:
+            return []
+        }
+    }
+    
+    func poolColor(_ i: Int, _ j: Int) -> Color? {
+        let endIndex = boardSize - 1
+        switch (i, j) {
+        case (0, 0), (0, endIndex):
+            return .blue
+        case (endIndex, 0), (endIndex, endIndex):
+            return .red
         default:
-            monsMovesCount += 1
+            return nil
+        }
+    }
+    
+    func canMove(from space: Space) -> Bool {
+        switch space {
+        case .mon(let mon):
+            // TODO: могу двигать монов соперника action-ом spirit-а
+            return monsMovesCount < 5 && !mon.isFainted && mon.color == activeColor
+        case .mana(let mana):
+            switch mana {
+            case .regular(let color):
+                return color == activeColor && !manaMoved && !isFirstTurn
+            case .superMana:
+                return false
+            }
+        case .monWithMana(let mon, let mana):
+            print(mon, mana)
+            return false // TODO: implement this one
+        case .empty, .consumable:
+            return false
         }
     }
     
@@ -173,10 +256,18 @@ class MonsGame {
         manaMoved = false
         monsMovesCount = 0
         turnNumber += 1
+        Audio.endTurn() // TODO: idk
     }
     
-    var isGameOver: Bool {
-        return redScore == 5 || blueScore == 5
+    // TODO: move target score to the game config
+    var winnerColor: Color? {
+        if redScore >= 5 {
+            return .red
+        } else if blueScore >= 5 {
+            return .blue
+        } else {
+            return nil
+        }
     }
     
     var fen: String {

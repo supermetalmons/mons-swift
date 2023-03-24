@@ -2,6 +2,10 @@
 
 import Foundation
 
+class Monsboard {
+    
+}
+
 // chess.js + chessboard.js
 
 /*
