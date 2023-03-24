@@ -150,15 +150,16 @@ class MonsGame {
         
         switch source {
         case .mon(let mon):
-            print(mon)
             if distance == 1 {
                 switch destination {
                 case .mon, .monWithMana:
                     return []
                 case .mana(let mana):
-                    // TODO: drainer can pick it up
-                    print(mana)
-                    return []
+                    guard mon.kind == .drainer else { return [] }
+                    board[from.0][from.1] = .empty
+                    board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    monsMovesCount += 1
+                    return [from, to]
                 case .consumable(let consumable):
                     switch consumable {
                     case .potion:
@@ -209,10 +210,55 @@ class MonsGame {
             } else {
                 return []
             }
-        case .monWithMana(let mon, let mana):
-            print(mon, mana)
-            // TODO: can score
-            return [from, to]
+        case let .monWithMana(mon, mana):
+            if distance == 1 {
+                switch destination {
+                case .mon, .monWithMana, .mana:
+                    return []
+                case .consumable(let consumable):
+                    switch consumable {
+                    case .potion:
+                        switch activeColor {
+                        case .red:
+                            redPotionsCount += 1
+                        case .blue:
+                            bluePotionsCount += 1
+                        }
+                    }
+                    board[from.0][from.1] = .empty
+                    board[to.0][to.1] = source
+                    monsMovesCount += 1
+                    return [from, to]
+                case .empty:
+                    if let poolColor = poolColor(to.0, to.1) {
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = .mon(mon: mon)
+                        
+                        let delta: Int
+                        switch mana {
+                        case .superMana:
+                            delta = 2
+                        case .regular:
+                            delta = 1
+                        }
+                        
+                        switch poolColor {
+                        case .red:
+                            redScore += delta
+                        case .blue:
+                            blueScore += delta
+                        }
+                    } else {
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = source
+                    }
+                    
+                    monsMovesCount += 1
+                    return [from, to]
+                }
+            } else {
+                return []
+            }
         case .consumable, .empty:
             return []
         }
@@ -232,7 +278,7 @@ class MonsGame {
     
     func canMove(from space: Space) -> Bool {
         switch space {
-        case .mon(let mon):
+        case .mon(let mon), .monWithMana(mon: let mon, mana: _):
             // TODO: могу двигать монов соперника action-ом spirit-а
             return monsMovesCount < 5 && !mon.isFainted && mon.color == activeColor
         case .mana(let mana):
@@ -242,9 +288,6 @@ class MonsGame {
             case .superMana:
                 return false
             }
-        case .monWithMana(let mon, let mana):
-            print(mon, mana)
-            return false // TODO: implement this one
         case .empty, .consumable:
             return false
         }

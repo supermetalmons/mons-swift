@@ -199,8 +199,49 @@ class MonsboardViewController: UIViewController {
             monsOnBoard[i][j] = imageView
             
         case let .monWithMana(mon: mon, mana: mana):
-            // TODO: implement
-            print(mon, mana)
+            // TODO: refactor. there is the same code in mon and mana case
+            // TODO: move it from here
+            let name: String
+            switch mon.kind {
+            case .mystic: name = "mystic"
+            case .demon: name = "demon"
+            case .drainer: name = "drainer"
+            case .angel: name = "angel"
+            case .spirit: name = "spirit"
+            }
+            
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
+            imageView.image = UIImage(named: name)
+            
+            if mon.color == .blue {
+                imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
+            }
+            
+            imageView.contentMode = .scaleAspectFit
+            imageView.center = squares[i][j]?.center ?? CGPoint.zero
+            boardContainerView.addSubview(imageView)
+            
+            switch mana {
+            case let .regular(color: color):
+                let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
+                manaView.image = UIImage(named: "mana")
+                
+                if color == .blue {
+                    manaView.layer.transform = CATransform3DMakeScale(1, -1, 1)
+                }
+                
+                manaView.contentMode = .scaleAspectFit
+                imageView.addSubview(manaView)
+            case .superMana:
+                let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
+                manaView.image = UIImage(named: "super-mana")
+                manaView.contentMode = .scaleAspectFit
+                imageView.addSubview(manaView)
+                monsOnBoard[i][j] = imageView
+            }
+            
+            monsOnBoard[i][j] = imageView
+            
         case let .mana(mana: mana):
             switch mana {
             case let .regular(color: color):
