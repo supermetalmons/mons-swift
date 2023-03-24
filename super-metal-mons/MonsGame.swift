@@ -137,20 +137,30 @@ class MonsGame {
         self.board = board
     }
     
+    // TODO: get board event like didTapSquare
+    // return effects: can be various highlights, moves, gamecompletion, etc.
+    // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
+    
     // TODO: implement better
     // TODO: flag is needed when moving drainer with mana
     func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
         let source = board[from.0][from.1]
-        
-        guard canMove(from: source) else { return [] }
-        
         let destination = board[to.0][to.1]
         
-        let distance = max(abs(to.1 - from.1), abs(to.0 - from.0))
+        let xDistance = abs(to.1 - from.1)
+        let yDistance = abs(to.0 - from.0)
+        let distance = max(xDistance, yDistance)
         
         switch source {
         case .mon(let mon):
+            // this would be different when spirit moves the other guy. maybe in some other cases as well.
+            guard !mon.isFainted && mon.color == activeColor else { return [] }
+            
             if distance == 1 {
+                // TODO: могу двигать монов соперника action-ом spirit-а
+                // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
+                guard monsMovesCount < 5 else { return [] }
+                
                 switch destination {
                 case .mon, .monWithMana:
                     return []
@@ -182,11 +192,70 @@ class MonsGame {
                     return [from, to]
                 }
             } else {
-                // TODO: implement attacks
-                return []
+                // TODO: assumes that source is my own mon
+                guard !actionUsed && !isFirstTurn else { return [] }
+                
+                // TODO: implement mana movement logic
+                // TODO: implement fainting logic
+                
+                switch mon.kind {
+                case .mystic:
+                    guard xDistance == 2 && yDistance == 2 else { return [] }
+                    
+                    switch destination {
+                    case .empty, .mana, .consumable:
+                        return []
+                    case let .mon(mon: targetMon):
+                        guard targetMon.color != mon.color else { return [] }
+                        print(targetMon) // TODO: faint mon
+                        // TODO: unfaint fainted mons each new turn
+                        board[to.0][to.1] = .empty
+                        actionUsed = true
+                    case let .monWithMana(mon: targetMon, mana: mana):
+                        guard targetMon.color != mon.color else { return [] }
+                        // TODO: bring super mana to the center and keep regular mana here
+                        // TODO: faint mon
+                        print(targetMon, mana)
+                        board[to.0][to.1] = .empty
+                        actionUsed = true
+                    }
+                    // TODO: return fainted mon index as well
+                    return [from, to]
+                case .demon:
+                    guard xDistance == 2 && yDistance == 0 ||
+                            xDistance == 0 && yDistance == 2 else { return [] }
+                    switch destination {
+                    case .empty, .mana, .consumable:
+                        return []
+                    case let .mon(mon: targetMon):
+                        guard targetMon.color != mon.color else { return [] }
+                        print(targetMon) // TODO: faint mon
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = source
+                        actionUsed = true
+                    case let .monWithMana(mon: targetMon, mana: mana):
+                        guard targetMon.color != mon.color else { return [] }
+                        // TODO: implement demon's additional step after jumping on a drainer with regular mana
+                        // TODO: bring super mana to the center and keep regular mana here
+                        // TODO: faint mon
+                        print(targetMon, mana)
+                        board[from.0][from.1] = .empty
+                        board[to.0][to.1] = source
+                        
+                        actionUsed = true
+                    }
+                    // TODO: return fainted mon index as well
+                    return [from, to]
+                case .spirit, .angel, .drainer:
+                    return []
+                }
+                
+                // check for angel's protection
+                // moving with spirit is a whole different story
             }
-        case .mana:
+        case let .mana(mana):
             if distance == 1 {
+                guard case let .regular(color) = mana, color == activeColor && !manaMoved && !isFirstTurn else { return [] }
                 switch destination {
                 case .empty:
                     if let poolColor = poolColor(to.0, to.1) {
@@ -212,6 +281,9 @@ class MonsGame {
             }
         case let .monWithMana(mon, mana):
             if distance == 1 {
+                // TODO: могу двигать монов соперника action-ом spirit-а
+                // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
+                guard monsMovesCount < 5 && !mon.isFainted && mon.color == activeColor else { return [] }
                 switch destination {
                 case .mon, .monWithMana, .mana:
                     return []
@@ -273,23 +345,6 @@ class MonsGame {
             return .red
         default:
             return nil
-        }
-    }
-    
-    func canMove(from space: Space) -> Bool {
-        switch space {
-        case .mon(let mon), .monWithMana(mon: let mon, mana: _):
-            // TODO: могу двигать монов соперника action-ом spirit-а
-            return monsMovesCount < 5 && !mon.isFainted && mon.color == activeColor
-        case .mana(let mana):
-            switch mana {
-            case .regular(let color):
-                return color == activeColor && !manaMoved && !isFirstTurn
-            case .superMana:
-                return false
-            }
-        case .empty, .consumable:
-            return false
         }
     }
     
