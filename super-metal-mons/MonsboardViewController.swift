@@ -63,6 +63,8 @@ class MonsboardViewController: UIViewController {
     func didWin(color: Color) {
         let alert = UIAlertController(title: color == .red ? "🔴" : "🔵", message: "all done", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "ok", style: .default) { [weak self] _ in
+            // TODO: do not restart the game if the opponent has done so already
+            // or i guess in these case there should be a new game id exchage
             self?.quitGame()
         }
         alert.addAction(okAction)
