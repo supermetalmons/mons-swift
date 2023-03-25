@@ -152,22 +152,45 @@ enum Color {
 
 struct Mon {
     
+    var base: (i: Int, j: Int) {
+        // TODO: DRY
+        // TODO: parametrize with the board size? or put it all into a config.
+        let isRed = color == .red
+        switch kind {
+        case .drainer:
+            return isRed ? (10, 5) : (0, 5)
+        case .angel:
+            return isRed ? (10, 4) : (0, 6)
+        case .spirit:
+            return isRed ? (10, 6) : (0, 4)
+        case .demon:
+            return isRed ? (10, 3) : (0, 7)
+        case .mystic:
+            return isRed ? (10, 7) : (0, 3)
+        }
+        
+    }
+    
     enum Kind {
         case demon, drainer, angel, spirit, mystic
     }
     
     let kind: Kind
     let color: Color
-    let isFainted: Bool
+    private var cooldown: Int
+    
+    var isFainted: Bool {
+        return cooldown > 0
+    }
     
     init(kind: Kind, color: Color) {
         self.kind = kind
         self.color = color
-        self.isFainted = false
+        self.cooldown = 0
     }
     
     init?(fen: String) {
-        guard fen.count == 2, let first = fen.first, let last = fen.last else { return nil }
+        guard fen.count == 2, let first = fen.first, let last = fen.last, let cooldown = Int(String(last)) else { return nil }
         
         switch first.lowercased() {
         case "e": self.kind = .demon
@@ -179,12 +202,7 @@ struct Mon {
         }
         
         self.color = first.isLowercase ? .blue : .red
-        
-        switch last {
-        case "f": self.isFainted = true
-        case "o": self.isFainted = false
-        default: return nil
-        }
+        self.cooldown = cooldown
     }
     
     var fen: String {
@@ -196,8 +214,18 @@ struct Mon {
         case .spirit: letter = "s"
         case .mystic: letter = "y"
         }
-        let modifier = isFainted ? "f" : "o"
-        return (color == .red ? letter.uppercased() : letter) + modifier
+        let cooldown = String(cooldown % 10)
+        return (color == .red ? letter.uppercased() : letter) + cooldown
+    }
+    
+    mutating func faint() {
+        cooldown = 2
+    }
+    
+    mutating func decreaseCooldown() {
+        if cooldown > 0 {
+            cooldown -= 1
+        }
     }
     
 }

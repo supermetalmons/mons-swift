@@ -89,13 +89,20 @@ class MonsboardViewController: UIViewController {
     }
     
     @IBAction func endTurnButtonTapped(_ sender: Any) {
-        game.endTurn()
+        let indicesToUpdate = game.endTurn()
+        
+        for index in indicesToUpdate {
+            monsOnBoard[index.0][index.1]?.removeFromSuperview()
+            monsOnBoard[index.0][index.1] = nil
+            updateCell(index.0, index.1)
+        }
         
         selectedSpace?.layer.borderWidth = 0
         selectedSpace?.isSelected = false
         selectedSpace = nil
         
         statusLabel.text = game.prettyGameStatus
+        sendFen(game.fen)
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
@@ -190,6 +197,10 @@ class MonsboardViewController: UIViewController {
             
             if mon.color == .blue {
                 imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
+            }
+            
+            if mon.isFainted {
+                imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
             }
             
             imageView.contentMode = .scaleAspectFit

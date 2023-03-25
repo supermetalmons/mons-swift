@@ -51,11 +51,11 @@ class MonsGame {
         self.turnNumber = 1
         self.board = [
             [.empty, .empty, .empty,
-             .mon(mon: Mon(kind: .mystic, color: .blue)),
-             .mon(mon: Mon(kind: .spirit, color: .blue)),
-             .mon(mon: Mon(kind: .drainer, color: .blue)),
-             .mon(mon: Mon(kind: .angel, color: .blue)),
-             .mon(mon: Mon(kind: .demon, color: .blue)),
+             .mon(mon: Mon(kind: .mystic, color: .blue)), // 3
+             .mon(mon: Mon(kind: .spirit, color: .blue)), // 4
+             .mon(mon: Mon(kind: .drainer, color: .blue)), // 5
+             .mon(mon: Mon(kind: .angel, color: .blue)), // 6
+             .mon(mon: Mon(kind: .demon, color: .blue)), // 7
              .empty, .empty, .empty],
             
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
@@ -99,11 +99,11 @@ class MonsGame {
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
             
             [.empty, .empty, .empty,
-             .mon(mon: Mon(kind: .demon, color: .red)),
-             .mon(mon: Mon(kind: .angel, color: .red)),
-             .mon(mon: Mon(kind: .drainer, color: .red)),
-             .mon(mon: Mon(kind: .spirit, color: .red)),
-             .mon(mon: Mon(kind: .mystic, color: .red)),
+             .mon(mon: Mon(kind: .demon, color: .red)), // 3
+             .mon(mon: Mon(kind: .angel, color: .red)), // 4
+             .mon(mon: Mon(kind: .drainer, color: .red)), // 5
+             .mon(mon: Mon(kind: .spirit, color: .red)), // 6
+             .mon(mon: Mon(kind: .mystic, color: .red)), // 7
              .empty, .empty, .empty],
         ]
     }
@@ -195,9 +195,6 @@ class MonsGame {
                 // TODO: assumes that source is my own mon
                 guard !actionUsed && !isFirstTurn else { return [] }
                 
-                // TODO: implement mana movement logic
-                // TODO: implement fainting logic
-                
                 switch mon.kind {
                 case .mystic:
                     guard xDistance == 2 && yDistance == 2 else { return [] }
@@ -205,47 +202,86 @@ class MonsGame {
                     switch destination {
                     case .empty, .mana, .consumable:
                         return []
-                    case let .mon(mon: targetMon):
+                    case .mon(mon: var targetMon):
                         guard targetMon.color != mon.color else { return [] }
-                        print(targetMon) // TODO: faint mon
-                        // TODO: unfaint fainted mons each new turn
                         board[to.0][to.1] = .empty
                         actionUsed = true
-                    case let .monWithMana(mon: targetMon, mana: mana):
+                        
+                        let faintIndex = targetMon.base
+                        targetMon.faint()
+                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
+                        
+                        return [faintIndex, to]
+                    case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return [] }
-                        // TODO: bring super mana to the center and keep regular mana here
-                        // TODO: faint mon
-                        print(targetMon, mana)
-                        board[to.0][to.1] = .empty
+                        
+                        let manaIndex: (Int, Int)
+                        switch mana {
+                        case .regular:
+                            manaIndex = to
+                            board[to.0][to.1] = .mana(mana: mana)
+                        case .superMana:
+                            manaIndex = (5, 5) // TODO: move to the config
+                            board[to.0][to.1] = .empty
+                            board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
+                        }
+                        
                         actionUsed = true
+                        
+                        let faintIndex = targetMon.base
+                        targetMon.faint()
+                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
+                        
+                        // TODO: in regular mana case manaIndex == to
+                        // TODO: do not add repeating indices in the first place
+                        return [manaIndex, faintIndex, to]
                     }
-                    // TODO: return fainted mon index as well
-                    return [from, to]
                 case .demon:
+                    // TODO: demon can't jump over pieces
                     guard xDistance == 2 && yDistance == 0 ||
                             xDistance == 0 && yDistance == 2 else { return [] }
                     switch destination {
                     case .empty, .mana, .consumable:
                         return []
-                    case let .mon(mon: targetMon):
+                    case .mon(mon: var targetMon):
                         guard targetMon.color != mon.color else { return [] }
-                        print(targetMon) // TODO: faint mon
+                        
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
                         actionUsed = true
-                    case let .monWithMana(mon: targetMon, mana: mana):
+                        
+                        // TODO: move fainting to the separate function. these three lines repeat in each fainting case
+                        let faintIndex = targetMon.base
+                        targetMon.faint()
+                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
+                        
+                        return [faintIndex, from, to]
+                    case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return [] }
                         // TODO: implement demon's additional step after jumping on a drainer with regular mana
-                        // TODO: bring super mana to the center and keep regular mana here
-                        // TODO: faint mon
-                        print(targetMon, mana)
+                        
+                        let manaIndex: (Int, Int)
+                        switch mana {
+                        case .regular:
+                            manaIndex = to
+                            board[to.0][to.1] = .mana(mana: mana)
+                        case .superMana:
+                            manaIndex = (5, 5) // TODO: move to the config
+                            board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
+                        }
+                        
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
                         
+                        let faintIndex = targetMon.base
+                        targetMon.faint()
+                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
+                        
                         actionUsed = true
+                        // TODO: in regular mana case manaIndex == to
+                        // TODO: do not add repeating indices in the first place
+                        return [manaIndex, faintIndex, from, to]
                     }
-                    // TODO: return fainted mon index as well
-                    return [from, to]
                 case .spirit, .angel, .drainer:
                     return []
                 }
@@ -348,13 +384,29 @@ class MonsGame {
         }
     }
     
-    func endTurn() {
+    func endTurn() -> [(Int, Int)] {
         activeColor = activeColor == .red ? .blue : .red
         actionUsed = false
         manaMoved = false
         monsMovesCount = 0
+        
+        // TODO: keep set of mons to avoid iterating so much
+        var indicesToUpdate = [(Int, Int)]()        
+        for i in [0, boardSize - 1] {
+            for j in 0..<boardSize {
+                let space = board[i][j]
+                if case var .mon(mon) = space, mon.color == activeColor, mon.isFainted {
+                    mon.decreaseCooldown()
+                    board[i][j] = .mon(mon: mon)
+                    if !mon.isFainted {
+                        indicesToUpdate.append((i, j))
+                    }
+                }
+            }
+        }
+       
         turnNumber += 1
-        Audio.endTurn() // TODO: idk
+        return indicesToUpdate
     }
     
     // TODO: move target score to the game config
