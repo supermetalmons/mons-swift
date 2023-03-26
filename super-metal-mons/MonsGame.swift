@@ -2,6 +2,33 @@
 
 import Foundation
 
+// TODO: do not pass index tuples, instead use locations everywhere
+struct Location: Equatable, Hashable {
+    let i: Int
+    let j: Int
+    
+    init(_ i: Int, _ j: Int) {
+        self.i = i
+        self.j = j
+    }
+    
+    // TODO: DRY
+    private static let monsBases: Set<Location> = {
+        let coordinates = [(10, 5), (0, 5), (10, 4), (0, 6), (10, 6), (0, 4), (10, 3), (0, 7), (10, 7), (0, 3)]
+        return Set(coordinates.map { Location($0.0, $0.1) })
+    }()
+    
+    static func isMonsBase(_ i: Int, _ j: Int) -> Bool {
+        return monsBases.contains(Location(i, j))
+    }
+    
+    static func isSuperManaBase(_ i: Int, _ j: Int) -> Bool {
+        // TODO: DRY
+        return i == 5 && j == 5
+    }
+    
+}
+
 class MonsGame {
     
     private let boardSize = 11 // TODO: use it when creating a board as well
@@ -142,7 +169,8 @@ class MonsGame {
     // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
     
     // TODO: implement better
-    // TODO: flag is needed when moving drainer with mana
+    // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
+    // TODO: this function may be called from a top-level function, the one that understands spirit's action
     func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
         let source = board[from.0][from.1]
         let destination = board[to.0][to.1]
@@ -150,6 +178,29 @@ class MonsGame {
         let xDistance = abs(to.1 - from.1)
         let yDistance = abs(to.0 - from.0)
         let distance = max(xDistance, yDistance)
+        
+        if Location.isMonsBase(to.0, to.1) {
+            switch source {
+            case let .mon(mon: mon):
+                let base = mon.base
+                if base.i != to.0 || base.j != to.1 {
+                    // TODO: this might brake when mon is moved by the spirit
+                    return []
+                }
+            case .empty, .mana, .monWithMana, .consumable:
+                return []
+            }
+        } else if Location.isSuperManaBase(to.0, to.1), distance == 1 { // TODO: remove implicit move / action disambiguation by checking distance
+            // TODO: this might brake when mon is moved by the spirit
+            switch source {
+            case let .mon(mon: mon):
+                guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return [] }
+            case let .monWithMana(mon: mon, mana: mana):
+                guard mon.kind == .drainer, case .superMana = mana else { return [] }
+            case .consumable, .mana, .empty:
+                return []
+            }
+        }
         
         switch source {
         case .mon(let mon):
