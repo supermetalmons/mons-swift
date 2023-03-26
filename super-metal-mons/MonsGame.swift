@@ -164,6 +164,23 @@ class MonsGame {
         self.board = board
     }
     
+    private var canUseAction: Bool {
+        return !isFirstTurn && (!actionUsed || (activeColor == .red ? redPotionsCount : bluePotionsCount) > 0)
+    }
+    
+    private func didUseAction() {
+        if !actionUsed {
+            actionUsed = true
+        } else {
+            switch activeColor {
+            case .red:
+                redPotionsCount -= 1
+            case .blue:
+                bluePotionsCount -= 1
+            }
+        }
+    }
+    
     // TODO: get board event like didTapSquare
     // return effects: can be various highlights, moves, gamecompletion, etc.
     // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
@@ -244,7 +261,7 @@ class MonsGame {
                 }
             } else {
                 // TODO: assumes that source is my own mon
-                guard !actionUsed && !isFirstTurn else { return [] }
+                guard canUseAction else { return [] }
                 
                 switch mon.kind {
                 case .mystic:
@@ -256,7 +273,7 @@ class MonsGame {
                     case .mon(mon: var targetMon):
                         guard targetMon.color != mon.color else { return [] }
                         board[to.0][to.1] = .empty
-                        actionUsed = true
+                        didUseAction()
                         
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -277,7 +294,7 @@ class MonsGame {
                             board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
                         }
                         
-                        actionUsed = true
+                        didUseAction()
                         
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -302,7 +319,7 @@ class MonsGame {
                         
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
-                        actionUsed = true
+                        didUseAction()
                         
                         // TODO: move fainting to the separate function. these three lines repeat in each fainting case
                         let faintIndex = targetMon.base
@@ -331,7 +348,7 @@ class MonsGame {
                         targetMon.faint()
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
                         
-                        actionUsed = true
+                        didUseAction()
                         // TODO: in regular mana case manaIndex == to
                         // TODO: do not add repeating indices in the first place
                         return [manaIndex, faintIndex, from, to]
