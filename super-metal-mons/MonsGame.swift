@@ -181,6 +181,24 @@ class MonsGame {
         }
     }
     
+    private func isProtectedByAngel(_ index: (Int, Int)) -> Bool {
+        // TODO: keep set of mons to avoid iterating so much
+        for i in 0..<boardSize {
+            for j in 0..<boardSize {
+                let space = board[i][j]
+                if case let .mon(mon) = space, mon.kind == .angel, mon.color != activeColor {
+                    if !mon.isFainted && max(index.0 - i, index.1 - j) == 1 {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
+        
+        return false
+    }
+    
     // TODO: get board event like didTapSquare
     // return effects: can be various highlights, moves, gamecompletion, etc.
     // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
@@ -265,7 +283,7 @@ class MonsGame {
                 
                 switch mon.kind {
                 case .mystic:
-                    guard xDistance == 2 && yDistance == 2 else { return [] }
+                    guard xDistance == 2 && yDistance == 2, !isProtectedByAngel(to) else { return [] }
                     
                     switch destination {
                     case .empty, .mana, .consumable:
@@ -305,8 +323,7 @@ class MonsGame {
                         return [manaIndex, faintIndex, to]
                     }
                 case .demon:
-                    guard xDistance == 2 && yDistance == 0 ||
-                            xDistance == 0 && yDistance == 2 else { return [] }
+                    guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return [] }
                     
                     let between = ((from.0 + to.0) / 2, (from.1 + to.1) / 2)
                     guard case .empty = board[between.0][between.1] else { return [] }
@@ -357,8 +374,7 @@ class MonsGame {
                     return []
                 }
                 
-                // check for angel's protection
-                // moving with spirit is a whole different story
+                // TODO: move with spirit action
             }
         case let .mana(mana):
             if distance == 1 {
