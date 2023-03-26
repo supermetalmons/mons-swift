@@ -237,9 +237,12 @@ class MonsGame {
                         return [manaIndex, faintIndex, to]
                     }
                 case .demon:
-                    // TODO: demon can't jump over pieces
                     guard xDistance == 2 && yDistance == 0 ||
                             xDistance == 0 && yDistance == 2 else { return [] }
+                    
+                    let between = ((from.0 + to.0) / 2, (from.1 + to.1) / 2)
+                    guard case .empty = board[between.0][between.1] else { return [] }
+                    
                     switch destination {
                     case .empty, .mana, .consumable:
                         return []
