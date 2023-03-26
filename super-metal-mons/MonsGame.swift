@@ -29,6 +29,13 @@ struct Location: Equatable, Hashable {
     
 }
 
+enum Effect {
+    case updateCell((Int, Int)) // TODO: use Location here as well
+    case setSelected(_ selected: Bool, (Int, Int)) // TODO: вот это deselect неоч нравится
+    // хочется, чтобы был эффект, который бы снимал всю старую подсветку. там много подсветки будет, если еще и варианты ходов подсвечивать.
+    case updateGameStatus
+}
+
 class MonsGame {
     
     private let boardSize = 11 // TODO: use it when creating a board as well
@@ -187,7 +194,7 @@ class MonsGame {
             for j in 0..<boardSize {
                 let space = board[i][j]
                 if case let .mon(mon) = space, mon.kind == .angel, mon.color != activeColor {
-                    if !mon.isFainted && max(index.0 - i, index.1 - j) == 1 {
+                    if !mon.isFainted && max(abs(index.0 - i), abs(index.1 - j)) == 1 {
                         return true
                     } else {
                         return false
@@ -199,6 +206,61 @@ class MonsGame {
         return false
     }
     
+    // TODO: hold whole current input sequence here
+    private var selectedIndex: (Int, Int)? // tmp
+    
+    // TODO: act differently when i click spaces while opponent makes his turns
+    func didTapSpace(_ index: (Int, Int)) -> [Effect] {
+        var effects = [Effect]()
+        
+        // TODO: implement input sequences of 3
+        
+        if let selectedIndex = selectedIndex {
+            // TODO: here is an input sequence of 2
+            
+            self.selectedIndex = nil
+            effects.append(.setSelected(false, selectedIndex))
+            
+            // TODO: validate whole input sequence instead of just from / to
+            let updatedIndexes = move(from: selectedIndex, to: index)
+            
+            // TODO: тут же по итогу хода понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
+            
+            if !updatedIndexes.isEmpty {
+                effects += updatedIndexes.map { .updateCell($0) } + [.updateGameStatus]
+            }
+        } else {
+            // TODO: here is an input sequence of 1
+            // TODO: делать здесь полную проверку, есть ли с таким нажатием следующее нажатие, которое привело бы к валидному ходу.
+            // можно сразу же здесь сохранять варианты, чтобы быстрее делать проверку при следующем инпуте.
+            // эти же варианты следующего инпута можно показывать на доске
+            let canSelect: Bool
+            let space = board[index.0][index.1]
+            switch space {
+            case .empty, .consumable:
+                canSelect = false
+            case let .mon(mon: mon):
+                canSelect = mon.color == activeColor && !mon.isFainted // TODO: && canMove || canAct
+            case let .mana(mana: mana):
+                switch mana {
+                case .superMana:
+                    canSelect = false
+                case let .regular(color: color):
+                    canSelect = color == activeColor && !manaMoved && !isFirstTurn
+                }
+            case let .monWithMana(mon: mon, mana: _):
+                canSelect = mon.color == activeColor && !mon.isFainted // TODO: && canMove || canAct
+            }
+            
+            if canSelect {
+                selectedIndex = index
+                effects.append(.setSelected(true, index))
+            }
+        }
+        
+        return effects
+    }
+    
     // TODO: get board event like didTapSquare
     // return effects: can be various highlights, moves, gamecompletion, etc.
     // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
@@ -206,7 +268,7 @@ class MonsGame {
     // TODO: implement better
     // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
     // TODO: this function may be called from a top-level function, the one that understands spirit's action
-    func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
+    private func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
         let source = board[from.0][from.1]
         let destination = board[to.0][to.1]
         
@@ -471,7 +533,7 @@ class MonsGame {
         }
     }
     
-    func endTurn() -> [(Int, Int)] {
+    func endTurn() -> [Effect] {
         activeColor = activeColor == .red ? .blue : .red
         actionUsed = false
         manaMoved = false
@@ -493,7 +555,14 @@ class MonsGame {
         }
        
         turnNumber += 1
-        return indicesToUpdate
+        
+        var effects = indicesToUpdate.map { Effect.updateCell($0) } + [.updateGameStatus]
+        if let selectedIndex = selectedIndex {
+            effects.append(Effect.setSelected(false, selectedIndex))
+            self.selectedIndex = nil
+        }
+        
+        return effects
     }
     
     // TODO: move target score to the game config

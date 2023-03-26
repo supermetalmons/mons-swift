@@ -6,7 +6,6 @@ import FirebaseDatabase
 class SpaceView: UIView {
     var row = 0
     var col = 0
-    var isSelected = false
 }
 
 class MonsboardViewController: UIViewController {
@@ -17,8 +16,6 @@ class MonsboardViewController: UIViewController {
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
     
     private var didSetupBoard = false
-    
-    var selectedSpace: SpaceView?
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var boardContainerView: UIView!
@@ -89,20 +86,8 @@ class MonsboardViewController: UIViewController {
     }
     
     @IBAction func endTurnButtonTapped(_ sender: Any) {
-        let indicesToUpdate = game.endTurn()
-        
-        for index in indicesToUpdate {
-            monsOnBoard[index.0][index.1]?.removeFromSuperview()
-            monsOnBoard[index.0][index.1] = nil
-            updateCell(index.0, index.1)
-        }
-        
-        selectedSpace?.layer.borderWidth = 0
-        selectedSpace?.isSelected = false
-        selectedSpace = nil
-        
-        statusLabel.text = game.prettyGameStatus
-        sendFen(game.fen)
+        let effects = game.endTurn()
+        applyEffects(effects)
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
@@ -287,44 +272,34 @@ class MonsboardViewController: UIViewController {
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let spaceView = sender.view as? SpaceView else { return }
         
-        // move it into game logic. board only reports touches.
-        guard !spaceView.isSelected else {
-            spaceView.layer.borderWidth = 0
-            spaceView.isSelected = false
-            selectedSpace = nil
-            return
-        }
-        
-        let i = spaceView.row
+        let i = spaceView.row // TODO: use location model here as well
         let j = spaceView.col
         
-        if let selectedSpace = selectedSpace {
-            selectedSpace.layer.borderWidth =  0
-            selectedSpace.isSelected = false
-            self.selectedSpace = nil
-            
-            let indices = game.move(from: (selectedSpace.row, selectedSpace.col), to: (i, j))
-            
-            for (a, b) in indices {
-                monsOnBoard[a][b]?.removeFromSuperview()
-                monsOnBoard[a][b] = nil
-                updateCell(a, b)
-            }
-            
-            statusLabel.text = game.prettyGameStatus
-            sendFen(game.fen)
-            
-            if let winner = game.winnerColor {
-                didWin(color: winner)
-            }
-        } else if monsOnBoard[i][j] != nil {
-            spaceView.layer.borderWidth = 3
-            spaceView.layer.borderColor = UIColor.green.cgColor
-            spaceView.isSelected = true
-            selectedSpace = spaceView
-        }
-        
+        let effects = game.didTapSpace((i, j))
+        applyEffects(effects)
     }
+    
+    private func applyEffects(_ effects: [Effect]) {
+        for effect in effects {
+            switch effect {
+            case .updateCell(let index):
+                monsOnBoard[index.0][index.1]?.removeFromSuperview()
+                monsOnBoard[index.0][index.1] = nil
+                updateCell(index.0, index.1)
+            case .setSelected(let selected, let index):
+                squares[index.0][index.1]?.layer.borderColor = UIColor.green.cgColor
+                squares[index.0][index.1]?.layer.borderWidth = selected ? 3 : 0
+            case .updateGameStatus:
+                statusLabel.text = game.prettyGameStatus
+                sendFen(game.fen)
+                
+                if let winner = game.winnerColor {
+                    didWin(color: winner)
+                }
+            }
+        }
+    }
+    
 }
 
 // TODO: remove this extension. use colors assets catalog
