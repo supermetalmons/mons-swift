@@ -309,13 +309,22 @@ class MonsboardViewController: UIViewController {
                     didWin(color: winner)
                 }
             case .availableForStep(let index):
+                // TODO: use dot for an empty field
+//                let effectView = UIView()
+//                effectView.backgroundColor = .green
+//                let side = squareSize / 3
+//                effectView.layer.cornerRadius = side / 2
+//                effectView.alpha = 0.5
+//                effectView.clipsToBounds = true
+//                effectView.frame = CGRect(origin: CGPoint(x: side, y: side), size: CGSize(width: side, height: side))
+//                squares[index.0][index.1]?.addSubview(effectView)
+//                effectsViews.append(effectView)
+                
                 let effectView = UIView()
-                effectView.backgroundColor = .green
-                let side = squareSize / 3
-                effectView.layer.cornerRadius = side / 2
-                effectView.alpha = 0.5
-                effectView.clipsToBounds = true
-                effectView.frame = CGRect(origin: CGPoint(x: side, y: side), size: CGSize(width: side, height: side))
+                effectView.backgroundColor = .clear
+                effectView.layer.borderWidth = 5
+                effectView.layer.borderColor = UIColor.yellow.cgColor
+                effectView.frame = CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize))
                 squares[index.0][index.1]?.addSubview(effectView)
                 effectsViews.append(effectView)
             }

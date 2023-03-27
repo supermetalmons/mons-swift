@@ -225,6 +225,7 @@ class MonsGame {
         return nearby
     }
     
+    // TODO: извлечить код тестирования конкретного поля, чтобы его можно было переиспользовать, когда получили два или три инпута
     private func availableForStep(from: (Int, Int)) -> [(Int, Int)] {
         let space = board[from.0][from.1]
         
@@ -232,19 +233,56 @@ class MonsGame {
         case .empty, .consumable:
             return []
         case let .mana(mana: mana):
-            let allNearby = nearbySpaces(from: from)
-            // TODO: filter
-            return allNearby
-        case let .monWithMana(mon: mon, mana: mana):
-            let allNearby = nearbySpaces(from: from)
-            // TODO: filter
-            return allNearby
+            switch mana {
+            case .superMana:
+                return []
+            case .regular:
+                let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
+                    let destination = board[i][j]
+                    
+                    switch destination {
+                    case .empty:
+                        return true // TODO: check for reserved
+                    case .mana, .monWithMana, .consumable:
+                        return false
+                    case let .mon(mon: mon):
+                        if mon.kind == .drainer {
+                            return true // TODO: don not allow when drainer is on a base
+                        } else {
+                            return false
+                        }
+                    }
+                }
+                return available
+            }
+        case let .monWithMana(mon: mon, mana: _):
+            let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
+                let destination = board[i][j]
+                
+                switch destination {
+                case .consumable, .empty:
+                    return true // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                case .mana:
+                    return true // TODO: implement jumping from mana to mana
+                case .mon, .monWithMana:
+                    return false
+                }
+            }
+            return available
         case let .mon(mon: mon):
-            let allNearby = nearbySpaces(from: from)
-            // can contain mana in case of a drainer
-            // should not be a reserved spot (except this mon is allowed to go there)
-            // TODO: filter
-            return allNearby
+            let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
+                let destination = board[i][j]
+                
+                switch destination {
+                case .consumable, .empty:
+                    return true // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                case .mana:
+                    return mon.kind == .drainer // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                case .mon, .monWithMana:
+                    return false
+                }
+            }
+            return available
         }
     }
     
@@ -270,9 +308,9 @@ class MonsGame {
                 canSelect = false
             case let .mon(mon: mon):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = availableForStep(from: index) // TODO: check if has a remaining move
-                forAction = availableForAction(from: index) // TODO: check if can use action
-                canSelect = canSelect && (!forNextStep.isEmpty || !forAction.isEmpty)
+                forNextStep = availableForStep(from: index)
+                forAction = availableForAction(from: index)
+                canSelect = canSelect && (!forNextStep.isEmpty && canMoveMon || !forAction.isEmpty && canUseAction)
             case let .mana(mana: mana):
                 switch mana {
                 case .superMana:
@@ -290,9 +328,10 @@ class MonsGame {
             
             if canSelect {
                 effects.append(.setSelected(index))
-                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) }
+                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) } // TODO: do not add when can only use action (steps used)
                 effects.append(contentsOf: nextStepsEffects)
-                // TODO: add actions as well
+                let nextActionEffects = forAction.map { Effect.availableForStep($0) } // TODO: do not add when can only move mon (action used)
+                effects.append(contentsOf: nextActionEffects)
             } else {
                 inputSequence = []
             }
@@ -317,6 +356,10 @@ class MonsGame {
         default:
             return []
         }
+    }
+    
+    var canMoveMon: Bool {
+        monsMovesCount < 5 // TODO: add to game config
     }
     
     // TODO: implement better
@@ -361,7 +404,7 @@ class MonsGame {
             if distance == 1 {
                 // TODO: могу двигать монов соперника action-ом spirit-а
                 // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
-                guard monsMovesCount < 5 else { return [] }
+                guard canMoveMon else { return [] }
                 
                 switch destination {
                 case .mon, .monWithMana:
@@ -522,7 +565,7 @@ class MonsGame {
             if distance == 1 {
                 // TODO: могу двигать монов соперника action-ом spirit-а
                 // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
-                guard monsMovesCount < 5 && !mon.isFainted && mon.color == activeColor else { return [] }
+                guard canMoveMon && !mon.isFainted && mon.color == activeColor else { return [] }
                 switch destination {
                 case .mon, .monWithMana, .mana:
                     return []
