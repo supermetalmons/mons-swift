@@ -429,13 +429,15 @@ class MonsGame {
             let from = inputSequence[0]
             let to = inputSequence[1]
             
-            inputSequence = [] // TODO: keep building an input sequence up to three items
-            let updatedIndexes = move(from: from, to: to)
-            
             // TODO: тут же понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
+            var (effects, didMove) = move(from: from, to: to)
             
-            if !updatedIndexes.isEmpty {
-                effects += updatedIndexes.map { .updateCell($0) } + [.updateGameStatus]
+            if didMove || effects.isEmpty {
+                inputSequence = []
+            }
+            
+            if !effects.isEmpty && didMove {
+                effects += [.updateGameStatus]
             }
             
             return effects
@@ -451,7 +453,7 @@ class MonsGame {
     }
     
     // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
-    private func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
+    private func move(from: (Int, Int), to: (Int, Int)) -> ([Effect], Bool) {
         let source = board[from.0][from.1]
         let destination = board[to.0][to.1]
         
@@ -464,34 +466,34 @@ class MonsGame {
             case let .mon(mon: mon):
                 let base = mon.base
                 if base.i != to.0 || base.j != to.1 {
-                    return []
+                    return ([], false)
                 }
             case .empty, .mana, .monWithMana, .consumable:
-                return []
+                return ([], false)
             }
         } else if Location.isSuperManaBase(to.0, to.1), distance == 1 { // TODO: remove implicit move / action disambiguation by checking distance
             switch source {
             case let .mon(mon: mon):
-                guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return [] }
+                guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return ([], false) }
             case let .monWithMana(mon: mon, mana: mana):
-                guard mon.kind == .drainer, case .superMana = mana else { return [] }
+                guard mon.kind == .drainer, case .superMana = mana else { return ([], false) }
             case .consumable, .mana, .empty:
-                return []
+                return ([], false)
             }
         }
         
         switch source {
         case .mon(let mon):
-            guard !mon.isFainted && mon.color == activeColor else { return [] }
+            guard !mon.isFainted && mon.color == activeColor else { return ([], false) }
             
             if distance == 1 {
-                guard canMoveMon else { return [] }
+                guard canMoveMon else { return ([], false) }
                 
                 switch destination {
                 case .mon, .monWithMana:
-                    return []
+                    return ([], false)
                 case .mana(let mana):
-                    guard mon.kind == .drainer else { return [] }
+                    guard mon.kind == .drainer else { return ([], false) }
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
                     monsMovesCount += 1
@@ -518,17 +520,17 @@ class MonsGame {
                     return [from, to]
                 }
             } else {
-                guard canUseAction else { return [] }
+                guard canUseAction else { return ([], false) }
                 
                 switch mon.kind {
                 case .mystic:
-                    guard xDistance == 2 && yDistance == 2, !isProtectedByAngel(to) else { return [] }
+                    guard xDistance == 2 && yDistance == 2, !isProtectedByAngel(to) else { return ([], false) }
                     
                     switch destination {
                     case .empty, .mana, .consumable:
-                        return []
+                        return ([], false)
                     case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color else { return [] }
+                        guard targetMon.color != mon.color else { return ([], false) }
                         board[to.0][to.1] = .empty
                         didUseAction()
                         
@@ -538,7 +540,7 @@ class MonsGame {
                         
                         return [faintIndex, to]
                     case .monWithMana(mon: var targetMon, mana: let mana):
-                        guard targetMon.color != mon.color else { return [] }
+                        guard targetMon.color != mon.color else { return ([], false) }
                         
                         let manaIndex: (Int, Int)
                         switch mana {
@@ -562,16 +564,16 @@ class MonsGame {
                         return [manaIndex, faintIndex, to]
                     }
                 case .demon:
-                    guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return [] }
+                    guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return ([], false) }
                     
                     let between = ((from.0 + to.0) / 2, (from.1 + to.1) / 2)
-                    guard case .empty = board[between.0][between.1] else { return [] }
+                    guard case .empty = board[between.0][between.1] else { return ([], false) }
                     
                     switch destination {
                     case .empty, .mana, .consumable:
-                        return []
+                        return ([], false)
                     case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color else { return [] }
+                        guard targetMon.color != mon.color else { return ([], false) }
                         
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
@@ -584,7 +586,7 @@ class MonsGame {
                         
                         return [faintIndex, from, to]
                     case .monWithMana(mon: var targetMon, mana: let mana):
-                        guard targetMon.color != mon.color else { return [] }
+                        guard targetMon.color != mon.color else { return ([], false) }
                         // TODO: implement demon's additional step after jumping on a drainer with regular mana
                         
                         let manaIndex: (Int, Int)
@@ -611,14 +613,14 @@ class MonsGame {
                     }
                 case .spirit:
                     // TODO: move with spirit action
-                    return [] // TODO: return highlights
+                    return ([], false) // TODO: return highlights
                 case .angel, .drainer:
-                    return []
+                    return ([], false)
                 }
             }
         case let .mana(mana):
             if distance == 1 {
-                guard case let .regular(color) = mana, color == activeColor && !manaMoved && !isFirstTurn else { return [] }
+                guard case let .regular(color) = mana, color == activeColor && !manaMoved && !isFirstTurn else { return ([], false) }
                 switch destination {
                 case .empty:
                     if let poolColor = poolColor(to.0, to.1) {
@@ -637,17 +639,17 @@ class MonsGame {
                     manaMoved = true
                     return [from, to]
                 case .mana, .monWithMana, .mon, .consumable:
-                    return []
+                    return ([], false)
                 }
             } else {
-                return []
+                return ([], false)
             }
         case let .monWithMana(mon, mana):
             if distance == 1 {
-                guard canMoveMon && !mon.isFainted && mon.color == activeColor else { return [] }
+                guard canMoveMon && !mon.isFainted && mon.color == activeColor else { return ([], false) }
                 switch destination {
                 case .mon, .monWithMana, .mana:
-                    return []
+                    return ([], false)
                 case .consumable(let consumable):
                     switch consumable {
                     case .potion:
@@ -690,10 +692,10 @@ class MonsGame {
                     return [from, to]
                 }
             } else {
-                return []
+                return ([], false)
             }
         case .consumable, .empty:
-            return []
+            return ([], false)
         }
     }
     
