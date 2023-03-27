@@ -217,12 +217,17 @@ class MonsGame {
         var nearby = [(Int, Int)]()
         for i in (from.0 - 1)...(from.0 + 1) {
             for j in (from.1 - 1)...(from.1 + 1) {
-                if i >= 0, j >= 0, i < boardSize, j < boardSize, i != from.0 || j != from.1 {
+                if isValidLocation(i, j), i != from.0 || j != from.1 {
                     nearby.append((i, j))
                 }
             }
         }
         return nearby
+    }
+    
+    // TODO: move into location model
+    private func isValidLocation(_ i: Int, _ j: Int) -> Bool {
+        return i >= 0 && j >= 0 && i < boardSize && j < boardSize
     }
     
     // TODO: извлечить код тестирования конкретного поля, чтобы его можно было переиспользовать, когда получили два или три инпута
@@ -303,8 +308,49 @@ class MonsGame {
     }
     
     private func availableForAction(from: (Int, Int)) -> [(Int, Int)] {
-        // TODO: implement
-        return []
+        let space = board[from.0][from.1]
+        
+        switch space {
+        case .monWithMana, .mana, .empty, .consumable:
+            return []
+        case let .mon(mon: mon):
+            let i = from.0
+            let j = from.1
+            
+            switch mon.kind {
+            case .drainer, .angel:
+                return []
+            case .demon:
+                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (i, j) -> Bool in
+                    return false // TODO: implement
+                }
+                return valid
+            case .mystic:
+                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (i, j) -> Bool in
+                    return false // TODO: implement
+                }
+                return valid
+            case .spirit:
+                var valid = [(Int, Int)]()
+                for x in -2...2 {
+                    for y in -2...2 {
+                        guard max(abs(x), abs(y)) == 2 else { continue }
+                        let a = i + x
+                        let b = j + y
+                        guard isValidLocation(a, b) else { continue }
+                        
+                        let destination = board[a][b]
+                        switch destination {
+                        case .consumable, .mon, .mana, .monWithMana:
+                            valid.append((a, b))
+                        case .empty:
+                            continue
+                        }
+                    }
+                }
+                return valid
+            }
+        }
     }
     
     private func processInput() -> [Effect] {
