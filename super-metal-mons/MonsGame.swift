@@ -442,6 +442,43 @@ class MonsGame {
             
             return effects
         case 3:
+            let spiritLocation = inputSequence[0]
+            let targetLocation = inputSequence[1]
+            let destinationLocation = inputSequence[2]
+            
+            inputSequence = []
+            
+            let spirit = board[spiritLocation.0][spiritLocation.1]
+            let target = board[targetLocation.0][targetLocation.1]
+            let destination = board[destinationLocation.0][destinationLocation.1]
+            
+            guard canUseAction, case let .mon(mon) = spirit, mon.kind == .spirit, !mon.isFainted else {
+                return effects
+            }
+            
+            guard max(abs(spiritLocation.0 - targetLocation.0), abs(spiritLocation.1 - targetLocation.1)) == 2 else {
+                return effects
+            }
+            
+            switch board[targetLocation.0][targetLocation.1] {
+            case .empty:
+                return effects
+            case .mana, .consumable, .mon, .monWithMana:
+                break
+            }
+            
+            guard availableForStep(from: targetLocation).contains(where: { $0.0 == destinationLocation.0 && $0.1 == destinationLocation.1 }) else {
+                return effects
+            }
+                
+            board[targetLocation.0][targetLocation.1] = .empty
+            board[destinationLocation.0][destinationLocation.1] = target
+            
+            didUseAction()
+            
+            effects = [targetLocation, destinationLocation].map { Effect.updateCell($0) }
+            effects += [.updateGameStatus]
+            
             return effects
         default:
             return []
@@ -497,7 +534,7 @@ class MonsGame {
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
                     monsMovesCount += 1
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 case .consumable(let consumable):
                     switch consumable {
                     case .potion:
@@ -511,13 +548,13 @@ class MonsGame {
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 case .empty:
                     // TODO: move this boilerplate moving into a separate function
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 }
             } else {
                 guard canUseAction else { return ([], false) }
@@ -538,7 +575,7 @@ class MonsGame {
                         targetMon.faint()
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
                         
-                        return [faintIndex, to]
+                        return ([faintIndex, to].map { Effect.updateCell($0) }, true)
                     case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return ([], false) }
                         
@@ -561,7 +598,7 @@ class MonsGame {
                         
                         // TODO: in regular mana case manaIndex == to
                         // TODO: do not add repeating indices in the first place
-                        return [manaIndex, faintIndex, to]
+                        return ([manaIndex, faintIndex, to].map { Effect.updateCell($0) }, true)
                     }
                 case .demon:
                     guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return ([], false) }
@@ -584,7 +621,7 @@ class MonsGame {
                         targetMon.faint()
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
                         
-                        return [faintIndex, from, to]
+                        return ([faintIndex, from, to].map { Effect.updateCell($0) }, true)
                     case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return ([], false) }
                         // TODO: implement demon's additional step after jumping on a drainer with regular mana
@@ -609,11 +646,20 @@ class MonsGame {
                         didUseAction()
                         // TODO: in regular mana case manaIndex == to
                         // TODO: do not add repeating indices in the first place
-                        return [manaIndex, faintIndex, from, to]
+                        return ([manaIndex, faintIndex, from, to].map { Effect.updateCell($0) }, true)
                     }
                 case .spirit:
-                    // TODO: move with spirit action
-                    return ([], false) // TODO: return highlights
+                    guard max(abs(from.0 - to.0), abs(from.1 - to.1)) == 2 else { return ([], false) }
+                    switch board[to.0][to.1] {
+                    case .empty:
+                        return ([], false)
+                    case .mana, .consumable, .mon, .monWithMana:
+                        break
+                    }
+                    
+                    let nextStep = availableForStep(from: to).map { Effect.availableForStep($0) }
+                    
+                    return ([Effect.setSelected(from), Effect.setSelected(to)] + nextStep, false)
                 case .angel, .drainer:
                     return ([], false)
                 }
@@ -637,7 +683,7 @@ class MonsGame {
                         board[to.0][to.1] = source
                     }
                     manaMoved = true
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 case .mana, .monWithMana, .mon, .consumable:
                     return ([], false)
                 }
@@ -663,7 +709,7 @@ class MonsGame {
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 case .empty:
                     if let poolColor = poolColor(to.0, to.1) {
                         board[from.0][from.1] = .empty
@@ -689,7 +735,7 @@ class MonsGame {
                     }
                     
                     monsMovesCount += 1
-                    return [from, to]
+                    return ([from, to].map { Effect.updateCell($0) }, true)
                 }
             } else {
                 return ([], false)
