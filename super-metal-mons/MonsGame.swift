@@ -450,9 +450,7 @@ class MonsGame {
         monsMovesCount < 5 // TODO: add to game config
     }
     
-    // TODO: implement better
     // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
-    // TODO: this function may be called from a top-level function, the one that understands spirit's action
     private func move(from: (Int, Int), to: (Int, Int)) -> [(Int, Int)] {
         let source = board[from.0][from.1]
         let destination = board[to.0][to.1]
@@ -466,14 +464,12 @@ class MonsGame {
             case let .mon(mon: mon):
                 let base = mon.base
                 if base.i != to.0 || base.j != to.1 {
-                    // TODO: this might brake when mon is moved by the spirit
                     return []
                 }
             case .empty, .mana, .monWithMana, .consumable:
                 return []
             }
         } else if Location.isSuperManaBase(to.0, to.1), distance == 1 { // TODO: remove implicit move / action disambiguation by checking distance
-            // TODO: this might brake when mon is moved by the spirit
             switch source {
             case let .mon(mon: mon):
                 guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return [] }
@@ -486,12 +482,9 @@ class MonsGame {
         
         switch source {
         case .mon(let mon):
-            // this would be different when spirit moves the other guy. maybe in some other cases as well.
             guard !mon.isFainted && mon.color == activeColor else { return [] }
             
             if distance == 1 {
-                // TODO: могу двигать монов соперника action-ом spirit-а
-                // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
                 guard canMoveMon else { return [] }
                 
                 switch destination {
@@ -525,7 +518,6 @@ class MonsGame {
                     return [from, to]
                 }
             } else {
-                // TODO: assumes that source is my own mon
                 guard canUseAction else { return [] }
                 
                 switch mon.kind {
@@ -617,11 +609,12 @@ class MonsGame {
                         // TODO: do not add repeating indices in the first place
                         return [manaIndex, faintIndex, from, to]
                     }
-                case .spirit, .angel, .drainer:
+                case .spirit:
+                    // TODO: move with spirit action
+                    return [] // TODO: return highlights
+                case .angel, .drainer:
                     return []
                 }
-                
-                // TODO: move with spirit action
             }
         case let .mana(mana):
             if distance == 1 {
@@ -651,8 +644,6 @@ class MonsGame {
             }
         case let .monWithMana(mon, mana):
             if distance == 1 {
-                // TODO: могу двигать монов соперника action-ом spirit-а
-                // TODO: могу двигать монов спиритом даже когда уже есть 5 ходов монами
                 guard canMoveMon && !mon.isFainted && mon.color == activeColor else { return [] }
                 switch destination {
                 case .mon, .monWithMana, .mana:
