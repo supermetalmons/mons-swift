@@ -269,6 +269,7 @@ class MonsboardViewController: UIViewController {
         }
     }
     
+    // TODO: act differently when i click spaces while opponent makes his turns
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let spaceView = sender.view as? SpaceView else { return }
         

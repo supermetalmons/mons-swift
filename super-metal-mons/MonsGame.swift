@@ -206,64 +206,70 @@ class MonsGame {
         return false
     }
     
-    // TODO: hold whole current input sequence here
-    private var selectedIndex: (Int, Int)? // tmp
-    
-    // TODO: act differently when i click spaces while opponent makes his turns
     func didTapSpace(_ index: (Int, Int)) -> [Effect] {
+        inputSequence.append(index)
+        return processInput()
+    }
+    
+    private var inputSequence = [(Int, Int)]()
+    
+    private func processInput() -> [Effect] {
         var effects = [Effect]()
         
-        // TODO: implement input sequences of 3
-        
-        if let selectedIndex = selectedIndex {
-            // TODO: here is an input sequence of 2
+        switch inputSequence.count {
+        case 1:
+            let index = inputSequence[0]
             
-            self.selectedIndex = nil
-            effects.append(.setSelected(false, selectedIndex))
-            
-            // TODO: validate whole input sequence instead of just from / to
-            let updatedIndexes = move(from: selectedIndex, to: index)
-            
-            // TODO: тут же по итогу хода понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
-            
-            if !updatedIndexes.isEmpty {
-                effects += updatedIndexes.map { .updateCell($0) } + [.updateGameStatus]
-            }
-        } else {
-            // TODO: here is an input sequence of 1
-            // TODO: делать здесь полную проверку, есть ли с таким нажатием следующее нажатие, которое привело бы к валидному ходу.
-            // можно сразу же здесь сохранять варианты, чтобы быстрее делать проверку при следующем инпуте.
-            // эти же варианты следующего инпута можно показывать на доске
             let canSelect: Bool
             let space = board[index.0][index.1]
             switch space {
             case .empty, .consumable:
                 canSelect = false
             case let .mon(mon: mon):
-                canSelect = mon.color == activeColor && !mon.isFainted // TODO: && canMove || canAct
+                canSelect = mon.color == activeColor && !mon.isFainted
+                // TODO: && canMove || canAct
             case let .mana(mana: mana):
                 switch mana {
                 case .superMana:
                     canSelect = false
                 case let .regular(color: color):
                     canSelect = color == activeColor && !manaMoved && !isFirstTurn
+                    // TODO: available nearby spots
                 }
             case let .monWithMana(mon: mon, mana: _):
-                canSelect = mon.color == activeColor && !mon.isFainted // TODO: && canMove || canAct
+                canSelect = mon.color == activeColor && !mon.isFainted
+                // TODO: && canMove || canAct
             }
             
             if canSelect {
-                selectedIndex = index
                 effects.append(.setSelected(true, index))
+            } else {
+                inputSequence = []
             }
+            
+            return effects
+        case 2:
+            let from = inputSequence[0]
+            let to = inputSequence[1]
+            
+            inputSequence = [] // TODO: keep building an input sequence up to three items
+            
+            effects.append(.setSelected(false, from))
+            let updatedIndexes = move(from: from, to: to)
+            
+            // TODO: тут же понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
+            
+            if !updatedIndexes.isEmpty {
+                effects += updatedIndexes.map { .updateCell($0) } + [.updateGameStatus]
+            }
+            
+            return effects
+        case 3:
+            return effects
+        default:
+            return []
         }
-        
-        return effects
     }
-    
-    // TODO: get board event like didTapSquare
-    // return effects: can be various highlights, moves, gamecompletion, etc.
-    // чтобы это не было ui-но, как-то в терминах игры возвращать это. опции, события, ходы. посмотрю, как лучше назвать это.
     
     // TODO: implement better
     // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
@@ -557,9 +563,11 @@ class MonsGame {
         turnNumber += 1
         
         var effects = indicesToUpdate.map { Effect.updateCell($0) } + [.updateGameStatus]
-        if let selectedIndex = selectedIndex {
+        
+        // TODO: there can be more highlights. make a better way to turn them off.
+        if let selectedIndex = inputSequence.first {
             effects.append(Effect.setSelected(false, selectedIndex))
-            self.selectedIndex = nil
+            inputSequence = []
         }
         
         return effects
