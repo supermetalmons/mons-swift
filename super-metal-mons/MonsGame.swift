@@ -214,8 +214,15 @@ class MonsGame {
     private var inputSequence = [(Int, Int)]()
     
     private func nearbySpaces(from: (Int, Int)) -> [(Int, Int)] {
-        // TODO: implement
-        return [(0, 0)]
+        var nearby = [(Int, Int)]()
+        for i in (from.0 - 1)...(from.0 + 1) {
+            for j in (from.1 - 1)...(from.1 + 1) {
+                if i >= 0, j >= 0, i < boardSize, j < boardSize, i != from.0 || j != from.1 {
+                    nearby.append((i, j))
+                }
+            }
+        }
+        return nearby
     }
     
     private func availableForStep(from: (Int, Int)) -> [(Int, Int)] {
@@ -226,15 +233,18 @@ class MonsGame {
             return []
         case let .mana(mana: mana):
             let allNearby = nearbySpaces(from: from)
-            return allNearby // TODO: filter
+            // TODO: filter
+            return allNearby
         case let .monWithMana(mon: mon, mana: mana):
             let allNearby = nearbySpaces(from: from)
-            return allNearby // TODO: filter
+            // TODO: filter
+            return allNearby
         case let .mon(mon: mon):
             let allNearby = nearbySpaces(from: from)
             // can contain mana in case of a drainer
             // should not be a reserved spot (except this mon is allowed to go there)
-            return allNearby // TODO: filter
+            // TODO: filter
+            return allNearby
         }
     }
     
@@ -260,8 +270,8 @@ class MonsGame {
                 canSelect = false
             case let .mon(mon: mon):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = availableForStep(from: index)
-                forAction = availableForAction(from: index)
+                forNextStep = availableForStep(from: index) // TODO: check if has a remaining move
+                forAction = availableForAction(from: index) // TODO: check if can use action
                 canSelect = canSelect && (!forNextStep.isEmpty || !forAction.isEmpty)
             case let .mana(mana: mana):
                 switch mana {
