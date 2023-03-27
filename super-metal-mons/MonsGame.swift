@@ -242,12 +242,12 @@ class MonsGame {
                     
                     switch destination {
                     case .empty:
-                        return true // TODO: check for reserved
+                        return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
                     case .mana, .monWithMana, .consumable:
                         return false
                     case let .mon(mon: mon):
                         if mon.kind == .drainer {
-                            return true // TODO: don not allow when drainer is on a base
+                            return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
                         } else {
                             return false
                         }
@@ -255,13 +255,24 @@ class MonsGame {
                 }
                 return available
             }
-        case let .monWithMana(mon: mon, mana: _):
+        case let .monWithMana(mon: mon, mana: mana):
             let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
                 let destination = board[i][j]
                 
                 switch destination {
                 case .consumable, .empty:
-                    return true // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                    if Location.isMonsBase(i, j) {
+                        let ownBase = mon.base
+                        return ownBase.i == i && ownBase.j == j // TODO: implement getting home while leaving mana
+                    } else if Location.isSuperManaBase(i, j) {
+                        if case .superMana = mana {
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return true
+                    }
                 case .mana:
                     return true // TODO: implement jumping from mana to mana
                 case .mon, .monWithMana:
@@ -275,9 +286,14 @@ class MonsGame {
                 
                 switch destination {
                 case .consumable, .empty:
-                    return true // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                    if Location.isMonsBase(i, j) {
+                        let ownBase = mon.base
+                        return ownBase.i == i && ownBase.j == j
+                    } else {
+                        return !Location.isSuperManaBase(i, j)
+                    }
                 case .mana:
-                    return mon.kind == .drainer // TODO: should not be a reserved spot (except this mon is allowed to go there)
+                    return mon.kind == .drainer
                 case .mon, .monWithMana:
                     return false
                 }
@@ -323,7 +339,7 @@ class MonsGame {
             case let .monWithMana(mon: mon, mana: _):
                 canSelect = mon.color == activeColor && !mon.isFainted
                 forNextStep = availableForStep(from: index)
-                canSelect = canSelect && !forNextStep.isEmpty
+                canSelect = canSelect && !forNextStep.isEmpty && canMoveMon
             }
             
             if canSelect {
