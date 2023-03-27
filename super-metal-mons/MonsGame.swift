@@ -321,13 +321,37 @@ class MonsGame {
             case .drainer, .angel:
                 return []
             case .demon:
-                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (i, j) -> Bool in
-                    return false // TODO: implement
+                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (a, b) -> Bool in
+                    guard isValidLocation(a, b), !Location.isMonsBase(a, b) else { return false }
+                    let validTarget: Bool
+                    let destination = board[a][b]
+                    switch destination {
+                    case .monWithMana(mon: let targetMon, mana: _):
+                        validTarget = mon.color != targetMon.color
+                    case .mon(mon: let targetMon):
+                        validTarget = mon.color != targetMon.color
+                    case .consumable, .mana, .empty:
+                        return false
+                    }
+                    
+                    guard case .empty = board[(i + a) / 2][(j + b) / 2] else { return false }
+                    return validTarget && !isProtectedByAngel((a, b)) // TODO: implement jumping out of super mana base
                 }
                 return valid
             case .mystic:
-                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (i, j) -> Bool in
-                    return false // TODO: implement
+                let valid = [(i - 2, j - 2), (i + 2, j + 2), (i - 2, j + 2), (i + 2, j - 2)].filter { (i, j) -> Bool in
+                    guard isValidLocation(i, j), !Location.isMonsBase(i, j) else { return false }
+                    let validTarget: Bool
+                    let destination = board[i][j]
+                    switch destination {
+                    case .monWithMana(mon: let targetMon, mana: _):
+                        validTarget = mon.color != targetMon.color
+                    case .mon(mon: let targetMon):
+                        validTarget = mon.color != targetMon.color
+                    case .consumable, .mana, .empty:
+                        return false
+                    }
+                    return validTarget && !isProtectedByAngel((i, j))
                 }
                 return valid
             case .spirit:
