@@ -324,9 +324,9 @@ class MonsGame {
                 canSelect = false
             case let .mon(mon: mon):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = availableForStep(from: index)
-                forAction = availableForAction(from: index)
-                canSelect = canSelect && (!forNextStep.isEmpty && canMoveMon || !forAction.isEmpty && canUseAction)
+                forNextStep = canMoveMon ? availableForStep(from: index) : []
+                forAction = canUseAction ? availableForAction(from: index) : []
+                canSelect = canSelect && !(forNextStep.isEmpty && forAction.isEmpty)
             case let .mana(mana: mana):
                 switch mana {
                 case .superMana:
@@ -338,15 +338,17 @@ class MonsGame {
                 }
             case let .monWithMana(mon: mon, mana: _):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = availableForStep(from: index)
-                canSelect = canSelect && !forNextStep.isEmpty && canMoveMon
+                forNextStep = canMoveMon ? availableForStep(from: index) : []
+                canSelect = canSelect && !forNextStep.isEmpty
             }
             
             if canSelect {
                 effects.append(.setSelected(index))
-                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) } // TODO: do not add when can only use action (steps used)
+                
+                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) }
                 effects.append(contentsOf: nextStepsEffects)
-                let nextActionEffects = forAction.map { Effect.availableForStep($0) } // TODO: do not add when can only move mon (action used)
+                
+                let nextActionEffects = forAction.map { Effect.availableForStep($0) }
                 effects.append(contentsOf: nextActionEffects)
             } else {
                 inputSequence = []
