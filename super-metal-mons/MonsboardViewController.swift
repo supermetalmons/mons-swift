@@ -13,6 +13,7 @@ class MonsboardViewController: UIViewController {
     let database = Database.database().reference()
     private var lastSharedFen = ""
     
+    private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
     
     private var didSetupBoard = false
@@ -281,15 +282,25 @@ class MonsboardViewController: UIViewController {
     }
     
     private func applyEffects(_ effects: [Effect]) {
+        for effectView in effectsViews {
+            effectView.removeFromSuperview()
+        }
+        effectsViews = []
+        
         for effect in effects {
             switch effect {
             case .updateCell(let index):
                 monsOnBoard[index.0][index.1]?.removeFromSuperview()
                 monsOnBoard[index.0][index.1] = nil
                 updateCell(index.0, index.1)
-            case .setSelected(let selected, let index):
-                squares[index.0][index.1]?.layer.borderColor = UIColor.green.cgColor
-                squares[index.0][index.1]?.layer.borderWidth = selected ? 3 : 0
+            case .setSelected(let index):
+                let effectView = UIView()
+                effectView.backgroundColor = .clear
+                effectView.layer.borderWidth = 3
+                effectView.layer.borderColor = UIColor.green.cgColor
+                effectView.frame = CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize))
+                squares[index.0][index.1]?.addSubview(effectView)
+                effectsViews.append(effectView)
             case .updateGameStatus:
                 statusLabel.text = game.prettyGameStatus
                 sendFen(game.fen)
@@ -297,6 +308,16 @@ class MonsboardViewController: UIViewController {
                 if let winner = game.winnerColor {
                     didWin(color: winner)
                 }
+            case .availableForStep(let index):
+                let effectView = UIView()
+                effectView.backgroundColor = .green
+                let side = squareSize / 3
+                effectView.layer.cornerRadius = side / 2
+                effectView.alpha = 0.5
+                effectView.clipsToBounds = true
+                effectView.frame = CGRect(origin: CGPoint(x: side, y: side), size: CGSize(width: side, height: side))
+                squares[index.0][index.1]?.addSubview(effectView)
+                effectsViews.append(effectView)
             }
         }
     }

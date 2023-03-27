@@ -30,9 +30,9 @@ struct Location: Equatable, Hashable {
 }
 
 enum Effect {
+    case availableForStep((Int, Int))
     case updateCell((Int, Int)) // TODO: use Location here as well
-    case setSelected(_ selected: Bool, (Int, Int)) // TODO: вот это deselect неоч нравится
-    // хочется, чтобы был эффект, который бы снимал всю старую подсветку. там много подсветки будет, если еще и варианты ходов подсвечивать.
+    case setSelected((Int, Int))
     case updateGameStatus
 }
 
@@ -213,6 +213,36 @@ class MonsGame {
     
     private var inputSequence = [(Int, Int)]()
     
+    private func nearbySpaces(from: (Int, Int)) -> [(Int, Int)] {
+        // TODO: implement
+        return [(0, 0)]
+    }
+    
+    private func availableForStep(from: (Int, Int)) -> [(Int, Int)] {
+        let space = board[from.0][from.1]
+        
+        switch space {
+        case .empty, .consumable:
+            return []
+        case let .mana(mana: mana):
+            let allNearby = nearbySpaces(from: from)
+            return allNearby // TODO: filter
+        case let .monWithMana(mon: mon, mana: mana):
+            let allNearby = nearbySpaces(from: from)
+            return allNearby // TODO: filter
+        case let .mon(mon: mon):
+            let allNearby = nearbySpaces(from: from)
+            // can contain mana in case of a drainer
+            // should not be a reserved spot (except this mon is allowed to go there)
+            return allNearby // TODO: filter
+        }
+    }
+    
+    private func availableForAction(from: (Int, Int)) -> [(Int, Int)] {
+        // TODO: implement
+        return []
+    }
+    
     private func processInput() -> [Effect] {
         var effects = [Effect]()
         
@@ -220,29 +250,39 @@ class MonsGame {
         case 1:
             let index = inputSequence[0]
             
-            let canSelect: Bool
+            var canSelect: Bool
+            var forNextStep = [(Int, Int)]()
+            var forAction = [(Int, Int)]()
+            
             let space = board[index.0][index.1]
             switch space {
             case .empty, .consumable:
                 canSelect = false
             case let .mon(mon: mon):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                // TODO: && canMove || canAct
+                forNextStep = availableForStep(from: index)
+                forAction = availableForAction(from: index)
+                canSelect = canSelect && (!forNextStep.isEmpty || !forAction.isEmpty)
             case let .mana(mana: mana):
                 switch mana {
                 case .superMana:
                     canSelect = false
                 case let .regular(color: color):
                     canSelect = color == activeColor && !manaMoved && !isFirstTurn
-                    // TODO: available nearby spots
+                    forNextStep = availableForStep(from: index)
+                    canSelect = canSelect && !forNextStep.isEmpty
                 }
             case let .monWithMana(mon: mon, mana: _):
                 canSelect = mon.color == activeColor && !mon.isFainted
-                // TODO: && canMove || canAct
+                forNextStep = availableForStep(from: index)
+                canSelect = canSelect && !forNextStep.isEmpty
             }
             
             if canSelect {
-                effects.append(.setSelected(true, index))
+                effects.append(.setSelected(index))
+                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) }
+                effects.append(contentsOf: nextStepsEffects)
+                // TODO: add actions as well
             } else {
                 inputSequence = []
             }
@@ -253,8 +293,6 @@ class MonsGame {
             let to = inputSequence[1]
             
             inputSequence = [] // TODO: keep building an input sequence up to three items
-            
-            effects.append(.setSelected(false, from))
             let updatedIndexes = move(from: from, to: to)
             
             // TODO: тут же понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
@@ -562,13 +600,9 @@ class MonsGame {
        
         turnNumber += 1
         
-        var effects = indicesToUpdate.map { Effect.updateCell($0) } + [.updateGameStatus]
+        let effects = indicesToUpdate.map { Effect.updateCell($0) } + [.updateGameStatus]
         
-        // TODO: there can be more highlights. make a better way to turn them off.
-        if let selectedIndex = inputSequence.first {
-            effects.append(Effect.setSelected(false, selectedIndex))
-            inputSequence = []
-        }
+        inputSequence = []
         
         return effects
     }
