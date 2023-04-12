@@ -231,16 +231,53 @@ class MonsGame {
     }
     
     // TODO: извлечить код тестирования конкретного поля, чтобы его можно было переиспользовать, когда получили два или три инпута
-    private func availableForStep(from: (Int, Int)) -> [(Int, Int)] {
+    // TODO: да вот не нравится вот этот инпут bySpiritMagic. сверху мудрый коммент про то, что надо это поле разбить.
+    private func availableForStep(from: (Int, Int), bySpiritMagic: Bool = false) -> [(Int, Int)] {
         let space = board[from.0][from.1]
-        
         switch space {
-        case .empty, .consumable:
+        case .empty:
             return []
+        case .consumable:
+            if bySpiritMagic {
+                let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
+                    let destination = board[i][j]
+                    
+                    switch destination {
+                    case .empty:
+                        return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
+                    case .mana, .monWithMana, .consumable, .mon:
+                        // TODO: give potion to a mon
+                        return false
+                    }
+                }
+                return available
+            } else {
+                return []
+            }
         case let .mana(mana: mana):
             switch mana {
             case .superMana:
-                return []
+                if bySpiritMagic {
+                    let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
+                        let destination = board[i][j]
+                        
+                        switch destination {
+                        case .empty:
+                            return !Location.isMonsBase(i, j)
+                        case .mana, .monWithMana, .consumable:
+                            return false
+                        case let .mon(mon: mon):
+                            if mon.kind == .drainer {
+                                return !Location.isMonsBase(i, j)
+                            } else {
+                                return false
+                            }
+                        }
+                    }
+                    return available
+                } else {
+                    return []
+                }
             case .regular:
                 let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
                     let destination = board[i][j]
@@ -365,8 +402,14 @@ class MonsGame {
                         
                         let destination = board[a][b]
                         switch destination {
-                        case .consumable, .mon, .mana, .monWithMana:
+                        case .consumable, .mana, .monWithMana:
                             valid.append((a, b))
+                        case let .mon(mon):
+                            if mon.isFainted {
+                                continue
+                            } else {
+                                valid.append((a, b))
+                            }
                         case .empty:
                             continue
                         }
@@ -467,10 +510,12 @@ class MonsGame {
                 break
             }
             
-            guard availableForStep(from: targetLocation).contains(where: { $0.0 == destinationLocation.0 && $0.1 == destinationLocation.1 }) else {
+            guard availableForStep(from: targetLocation, bySpiritMagic: true).contains(where: { $0.0 == destinationLocation.0 && $0.1 == destinationLocation.1 }) else {
                 return effects
             }
-                
+            
+            // TODO: give mana to a mon
+            
             board[targetLocation.0][targetLocation.1] = .empty
             board[destinationLocation.0][destinationLocation.1] = target
             
@@ -498,7 +543,15 @@ class MonsGame {
         let yDistance = abs(to.0 - from.0)
         let distance = max(xDistance, yDistance)
         
-        if Location.isMonsBase(to.0, to.1) {
+        let isSpiritAction: Bool // TODO: there should be a better way to implement this
+        switch source {
+        case let .mon(mon: mon):
+            isSpiritAction = mon.kind == .spirit && distance > 1
+        default:
+            isSpiritAction = false
+        }
+        
+        if Location.isMonsBase(to.0, to.1) && !isSpiritAction {
             switch source {
             case let .mon(mon: mon):
                 let base = mon.base
@@ -653,11 +706,15 @@ class MonsGame {
                     switch board[to.0][to.1] {
                     case .empty:
                         return ([], false)
-                    case .mana, .consumable, .mon, .monWithMana:
+                    case let .mon(mon):
+                        if mon.isFainted {
+                            return ([], false)
+                        }
+                    case .mana, .consumable, .monWithMana:
                         break
                     }
                     
-                    let nextStep = availableForStep(from: to).map { Effect.availableForStep($0) }
+                    let nextStep = availableForStep(from: to, bySpiritMagic: true).map { Effect.availableForStep($0) }
                     
                     return ([Effect.setSelected(from), Effect.setSelected(to)] + nextStep, false)
                 case .angel, .drainer:
@@ -684,7 +741,13 @@ class MonsGame {
                     }
                     manaMoved = true
                     return ([from, to].map { Effect.updateCell($0) }, true)
-                case .mana, .monWithMana, .mon, .consumable:
+                case let .mon(mon: mon):
+                    guard mon.kind == .drainer else { return ([], false) }
+                    board[from.0][from.1] = .empty
+                    board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    manaMoved = true
+                    return ([from, to].map { Effect.updateCell($0) }, true)
+                case .mana, .monWithMana, .consumable:
                     return ([], false)
                 }
             } else {
