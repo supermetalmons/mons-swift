@@ -36,8 +36,10 @@ class MonsboardViewController: UIViewController {
         runFirebase()
     }
     
+    let sessionId = "fen9"
+    
     func runFirebase() {
-        database.child("fen").observe(.value) { [weak self] (snapshot) in
+        database.child(sessionId).observe(.value) { [weak self] (snapshot) in
             guard let data = snapshot.value as? [String: AnyObject], let fen = data["fen"] as? String else {
                 print("No fen found")
                 return
@@ -71,7 +73,7 @@ class MonsboardViewController: UIViewController {
     
     func sendFen(_ fen: String) {
         guard lastSharedFen != fen else { return }
-        database.child("fen").setValue(["fen": fen])
+        database.child(sessionId).setValue(["fen": fen])
         lastSharedFen = fen
     }
     
