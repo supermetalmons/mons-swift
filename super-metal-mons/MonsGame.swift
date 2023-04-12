@@ -724,20 +724,33 @@ class MonsGame {
                         return ([faintIndex, from, to].map { Effect.updateCell($0) }, true)
                     case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return ([], false) }
-                        // TODO: implement demon's additional step after jumping on a drainer with regular mana
-                        
                         let manaIndex: (Int, Int)
+                        var also = (0, 0) // TODO: just add it to the list when needed
                         switch mana {
                         case .regular:
                             manaIndex = to
                             board[to.0][to.1] = .mana(mana: mana)
+                            let additionalStep = nearbySpaces(from: to).first(where: { (i, j) -> Bool in
+                                let destination = board[i][j]
+                                switch destination {
+                                case .empty:
+                                    return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
+                                case .mana, .consumable, .monWithMana, .mon:
+                                    // TODO: should be able to pick up a potion
+                                    return false
+                                }
+                            })
+                            if let additionalStep = additionalStep {
+                                board[additionalStep.0][additionalStep.1] = source
+                                also = additionalStep
+                            }
                         case .superMana:
                             manaIndex = (5, 5) // TODO: move to the config
                             board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
+                            board[to.0][to.1] = source
                         }
                         
                         board[from.0][from.1] = .empty
-                        board[to.0][to.1] = source
                         
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -746,7 +759,7 @@ class MonsGame {
                         didUseAction()
                         // TODO: in regular mana case manaIndex == to
                         // TODO: do not add repeating indices in the first place
-                        return ([manaIndex, faintIndex, from, to].map { Effect.updateCell($0) }, true)
+                        return ([manaIndex, faintIndex, from, to, also].map { Effect.updateCell($0) }, true)
                     }
                 case .spirit:
                     guard max(abs(from.0 - to.0), abs(from.1 - to.1)) == 2 else { return ([], false) }
