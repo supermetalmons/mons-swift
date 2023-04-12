@@ -245,8 +245,9 @@ class MonsGame {
                     switch destination {
                     case .empty:
                         return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                    case .mana, .monWithMana, .consumable, .mon:
-                        // TODO: give potion to a mon
+                    case .monWithMana, .mon:
+                        return true
+                    case .mana, .consumable:
                         return false
                     }
                 }
@@ -503,21 +504,67 @@ class MonsGame {
                 return effects
             }
             
-            switch board[targetLocation.0][targetLocation.1] {
-            case .empty:
-                return effects
-            case .mana, .consumable, .mon, .monWithMana:
-                break
-            }
-            
             guard availableForStep(from: targetLocation, bySpiritMagic: true).contains(where: { $0.0 == destinationLocation.0 && $0.1 == destinationLocation.1 }) else {
                 return effects
             }
             
-            // TODO: give mana to a mon
-            
-            board[targetLocation.0][targetLocation.1] = .empty
-            board[destinationLocation.0][destinationLocation.1] = target
+            switch target {
+            case .empty:
+                return effects
+            case let .mana(mana):
+                board[targetLocation.0][targetLocation.1] = .empty
+                if case let .mon(mon) = destination {
+                    board[destinationLocation.0][destinationLocation.1] = Space.monWithMana(mon: mon, mana: mana)
+                } else {
+                    board[destinationLocation.0][destinationLocation.1] = target
+                }
+            case .consumable:
+                board[targetLocation.0][targetLocation.1] = .empty
+                if case let .mon(mon) = destination {
+                    switch mon.color {
+                    case .blue:
+                        bluePotionsCount += 1
+                    case .red:
+                        redPotionsCount += 1
+                    }
+                } else if case let .monWithMana(mon, _) = destination {
+                    switch mon.color {
+                    case .blue:
+                        bluePotionsCount += 1
+                    case .red:
+                        redPotionsCount += 1
+                    }
+                } else {
+                    board[destinationLocation.0][destinationLocation.1] = target
+                }
+            case let .mon(mon):
+                board[targetLocation.0][targetLocation.1] = .empty
+                if case .consumable = destination {
+                    switch mon.color {
+                    case .blue:
+                        bluePotionsCount += 1
+                    case .red:
+                        redPotionsCount += 1
+                    }
+                    board[destinationLocation.0][destinationLocation.1] = target
+                } else if case let .mana(mana) = destination {
+                    board[destinationLocation.0][destinationLocation.1] = Space.monWithMana(mon: mon, mana: mana)
+                } else {
+                    board[destinationLocation.0][destinationLocation.1] = target
+                }
+            case let .monWithMana(mon, _):
+                if case .consumable = destination {
+                    switch mon.color {
+                    case .blue:
+                        bluePotionsCount += 1
+                    case .red:
+                        redPotionsCount += 1
+                    }
+                }
+                board[targetLocation.0][targetLocation.1] = .empty
+                board[destinationLocation.0][destinationLocation.1] = target
+                // TODO: should be able to go to mana (later)
+            }
             
             didUseAction()
             
