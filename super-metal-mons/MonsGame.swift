@@ -175,6 +175,10 @@ class MonsGame {
         return !isFirstTurn && (!actionUsed || (activeColor == .red ? redPotionsCount : bluePotionsCount) > 0)
     }
     
+    private var canMoveMana: Bool {
+        return !isFirstTurn && !manaMoved
+    }
+    
     private func didUseAction() {
         if !actionUsed {
             actionUsed = true
@@ -446,7 +450,7 @@ class MonsGame {
                 case .superMana:
                     canSelect = false
                 case let .regular(color: color):
-                    canSelect = color == activeColor && !manaMoved && !isFirstTurn
+                    canSelect = color == activeColor && canMoveMana
                     forNextStep = availableForStep(from: index)
                     canSelect = canSelect && !forNextStep.isEmpty
                 }
@@ -482,6 +486,7 @@ class MonsGame {
             
             if !effects.isEmpty && didMove {
                 effects += [.updateGameStatus]
+                switchSideAutomaticallyIfNeeded()
             }
             
             return effects
@@ -570,6 +575,7 @@ class MonsGame {
             
             effects = [targetLocation, destinationLocation].map { Effect.updateCell($0) }
             effects += [.updateGameStatus]
+            switchSideAutomaticallyIfNeeded()
             
             return effects
         default:
@@ -783,7 +789,7 @@ class MonsGame {
             }
         case let .mana(mana):
             if distance == 1 {
-                guard case let .regular(color) = mana, color == activeColor && !manaMoved && !isFirstTurn else { return ([], false) }
+                guard case let .regular(color) = mana, color == activeColor && canMoveMana else { return ([], false) }
                 switch destination {
                 case .empty:
                     if let poolColor = poolColor(to.0, to.1) {
@@ -887,7 +893,7 @@ class MonsGame {
         monsMovesCount = 0
         
         // TODO: keep set of mons to avoid iterating so much
-        var indicesToUpdate = [(Int, Int)]()        
+        var indicesToUpdate = [(Int, Int)]()
         for i in [0, boardSize - 1] {
             for j in 0..<boardSize {
                 let space = board[i][j]
@@ -908,6 +914,11 @@ class MonsGame {
         inputSequence = []
         
         return effects
+    }
+    
+    private func switchSideAutomaticallyIfNeeded() {
+        guard winnerColor == nil && !canUseAction && !canMoveMon && !canMoveMana else { return }
+        _ = endTurn()
     }
     
     // TODO: move target score to the game config
