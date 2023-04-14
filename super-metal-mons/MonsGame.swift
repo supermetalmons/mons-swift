@@ -230,6 +230,7 @@ class MonsGame {
     }
     
     // TODO: move into location model
+    // though if i move it to the location model, why how would it know about the current board size
     private func isValidLocation(_ i: Int, _ j: Int) -> Bool {
         return i >= 0 && j >= 0 && i < boardSize && j < boardSize
     }
