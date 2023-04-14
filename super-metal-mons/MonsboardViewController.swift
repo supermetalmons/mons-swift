@@ -36,7 +36,7 @@ class MonsboardViewController: UIViewController {
         runFirebase()
     }
     
-    let sessionId = "fen100"
+    let sessionId = "fen101"
     
     func runFirebase() {
         database.child(sessionId).observe(.value) { [weak self] (snapshot) in
