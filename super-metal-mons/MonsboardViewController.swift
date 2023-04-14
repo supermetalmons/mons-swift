@@ -126,7 +126,7 @@ class MonsboardViewController: UIViewController {
                     let y = CGFloat(row) * squareSize + yOffset
 
                     let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                    square.backgroundColor = (row + col) % 2 == 0 ? .white : UIColor(hex: "#CECECE")
+                    square.backgroundColor = (row + col) % 2 == 0 ? Colors.squareLight : Colors.squareDark
                     boardContainerView.addSubview(square)
                     squares[row][col] = square
                     
@@ -138,7 +138,7 @@ class MonsboardViewController: UIViewController {
             }
             
             for (i, j) in [(0, 0), (5, 5), (10, 10), (0, 10), (10, 0)] {
-                squares[i][j]?.backgroundColor = UIColor(hex: "#1407F5")
+                squares[i][j]?.backgroundColor = Colors.squareSpecial
             }
         }
         
@@ -160,7 +160,7 @@ class MonsboardViewController: UIViewController {
         case .consumable:
             if !didSetupBoard {
                 // TODO: this would brake when we start with the ongoing game
-                squares[i][j]?.backgroundColor = UIColor(hex: "#DDB6F9")
+                squares[i][j]?.backgroundColor = Colors.squareConsumable
             }
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
             imageView.image = UIImage(named: "potion") // TODO: get name from consumable enum
@@ -245,7 +245,7 @@ class MonsboardViewController: UIViewController {
             switch mana {
             case let .regular(color: color):
                 if !didSetupBoard {
-                    squares[i][j]?.backgroundColor = UIColor(hex: "#9CE8FC")
+                    squares[i][j]?.backgroundColor = Colors.squareMana
                 }
                 
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
@@ -333,29 +333,4 @@ class MonsboardViewController: UIViewController {
         }
     }
     
-}
-
-// TODO: remove this extension. use colors assets catalog
-// UIColor extension for handling hex color strings
-extension UIColor {
-    convenience init(hex: String) {
-        let scanner = Scanner(string: hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased())
-        if hex.hasPrefix("#") {
-            scanner.currentIndex = hex.index(after: hex.startIndex)
-        }
-
-        var rgbValue: UInt64 = 0
-        scanner.scanHexInt64(&rgbValue)
-
-        let r = (rgbValue & 0xFF0000) >> 16
-        let g = (rgbValue & 0x00FF00) >> 8
-        let b = rgbValue & 0x0000FF
-
-        self.init(
-            red: CGFloat(r) / 0xFF,
-            green: CGFloat(g) / 0xFF,
-            blue: CGFloat(b) / 0xFF,
-            alpha: 1.0
-        )
-    }
 }

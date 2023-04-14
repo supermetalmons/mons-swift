@@ -19,6 +19,8 @@
 		2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8529CA48B200EDF779 /* Main.storyboard */; };
 		2CC39E8929CA48B300EDF779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8829CA48B300EDF779 /* Assets.xcassets */; };
 		2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */; };
+		2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */; };
+		2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21729E9B047002F3AC9 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		2CC39E8B29CA48B300EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CC39E8D29CA48B300EDF779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "super-metal-mons.entitlements"; sourceTree = "<group>"; };
+		2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		2CC4E21729E9B047002F3AC9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +80,11 @@
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
+				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
+				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
 				2CC39E8D29CA48B300EDF779 /* Info.plist */,
 				2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */,
@@ -150,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */,
 				2CC39E8929CA48B300EDF779 /* Assets.xcassets in Resources */,
@@ -165,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
+				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
 				2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */,
