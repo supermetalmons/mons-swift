@@ -1,16 +1,11 @@
 // Copyright © 2023 super metal mons. All rights reserved.
 
-import AVFoundation
-import AudioToolbox
+import Foundation
 
 struct Audio {
     
-    static func endTurn() {
-        play(id: 1016)
-    }
+    static func newTurn() {
         
-    private static func play(id: SystemSoundID) {
-        AudioServicesPlaySystemSound(id)
     }
     
 }
