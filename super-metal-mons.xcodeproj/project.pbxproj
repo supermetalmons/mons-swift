@@ -21,6 +21,8 @@
 		2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */; };
 		2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */; };
 		2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21729E9B047002F3AC9 /* Colors.swift */; };
+		2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */; };
+		2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "super-metal-mons.entitlements"; sourceTree = "<group>"; };
 		2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		2CC4E21729E9B047002F3AC9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +81,11 @@
 				2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */,
 				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
 				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
+				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
+				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
@@ -171,11 +177,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
 				2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */,
+				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
 				2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 				2C53FC5C29CD280300F49668 /* Audio.swift in Sources */,

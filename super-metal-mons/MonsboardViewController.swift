@@ -20,7 +20,6 @@ class MonsboardViewController: UIViewController {
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var boardContainerView: UIView!
-    @IBOutlet weak var overlayView: UIView!
     
     private let boardSize = 11
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
@@ -65,7 +64,7 @@ class MonsboardViewController: UIViewController {
         let okAction = UIAlertAction(title: "ok", style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
             // or i guess in these case there should be a new game id exchage
-            self?.quitGame()
+            self?.endGame(openMenu: true)
         }
         alert.addAction(okAction)
         present(alert, animated: true)
@@ -77,20 +76,19 @@ class MonsboardViewController: UIViewController {
         lastSharedFen = fen
     }
     
-    func quitGame() {
+    func endGame(openMenu: Bool = true) {
         game = MonsGame()
         sendFen(game.fen)
-        statusLabel.text = game.prettyGameStatus
-        restartBoardForTest()
-    }
-
-    @IBAction func playButtonTapped(_ sender: Any) {
-        overlayView.isHidden = true
+        if openMenu {
+            dismiss(animated: false)
+        } else {
+            statusLabel.text = game.prettyGameStatus
+            restartBoardForTest()
+        }
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
-        overlayView.isHidden = false
-        quitGame()
+        endGame(openMenu: true)
     }
     
     // TODO: remove this one, this is for development only
