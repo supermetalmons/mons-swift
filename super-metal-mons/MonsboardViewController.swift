@@ -88,11 +88,6 @@ class MonsboardViewController: UIViewController {
         overlayView.isHidden = true
     }
     
-    @IBAction func endTurnButtonTapped(_ sender: Any) {
-        let effects = game.endTurn()
-        applyEffects(effects)
-    }
-    
     @IBAction func ggButtonTapped(_ sender: Any) {
         overlayView.isHidden = false
         quitGame()

@@ -485,8 +485,8 @@ class MonsGame {
             }
             
             if !effects.isEmpty && didMove {
+                effects += endTurnIfNeeded()
                 effects += [.updateGameStatus]
-                switchSideAutomaticallyIfNeeded()
             }
             
             return effects
@@ -574,8 +574,8 @@ class MonsGame {
             didUseAction()
             
             effects = [targetLocation, destinationLocation].map { Effect.updateCell($0) }
+            effects += endTurnIfNeeded()
             effects += [.updateGameStatus]
-            switchSideAutomaticallyIfNeeded()
             
             return effects
         default:
@@ -886,7 +886,7 @@ class MonsGame {
         }
     }
     
-    func endTurn() -> [Effect] {
+    private func endTurn() -> [Effect] {
         activeColor = activeColor == .red ? .blue : .red
         actionUsed = false
         manaMoved = false
@@ -909,16 +909,18 @@ class MonsGame {
        
         turnNumber += 1
         
-        let effects = indicesToUpdate.map { Effect.updateCell($0) } + [.updateGameStatus]
+        let effects = indicesToUpdate.map { Effect.updateCell($0) }
         
         inputSequence = []
         
         return effects
     }
     
-    private func switchSideAutomaticallyIfNeeded() {
-        guard winnerColor == nil && !canUseAction && !canMoveMon && !canMoveMana else { return }
-        _ = endTurn()
+    private func endTurnIfNeeded() -> [Effect] {
+        guard winnerColor == nil,
+              (isFirstTurn && !canMoveMon) ||
+                (!isFirstTurn && !canMoveMana) else { return [] }
+        return endTurn()
     }
     
     // TODO: move target score to the game config
