@@ -18,8 +18,14 @@ class MonsboardViewController: UIViewController {
     
     private var didSetupBoard = false
     
-    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var boardContainerView: UIView!
+    
+    @IBOutlet weak var opponentTurnsLabel: UILabel!
+    @IBOutlet weak var playerTurnsLabel: UILabel!
+    @IBOutlet weak var opponentStar: UIImageView!
+    @IBOutlet weak var opponentScoreLabel: UILabel!
+    @IBOutlet weak var playerStar: UIImageView!
+    @IBOutlet weak var playerScoreLabel: UILabel!
     
     private let boardSize = 11
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
@@ -31,7 +37,7 @@ class MonsboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMonsboard()
-        statusLabel.text = game.prettyGameStatus
+        updateGameInfo()
         runFirebase()
     }
     
@@ -52,11 +58,42 @@ class MonsboardViewController: UIViewController {
         DispatchQueue.main.async {
             self.game = MonsGame(fen: fen)!
             self.restartBoardForTest()
-            self.statusLabel.text = self.game.prettyGameStatus
+            self.updateGameInfo()
             if let winner = self.game.winnerColor {
                 self.didWin(color: winner)
             }
         }
+    }
+    
+    private func updateGameInfo() {
+        // TODO: setup correctly depending on player's color
+        switch game.activeColor {
+        case .red:
+            opponentTurnsLabel.text = ""
+            playerTurnsLabel.text = game.prettyTurnStatus
+            
+            opponentStar.image = UIImage(systemName: "star")
+            opponentStar.tintColor = .quaternaryLabel
+            opponentScoreLabel.textColor = .quaternaryLabel
+            
+            playerStar.image = UIImage(systemName: "star.fill")
+            playerStar.tintColor = .systemYellow
+            playerScoreLabel.textColor = .label
+        case .blue:
+            opponentTurnsLabel.text = game.prettyTurnStatus
+            playerTurnsLabel.text = ""
+            
+            playerStar.image = UIImage(systemName: "star")
+            playerStar.tintColor = .quaternaryLabel
+            playerScoreLabel.textColor = .quaternaryLabel
+            
+            opponentStar.image = UIImage(systemName: "star.fill")
+            opponentStar.tintColor = .systemYellow
+            opponentScoreLabel.textColor = .label
+        }
+        
+        opponentScoreLabel.text = String(game.blueScore)
+        playerScoreLabel.text = String(game.redScore)
     }
     
     func didWin(color: Color) {
@@ -82,7 +119,7 @@ class MonsboardViewController: UIViewController {
         if openMenu {
             dismiss(animated: false)
         } else {
-            statusLabel.text = game.prettyGameStatus
+            updateGameInfo()
             restartBoardForTest()
         }
     }
@@ -291,7 +328,7 @@ class MonsboardViewController: UIViewController {
                 squares[index.0][index.1]?.addSubview(effectView)
                 effectsViews.append(effectView)
             case .updateGameStatus:
-                statusLabel.text = game.prettyGameStatus
+                updateGameInfo()
                 sendFen(game.fen)
                 
                 if let winner = game.winnerColor {

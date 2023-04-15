@@ -54,6 +54,31 @@ class MonsGame {
         return messages.joined(separator: "    ")
     }
     
+    var prettyTurnStatus: String {
+        var status = ""
+        for _ in 0..<5-monsMovesCount {
+            status += "👟"
+        }
+        
+        if isFirstTurn {
+            return status
+        }
+        
+        if !actionUsed {
+            status += "🦄"
+        }
+        
+        for _ in 0..<potionsCount {
+            status += "🦄"
+        }
+        
+        if !manaMoved {
+            status += "💧"
+        }
+        
+        return status
+    }
+    
     let version: Int
     
     var redScore: Int
@@ -171,8 +196,13 @@ class MonsGame {
         self.board = board
     }
     
+    
+    private var potionsCount: Int {
+        return activeColor == .red ? redPotionsCount : bluePotionsCount
+    }
+    
     private var canUseAction: Bool {
-        return !isFirstTurn && (!actionUsed || (activeColor == .red ? redPotionsCount : bluePotionsCount) > 0)
+        return !isFirstTurn && (!actionUsed || potionsCount > 0)
     }
     
     private var canMoveMana: Bool {
