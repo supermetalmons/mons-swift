@@ -13,6 +13,7 @@
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
+		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
 		2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */; };
@@ -31,6 +32,7 @@
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
+				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
@@ -178,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
+				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,

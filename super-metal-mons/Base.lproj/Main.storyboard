@@ -68,37 +68,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YE-AP-K09">
-                                <rect key="frame" x="154.66666666666666" y="401" width="84" height="50"/>
+                                <rect key="frame" x="20" y="339.66666666666669" width="353" height="221.00000000000006"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Play">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="30"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="🥚 new game">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="playButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="gvt-hM-aVK"/>
-                                    <action selector="playButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1H-pl-rLH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFl-js-bfN">
+                                <rect key="frame" x="20" y="576.66666666666663" width="353" height="221.33333333333337"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="🔗 join with a link">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="joinButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="tjW-zS-h3B"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="asW-Wi-Sw3">
-                                <rect key="frame" x="98.333333333333329" y="79" width="196.33333333333337" height="128"/>
+                                <rect key="frame" x="0.0" y="78.999999999999986" width="393" height="240.66666666666663"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="uQU-Oo-cas"/>
+                                    <constraint firstAttribute="width" secondItem="asW-Wi-Sw3" secondAttribute="height" multiplier="784:480" id="OPP-S5-WT9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4YE-AP-K09" firstAttribute="width" secondItem="YFl-js-bfN" secondAttribute="width" id="BQ4-R4-KOz"/>
+                            <constraint firstItem="YFl-js-bfN" firstAttribute="centerX" secondItem="iKp-lT-Tno" secondAttribute="centerX" id="E87-IQ-b40"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" constant="20" id="Hua-yB-dYV"/>
+                            <constraint firstItem="4YE-AP-K09" firstAttribute="leading" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="IrT-DL-PUY"/>
                             <constraint firstItem="4YE-AP-K09" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="PVy-fH-g54"/>
-                            <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" secondItem="FYk-w3-Qsa" secondAttribute="width" multiplier="0.5" id="TtV-pS-oMc"/>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="centerY" secondItem="FYk-w3-Qsa" secondAttribute="centerY" id="UXF-PI-EDK"/>
+                            <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
+                            <constraint firstItem="iKp-lT-Tno" firstAttribute="bottom" secondItem="YFl-js-bfN" secondAttribute="bottom" constant="20" id="UoI-La-9ak"/>
+                            <constraint firstItem="4YE-AP-K09" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20" id="Zc0-py-Bci"/>
+                            <constraint firstItem="4YE-AP-K09" firstAttribute="height" secondItem="YFl-js-bfN" secondAttribute="height" id="dBD-sb-Hqv"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="fhr-GJ-Ent"/>
+                            <constraint firstItem="YFl-js-bfN" firstAttribute="top" secondItem="4YE-AP-K09" secondAttribute="bottom" constant="16" id="spu-g3-Fqc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="joinButton" destination="YFl-js-bfN" id="aTQ-XL-bBt"/>
+                        <outlet property="newGameButton" destination="4YE-AP-K09" id="xah-BZ-JV1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeL-MP-W3j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="718" y="25"/>
+            <point key="canvasLocation" x="716.79389312977094" y="24.647887323943664"/>
         </scene>
     </scenes>
     <resources>
