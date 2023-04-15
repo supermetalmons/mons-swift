@@ -164,21 +164,18 @@ class MonsboardViewController: UIViewController {
         case let .mon(mon: mon):
             
             // TODO: move it from here
+            let specifier = mon.color == .blue ? "-black" : ""
             let name: String
             switch mon.kind {
-            case .mystic: name = "mystic"
-            case .demon: name = "demon"
-            case .drainer: name = "drainer"
-            case .angel: name = "angel"
-            case .spirit: name = "spirit"
+            case .mystic: name = "mystic" + specifier
+            case .demon: name = "demon" + specifier
+            case .drainer: name = "drainer" + specifier
+            case .angel: name = "angel" + specifier
+            case .spirit: name = "spirit" + specifier
             }
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
             imageView.image = UIImage(named: name)
-            
-            if mon.color == .blue {
-                imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
-            }
             
             if mon.isFainted {
                 imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -193,21 +190,18 @@ class MonsboardViewController: UIViewController {
         case let .monWithMana(mon: mon, mana: mana):
             // TODO: refactor. there is the same code in mon and mana case
             // TODO: move it from here
+            let specifier = mon.color == .blue ? "-black" : ""
             let name: String
             switch mon.kind {
-            case .mystic: name = "mystic"
-            case .demon: name = "demon"
-            case .drainer: name = "drainer"
-            case .angel: name = "angel"
-            case .spirit: name = "spirit"
+            case .mystic: name = "mystic" + specifier
+            case .demon: name = "demon" + specifier
+            case .drainer: name = "drainer" + specifier
+            case .angel: name = "angel" + specifier
+            case .spirit: name = "spirit" + specifier
             }
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
             imageView.image = UIImage(named: name)
-            
-            if mon.color == .blue {
-                imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
-            }
             
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
@@ -216,11 +210,8 @@ class MonsboardViewController: UIViewController {
             switch mana {
             case let .regular(color: color):
                 let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                manaView.image = UIImage(named: "mana")
-                
-                if color == .blue {
-                    manaView.layer.transform = CATransform3DMakeScale(1, -1, 1)
-                }
+                let specifier = color == .blue ? "-black" : ""
+                manaView.image = UIImage(named: "mana" + specifier)
                 
                 manaView.contentMode = .scaleAspectFit
                 imageView.addSubview(manaView)
@@ -242,12 +233,8 @@ class MonsboardViewController: UIViewController {
                 }
                 
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                imageView.image = UIImage(named: "mana")
-                
-                if color == .blue {
-                    imageView.layer.transform = CATransform3DMakeScale(1, -1, 1)
-                }
-                
+                let specifier = color == .blue ? "-black" : ""
+                imageView.image = UIImage(named: "mana" + specifier)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
                 boardContainerView.addSubview(imageView)
