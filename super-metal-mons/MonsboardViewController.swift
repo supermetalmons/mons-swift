@@ -76,7 +76,7 @@ class MonsboardViewController: UIViewController {
         lastSharedFen = fen
     }
     
-    func endGame(openMenu: Bool = true) {
+    func endGame(openMenu: Bool) {
         game = MonsGame()
         sendFen(game.fen)
         if openMenu {
@@ -88,7 +88,14 @@ class MonsboardViewController: UIViewController {
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
-        endGame(openMenu: true)
+        let alert = UIAlertController(title: "gg?", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "gg", style: .destructive) { [weak self] _ in
+            self?.endGame(openMenu: true)
+        }
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { _ in }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     // TODO: remove this one, this is for development only

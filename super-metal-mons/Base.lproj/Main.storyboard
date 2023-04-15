@@ -28,9 +28,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-W8-eG0">
-                                <rect key="frame" x="329" y="763" width="44" height="35"/>
+                                <rect key="frame" x="326" y="79" width="47" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="gg"/>
+                                <buttonConfiguration key="configuration" style="gray" title="🏳️"/>
                                 <connections>
                                     <action selector="ggButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0vu-Iu-sEc"/>
                                 </connections>
@@ -39,13 +39,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EPq-W8-eG0" secondAttribute="bottom" constant="20" id="1bv-Yk-zfm"/>
                             <constraint firstItem="351-pd-Mp4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WP3-pg-xnE"/>
                             <constraint firstItem="351-pd-Mp4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="bJH-ZE-7bF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EPq-W8-eG0" secondAttribute="trailing" constant="20" id="d9Q-hd-6l3"/>
                             <constraint firstAttribute="bottom" secondItem="FgO-1g-3sr" secondAttribute="bottom" id="f4L-xN-JS7"/>
                             <constraint firstItem="351-pd-Mp4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="k88-AY-mqq"/>
                             <constraint firstItem="FgO-1g-3sr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="n3P-5c-hRv"/>
+                            <constraint firstItem="EPq-W8-eG0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="niQ-Eb-CjU"/>
                             <constraint firstAttribute="trailing" secondItem="FgO-1g-3sr" secondAttribute="trailing" id="pRU-qh-UbZ"/>
                             <constraint firstItem="FgO-1g-3sr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wHe-Q6-8Kg"/>
                         </constraints>
