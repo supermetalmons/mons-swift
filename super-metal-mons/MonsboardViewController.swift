@@ -67,27 +67,31 @@ class MonsboardViewController: UIViewController {
     
     private func updateGameInfo() {
         // TODO: setup correctly depending on player's color
+        
+        let light = UIImage.SymbolConfiguration(pointSize: 44, weight: .light, scale: .default)
+        let ultraLight = UIImage.SymbolConfiguration(pointSize: 44, weight: .ultraLight, scale: .default)
+        
         switch game.activeColor {
         case .red:
             opponentTurnsLabel.text = ""
             playerTurnsLabel.text = game.prettyTurnStatus
             
-            opponentStar.image = UIImage(systemName: "star")
+            opponentStar.preferredSymbolConfiguration = ultraLight
             opponentStar.tintColor = .quaternaryLabel
             opponentScoreLabel.textColor = .quaternaryLabel
             
-            playerStar.image = UIImage(systemName: "star.fill")
+            playerStar.preferredSymbolConfiguration = light
             playerStar.tintColor = .systemYellow
             playerScoreLabel.textColor = .label
         case .blue:
             opponentTurnsLabel.text = game.prettyTurnStatus
             playerTurnsLabel.text = ""
             
-            playerStar.image = UIImage(systemName: "star")
+            playerStar.preferredSymbolConfiguration = ultraLight
             playerStar.tintColor = .quaternaryLabel
             playerScoreLabel.textColor = .quaternaryLabel
             
-            opponentStar.image = UIImage(systemName: "star.fill")
+            opponentStar.preferredSymbolConfiguration = light
             opponentStar.tintColor = .systemYellow
             opponentScoreLabel.textColor = .label
         }
