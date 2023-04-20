@@ -23,6 +23,8 @@ struct Audio {
     private static var player: AVAudioPlayer?
     
     static func play(_ sound: Sound) {
+        guard !Defaults.isSoundDisabled else { return }
+        
         guard let soundFileURL = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav") else { return }
         
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)

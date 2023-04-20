@@ -6,7 +6,7 @@ struct Defaults {
     
     private static let defaults = UserDefaults.standard
     
-    static var isSoundEnabled: Bool {
+    static var isSoundDisabled: Bool {
         get {
             return defaults.bool(forKey: #function)
         }

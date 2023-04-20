@@ -32,7 +32,11 @@ class MonsboardViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var soundControlButton: UIButton!
+    @IBOutlet weak var soundControlButton: UIButton! {
+        didSet {
+            updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
+        }
+    }
     @IBOutlet weak var boardContainerView: UIView!
     
     @IBOutlet weak var opponentTurnsLabel: UILabel!
@@ -139,8 +143,14 @@ class MonsboardViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    private func updateSoundButton(isSoundEnabled: Bool) {
+        soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
+    }
+    
     @IBAction func didTapSoundButton(_ sender: Any) {
-        // TODO: implement
+        let wasDisabled = Defaults.isSoundDisabled
+        Defaults.isSoundDisabled = !wasDisabled
+        updateSoundButton(isSoundEnabled: wasDisabled)
     }
     
     // TODO: remove this one, this is for development only
