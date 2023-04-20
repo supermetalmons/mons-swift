@@ -2,6 +2,8 @@
 
 import Foundation
 
+// TODO: do not play audio from the game logic code
+
 // TODO: do not pass index tuples, instead use locations everywhere
 struct Location: Equatable, Hashable {
     let i: Int
@@ -603,6 +605,7 @@ class MonsGame {
             }
             
             didUseAction()
+            Audio.play(.spiritAbility) // tmp
             
             effects = [targetLocation, destinationLocation].map { Effect.updateCell($0) }
             effects += endTurnIfNeeded()
@@ -670,6 +673,7 @@ class MonsGame {
                     guard mon.kind == .drainer else { return ([], false) }
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    Audio.play(.manaPickUp)
                     monsMovesCount += 1
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 case .consumable(let consumable):
@@ -685,12 +689,19 @@ class MonsGame {
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
+                    Audio.play(.pickUpPotion)
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 case .empty:
                     // TODO: move this boilerplate moving into a separate function
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
+                    switch mon.kind {
+                    case .demon:
+                        Audio.play(.demonMove)
+                    default:
+                        Audio.play(.move)
+                    }
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 }
             } else {
@@ -711,7 +722,7 @@ class MonsGame {
                         let faintIndex = targetMon.base
                         targetMon.faint()
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
-                        
+                        Audio.play(.mysticAbility)
                         return ([faintIndex, to].map { Effect.updateCell($0) }, true)
                     case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return ([], false) }
@@ -728,6 +739,7 @@ class MonsGame {
                         }
                         
                         didUseAction()
+                        Audio.play(.mysticAbility)
                         
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -752,7 +764,7 @@ class MonsGame {
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
                         didUseAction()
-                        
+                        Audio.play(.demonAbility)
                         // TODO: move fainting to the separate function. these three lines repeat in each fainting case
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -794,6 +806,7 @@ class MonsGame {
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
                         
                         didUseAction()
+                        Audio.play(.demonAbility)
                         // TODO: in regular mana case manaIndex == to
                         // TODO: do not add repeating indices in the first place
                         return ([manaIndex, faintIndex, from, to, also].map { Effect.updateCell($0) }, true)
@@ -832,9 +845,11 @@ class MonsGame {
                         case .blue:
                             blueScore += 1
                         }
+                        Audio.play(.scoreMana)
                     } else {
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
+                        Audio.play(.moveMana)
                     }
                     manaMoved = true
                     return ([from, to].map { Effect.updateCell($0) }, true)
@@ -842,6 +857,7 @@ class MonsGame {
                     guard mon.kind == .drainer else { return ([], false) }
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    Audio.play(.manaPickUp)
                     manaMoved = true
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 case .mana, .monWithMana, .consumable:
@@ -866,6 +882,7 @@ class MonsGame {
                             bluePotionsCount += 1
                         }
                     }
+                    Audio.play(.pickUpPotion)
                     board[from.0][from.1] = .empty
                     board[to.0][to.1] = source
                     monsMovesCount += 1
@@ -879,8 +896,10 @@ class MonsGame {
                         switch mana {
                         case .superMana:
                             delta = 2
+                            Audio.play(.scoreSuperMana)
                         case .regular:
                             delta = 1
+                            Audio.play(.scoreMana)
                         }
                         
                         switch poolColor {
@@ -892,6 +911,7 @@ class MonsGame {
                     } else {
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = source
+                        Audio.play(.move)
                     }
                     
                     monsMovesCount += 1

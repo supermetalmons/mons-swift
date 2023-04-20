@@ -18,13 +18,26 @@ class MonsboardViewController: UIViewController {
     
     private var didSetupBoard = false
     
+    @IBOutlet weak var playerImageView: UIImageView! {
+        didSet {
+            playerImageView.layer.borderWidth = CGFloat.pixel
+            playerImageView.layer.borderColor = UIColor.separator.cgColor
+        }
+    }
+    
+    @IBOutlet weak var opponentImageView: UIImageView! {
+        didSet {
+            opponentImageView.layer.borderWidth = CGFloat.pixel
+            opponentImageView.layer.borderColor = UIColor.separator.cgColor
+        }
+    }
+    
+    @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var boardContainerView: UIView!
     
     @IBOutlet weak var opponentTurnsLabel: UILabel!
     @IBOutlet weak var playerTurnsLabel: UILabel!
-    @IBOutlet weak var opponentStar: UIImageView!
     @IBOutlet weak var opponentScoreLabel: UILabel!
-    @IBOutlet weak var playerStar: UIImageView!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
     private let boardSize = 11
@@ -41,7 +54,7 @@ class MonsboardViewController: UIViewController {
         runFirebase()
     }
     
-    let sessionId = "fen101"
+    let sessionId = "fen105"
     
     func runFirebase() {
         database.child(sessionId).observe(.value) { [weak self] (snapshot) in
@@ -67,33 +80,20 @@ class MonsboardViewController: UIViewController {
     
     private func updateGameInfo() {
         // TODO: setup correctly depending on player's color
-        
-        let light = UIImage.SymbolConfiguration(pointSize: 44, weight: .light, scale: .default)
-        let ultraLight = UIImage.SymbolConfiguration(pointSize: 44, weight: .ultraLight, scale: .default)
+        let bold = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        let light = UIFont.systemFont(ofSize: 19, weight: .medium)
         
         switch game.activeColor {
         case .red:
             opponentTurnsLabel.text = ""
             playerTurnsLabel.text = game.prettyTurnStatus
-            
-            opponentStar.preferredSymbolConfiguration = ultraLight
-            opponentStar.tintColor = .quaternaryLabel
-            opponentScoreLabel.textColor = .quaternaryLabel
-            
-            playerStar.preferredSymbolConfiguration = light
-            playerStar.tintColor = .systemYellow
-            playerScoreLabel.textColor = .label
+            opponentScoreLabel.font = light
+            playerScoreLabel.font = bold
         case .blue:
             opponentTurnsLabel.text = game.prettyTurnStatus
             playerTurnsLabel.text = ""
-            
-            playerStar.preferredSymbolConfiguration = ultraLight
-            playerStar.tintColor = .quaternaryLabel
-            playerScoreLabel.textColor = .quaternaryLabel
-            
-            opponentStar.preferredSymbolConfiguration = light
-            opponentStar.tintColor = .systemYellow
-            opponentScoreLabel.textColor = .label
+            opponentScoreLabel.font = bold
+            playerScoreLabel.font = light
         }
         
         opponentScoreLabel.text = String(game.blueScore)
@@ -137,6 +137,10 @@ class MonsboardViewController: UIViewController {
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
+    }
+    
+    @IBAction func didTapSoundButton(_ sender: Any) {
+        // TODO: implement
     }
     
     // TODO: remove this one, this is for development only
