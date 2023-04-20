@@ -129,7 +129,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haM-vj-jVh">
                                         <rect key="frame" x="283.33333333333331" y="3.6666666666666643" width="45.333333333333314" height="35"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="volume" catalog="system"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="speaker" catalog="system"/>
                                         <connections>
                                             <action selector="didTapSoundButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vAJ-ar-7is"/>
                                         </connections>
@@ -249,7 +249,7 @@
         <image name="flag" catalog="system" width="128" height="121"/>
         <image name="logo" width="784" height="480"/>
         <image name="omom" width="895" height="895"/>
-        <image name="volume" catalog="system" width="128" height="123"/>
+        <image name="speaker" catalog="system" width="128" height="123"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
