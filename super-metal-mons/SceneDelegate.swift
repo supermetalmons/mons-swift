@@ -4,6 +4,9 @@ import UIKit
 
 var launchURL: URL?
 
+var macosHeight: CGFloat = 900
+var macosWidth: CGFloat = 600
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -11,8 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        scene.sizeRestrictions?.minimumSize = CGSize(width: 800, height: 1200)
-        scene.sizeRestrictions?.maximumSize = CGSize(width: 800, height: 1200)
+        scene.sizeRestrictions?.minimumSize = CGSize(width: macosWidth, height: macosHeight)
+        scene.sizeRestrictions?.maximumSize = CGSize(width: macosWidth, height: macosHeight)
         
         if let url = connectionOptions.userActivities.first?.webpageURL ?? connectionOptions.urlContexts.first?.url {
             wasOpenedWithURL(url, onStart: true)

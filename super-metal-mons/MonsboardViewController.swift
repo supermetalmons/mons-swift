@@ -164,8 +164,8 @@ class MonsboardViewController: UIViewController {
     
     private func setupMonsboard() {
         #if targetEnvironment(macCatalyst)
-        let screenWidth: CGFloat = 800
-        let screenHeight: CGFloat = 1200
+        let screenWidth: CGFloat = macosWidth
+        let screenHeight: CGFloat = macosHeight
         #else
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
