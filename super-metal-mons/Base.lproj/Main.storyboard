@@ -191,26 +191,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YE-AP-K09">
-                                <rect key="frame" x="20" y="339.66666666666669" width="353" height="221.00000000000006"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="🥚 new game">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="playButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="gvt-hM-aVK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFl-js-bfN">
-                                <rect key="frame" x="20" y="576.66666666666663" width="353" height="221.33333333333337"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="🔗 join with a link">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="joinButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="tjW-zS-h3B"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="igJ-1y-p3U">
+                                <rect key="frame" x="20" y="339.66666666666674" width="353" height="458.33333333333326"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YE-AP-K09">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="142.66666666666666"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="🥚 new game link">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="playButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="gvt-hM-aVK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6x-q3-LdO">
+                                        <rect key="frame" x="0.0" y="157.66666666666663" width="353" height="143"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="🏡 local game">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="localGameButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="6hg-hO-Qfw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFl-js-bfN">
+                                        <rect key="frame" x="0.0" y="315.66666666666669" width="353" height="142.66666666666669"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="🔗 join with a link">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="joinButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="tjW-zS-h3B"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4YE-AP-K09" firstAttribute="width" secondItem="YFl-js-bfN" secondAttribute="width" id="Qbf-46-ZMs"/>
+                                    <constraint firstItem="4YE-AP-K09" firstAttribute="height" secondItem="YFl-js-bfN" secondAttribute="height" id="aoS-aT-Wi8"/>
+                                </constraints>
+                            </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="asW-Wi-Sw3">
                                 <rect key="frame" x="0.0" y="78.999999999999986" width="393" height="240.66666666666663"/>
                                 <constraints>
@@ -221,17 +240,13 @@
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="width" secondItem="YFl-js-bfN" secondAttribute="width" id="BQ4-R4-KOz"/>
-                            <constraint firstItem="YFl-js-bfN" firstAttribute="centerX" secondItem="iKp-lT-Tno" secondAttribute="centerX" id="E87-IQ-b40"/>
+                            <constraint firstItem="igJ-1y-p3U" firstAttribute="leading" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="9d0-mu-tsQ"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" constant="20" id="Hua-yB-dYV"/>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="leading" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="IrT-DL-PUY"/>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="PVy-fH-g54"/>
+                            <constraint firstItem="iKp-lT-Tno" firstAttribute="bottom" secondItem="igJ-1y-p3U" secondAttribute="bottom" constant="20" id="MFX-U9-1t0"/>
+                            <constraint firstItem="igJ-1y-p3U" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20.000000000000114" id="NVG-Q2-6fX"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
-                            <constraint firstItem="iKp-lT-Tno" firstAttribute="bottom" secondItem="YFl-js-bfN" secondAttribute="bottom" constant="20" id="UoI-La-9ak"/>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20" id="Zc0-py-Bci"/>
-                            <constraint firstItem="4YE-AP-K09" firstAttribute="height" secondItem="YFl-js-bfN" secondAttribute="height" id="dBD-sb-Hqv"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="fhr-GJ-Ent"/>
-                            <constraint firstItem="YFl-js-bfN" firstAttribute="top" secondItem="4YE-AP-K09" secondAttribute="bottom" constant="16" id="spu-g3-Fqc"/>
+                            <constraint firstItem="iKp-lT-Tno" firstAttribute="trailing" secondItem="igJ-1y-p3U" secondAttribute="trailing" constant="20" id="tst-zw-tg3"/>
                         </constraints>
                     </view>
                     <connections>

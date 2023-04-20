@@ -13,6 +13,13 @@ class MainMenuViewController: UIViewController {
         present(gameViewController, animated: false)
     }
     
+    @IBAction func localGameButtonTapped(_ sender: Any) {
+        // TODO: implement local game
+        let gameViewController = instantiate(MonsboardViewController.self)
+        gameViewController.modalPresentationStyle = .overFullScreen
+        present(gameViewController, animated: false)
+    }
+    
     @IBAction func joinButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: "there is no link", message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
