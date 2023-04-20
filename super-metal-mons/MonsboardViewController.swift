@@ -8,10 +8,66 @@ class SpaceView: UIView {
     var col = 0
 }
 
+protocol GameDataSource {
+    var gameId: String { get }
+    func observe(completion: @escaping (String) -> Void)
+    func update(fen: String)
+}
+
+class RemoteGameDataSource: GameDataSource {
+    
+    private let database = Database.database().reference()
+    private var lastSharedFen = ""
+    
+    let gameId: String
+    
+    init(gameId: String) {
+        self.gameId = gameId
+    }
+    
+    func observe(completion: @escaping (String) -> Void) {
+        database.child(gameId).observe(.value) { [weak self] (snapshot, _) in
+            guard let data = snapshot.value as? [String: AnyObject], let fen = data["fen"] as? String else {
+                print("No fen found")
+                return
+            }
+            
+            guard self?.lastSharedFen != fen, !fen.isEmpty else { return }
+            completion(fen)
+        }
+    }
+    
+    func update(fen: String) {
+        guard lastSharedFen != fen else { return }
+        database.child(gameId).setValue(["fen": fen])
+        lastSharedFen = fen
+    }
+    
+}
+
+class LocalGameDataSource: GameDataSource {
+    
+    let gameId: String
+    
+    init(gameId: String) {
+        self.gameId = gameId
+    }
+    
+    func observe(completion: @escaping (String) -> Void) {}
+    
+    func update(fen: String) { }
+    
+}
+
 class MonsboardViewController: UIViewController {
     
-    let database = Database.database().reference()
-    private var lastSharedFen = ""
+    var gameDataSource: GameDataSource!
+    
+    static func with(gameDataSource: GameDataSource) -> MonsboardViewController {
+        let new = instantiate(MonsboardViewController.self)
+        new.gameDataSource = gameDataSource
+        return new
+    }
     
     private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
@@ -55,29 +111,15 @@ class MonsboardViewController: UIViewController {
         super.viewDidLoad()
         setupMonsboard()
         updateGameInfo()
-        runFirebase()
-    }
-    
-    let sessionId = "fen105"
-    
-    func runFirebase() {
-        database.child(sessionId).observe(.value) { [weak self] (snapshot) in
-            guard let data = snapshot.value as? [String: AnyObject], let fen = data["fen"] as? String else {
-                print("No fen found")
-                return
-            }
-            self?.receivedFenFromNetwork(fen: fen)
-        }
-    }
-    
-    func receivedFenFromNetwork(fen: String) {
-        guard lastSharedFen != fen, !fen.isEmpty else { return }
-        DispatchQueue.main.async {
-            self.game = MonsGame(fen: fen)!
-            self.restartBoardForTest()
-            self.updateGameInfo()
-            if let winner = self.game.winnerColor {
-                self.didWin(color: winner)
+        
+        gameDataSource.observe { [weak self] fen in
+            DispatchQueue.main.async {
+                self?.game = MonsGame(fen: fen)!
+                self?.restartBoardForTest()
+                self?.updateGameInfo()
+                if let winner = self?.game.winnerColor {
+                    self?.didWin(color: winner)
+                }
             }
         }
     }
@@ -116,9 +158,7 @@ class MonsboardViewController: UIViewController {
     }
     
     func sendFen(_ fen: String) {
-        guard lastSharedFen != fen else { return }
-        database.child(sessionId).setValue(["fen": fen])
-        lastSharedFen = fen
+        gameDataSource.update(fen: fen)
     }
     
     func endGame(openMenu: Bool) {

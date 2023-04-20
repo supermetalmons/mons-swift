@@ -8,14 +8,14 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var joinButton: UIButton!
     
     @IBAction func playButtonTapped(_ sender: Any) {
-        let gameViewController = instantiate(MonsboardViewController.self)
+        let id = "yo" // TODO: implement
+        let gameViewController = MonsboardViewController.with(gameDataSource: RemoteGameDataSource(gameId: id))
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
     }
     
     @IBAction func localGameButtonTapped(_ sender: Any) {
-        // TODO: implement local game
-        let gameViewController = instantiate(MonsboardViewController.self)
+        let gameViewController = MonsboardViewController.with(gameDataSource: LocalGameDataSource(gameId: ""))
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
     }
