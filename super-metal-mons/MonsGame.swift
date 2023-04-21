@@ -42,20 +42,6 @@ class MonsGame {
     
     private let boardSize = 11 // TODO: use it when creating a board as well
     
-    var prettyGameStatus: String {
-        let messages = [
-            (activeColor == .red ? "🔴" : "🔵"),
-            "🔻 \(redScore)",
-            "🔹 \(blueScore)",
-            "\n\n💧 \(manaMoved ? 0 : 1)",
-            "👻 \(5-monsMovesCount)",
-            "🪄 \(actionUsed ? 0 : 1)",
-            "\n\n🗓️ \(turnNumber)",
-            "🧪 r\(redPotionsCount)    🧪 b\(bluePotionsCount)"
-        ]
-        return messages.joined(separator: "    ")
-    }
-    
     var prettyTurnStatus: String {
         var status = ""
         for _ in 0..<5-monsMovesCount {
