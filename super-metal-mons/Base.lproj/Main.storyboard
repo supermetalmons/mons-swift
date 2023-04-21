@@ -19,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgO-1g-3sr">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTh-AV-1yS">
                                 <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
@@ -162,7 +162,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1jU-wt-xwP"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2zD-i8-USp"/>
