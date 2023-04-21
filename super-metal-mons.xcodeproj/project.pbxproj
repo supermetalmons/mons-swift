@@ -14,6 +14,7 @@
 		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
+		2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B929F336260052F455 /* GameDataSource.swift */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2CB7462629F18DC700ACC855 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
@@ -51,6 +52,7 @@
 		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
+		2C7AE8B929F336260052F455 /* GameDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataSource.swift; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CB7462329F12BA100ACC855 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2CB7462529F18DC700ACC855 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
 				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2CB7462529F18DC700ACC855 /* Images.swift */,
@@ -260,6 +263,7 @@
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
+				2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
