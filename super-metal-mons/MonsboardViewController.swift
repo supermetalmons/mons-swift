@@ -74,19 +74,8 @@ class MonsboardViewController: UIViewController {
     
     private var didSetupBoard = false
     
-    @IBOutlet weak var playerImageView: UIImageView! {
-        didSet {
-            playerImageView.layer.borderWidth = CGFloat.pixel
-            playerImageView.layer.borderColor = UIColor.separator.cgColor
-        }
-    }
-    
-    @IBOutlet weak var opponentImageView: UIImageView! {
-        didSet {
-            opponentImageView.layer.borderWidth = CGFloat.pixel
-            opponentImageView.layer.borderColor = UIColor.separator.cgColor
-        }
-    }
+    @IBOutlet weak var playerImageView: UIImageView!
+    @IBOutlet weak var opponentImageView: UIImageView!
     
     @IBOutlet weak var soundControlButton: UIButton! {
         didSet {
@@ -144,6 +133,14 @@ class MonsboardViewController: UIViewController {
         
         opponentScoreLabel.text = String(game.blueScore)
         playerScoreLabel.text = String(game.redScore)
+    }
+    
+    @IBAction func didTapPlayerAvatar(_ sender: Any) {
+        playerImageView.image = Images.randomEmoji
+    }
+    
+    @IBAction func didTapOpponentAvatar(_ sender: Any) {
+        opponentImageView.image = Images.randomEmoji
     }
     
     func didWin(color: Color) {

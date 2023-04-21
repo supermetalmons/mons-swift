@@ -4,6 +4,11 @@ import UIKit
 
 struct Images {
     
+    static var randomEmoji: UIImage {
+        let index = Int.random(in: 1...164)
+        return named("emoji-\(index)")
+    }
+    
     static var soundEnabled: UIImage { systemName("speaker") }
     static var soundDisabled: UIImage { systemName("speaker.slash") }
     

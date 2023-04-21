@@ -13,6 +13,7 @@
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
+		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2CB7462629F18DC700ACC855 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
@@ -49,6 +50,7 @@
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CB7462329F12BA100ACC855 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2CB7462529F18DC700ACC855 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				2CDB1AD429EEF48E00C51230 /* smmgamesfx */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
+				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
 				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
 				2CC39E8D29CA48B300EDF779 /* Info.plist */,
@@ -230,6 +233,7 @@
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
 				2CDB1AEB29EEF48E00C51230 /* downBump.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
+				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
 				2CDB1AF229EF020500C51230 /* moveMana.wav in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSuperMana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
