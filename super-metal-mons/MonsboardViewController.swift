@@ -170,8 +170,8 @@ class MonsboardViewController: UIViewController {
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "gg?", message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "gg", style: .destructive) { [weak self] _ in
+        let alert = UIAlertController(title: "end the game?", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok", style: .destructive) { [weak self] _ in
             self?.endGame(openMenu: true)
         }
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { _ in }
