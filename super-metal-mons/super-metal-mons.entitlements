@@ -4,7 +4,6 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:lil.org</string>
 		<string>applinks:mons.link</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
