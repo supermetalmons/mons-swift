@@ -25,6 +25,9 @@ class MonsboardViewController: UIViewController {
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
     
+    @IBOutlet weak var opponentHighlightView: UIImageView!
+    @IBOutlet weak var playerHighlightView: UIImageView!
+    
     @IBOutlet weak var soundControlButton: UIButton! {
         didSet {
             updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
@@ -68,11 +71,15 @@ class MonsboardViewController: UIViewController {
         
         switch game.activeColor {
         case .red:
+            opponentHighlightView.isHidden = true
+            playerHighlightView.isHidden = false
             opponentTurnsLabel.text = ""
             playerTurnsLabel.text = game.prettyTurnStatus
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
         case .blue:
+            opponentHighlightView.isHidden = false
+            playerHighlightView.isHidden = true
             opponentTurnsLabel.text = game.prettyTurnStatus
             playerTurnsLabel.text = ""
             opponentScoreLabel.font = bold
