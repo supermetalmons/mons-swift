@@ -41,14 +41,15 @@ class MainMenuViewController: UIViewController {
             link = url.absoluteString
         }
         
-        let prefix = "lil.org/mons?"
+        let prefix = "mons.link/"
         
-        if link.hasPrefix(prefix) {
+        if link.hasPrefix(prefix), link.count > prefix.count {
             let id = String(link.dropFirst(prefix.count))
-            
             let gameViewController = MonsboardViewController.with(gameDataSource: RemoteGameDataSource(gameId: id))
             gameViewController.modalPresentationStyle = .overFullScreen
             present(gameViewController, animated: false)
+        } else {
+            // TODO: communicate failed connection
         }
     }
     
@@ -60,8 +61,8 @@ class MainMenuViewController: UIViewController {
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
         
-        let link = "lil.org/mons?\(id)"
-        let alert = UIAlertController(title: "invite link", message: link, preferredStyle: .alert)
+        let link = "mons.link/\(id)"
+        let alert = UIAlertController(title: "invite", message: link, preferredStyle: .alert)
         let copyAction = UIAlertAction(title: "copy", style: .default) { _ in
             UIPasteboard.general.string = link
         }
