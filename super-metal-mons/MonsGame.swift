@@ -192,6 +192,19 @@ class MonsGame {
         return !isFirstTurn && (!actionUsed || potionsCount > 0)
     }
     
+    // TODO: optimize mana search the same way as mons iteration
+    private var hasFreeMana: Bool {
+        for i in 0..<boardSize {
+            for j in 0..<boardSize {
+                let space = board[i][j]
+                if case let .mana(.regular(color: color)) = space, color == activeColor {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private var canMoveMana: Bool {
         return !isFirstTurn && !manaMoved
     }
@@ -953,10 +966,15 @@ class MonsGame {
     }
     
     private func endTurnIfNeeded() -> [Effect] {
-        guard winnerColor == nil,
-              (isFirstTurn && !canMoveMon) ||
-                (!isFirstTurn && !canMoveMana) else { return [] }
-        return endTurn()
+        guard winnerColor == nil else { return [] }
+        
+        if isFirstTurn && !canMoveMon ||
+            !isFirstTurn && !canMoveMana ||
+            !isFirstTurn && !canMoveMon && !hasFreeMana {
+            return endTurn()
+        } else {
+            return []
+        }
     }
     
     // TODO: move target score to the game config
