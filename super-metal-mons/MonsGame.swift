@@ -42,29 +42,28 @@ class MonsGame {
     
     private let boardSize = 11 // TODO: use it when creating a board as well
     
-    var prettyTurnStatus: String {
-        var status = ""
-        for _ in 0..<5-monsMovesCount {
-            status += "👟"
-        }
+    enum Move: String {
+        case step, action, mana
+    }
+    
+    var availableMoves: [Move: Int] {
+        var moves: [Move: Int] = [
+            .step: 5 - monsMovesCount,
+            .action: 0,
+            .mana: 0
+        ]
         
         if isFirstTurn {
-            return status
+            return moves
         }
         
-        if !actionUsed {
-            status += "🦄"
-        }
-        
-        for _ in 0..<potionsCount {
-            status += "🦄"
-        }
+        moves[.action] = (actionUsed ? 0 : 1) + potionsCount
         
         if !manaMoved {
-            status += "💧"
+            moves[.mana] = 1
         }
         
-        return status
+        return moves
     }
     
     let version: Int

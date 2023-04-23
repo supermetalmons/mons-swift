@@ -62,7 +62,7 @@ class MainMenuViewController: UIViewController {
         present(gameViewController, animated: false)
         
         let link = "mons.link/\(id)"
-        let alert = UIAlertController(title: "invite", message: link, preferredStyle: .alert)
+        let alert = UIAlertController(title: "invite with", message: link, preferredStyle: .alert)
         let copyAction = UIAlertAction(title: "copy", style: .default) { _ in
             UIPasteboard.general.string = link
         }

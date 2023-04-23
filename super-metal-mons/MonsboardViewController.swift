@@ -22,6 +22,12 @@ class MonsboardViewController: UIViewController {
     
     private var didSetupBoard = false
     
+    @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var opponentMovesStackView: UIStackView!
+    @IBOutlet weak var playerMovesStackView: UIStackView!
+    
+    @IBOutlet weak var topButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
     
@@ -34,9 +40,6 @@ class MonsboardViewController: UIViewController {
         }
     }
     @IBOutlet weak var boardContainerView: UIView!
-    
-    @IBOutlet weak var opponentTurnsLabel: UILabel!
-    @IBOutlet weak var playerTurnsLabel: UILabel!
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
@@ -49,6 +52,13 @@ class MonsboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        #if targetEnvironment(macCatalyst)
+        topButtonTopConstraint.constant = 8
+        playerMovesTrailingConstraint.constant = 7
+        opponentMovesTrailingConstraint.constant = 7
+        #endif
+        
         setupMonsboard()
         updateGameInfo()
         
@@ -64,6 +74,23 @@ class MonsboardViewController: UIViewController {
         }
     }
     
+    private func setupMovesView(_ stackView: UIStackView, moves: [MonsGame.Move: Int]) {
+        let steps = moves[.step] ?? 0
+        let mana = moves[.mana] ?? 0
+        let actions = moves[.action] ?? 0
+        
+        for (i, moveView) in stackView.arrangedSubviews.enumerated() {
+            switch i {
+            case 0...4:
+                moveView.isHidden = i >= steps
+            case 5...7:
+                moveView.isHidden = (i - 5) >= actions
+            default:
+                moveView.isHidden = mana == 0
+            }
+        }
+    }
+    
     private func updateGameInfo() {
         // TODO: setup correctly depending on player's color
         let bold = UIFont.systemFont(ofSize: 19, weight: .semibold)
@@ -73,15 +100,21 @@ class MonsboardViewController: UIViewController {
         case .red:
             opponentHighlightView.isHidden = true
             playerHighlightView.isHidden = false
-            opponentTurnsLabel.text = ""
-            playerTurnsLabel.text = game.prettyTurnStatus
+            
+            setupMovesView(playerMovesStackView, moves: game.availableMoves)
+            opponentMovesStackView.isHidden = true
+            playerMovesStackView.isHidden = false
+            
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
         case .blue:
             opponentHighlightView.isHidden = false
             playerHighlightView.isHidden = true
-            opponentTurnsLabel.text = game.prettyTurnStatus
-            playerTurnsLabel.text = ""
+            
+            setupMovesView(opponentMovesStackView, moves: game.availableMoves)
+            opponentMovesStackView.isHidden = false
+            playerMovesStackView.isHidden = true
+            
             opponentScoreLabel.font = bold
             playerScoreLabel.font = light
         }
