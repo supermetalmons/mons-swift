@@ -4,23 +4,23 @@ import UIKit
 
 struct Images {
     
-    static func consumable(_ consumable: Consumable) -> UIImage {
+    static func consumable(_ consumable: Consumable, style: BoardStyle) -> UIImage {
         switch consumable {
         case .potion:
-            return named("potion")
+            return named(style.namespace + "potion")
         }
     }
     
-    static func mon(_ mon: Mon) -> UIImage {
-        return named(mon.kind.rawValue + mon.color.imageNameSuffix)
+    static func mon(_ mon: Mon, style: BoardStyle) -> UIImage {
+        return named(style.namespace + mon.kind.rawValue + mon.color.imageNameSuffix)
     }
     
-    static func mana(_ mana: Mana) -> UIImage {
+    static func mana(_ mana: Mana, style: BoardStyle) -> UIImage {
         switch mana {
         case .regular(let color):
-            return named("mana" + color.imageNameSuffix)
+            return named(style.namespace + "mana" + color.imageNameSuffix)
         case .superMana:
-            return named("super-mana")
+            return named(style.namespace + "supermana")
         }
     }
     

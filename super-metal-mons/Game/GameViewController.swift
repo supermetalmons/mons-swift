@@ -233,29 +233,23 @@ class GameViewController: UIViewController {
     }
     
     private func updateCell(_ i: Int, _ j: Int) {
-        
-        // TODO: look at the data and do nothing when nothing changed
-        
         let piece = game.board[i][j]
+        let style = BoardStyle.pixel
         switch piece {
-        case .consumable:
+        case let .consumable(consumable):
             if !didSetupBoard {
                 // TODO: this would brake when we start with the ongoing game
                 squares[i][j]?.backgroundColor = Colors.squareConsumable
             }
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
-            imageView.image = UIImage(named: "potion") // TODO: get name from consumable enum
+            imageView.image = Images.consumable(consumable, style: style)
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             monsOnBoard[i][j] = imageView
         case let .mon(mon: mon):
-            
-            // TODO: refactor. move it from here. there is the same code in mon and mana case
-            let imageName = mon.kind.rawValue + (mon.color == .black ? "-black" : "")
-            
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-            imageView.image = UIImage(named: imageName)
+            imageView.image = Images.mon(mon, style: style)
             
             if mon.isFainted {
                 imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -268,51 +262,36 @@ class GameViewController: UIViewController {
             monsOnBoard[i][j] = imageView
             
         case let .monWithMana(mon: mon, mana: mana):
-            // TODO: refactor. move it from here. there is the same code in mon and mana case
-            let imageName = mon.kind.rawValue + (mon.color == .black ? "-black" : "")
-            
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-            imageView.image = UIImage(named: imageName)
+            imageView.image = Images.mon(mon, style: style)
             
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             
-            switch mana {
-            case let .regular(color: color):
-                let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                let specifier = color == .black ? "-black" : ""
-                manaView.image = UIImage(named: "mana" + specifier)
-                
-                manaView.contentMode = .scaleAspectFit
-                imageView.addSubview(manaView)
-            case .superMana:
-                let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                manaView.image = UIImage(named: "super-mana")
-                manaView.contentMode = .scaleAspectFit
-                imageView.addSubview(manaView)
-                monsOnBoard[i][j] = imageView
-            }
+            let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
+            manaView.image = Images.mana(mana, style: style)
+            manaView.contentMode = .scaleAspectFit
+            imageView.addSubview(manaView)
             
             monsOnBoard[i][j] = imageView
             
         case let .mana(mana: mana):
             switch mana {
-            case let .regular(color: color):
+            case .regular:
                 if !didSetupBoard {
                     squares[i][j]?.backgroundColor = Colors.squareMana
                 }
                 
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                let specifier = color == .black ? "-black" : ""
-                imageView.image = UIImage(named: "mana" + specifier)
+                imageView.image = Images.mana(mana, style: style)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
                 boardContainerView.addSubview(imageView)
                 monsOnBoard[i][j] = imageView
             case .superMana:
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                imageView.image = UIImage(named: "super-mana")
+                imageView.image = Images.mana(mana, style: style)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
                 boardContainerView.addSubview(imageView)
