@@ -125,26 +125,15 @@
 		2CC39E7E29CA48B200EDF779 /* super-metal-mons */ = {
 			isa = PBXGroup;
 			children = (
-				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,
-				2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */,
-				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
-				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
-				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
-				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
-				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
-				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
-				2C53FC5929CCF8F000F49668 /* Models.swift */,
-				2CB7462329F12BA100ACC855 /* Defaults.swift */,
-				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
-				2CC4FBDE29F6B5AB00A90CDD /* Extensions */,
-				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
-				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
-				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
+				2CC4FBE629F6C7D300A90CDD /* App */,
+				2CC4FBE729F6C7E700A90CDD /* Screens */,
+				2CC4FBE429F6C77F00A90CDD /* Game */,
+				2CC4FBE529F6C7B900A90CDD /* Services */,
+				2CC4FBE329F6C72E00A90CDD /* Utilities */,
+				2CC4FBDE29F6B5AB00A90CDD /* Extensions */,
 				2CC4FBDB29F69CCF00A90CDD /* Media */,
-				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
-				2CC39E8D29CA48B300EDF779 /* Info.plist */,
-				2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */,
+				2CC4FBE829F6C7F600A90CDD /* Supporting Files */,
 			);
 			path = "super-metal-mons";
 			sourceTree = "<group>";
@@ -167,11 +156,70 @@
 		2CC4FBDE29F6B5AB00A90CDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
 				2CC4FBDF29F6C69200A90CDD /* String.swift */,
 				2CC4FBE129F6C69900A90CDD /* URL.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2CC4FBE329F6C72E00A90CDD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
+				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
+				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2CC4FBE429F6C77F00A90CDD /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
+				2C53FC5929CCF8F000F49668 /* Models.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		2CC4FBE529F6C7B900A90CDD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
+				2CB7462329F12BA100ACC855 /* Defaults.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2CC4FBE629F6C7D300A90CDD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */,
+				2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2CC4FBE729F6C7E700A90CDD /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
+				2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		2CC4FBE829F6C7F600A90CDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
+				2CC39E8D29CA48B300EDF779 /* Info.plist */,
+				2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */,
+				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		2CDB1AD429EEF48E00C51230 /* smmgamesfx */ = {
@@ -451,13 +499,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/super-metal-mons.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "super-metal-mons/Info.plist";
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -489,13 +537,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/super-metal-mons.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "super-metal-mons/Info.plist";
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
