@@ -4,6 +4,26 @@ import UIKit
 
 struct Images {
     
+    static func consumable(_ consumable: Consumable) -> UIImage {
+        switch consumable {
+        case .potion:
+            return named("potion")
+        }
+    }
+    
+    static func mon(_ mon: Mon) -> UIImage {
+        return named(mon.kind.rawValue + mon.color.imageNameSuffix)
+    }
+    
+    static func mana(_ mana: Mana) -> UIImage {
+        switch mana {
+        case .regular(let color):
+            return named("mana" + color.imageNameSuffix)
+        case .superMana:
+            return named("super-mana")
+        }
+    }
+    
     static var randomEmoji: UIImage {
         let index = Int.random(in: 1...164)
         return emoji(index)
@@ -30,3 +50,13 @@ struct Images {
     
 }
 
+private extension Color {
+    
+    var imageNameSuffix: String {
+        switch self {
+        case .black: return "-black"
+        case .white: return ""
+        }
+    }
+    
+}
