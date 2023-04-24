@@ -129,14 +129,14 @@ enum Space {
 }
 
 enum Color {
-    case red, blue
+    case white, black
     
     init?(fen: String) {
         switch fen {
-        case "r":
-            self = .red
+        case "w":
+            self = .white
         case "b":
-            self = .blue
+            self = .black
         default:
             return nil
         }
@@ -144,8 +144,8 @@ enum Color {
     
     var fen: String {
         switch self {
-        case .red: return "r"
-        case .blue: return "b"
+        case .white: return "w"
+        case .black: return "b"
         }
     }
 }
@@ -155,18 +155,18 @@ struct Mon {
     var base: (i: Int, j: Int) {
         // TODO: DRY
         // TODO: parametrize with the board size? or put it all into a config.
-        let isRed = color == .red
+        let isWhite = color == .white
         switch kind {
         case .drainer:
-            return isRed ? (10, 5) : (0, 5)
+            return isWhite ? (10, 5) : (0, 5)
         case .angel:
-            return isRed ? (10, 4) : (0, 6)
+            return isWhite ? (10, 4) : (0, 6)
         case .spirit:
-            return isRed ? (10, 6) : (0, 4)
+            return isWhite ? (10, 6) : (0, 4)
         case .demon:
-            return isRed ? (10, 3) : (0, 7)
+            return isWhite ? (10, 3) : (0, 7)
         case .mystic:
-            return isRed ? (10, 7) : (0, 3)
+            return isWhite ? (10, 7) : (0, 3)
         }
         
     }
@@ -201,7 +201,7 @@ struct Mon {
         default: return nil
         }
         
-        self.color = first.isLowercase ? .blue : .red
+        self.color = first.isLowercase ? .black : .white
         self.cooldown = cooldown
     }
     
@@ -215,7 +215,7 @@ struct Mon {
         case .mystic: letter = "y"
         }
         let cooldown = String(cooldown % 10)
-        return (color == .red ? letter.uppercased() : letter) + cooldown
+        return (color == .white ? letter.uppercased() : letter) + cooldown
     }
     
     mutating func faint() {
@@ -236,8 +236,8 @@ enum Mana {
     init?(fen: String) {
         switch fen {
         case "U": self = .superMana
-        case "M": self = .regular(color: .red)
-        case "m": self = .regular(color: .blue)
+        case "M": self = .regular(color: .white)
+        case "m": self = .regular(color: .black)
         default: return nil
         }
     }
@@ -245,7 +245,7 @@ enum Mana {
     var fen: String {
         switch self {
         case let .regular(color: color):
-            return color == .red ? "M" : "m"
+            return color == .white ? "M" : "m"
         case .superMana:
             return "U"
         }

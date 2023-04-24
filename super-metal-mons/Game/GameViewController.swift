@@ -98,7 +98,7 @@ class GameViewController: UIViewController {
         let light = UIFont.systemFont(ofSize: 19, weight: .medium)
         
         switch game.activeColor {
-        case .red:
+        case .white:
             opponentHighlightView.isHidden = true
             playerHighlightView.isHidden = false
             
@@ -108,7 +108,7 @@ class GameViewController: UIViewController {
             
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
-        case .blue:
+        case .black:
             opponentHighlightView.isHidden = false
             playerHighlightView.isHidden = true
             
@@ -120,8 +120,8 @@ class GameViewController: UIViewController {
             playerScoreLabel.font = light
         }
         
-        opponentScoreLabel.text = String(game.blueScore)
-        playerScoreLabel.text = String(game.redScore)
+        opponentScoreLabel.text = String(game.blackScore)
+        playerScoreLabel.text = String(game.whiteScore)
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
@@ -133,7 +133,7 @@ class GameViewController: UIViewController {
     }
     
     private func didWin(color: Color) {
-        let alert = UIAlertController(title: color == .red ? "🔴" : "🔵", message: "all done", preferredStyle: .alert)
+        let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: "all done", preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
             // or i guess in these case there should be a new game id exchage
@@ -252,7 +252,7 @@ class GameViewController: UIViewController {
         case let .mon(mon: mon):
             
             // TODO: refactor. move it from here. there is the same code in mon and mana case
-            let imageName = mon.kind.rawValue + (mon.color == .blue ? "-black" : "")
+            let imageName = mon.kind.rawValue + (mon.color == .black ? "-black" : "")
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
             imageView.image = UIImage(named: imageName)
@@ -269,7 +269,7 @@ class GameViewController: UIViewController {
             
         case let .monWithMana(mon: mon, mana: mana):
             // TODO: refactor. move it from here. there is the same code in mon and mana case
-            let imageName = mon.kind.rawValue + (mon.color == .blue ? "-black" : "")
+            let imageName = mon.kind.rawValue + (mon.color == .black ? "-black" : "")
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
             imageView.image = UIImage(named: imageName)
@@ -281,7 +281,7 @@ class GameViewController: UIViewController {
             switch mana {
             case let .regular(color: color):
                 let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                let specifier = color == .blue ? "-black" : ""
+                let specifier = color == .black ? "-black" : ""
                 manaView.image = UIImage(named: "mana" + specifier)
                 
                 manaView.contentMode = .scaleAspectFit
@@ -304,7 +304,7 @@ class GameViewController: UIViewController {
                 }
                 
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
-                let specifier = color == .blue ? "-black" : ""
+                let specifier = color == .black ? "-black" : ""
                 imageView.image = UIImage(named: "mana" + specifier)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero

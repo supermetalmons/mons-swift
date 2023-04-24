@@ -68,16 +68,16 @@ class MonsGame {
     
     let version: Int
     
-    var redScore: Int
-    var blueScore: Int
+    var whiteScore: Int
+    var blackScore: Int
     
     var activeColor: Color
     var actionUsed: Bool // TODO: use int here to make game more configurable
     var manaMoved: Bool // TODO: use int here to make game more configurable
     var monsMovesCount: Int
     
-    var redPotionsCount: Int
-    var bluePotionsCount: Int
+    var whitePotionsCount: Int
+    var blackPotionsCount: Int
     
     var turnNumber: Int
     var board: [[Space]]
@@ -86,39 +86,39 @@ class MonsGame {
     
     init() {
         self.version = 1
-        self.redScore = 0
-        self.blueScore = 0
-        self.activeColor = .red
+        self.whiteScore = 0
+        self.blackScore = 0
+        self.activeColor = .white
         self.actionUsed = false
         self.manaMoved = false
         self.monsMovesCount = 0
-        self.redPotionsCount = 0
-        self.bluePotionsCount = 0
+        self.whitePotionsCount = 0
+        self.blackPotionsCount = 0
         self.turnNumber = 1
         self.board = [
             [.empty, .empty, .empty,
-             .mon(mon: Mon(kind: .mystic, color: .blue)), // 3
-             .mon(mon: Mon(kind: .spirit, color: .blue)), // 4
-             .mon(mon: Mon(kind: .drainer, color: .blue)), // 5
-             .mon(mon: Mon(kind: .angel, color: .blue)), // 6
-             .mon(mon: Mon(kind: .demon, color: .blue)), // 7
+             .mon(mon: Mon(kind: .mystic, color: .black)), // 3
+             .mon(mon: Mon(kind: .spirit, color: .black)), // 4
+             .mon(mon: Mon(kind: .drainer, color: .black)), // 5
+             .mon(mon: Mon(kind: .angel, color: .black)), // 6
+             .mon(mon: Mon(kind: .demon, color: .black)), // 7
              .empty, .empty, .empty],
             
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
             
             [.empty, .empty,  .empty, .empty,
-             .mana(mana: .regular(color: .blue)),
+             .mana(mana: .regular(color: .black)),
              .empty,
-             .mana(mana: .regular(color: .blue)),
+             .mana(mana: .regular(color: .black)),
              .empty, .empty, .empty, .empty],
             
             [.empty, .empty,  .empty,
-             .mana(mana: .regular(color: .blue)),
+             .mana(mana: .regular(color: .black)),
              .empty,
-             .mana(mana: .regular(color: .blue)),
+             .mana(mana: .regular(color: .black)),
              .empty,
-             .mana(mana: .regular(color: .blue)),
+             .mana(mana: .regular(color: .black)),
              .empty, .empty, .empty],
             
             [.consumable(consumable: .potion),
@@ -128,28 +128,28 @@ class MonsGame {
              .consumable(consumable: .potion)],
             
             [.empty, .empty,  .empty,
-             .mana(mana: .regular(color: .red)),
+             .mana(mana: .regular(color: .white)),
              .empty,
-             .mana(mana: .regular(color: .red)),
+             .mana(mana: .regular(color: .white)),
              .empty,
-             .mana(mana: .regular(color: .red)),
+             .mana(mana: .regular(color: .white)),
              .empty, .empty, .empty],
             
             [.empty, .empty,  .empty, .empty,
-             .mana(mana: .regular(color: .red)),
+             .mana(mana: .regular(color: .white)),
              .empty,
-             .mana(mana: .regular(color: .red)),
+             .mana(mana: .regular(color: .white)),
              .empty, .empty, .empty, .empty],
             
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
             [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
             
             [.empty, .empty, .empty,
-             .mon(mon: Mon(kind: .demon, color: .red)), // 3
-             .mon(mon: Mon(kind: .angel, color: .red)), // 4
-             .mon(mon: Mon(kind: .drainer, color: .red)), // 5
-             .mon(mon: Mon(kind: .spirit, color: .red)), // 6
-             .mon(mon: Mon(kind: .mystic, color: .red)), // 7
+             .mon(mon: Mon(kind: .demon, color: .white)), // 3
+             .mon(mon: Mon(kind: .angel, color: .white)), // 4
+             .mon(mon: Mon(kind: .drainer, color: .white)), // 5
+             .mon(mon: Mon(kind: .spirit, color: .white)), // 6
+             .mon(mon: Mon(kind: .mystic, color: .white)), // 7
              .empty, .empty, .empty],
         ]
     }
@@ -158,34 +158,34 @@ class MonsGame {
         let fields = fen.split(separator: " ")
         guard fields.count == 11,
               let version = Int(fields[0]),
-              let redScore = Int(fields[1]),
-              let blueScore = Int(fields[2]),
+              let whiteScore = Int(fields[1]),
+              let blackScore = Int(fields[2]),
               let activeColor = Color(fen: String(fields[3])),
               let actionUsed = Bool(fen: String(fields[4])),
               let manaMoved = Bool(fen: String(fields[5])),
               let monsMovesCount = Int(fields[6]),
-              let redPotionsCount = Int(fields[7]),
-              let bluePotionsCount = Int(fields[8]),
+              let whitePotionsCount = Int(fields[7]),
+              let blackPotionsCount = Int(fields[8]),
               let turnNumber = Int(fields[9]),
               let board = [[Space]](fen: String(fields[10]))
         else { return nil }
         
         self.version = version
-        self.redScore = redScore
-        self.blueScore = blueScore
+        self.whiteScore = whiteScore
+        self.blackScore = blackScore
         self.activeColor = activeColor
         self.actionUsed = actionUsed
         self.manaMoved = manaMoved
         self.monsMovesCount = monsMovesCount
-        self.redPotionsCount = redPotionsCount
-        self.bluePotionsCount = bluePotionsCount
+        self.whitePotionsCount = whitePotionsCount
+        self.blackPotionsCount = blackPotionsCount
         self.turnNumber = turnNumber
         self.board = board
     }
     
     
     private var potionsCount: Int {
-        return activeColor == .red ? redPotionsCount : bluePotionsCount
+        return activeColor == .white ? whitePotionsCount : blackPotionsCount
     }
     
     private var canUseAction: Bool {
@@ -214,10 +214,10 @@ class MonsGame {
             actionUsed = true
         } else {
             switch activeColor {
-            case .red:
-                redPotionsCount -= 1
-            case .blue:
-                bluePotionsCount -= 1
+            case .white:
+                whitePotionsCount -= 1
+            case .black:
+                blackPotionsCount -= 1
             }
         }
     }
@@ -558,17 +558,17 @@ class MonsGame {
                 board[targetLocation.0][targetLocation.1] = .empty
                 if case let .mon(mon) = destination {
                     switch mon.color {
-                    case .blue:
-                        bluePotionsCount += 1
-                    case .red:
-                        redPotionsCount += 1
+                    case .black:
+                        blackPotionsCount += 1
+                    case .white:
+                        whitePotionsCount += 1
                     }
                 } else if case let .monWithMana(mon, _) = destination {
                     switch mon.color {
-                    case .blue:
-                        bluePotionsCount += 1
-                    case .red:
-                        redPotionsCount += 1
+                    case .black:
+                        blackPotionsCount += 1
+                    case .white:
+                        whitePotionsCount += 1
                     }
                 } else {
                     board[destinationLocation.0][destinationLocation.1] = target
@@ -577,10 +577,10 @@ class MonsGame {
                 board[targetLocation.0][targetLocation.1] = .empty
                 if case .consumable = destination {
                     switch mon.color {
-                    case .blue:
-                        bluePotionsCount += 1
-                    case .red:
-                        redPotionsCount += 1
+                    case .black:
+                        blackPotionsCount += 1
+                    case .white:
+                        whitePotionsCount += 1
                     }
                     board[destinationLocation.0][destinationLocation.1] = target
                 } else if case let .mana(mana) = destination {
@@ -591,10 +591,10 @@ class MonsGame {
             case let .monWithMana(mon, _):
                 if case .consumable = destination {
                     switch mon.color {
-                    case .blue:
-                        bluePotionsCount += 1
-                    case .red:
-                        redPotionsCount += 1
+                    case .black:
+                        blackPotionsCount += 1
+                    case .white:
+                        whitePotionsCount += 1
                     }
                 }
                 board[targetLocation.0][targetLocation.1] = .empty
@@ -678,10 +678,10 @@ class MonsGame {
                     switch consumable {
                     case .potion:
                         switch activeColor {
-                        case .red:
-                            redPotionsCount += 1
-                        case .blue:
-                            bluePotionsCount += 1
+                        case .white:
+                            whitePotionsCount += 1
+                        case .black:
+                            blackPotionsCount += 1
                         }
                     }
                     board[from.0][from.1] = .empty
@@ -838,10 +838,10 @@ class MonsGame {
                         board[from.0][from.1] = .empty
                         board[to.0][to.1] = .empty
                         switch poolColor {
-                        case .red:
-                            redScore += 1
-                        case .blue:
-                            blueScore += 1
+                        case .white:
+                            whiteScore += 1
+                        case .black:
+                            blackScore += 1
                         }
                         Audio.play(.scoreMana)
                     } else {
@@ -874,10 +874,10 @@ class MonsGame {
                     switch consumable {
                     case .potion:
                         switch activeColor {
-                        case .red:
-                            redPotionsCount += 1
-                        case .blue:
-                            bluePotionsCount += 1
+                        case .white:
+                            whitePotionsCount += 1
+                        case .black:
+                            blackPotionsCount += 1
                         }
                     }
                     Audio.play(.pickUpPotion)
@@ -901,10 +901,10 @@ class MonsGame {
                         }
                         
                         switch poolColor {
-                        case .red:
-                            redScore += delta
-                        case .blue:
-                            blueScore += delta
+                        case .white:
+                            whiteScore += delta
+                        case .black:
+                            blackScore += delta
                         }
                     } else {
                         board[from.0][from.1] = .empty
@@ -927,16 +927,16 @@ class MonsGame {
         let endIndex = boardSize - 1
         switch (i, j) {
         case (0, 0), (0, endIndex):
-            return .blue
+            return .black
         case (endIndex, 0), (endIndex, endIndex):
-            return .red
+            return .white
         default:
             return nil
         }
     }
     
     private func endTurn() -> [Effect] {
-        activeColor = activeColor == .red ? .blue : .red
+        activeColor = activeColor == .white ? .black : .white
         actionUsed = false
         manaMoved = false
         monsMovesCount = 0
@@ -979,10 +979,10 @@ class MonsGame {
     
     // TODO: move target score to the game config
     var winnerColor: Color? {
-        if redScore >= 5 {
-            return .red
-        } else if blueScore >= 5 {
-            return .blue
+        if whiteScore >= 5 {
+            return .white
+        } else if blackScore >= 5 {
+            return .black
         } else {
             return nil
         }
@@ -991,14 +991,14 @@ class MonsGame {
     var fen: String {
         let fields = [
             String(version),
-            String(redScore),
-            String(blueScore),
+            String(whiteScore),
+            String(blackScore),
             activeColor.fen,
             actionUsed.fen,
             manaMoved.fen,
             String(monsMovesCount),
-            String(redPotionsCount),
-            String(bluePotionsCount),
+            String(whitePotionsCount),
+            String(blackPotionsCount),
             String(turnNumber),
             board.fen
         ]
