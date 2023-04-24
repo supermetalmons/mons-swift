@@ -4,16 +4,16 @@ import Foundation
 
 // TODO: split into files, refactor
 
-extension Array<Array<Space>> {
+extension Array<Array<Piece>> {
     
     init?(fen: String) {
         let lines = fen.split(separator: "/")
         guard lines.count == 11 else { return nil }
-        var spaces = [[Space]]()
+        var pieces = [[Piece]]()
         
         for line in lines {
             guard !line.isEmpty else { return nil }
-            var lineSpaces = [Space]()
+            var linePieces = [Piece]()
             var input = String(line)
             var prefix = input.prefix(3)
             while !prefix.isEmpty {
@@ -21,20 +21,20 @@ extension Array<Array<Space>> {
                 
                 if prefix.first == "n" {
                     guard let number = Int(prefix.dropFirst()) else { return nil }
-                    let emptySpaces = (0..<number).map { _ in Space.empty }
-                    lineSpaces.append(contentsOf: emptySpaces)
-                } else if let space = Space(fen: String(prefix)) {
-                    lineSpaces.append(space)
+                    let emptySpaces = (0..<number).map { _ in Piece.none }
+                    linePieces.append(contentsOf: emptySpaces)
+                } else if let piece = Piece(fen: String(prefix)) {
+                    linePieces.append(piece)
                 } else {
                     return nil
                 }
                 
                 prefix = input.prefix(3)
             }
-            spaces.append(lineSpaces)
+            pieces.append(linePieces)
         }
         
-        self = spaces
+        self = pieces
     }
     
     var fen: String {
@@ -66,16 +66,16 @@ extension Array<Array<Space>> {
     
 }
 
-enum Space {
+enum Piece {
     case mon(mon: Mon)
     case mana(mana: Mana)
     case monWithMana(mon: Mon, mana: Mana)
     case consumable(consumable: Consumable)
-    case empty
+    case none
     
     init?(fen: String) {
         guard !fen.isEmpty else {
-            self = .empty
+            self = .none
             return
         }
         
@@ -111,7 +111,7 @@ enum Space {
         var monFen = "xx"
         var itemFen = "x"
         switch self {
-        case .empty:
+        case .none:
             return ""
         case .mon(let mon):
             monFen = mon.fen

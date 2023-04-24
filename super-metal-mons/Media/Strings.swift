@@ -10,4 +10,5 @@ struct Strings {
     static let inviteWith = "invite with"
     static let copy = "copy"
     static let endTheGameConfirmation = "end the game?"
+    static let allDone = "all done"
 }

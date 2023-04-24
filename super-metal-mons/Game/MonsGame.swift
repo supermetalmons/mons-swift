@@ -80,7 +80,7 @@ class MonsGame {
     var blackPotionsCount: Int
     
     var turnNumber: Int
-    var board: [[Space]]
+    var board: [[Piece]]
     
     var isFirstTurn: Bool { return turnNumber == 1 }
     
@@ -96,61 +96,61 @@ class MonsGame {
         self.blackPotionsCount = 0
         self.turnNumber = 1
         self.board = [
-            [.empty, .empty, .empty,
+            [.none, .none, .none,
              .mon(mon: Mon(kind: .mystic, color: .black)), // 3
              .mon(mon: Mon(kind: .spirit, color: .black)), // 4
              .mon(mon: Mon(kind: .drainer, color: .black)), // 5
              .mon(mon: Mon(kind: .angel, color: .black)), // 6
              .mon(mon: Mon(kind: .demon, color: .black)), // 7
-             .empty, .empty, .empty],
+             .none, .none, .none],
             
-            [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
-            [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
+            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
+            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
             
-            [.empty, .empty,  .empty, .empty,
+            [.none, .none,  .none, .none,
              .mana(mana: .regular(color: .black)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .black)),
-             .empty, .empty, .empty, .empty],
+             .none, .none, .none, .none],
             
-            [.empty, .empty,  .empty,
+            [.none, .none,  .none,
              .mana(mana: .regular(color: .black)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .black)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .black)),
-             .empty, .empty, .empty],
+             .none, .none, .none],
             
             [.consumable(consumable: .potion),
-             .empty,  .empty, .empty, .empty,
+             .none,  .none, .none, .none,
              .mana(mana: .superMana),
-             .empty, .empty, .empty, .empty,
+             .none, .none, .none, .none,
              .consumable(consumable: .potion)],
             
-            [.empty, .empty,  .empty,
+            [.none, .none,  .none,
              .mana(mana: .regular(color: .white)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .white)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .white)),
-             .empty, .empty, .empty],
+             .none, .none, .none],
             
-            [.empty, .empty,  .empty, .empty,
+            [.none, .none,  .none, .none,
              .mana(mana: .regular(color: .white)),
-             .empty,
+             .none,
              .mana(mana: .regular(color: .white)),
-             .empty, .empty, .empty, .empty],
+             .none, .none, .none, .none],
             
-            [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
-            [.empty, .empty,  .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
+            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
+            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
             
-            [.empty, .empty, .empty,
+            [.none, .none, .none,
              .mon(mon: Mon(kind: .demon, color: .white)), // 3
              .mon(mon: Mon(kind: .angel, color: .white)), // 4
              .mon(mon: Mon(kind: .drainer, color: .white)), // 5
              .mon(mon: Mon(kind: .spirit, color: .white)), // 6
              .mon(mon: Mon(kind: .mystic, color: .white)), // 7
-             .empty, .empty, .empty],
+             .none, .none, .none],
         ]
     }
     
@@ -167,7 +167,7 @@ class MonsGame {
               let whitePotionsCount = Int(fields[7]),
               let blackPotionsCount = Int(fields[8]),
               let turnNumber = Int(fields[9]),
-              let board = [[Space]](fen: String(fields[10]))
+              let board = [[Piece]](fen: String(fields[10]))
         else { return nil }
         
         self.version = version
@@ -196,8 +196,8 @@ class MonsGame {
     private var hasFreeMana: Bool {
         for i in 0..<boardSize {
             for j in 0..<boardSize {
-                let space = board[i][j]
-                if case let .mana(.regular(color: color)) = space, color == activeColor {
+                let piece = board[i][j]
+                if case let .mana(.regular(color: color)) = piece, color == activeColor {
                     return true
                 }
             }
@@ -226,8 +226,8 @@ class MonsGame {
         // TODO: keep set of mons to avoid iterating so much
         for i in 0..<boardSize {
             for j in 0..<boardSize {
-                let space = board[i][j]
-                if case let .mon(mon) = space, mon.kind == .angel, mon.color != activeColor {
+                let piece = board[i][j]
+                if case let .mon(mon) = piece, mon.kind == .angel, mon.color != activeColor {
                     if !mon.isFainted && max(abs(index.0 - i), abs(index.1 - j)) == 1 {
                         return true
                     } else {
@@ -268,9 +268,9 @@ class MonsGame {
     // TODO: извлечить код тестирования конкретного поля, чтобы его можно было переиспользовать, когда получили два или три инпута
     // TODO: да вот не нравится вот этот инпут bySpiritMagic. сверху мудрый коммент про то, что надо это поле разбить.
     private func availableForStep(from: (Int, Int), bySpiritMagic: Bool = false) -> [(Int, Int)] {
-        let space = board[from.0][from.1]
-        switch space {
-        case .empty:
+        let piece = board[from.0][from.1]
+        switch piece {
+        case .none:
             return []
         case .consumable:
             if bySpiritMagic {
@@ -278,7 +278,7 @@ class MonsGame {
                     let destination = board[i][j]
                     
                     switch destination {
-                    case .empty:
+                    case .none:
                         return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
                     case .monWithMana, .mon:
                         return true
@@ -298,7 +298,7 @@ class MonsGame {
                         let destination = board[i][j]
                         
                         switch destination {
-                        case .empty:
+                        case .none:
                             return !Location.isMonsBase(i, j)
                         case .mana, .monWithMana, .consumable:
                             return false
@@ -319,7 +319,7 @@ class MonsGame {
                     let destination = board[i][j]
                     
                     switch destination {
-                    case .empty:
+                    case .none:
                         return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
                     case .mana, .monWithMana, .consumable:
                         return false
@@ -338,7 +338,7 @@ class MonsGame {
                 let destination = board[i][j]
                 
                 switch destination {
-                case .consumable, .empty:
+                case .consumable, .none:
                     if Location.isMonsBase(i, j) {
                         let ownBase = mon.base
                         return ownBase.i == i && ownBase.j == j // TODO: implement getting home while leaving mana
@@ -363,7 +363,7 @@ class MonsGame {
                 let destination = board[i][j]
                 
                 switch destination {
-                case .consumable, .empty:
+                case .consumable, .none:
                     if Location.isMonsBase(i, j) {
                         let ownBase = mon.base
                         return ownBase.i == i && ownBase.j == j
@@ -381,10 +381,10 @@ class MonsGame {
     }
     
     private func availableForAction(from: (Int, Int)) -> [(Int, Int)] {
-        let space = board[from.0][from.1]
+        let piece = board[from.0][from.1]
         
-        switch space {
-        case .monWithMana, .mana, .empty, .consumable:
+        switch piece {
+        case .monWithMana, .mana, .none, .consumable:
             return []
         case let .mon(mon: mon):
             let i = from.0
@@ -403,11 +403,11 @@ class MonsGame {
                         validTarget = mon.color != targetMon.color
                     case .mon(mon: let targetMon):
                         validTarget = mon.color != targetMon.color
-                    case .consumable, .mana, .empty:
+                    case .consumable, .mana, .none:
                         return false
                     }
                     
-                    guard case .empty = board[(i + a) / 2][(j + b) / 2] else { return false }
+                    guard case .none = board[(i + a) / 2][(j + b) / 2] else { return false }
                     return validTarget && !isProtectedByAngel((a, b)) // TODO: implement jumping out of super mana base
                 }
                 return valid
@@ -421,7 +421,7 @@ class MonsGame {
                         validTarget = mon.color != targetMon.color
                     case .mon(mon: let targetMon):
                         validTarget = mon.color != targetMon.color
-                    case .consumable, .mana, .empty:
+                    case .consumable, .mana, .none:
                         return false
                     }
                     return validTarget && !isProtectedByAngel((i, j))
@@ -446,7 +446,7 @@ class MonsGame {
                             } else {
                                 valid.append((a, b))
                             }
-                        case .empty:
+                        case .none:
                             continue
                         }
                     }
@@ -467,9 +467,9 @@ class MonsGame {
             var forNextStep = [(Int, Int)]()
             var forAction = [(Int, Int)]()
             
-            let space = board[index.0][index.1]
-            switch space {
-            case .empty, .consumable:
+            let piece = board[index.0][index.1]
+            switch piece {
+            case .none, .consumable:
                 canSelect = false
             case let .mon(mon: mon):
                 canSelect = mon.color == activeColor && !mon.isFainted
@@ -545,17 +545,17 @@ class MonsGame {
             }
             
             switch target {
-            case .empty:
+            case .none:
                 return effects
             case let .mana(mana):
-                board[targetLocation.0][targetLocation.1] = .empty
+                board[targetLocation.0][targetLocation.1] = .none
                 if case let .mon(mon) = destination {
-                    board[destinationLocation.0][destinationLocation.1] = Space.monWithMana(mon: mon, mana: mana)
+                    board[destinationLocation.0][destinationLocation.1] = Piece.monWithMana(mon: mon, mana: mana)
                 } else {
                     board[destinationLocation.0][destinationLocation.1] = target
                 }
             case .consumable:
-                board[targetLocation.0][targetLocation.1] = .empty
+                board[targetLocation.0][targetLocation.1] = .none
                 if case let .mon(mon) = destination {
                     switch mon.color {
                     case .black:
@@ -574,7 +574,7 @@ class MonsGame {
                     board[destinationLocation.0][destinationLocation.1] = target
                 }
             case let .mon(mon):
-                board[targetLocation.0][targetLocation.1] = .empty
+                board[targetLocation.0][targetLocation.1] = .none
                 if case .consumable = destination {
                     switch mon.color {
                     case .black:
@@ -584,7 +584,7 @@ class MonsGame {
                     }
                     board[destinationLocation.0][destinationLocation.1] = target
                 } else if case let .mana(mana) = destination {
-                    board[destinationLocation.0][destinationLocation.1] = Space.monWithMana(mon: mon, mana: mana)
+                    board[destinationLocation.0][destinationLocation.1] = Piece.monWithMana(mon: mon, mana: mana)
                 } else {
                     board[destinationLocation.0][destinationLocation.1] = target
                 }
@@ -597,7 +597,7 @@ class MonsGame {
                         whitePotionsCount += 1
                     }
                 }
-                board[targetLocation.0][targetLocation.1] = .empty
+                board[targetLocation.0][targetLocation.1] = .none
                 board[destinationLocation.0][destinationLocation.1] = target
                 // TODO: should be able to go to mana (later)
             }
@@ -643,7 +643,7 @@ class MonsGame {
                 if base.i != to.0 || base.j != to.1 {
                     return ([], false)
                 }
-            case .empty, .mana, .monWithMana, .consumable:
+            case .none, .mana, .monWithMana, .consumable:
                 return ([], false)
             }
         } else if Location.isSuperManaBase(to.0, to.1), distance == 1 { // TODO: remove implicit move / action disambiguation by checking distance
@@ -652,7 +652,7 @@ class MonsGame {
                 guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return ([], false) }
             case let .monWithMana(mon: mon, mana: mana):
                 guard mon.kind == .drainer, case .superMana = mana else { return ([], false) }
-            case .consumable, .mana, .empty:
+            case .consumable, .mana, .none:
                 return ([], false)
             }
         }
@@ -669,8 +669,8 @@ class MonsGame {
                     return ([], false)
                 case .mana(let mana):
                     guard mon.kind == .drainer else { return ([], false) }
-                    board[from.0][from.1] = .empty
-                    board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    board[from.0][from.1] = .none
+                    board[to.0][to.1] = Piece.monWithMana(mon: mon, mana: mana)
                     Audio.play(.manaPickUp)
                     monsMovesCount += 1
                     return ([from, to].map { Effect.updateCell($0) }, true)
@@ -684,14 +684,14 @@ class MonsGame {
                             blackPotionsCount += 1
                         }
                     }
-                    board[from.0][from.1] = .empty
+                    board[from.0][from.1] = .none
                     board[to.0][to.1] = source
                     monsMovesCount += 1
                     Audio.play(.pickUpPotion)
                     return ([from, to].map { Effect.updateCell($0) }, true)
-                case .empty:
+                case .none:
                     // TODO: move this boilerplate moving into a separate function
-                    board[from.0][from.1] = .empty
+                    board[from.0][from.1] = .none
                     board[to.0][to.1] = source
                     monsMovesCount += 1
                     switch mon.kind {
@@ -710,11 +710,11 @@ class MonsGame {
                     guard xDistance == 2 && yDistance == 2, !isProtectedByAngel(to) else { return ([], false) }
                     
                     switch destination {
-                    case .empty, .mana, .consumable:
+                    case .none, .mana, .consumable:
                         return ([], false)
                     case .mon(mon: var targetMon):
                         guard targetMon.color != mon.color else { return ([], false) }
-                        board[to.0][to.1] = .empty
+                        board[to.0][to.1] = .none
                         didUseAction()
                         
                         let faintIndex = targetMon.base
@@ -732,7 +732,7 @@ class MonsGame {
                             board[to.0][to.1] = .mana(mana: mana)
                         case .superMana:
                             manaIndex = (5, 5) // TODO: move to the config
-                            board[to.0][to.1] = .empty
+                            board[to.0][to.1] = .none
                             board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
                         }
                         
@@ -751,15 +751,15 @@ class MonsGame {
                     guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return ([], false) }
                     
                     let between = ((from.0 + to.0) / 2, (from.1 + to.1) / 2)
-                    guard case .empty = board[between.0][between.1] else { return ([], false) }
+                    guard case .none = board[between.0][between.1] else { return ([], false) }
                     
                     switch destination {
-                    case .empty, .mana, .consumable:
+                    case .none, .mana, .consumable:
                         return ([], false)
                     case .mon(mon: var targetMon):
                         guard targetMon.color != mon.color else { return ([], false) }
                         
-                        board[from.0][from.1] = .empty
+                        board[from.0][from.1] = .none
                         board[to.0][to.1] = source
                         didUseAction()
                         Audio.play(.demonAbility)
@@ -780,7 +780,7 @@ class MonsGame {
                             let additionalStep = nearbySpaces(from: to).first(where: { (i, j) -> Bool in
                                 let destination = board[i][j]
                                 switch destination {
-                                case .empty:
+                                case .none:
                                     return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
                                 case .mana, .consumable, .monWithMana, .mon:
                                     // TODO: should be able to pick up a potion
@@ -797,7 +797,7 @@ class MonsGame {
                             board[to.0][to.1] = source
                         }
                         
-                        board[from.0][from.1] = .empty
+                        board[from.0][from.1] = .none
                         
                         let faintIndex = targetMon.base
                         targetMon.faint()
@@ -812,7 +812,7 @@ class MonsGame {
                 case .spirit:
                     guard max(abs(from.0 - to.0), abs(from.1 - to.1)) == 2 else { return ([], false) }
                     switch board[to.0][to.1] {
-                    case .empty:
+                    case .none:
                         return ([], false)
                     case let .mon(mon):
                         if mon.isFainted {
@@ -833,10 +833,10 @@ class MonsGame {
             if distance == 1 {
                 guard case let .regular(color) = mana, color == activeColor && canMoveMana else { return ([], false) }
                 switch destination {
-                case .empty:
+                case .none:
                     if let poolColor = poolColor(to.0, to.1) {
-                        board[from.0][from.1] = .empty
-                        board[to.0][to.1] = .empty
+                        board[from.0][from.1] = .none
+                        board[to.0][to.1] = .none
                         switch poolColor {
                         case .white:
                             whiteScore += 1
@@ -845,7 +845,7 @@ class MonsGame {
                         }
                         Audio.play(.scoreMana)
                     } else {
-                        board[from.0][from.1] = .empty
+                        board[from.0][from.1] = .none
                         board[to.0][to.1] = source
                         Audio.play(.moveMana)
                     }
@@ -853,8 +853,8 @@ class MonsGame {
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 case let .mon(mon: mon):
                     guard mon.kind == .drainer else { return ([], false) }
-                    board[from.0][from.1] = .empty
-                    board[to.0][to.1] = Space.monWithMana(mon: mon, mana: mana)
+                    board[from.0][from.1] = .none
+                    board[to.0][to.1] = Piece.monWithMana(mon: mon, mana: mana)
                     Audio.play(.manaPickUp)
                     manaMoved = true
                     return ([from, to].map { Effect.updateCell($0) }, true)
@@ -881,13 +881,13 @@ class MonsGame {
                         }
                     }
                     Audio.play(.pickUpPotion)
-                    board[from.0][from.1] = .empty
+                    board[from.0][from.1] = .none
                     board[to.0][to.1] = source
                     monsMovesCount += 1
                     return ([from, to].map { Effect.updateCell($0) }, true)
-                case .empty:
+                case .none:
                     if let poolColor = poolColor(to.0, to.1) {
-                        board[from.0][from.1] = .empty
+                        board[from.0][from.1] = .none
                         board[to.0][to.1] = .mon(mon: mon)
                         
                         let delta: Int
@@ -907,7 +907,7 @@ class MonsGame {
                             blackScore += delta
                         }
                     } else {
-                        board[from.0][from.1] = .empty
+                        board[from.0][from.1] = .none
                         board[to.0][to.1] = source
                         Audio.play(.move)
                     }
@@ -918,7 +918,7 @@ class MonsGame {
             } else {
                 return ([], false)
             }
-        case .consumable, .empty:
+        case .consumable, .none:
             return ([], false)
         }
     }
@@ -945,8 +945,8 @@ class MonsGame {
         var indicesToUpdate = [(Int, Int)]()
         for i in [0, boardSize - 1] {
             for j in 0..<boardSize {
-                let space = board[i][j]
-                if case var .mon(mon) = space, mon.color == activeColor, mon.isFainted {
+                let piece = board[i][j]
+                if case var .mon(mon) = piece, mon.color == activeColor, mon.isFainted {
                     mon.decreaseCooldown()
                     board[i][j] = .mon(mon: mon)
                     if !mon.isFainted {

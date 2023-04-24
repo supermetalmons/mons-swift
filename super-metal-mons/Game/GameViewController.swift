@@ -133,7 +133,7 @@ class GameViewController: UIViewController {
     }
     
     private func didWin(color: Color) {
-        let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: "all done", preferredStyle: .alert)
+        let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
             // or i guess in these case there should be a new game id exchage
@@ -236,8 +236,8 @@ class GameViewController: UIViewController {
         
         // TODO: look at the data and do nothing when nothing changed
         
-        let space = game.board[i][j]
-        switch space {
+        let piece = game.board[i][j]
+        switch piece {
         case .consumable:
             if !didSetupBoard {
                 // TODO: this would brake when we start with the ongoing game
@@ -318,7 +318,7 @@ class GameViewController: UIViewController {
                 boardContainerView.addSubview(imageView)
                 monsOnBoard[i][j] = imageView
             }
-        case .empty:
+        case .none:
             break
         }
     }
