@@ -10,6 +10,7 @@
 		2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A229CAF4E400A25465 /* Monsboard.swift */; };
 		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
+		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
 		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
@@ -24,7 +25,7 @@
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
 		2CC39E8429CA48B200EDF779 /* MonsboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */; };
 		2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8529CA48B200EDF779 /* Main.storyboard */; };
-		2CC39E8929CA48B300EDF779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8829CA48B300EDF779 /* Assets.xcassets */; };
+		2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8829CA48B300EDF779 /* App.xcassets */; };
 		2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */; };
 		2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */; };
 		2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21729E9B047002F3AC9 /* Colors.swift */; };
@@ -54,6 +55,7 @@
 		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
 		2C01C6A229CAF4E400A25465 /* Monsboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monsboard.swift; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2CC39E8329CA48B200EDF779 /* MonsboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsboardViewController.swift; sourceTree = "<group>"; };
 		2CC39E8629CA48B200EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2CC39E8829CA48B300EDF779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CC39E8829CA48B300EDF779 /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
 		2CC39E8B29CA48B300EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CC39E8D29CA48B300EDF779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "super-metal-mons.entitlements"; sourceTree = "<group>"; };
@@ -147,10 +149,11 @@
 				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2CB7462529F18DC700ACC855 /* Images.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
-				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
-				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
+				2CDB1AD429EEF48E00C51230 /* Sounds */,
+				2C09E3D929F6D2550082B774 /* Game.xcassets */,
 				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
-				2CDB1AD429EEF48E00C51230 /* smmgamesfx */,
+				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
+				2CC39E8829CA48B300EDF779 /* App.xcassets */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -225,7 +228,7 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2CDB1AD429EEF48E00C51230 /* smmgamesfx */ = {
+		2CDB1AD429EEF48E00C51230 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
 				2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */,
@@ -242,7 +245,7 @@
 				2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */,
 				2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */,
 			);
-			path = smmgamesfx;
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,6 +315,7 @@
 				2CDB1AE429EEF48E00C51230 /* demonAbility.wav in Resources */,
 				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2CDB1AE629EEF48E00C51230 /* demonMove.wav in Resources */,
+				2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */,
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
 				2CDB1AEB29EEF48E00C51230 /* downBump.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
@@ -324,7 +328,7 @@
 				2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */,
 				2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */,
 				2CDB1AEA29EEF48E00C51230 /* dropMana.wav in Resources */,
-				2CC39E8929CA48B300EDF779 /* Assets.xcassets in Resources */,
+				2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,
 				2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */,
 				2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */,
@@ -506,14 +510,14 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -544,14 +548,14 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

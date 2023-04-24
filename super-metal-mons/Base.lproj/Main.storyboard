@@ -31,7 +31,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONt-Hy-v98">
                                 <rect key="frame" x="0.0" y="164.66666666666666" width="393" height="65"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="J9b-d5-IkC">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="highlight-green" translatesAutoresizingMaskIntoConstraints="NO" id="J9b-d5-IkC">
                                         <rect key="frame" x="-4" y="15" width="54" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="J9b-d5-IkC" secondAttribute="height" multiplier="1:1" id="Dhu-uf-TyO"/>
@@ -125,7 +125,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j">
                                 <rect key="frame" x="0.0" y="622.66666666666663" width="393" height="74"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="qRa-q7-XCf">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="highlight-green" translatesAutoresizingMaskIntoConstraints="NO" id="qRa-q7-XCf">
                                         <rect key="frame" x="-4" y="-4" width="54" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="qRa-q7-XCf" secondAttribute="height" multiplier="1:1" id="lFe-rO-cVw"/>
@@ -383,7 +383,7 @@
         <image name="emoji-52" width="256" height="256"/>
         <image name="emoji-53" width="256" height="256"/>
         <image name="escape" catalog="system" width="128" height="123"/>
-        <image name="green" width="356" height="344"/>
+        <image name="highlight-green" width="356" height="344"/>
         <image name="logo" width="1310" height="817"/>
         <image name="move-action" width="32" height="32"/>
         <image name="move-mana" width="32" height="32"/>
