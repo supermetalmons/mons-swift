@@ -225,7 +225,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="escape" catalog="system"/>
                                         <connections>
-                                            <action selector="ggButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0vu-Iu-sEc"/>
+                                            <action selector="escapeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PAG-zD-lrC"/>
                                         </connections>
                                     </button>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-OM-HDU" customClass="SeparatorView" customModule="mons" customModuleProvider="target">

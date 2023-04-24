@@ -158,7 +158,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    @IBAction func ggButtonTapped(_ sender: Any) {
+    @IBAction func escapeButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
             self?.endGame(openMenu: true)
