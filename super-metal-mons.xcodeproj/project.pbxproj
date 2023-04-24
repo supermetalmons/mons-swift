@@ -128,28 +128,36 @@
 				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
-				2C53FC5B29CD280300F49668 /* Audio.swift */,
-				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
-				2CB7462529F18DC700ACC855 /* Images.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
-				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
 				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
-				2CDB1AD429EEF48E00C51230 /* smmgamesfx */,
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
-				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
-				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
-				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
+				2CC4FBDB29F69CCF00A90CDD /* Content */,
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
 				2CC39E8D29CA48B300EDF779 /* Info.plist */,
 				2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */,
 			);
 			path = "super-metal-mons";
+			sourceTree = "<group>";
+		};
+		2CC4FBDB29F69CCF00A90CDD /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				2C53FC5B29CD280300F49668 /* Audio.swift */,
+				2CAF14E429EB39CB0036C942 /* Strings.swift */,
+				2CB7462529F18DC700ACC855 /* Images.swift */,
+				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
+				2CC39E8829CA48B300EDF779 /* Assets.xcassets */,
+				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
+				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
+				2CDB1AD429EEF48E00C51230 /* smmgamesfx */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		2CDB1AD429EEF48E00C51230 /* smmgamesfx */ = {
