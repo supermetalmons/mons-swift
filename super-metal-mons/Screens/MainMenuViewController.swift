@@ -42,7 +42,7 @@ class MainMenuViewController: UIViewController {
     }
     
     @discardableResult private func presentGameViewController(dataSource: GameDataSource) -> UIViewController {
-        let gameViewController = MonsboardViewController.with(gameDataSource: dataSource)
+        let gameViewController = GameViewController.with(gameDataSource: dataSource)
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
         return gameViewController

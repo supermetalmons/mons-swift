@@ -7,12 +7,12 @@ class SpaceView: UIView {
     var col = 0
 }
 
-class MonsboardViewController: UIViewController {
+class GameViewController: UIViewController {
     
     private var gameDataSource: GameDataSource!
     
-    static func with(gameDataSource: GameDataSource) -> MonsboardViewController {
-        let new = instantiate(MonsboardViewController.self)
+    static func with(gameDataSource: GameDataSource) -> GameViewController {
+        let new = instantiate(GameViewController.self)
         new.gameDataSource = gameDataSource
         return new
     }
