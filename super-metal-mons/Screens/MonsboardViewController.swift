@@ -9,7 +9,7 @@ class SpaceView: UIView {
 
 class MonsboardViewController: UIViewController {
     
-    var gameDataSource: GameDataSource!
+    private var gameDataSource: GameDataSource!
     
     static func with(gameDataSource: GameDataSource) -> MonsboardViewController {
         let new = instantiate(MonsboardViewController.self)
@@ -46,7 +46,7 @@ class MonsboardViewController: UIViewController {
     private let boardSize = 11
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
 
-    lazy var game: MonsGame = {
+    private lazy var game: MonsGame = {
         return MonsGame() // TODO: load the last game if there is one
     }()
     
@@ -131,7 +131,7 @@ class MonsboardViewController: UIViewController {
         opponentImageView.image = Images.randomEmoji
     }
     
-    func didWin(color: Color) {
+    private func didWin(color: Color) {
         let alert = UIAlertController(title: color == .red ? "🔴" : "🔵", message: "all done", preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
@@ -142,11 +142,11 @@ class MonsboardViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    func sendFen(_ fen: String) {
+    private func sendFen(_ fen: String) {
         gameDataSource.update(fen: fen)
     }
     
-    func endGame(openMenu: Bool) {
+    private func endGame(openMenu: Bool) {
         game = MonsGame()
         sendFen(game.fen)
         if openMenu {
@@ -179,7 +179,7 @@ class MonsboardViewController: UIViewController {
     }
     
     // TODO: remove this one, this is for development only
-    func restartBoardForTest() {
+    private func restartBoardForTest() {
         monsOnBoard.forEach { $0.forEach { $0?.removeFromSuperview() } }
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
         setupMonsboard()
