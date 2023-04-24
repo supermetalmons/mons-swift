@@ -41,11 +41,7 @@ class RemoteGameDataSource: GameDataSource {
 
 class LocalGameDataSource: GameDataSource {
     
-    let gameId: String
-    
-    init(gameId: String) {
-        self.gameId = gameId
-    }
+    let gameId = ""
     
     func observe(completion: @escaping (String) -> Void) {}
     

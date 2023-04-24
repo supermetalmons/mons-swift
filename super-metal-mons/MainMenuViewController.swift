@@ -33,18 +33,7 @@ class MainMenuViewController: UIViewController {
     }
     
     private func connectToURL(_ url: URL) {
-        let link: String
-        
-        if let scheme = url.scheme {
-            link = url.absoluteString.replacingOccurrences(of: scheme + "://", with: "")
-        } else {
-            link = url.absoluteString
-        }
-        
-        let prefix = "mons.link/"
-        
-        if link.hasPrefix(prefix), link.count > prefix.count {
-            let id = String(link.dropFirst(prefix.count))
+        if let id = url.gameId {
             let dataSource = RemoteGameDataSource(gameId: id)
             presentGameViewController(dataSource: dataSource)
         } else {
@@ -60,12 +49,11 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func playButtonTapped(_ sender: Any) {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let id = String((0..<10).map { _ in letters.randomElement()! })
+        let id = String.newGameId
         let dataSource = RemoteGameDataSource(gameId: id)
         let gameViewController = presentGameViewController(dataSource: dataSource)
         
-        let link = "mons.link/\(id)"
+        let link = URL.forGame(id: id)
         let alert = UIAlertController(title: Strings.inviteWith, message: link, preferredStyle: .alert)
         let copyAction = UIAlertAction(title: Strings.copy, style: .default) { _ in
             UIPasteboard.general.string = link
@@ -75,7 +63,7 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func localGameButtonTapped(_ sender: Any) {
-        let dataSource = LocalGameDataSource(gameId: "")
+        let dataSource = LocalGameDataSource()
         presentGameViewController(dataSource: dataSource)
     }
     
@@ -88,6 +76,45 @@ class MainMenuViewController: UIViewController {
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
             alert.addAction(okAction)
             present(alert, animated: true)
+        }
+    }
+    
+}
+
+extension String {
+
+    static var newGameId: String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let id = String((0..<10).map { _ in letters.randomElement()! })
+        return id
+    }
+    
+}
+
+extension URL {
+    
+    static let monsBaseURLString = "mons.link"
+    
+    static func forGame(id: String) -> String {
+        return monsBaseURLString + "/" + id
+    }
+    
+    var gameId: String? {
+        let link: String
+        
+        if let scheme = scheme {
+            link = absoluteString.replacingOccurrences(of: scheme + "://", with: "")
+        } else {
+            link = absoluteString
+        }
+        
+        let prefix = URL.monsBaseURLString + "/"
+        
+        if link.hasPrefix(prefix), link.count > prefix.count {
+            let id = String(link.dropFirst(prefix.count))
+            return id
+        } else {
+            return nil
         }
     }
     
