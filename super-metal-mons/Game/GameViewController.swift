@@ -234,7 +234,7 @@ class GameViewController: UIViewController {
     
     private func updateCell(_ i: Int, _ j: Int) {
         let piece = game.board[i][j]
-        let style = BoardStyle.pixel
+        let style = BoardStyle.basic
         switch piece {
         case let .consumable(consumable):
             if !didSetupBoard {
