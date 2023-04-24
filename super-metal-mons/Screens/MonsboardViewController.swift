@@ -133,7 +133,7 @@ class MonsboardViewController: UIViewController {
     
     func didWin(color: Color) {
         let alert = UIAlertController(title: color == .red ? "🔴" : "🔵", message: "all done", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "ok", style: .default) { [weak self] _ in
+        let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
             // or i guess in these case there should be a new game id exchage
             self?.endGame(openMenu: true)
@@ -158,11 +158,11 @@ class MonsboardViewController: UIViewController {
     }
     
     @IBAction func ggButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "end the game?", message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "ok", style: .destructive) { [weak self] _ in
+        let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
             self?.endGame(openMenu: true)
         }
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { _ in }
+        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)

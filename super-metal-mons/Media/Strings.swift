@@ -9,5 +9,5 @@ struct Strings {
     static let thereIsNoLink = "there is no link"
     static let inviteWith = "invite with"
     static let copy = "copy"
-    
+    static let endTheGameConfirmation = "end the game?"
 }
