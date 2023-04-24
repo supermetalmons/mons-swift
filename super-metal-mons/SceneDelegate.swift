@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func wasOpenedWithURL(_ url: URL, onStart: Bool) {
         launchURL = url
-        NotificationCenter.default.post(name: NSNotification.Name("link"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name.wasOpenedWithLink, object: nil)
     }
 
 }

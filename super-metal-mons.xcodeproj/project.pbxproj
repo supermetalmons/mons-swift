@@ -29,6 +29,7 @@
 		2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21729E9B047002F3AC9 /* Colors.swift */; };
 		2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */; };
 		2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */; };
+		2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBD829F69A3300A90CDD /* Notification.swift */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */; };
@@ -71,6 +72,7 @@
 		2CC4E21729E9B047002F3AC9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
+		2CC4FBD829F69A3300A90CDD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		2CDB1AD029ED87C900C51230 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		2CDB1AD229ED87E600C51230 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickUpPotion.wav; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2CAF14E429EB39CB0036C942 /* Strings.swift */,
+				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CB7462529F18DC700ACC855 /* Images.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
@@ -264,6 +267,7 @@
 			files = (
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
+				2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */,

@@ -11,7 +11,7 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: NSNotification.Name("link"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: Notification.Name.wasOpenedWithLink, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
