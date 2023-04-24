@@ -145,9 +145,9 @@
 		2CC4FBDB29F69CCF00A90CDD /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				2C53FC5B29CD280300F49668 /* Audio.swift */,
-				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2CB7462529F18DC700ACC855 /* Images.swift */,
+				2CAF14E429EB39CB0036C942 /* Strings.swift */,
+				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
 				2CDB1AD429EEF48E00C51230 /* Sounds */,
 				2C09E3D929F6D2550082B774 /* Game.xcassets */,

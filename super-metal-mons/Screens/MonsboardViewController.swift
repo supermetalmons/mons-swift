@@ -251,19 +251,11 @@ class MonsboardViewController: UIViewController {
             monsOnBoard[i][j] = imageView
         case let .mon(mon: mon):
             
-            // TODO: move it from here
-            let specifier = mon.color == .blue ? "-black" : ""
-            let name: String
-            switch mon.kind {
-            case .mystic: name = "mystic" + specifier
-            case .demon: name = "demon" + specifier
-            case .drainer: name = "drainer" + specifier
-            case .angel: name = "angel" + specifier
-            case .spirit: name = "spirit" + specifier
-            }
+            // TODO: refactor. move it from here. there is the same code in mon and mana case
+            let imageName = mon.kind.rawValue + (mon.color == .blue ? "-black" : "")
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-            imageView.image = UIImage(named: name)
+            imageView.image = UIImage(named: imageName)
             
             if mon.isFainted {
                 imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -276,20 +268,11 @@ class MonsboardViewController: UIViewController {
             monsOnBoard[i][j] = imageView
             
         case let .monWithMana(mon: mon, mana: mana):
-            // TODO: refactor. there is the same code in mon and mana case
-            // TODO: move it from here
-            let specifier = mon.color == .blue ? "-black" : ""
-            let name: String
-            switch mon.kind {
-            case .mystic: name = "mystic" + specifier
-            case .demon: name = "demon" + specifier
-            case .drainer: name = "drainer" + specifier
-            case .angel: name = "angel" + specifier
-            case .spirit: name = "spirit" + specifier
-            }
+            // TODO: refactor. move it from here. there is the same code in mon and mana case
+            let imageName = mon.kind.rawValue + (mon.color == .blue ? "-black" : "")
             
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
-            imageView.image = UIImage(named: name)
+            imageView.image = UIImage(named: imageName)
             
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero

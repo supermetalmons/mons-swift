@@ -171,7 +171,7 @@ struct Mon {
         
     }
     
-    enum Kind {
+    enum Kind: String {
         case demon, drainer, angel, spirit, mystic
     }
     
