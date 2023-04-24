@@ -4,7 +4,7 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
     
-    var fisrtTime = true
+    private var didAppear = false
     
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
@@ -17,12 +17,12 @@ class MainMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if fisrtTime, let url = launchURL {
+        if !didAppear, let url = launchURL {
             launchURL = nil
             connectToURL(url)
         }
         
-        fisrtTime = false
+        didAppear = true
     }
     
     @objc private func wasOpenedWithLink() {
