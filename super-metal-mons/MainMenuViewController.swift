@@ -45,25 +45,29 @@ class MainMenuViewController: UIViewController {
         
         if link.hasPrefix(prefix), link.count > prefix.count {
             let id = String(link.dropFirst(prefix.count))
-            let gameViewController = MonsboardViewController.with(gameDataSource: RemoteGameDataSource(gameId: id))
-            gameViewController.modalPresentationStyle = .overFullScreen
-            present(gameViewController, animated: false)
+            let dataSource = RemoteGameDataSource(gameId: id)
+            presentGameViewController(dataSource: dataSource)
         } else {
             // TODO: communicate failed connection
         }
     }
     
+    @discardableResult private func presentGameViewController(dataSource: GameDataSource) -> UIViewController {
+        let gameViewController = MonsboardViewController.with(gameDataSource: dataSource)
+        gameViewController.modalPresentationStyle = .overFullScreen
+        present(gameViewController, animated: false)
+        return gameViewController
+    }
+    
     @IBAction func playButtonTapped(_ sender: Any) {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let id = String((0..<10).map { _ in letters.randomElement()! })
-        
-        let gameViewController = MonsboardViewController.with(gameDataSource: RemoteGameDataSource(gameId: id))
-        gameViewController.modalPresentationStyle = .overFullScreen
-        present(gameViewController, animated: false)
+        let dataSource = RemoteGameDataSource(gameId: id)
+        let gameViewController = presentGameViewController(dataSource: dataSource)
         
         let link = "mons.link/\(id)"
-        let alert = UIAlertController(title: "invite with", message: link, preferredStyle: .alert)
-        let copyAction = UIAlertAction(title: "copy", style: .default) { _ in
+        let alert = UIAlertController(title: Strings.inviteWith, message: link, preferredStyle: .alert)
+        let copyAction = UIAlertAction(title: Strings.copy, style: .default) { _ in
             UIPasteboard.general.string = link
         }
         alert.addAction(copyAction)
@@ -71,9 +75,8 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func localGameButtonTapped(_ sender: Any) {
-        let gameViewController = MonsboardViewController.with(gameDataSource: LocalGameDataSource(gameId: ""))
-        gameViewController.modalPresentationStyle = .overFullScreen
-        present(gameViewController, animated: false)
+        let dataSource = LocalGameDataSource(gameId: "")
+        presentGameViewController(dataSource: dataSource)
     }
     
     @IBAction func joinButtonTapped(_ sender: Any) {
@@ -81,7 +84,7 @@ class MainMenuViewController: UIViewController {
             connectToURL(url)
             UIPasteboard.general.string = ""
         } else {
-            let alert = UIAlertController(title: "there is no link", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
             alert.addAction(okAction)
             present(alert, animated: true)

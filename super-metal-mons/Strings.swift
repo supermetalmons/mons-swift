@@ -4,7 +4,10 @@ import Foundation
 
 struct Strings {
     
-    static let ok = "OK"
-    static let cancel = "Cancel"
+    static let ok = "ok"
+    static let cancel = "cancel"
+    static let thereIsNoLink = "there is no link"
+    static let inviteWith = "invite with"
+    static let copy = "copy"
     
 }
