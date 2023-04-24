@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C01C6A329CAF4E400A25465 /* Monsboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A229CAF4E400A25465 /* Monsboard.swift */; };
 		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
+		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5929CCF8F000F49668 /* Models.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
 		2C01C6A229CAF4E400A25465 /* Monsboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monsboard.swift; sourceTree = "<group>"; };
+		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5929CCF8F000F49668 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		2CC4FBE429F6C77F00A90CDD /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C01C6A229CAF4E400A25465 /* Monsboard.swift */,
 				2C53FC5929CCF8F000F49668 /* Models.swift */,
@@ -348,6 +351,7 @@
 				2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */,
 				2CB7462629F18DC700ACC855 /* Images.swift in Sources */,
 				2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */,
+				2C09E3D829F6D0630082B774 /* GameController.swift in Sources */,
 				2C53FC5A29CCF8F000F49668 /* Models.swift in Sources */,
 				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
