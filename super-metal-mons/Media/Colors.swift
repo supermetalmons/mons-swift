@@ -4,11 +4,9 @@ import UIKit
 
 struct Colors {
     
-    static var squareDark: UIColor { named(#function) }
-    static var squareLight: UIColor { named(#function) }
-    static var squareMana: UIColor { named(#function) }
-    static var squareSpecial: UIColor { named(#function) }
-    static var squareConsumable: UIColor { named(#function) }
+    static func square(_ square: Square) -> UIColor {
+        return named("square/" + square.rawValue)
+    }
     
     private static func named(_ name: String) -> UIColor {
         return UIColor(named: name)!

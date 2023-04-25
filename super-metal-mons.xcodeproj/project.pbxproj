@@ -26,6 +26,7 @@
 		2CB6D3B829F7316F00605255 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B729F7316F00605255 /* Bool.swift */; };
 		2CB6D3BA29F731E100605255 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B929F731E100605255 /* Effect.swift */; };
 		2CB6D3BC29F7320800605255 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
+		2CB6D3BE29F7F3A400605255 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BD29F7F3A400605255 /* Square.swift */; };
 		2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2CB7462629F18DC700ACC855 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
@@ -77,6 +78,7 @@
 		2CB6D3B729F7316F00605255 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		2CB6D3B929F731E100605255 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 		2CB6D3BB29F7320800605255 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		2CB6D3BD29F7F3A400605255 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		2CB7462329F12BA100ACC855 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2CB7462529F18DC700ACC855 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB6D3AD29F730B200605255 /* Piece.swift */,
+				2CB6D3BD29F7F3A400605255 /* Square.swift */,
 				2CB6D3B129F730F600605255 /* Mon.swift */,
 				2CB6D3BB29F7320800605255 /* Location.swift */,
 				2CB6D3B329F7310800605255 /* Mana.swift */,
@@ -395,6 +398,7 @@
 				2C09E3D829F6D0630082B774 /* GameController.swift in Sources */,
 				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
+				2CB6D3BE29F7F3A400605255 /* Square.swift in Sources */,
 				2CB6D3B829F7316F00605255 /* Bool.swift in Sources */,
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,

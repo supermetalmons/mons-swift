@@ -180,6 +180,7 @@ class GameViewController: UIViewController {
     }
     
     // TODO: remove this one, this is for development only
+    // TODO: separate board setup from pieces reloading
     private func restartBoardForTest() {
         monsOnBoard.forEach { $0.forEach { $0?.removeFromSuperview() } }
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
@@ -201,13 +202,28 @@ class GameViewController: UIViewController {
         let yOffset = (screenHeight - totalBoardSize) / 2
 
         if !didSetupBoard {
+            // TODO: move somewhere from here
+            let boardSpec: [[Square]] = [
+                [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p],
+                [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+                [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+                [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+                [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+                [.c, .w, .b, .w, .b, .s, .b, .w, .b, .w, .c],
+                [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+                [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+                [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+                [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+                [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
+            ]
+            
             for row in 0..<boardSize {
                 for col in 0..<boardSize {
                     let x = CGFloat(col) * squareSize
                     let y = CGFloat(row) * squareSize + yOffset
 
                     let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                    square.backgroundColor = (row + col) % 2 == 0 ? Colors.squareLight : Colors.squareDark
+                    square.backgroundColor = Colors.square(boardSpec[row][col])
                     boardContainerView.addSubview(square)
                     squares[row][col] = square
                     
@@ -217,13 +233,8 @@ class GameViewController: UIViewController {
                     square.row = row
                 }
             }
-            
-            for (i, j) in [(0, 0), (5, 5), (10, 10), (0, 10), (10, 0)] {
-                squares[i][j]?.backgroundColor = Colors.squareSpecial
-            }
         }
         
-        // TODO: move to board class
         for i in game.board.indices {
             for j in game.board[i].indices {
                 updateCell(i, j)
@@ -237,10 +248,6 @@ class GameViewController: UIViewController {
         let style = BoardStyle.basic
         switch piece {
         case let .consumable(consumable):
-            if !didSetupBoard {
-                // TODO: this would brake when we start with the ongoing game
-                squares[i][j]?.backgroundColor = Colors.squareConsumable
-            }
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
             imageView.image = Images.consumable(consumable, style: style)
             imageView.contentMode = .scaleAspectFit
@@ -279,10 +286,6 @@ class GameViewController: UIViewController {
         case let .mana(mana: mana):
             switch mana {
             case .regular:
-                if !didSetupBoard {
-                    squares[i][j]?.backgroundColor = Colors.squareMana
-                }
-                
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
                 imageView.image = Images.mana(mana, style: style)
                 imageView.contentMode = .scaleAspectFit
