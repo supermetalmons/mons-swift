@@ -243,6 +243,14 @@
                                             <action selector="didTapSoundButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vAJ-ar-7is"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76Q-K9-7MO" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                                        <rect key="frame" x="222" y="4" width="52" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="ellipsis.rectangle" catalog="system"/>
+                                        <connections>
+                                            <action selector="moreButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zEG-QO-sbY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="EPq-W8-eG0" firstAttribute="top" secondItem="P29-PV-UEw" secondAttribute="top" constant="4" id="0eZ-wc-v35"/>
@@ -251,8 +259,11 @@
                                     <constraint firstAttribute="height" constant="54" id="FiQ-df-N92"/>
                                     <constraint firstAttribute="trailing" secondItem="EPq-W8-eG0" secondAttribute="trailing" constant="8" id="ICC-e2-brE"/>
                                     <constraint firstItem="KPn-OM-HDU" firstAttribute="leading" secondItem="P29-PV-UEw" secondAttribute="leading" id="P1N-0I-T2a"/>
+                                    <constraint firstItem="76Q-K9-7MO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="P29-PV-UEw" secondAttribute="leading" constant="10" id="Pq9-mW-rZQ"/>
+                                    <constraint firstItem="haM-vj-jVh" firstAttribute="leading" secondItem="76Q-K9-7MO" secondAttribute="trailing" constant="8" id="RFP-co-Iyf"/>
                                     <constraint firstAttribute="bottom" secondItem="KPn-OM-HDU" secondAttribute="bottom" id="Tec-s7-8Br"/>
                                     <constraint firstItem="EPq-W8-eG0" firstAttribute="leading" secondItem="haM-vj-jVh" secondAttribute="trailing" constant="8" id="XVc-3V-ML6"/>
+                                    <constraint firstItem="76Q-K9-7MO" firstAttribute="centerY" secondItem="haM-vj-jVh" secondAttribute="centerY" id="oeH-qM-3xo"/>
                                     <constraint firstAttribute="trailing" secondItem="KPn-OM-HDU" secondAttribute="trailing" id="qvF-Ca-NEe"/>
                                 </constraints>
                             </view>
@@ -380,6 +391,7 @@
         <image name="button-link" width="32" height="32"/>
         <image name="button-local" width="32" height="32"/>
         <image name="button-new-game" width="36.333332061767578" height="32"/>
+        <image name="ellipsis.rectangle" catalog="system" width="128" height="79"/>
         <image name="emoji-52" width="256" height="256"/>
         <image name="emoji-53" width="256" height="256"/>
         <image name="escape" catalog="system" width="128" height="123"/>

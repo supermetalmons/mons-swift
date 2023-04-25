@@ -173,6 +173,10 @@ class GameViewController: UIViewController {
         soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
     }
     
+    @IBAction func moreButtonTapped(_ sender: Any) {
+        // TODO: toggle appearance
+    }
+    
     @IBAction func didTapSoundButton(_ sender: Any) {
         let wasDisabled = Defaults.isSoundDisabled
         Defaults.isSoundDisabled = !wasDisabled
