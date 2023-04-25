@@ -245,17 +245,17 @@ class GameViewController: UIViewController {
     
     private func updateCell(_ i: Int, _ j: Int) {
         let piece = game.board[i][j]
-        let style = BoardStyle.basic
+        let style = BoardStyle.pixel
         switch piece {
         case let .consumable(consumable):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.8, height: squareSize * 0.8))
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
             imageView.image = Images.consumable(consumable, style: style)
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             monsOnBoard[i][j] = imageView
         case let .mon(mon: mon):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
             imageView.image = Images.mon(mon, style: style)
             
             if mon.isFainted {
@@ -269,14 +269,14 @@ class GameViewController: UIViewController {
             monsOnBoard[i][j] = imageView
             
         case let .monWithMana(mon: mon, mana: mana):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.9, height: squareSize * 0.9))
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
             imageView.image = Images.mon(mon, style: style)
             
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             
-            let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
+            let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
             manaView.image = Images.mana(mana, style: style)
             manaView.contentMode = .scaleAspectFit
             imageView.addSubview(manaView)
@@ -286,7 +286,7 @@ class GameViewController: UIViewController {
         case let .mana(mana: mana):
             switch mana {
             case .regular:
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize * 0.6, height: squareSize * 0.6))
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
                 imageView.image = Images.mana(mana, style: style)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
