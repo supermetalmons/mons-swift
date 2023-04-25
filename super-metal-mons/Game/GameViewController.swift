@@ -20,8 +20,6 @@ class GameViewController: UIViewController {
     private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
     
-    private var didSetupBoard = false
-    
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesStackView: UIStackView!
@@ -60,7 +58,7 @@ class GameViewController: UIViewController {
         opponentMovesTrailingConstraint.constant = 7
         #endif
         
-        setupMonsboard()
+        setupBoard()
         updateGameInfo()
         
         gameDataSource.observe { [weak self] fen in
@@ -188,13 +186,23 @@ class GameViewController: UIViewController {
     private func restartBoardForTest() {
         monsOnBoard.forEach { $0.forEach { $0?.removeFromSuperview() } }
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
-        setupMonsboard()
+        reloadPieces()
     }
     
     private var squareSize = CGFloat.zero
     private let style = BoardStyle.pixel
     
-    private func setupMonsboard() {
+    private func reloadPieces() {
+        for i in game.board.indices {
+            for j in game.board[i].indices {
+                updateCell(i, j)
+            }
+        }
+    }
+    
+    private func setupBoard() {
+        guard boardContainerView.subviews.isEmpty else { return }
+        
         #if targetEnvironment(macCatalyst)
         let screenWidth: CGFloat = macosWidth
         let screenHeight: CGFloat = macosHeight
@@ -205,47 +213,40 @@ class GameViewController: UIViewController {
         squareSize = screenWidth / CGFloat(boardSize)
         let totalBoardSize = screenWidth
         let yOffset = (screenHeight - totalBoardSize) / 2
-
-        if !didSetupBoard {
-            // TODO: move somewhere from here
-            let boardSpec: [[Square]] = [
-                [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p],
-                [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
-                [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
-                [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
-                [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
-                [.c, .w, .b, .w, .b, .s, .b, .w, .b, .w, .c],
-                [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
-                [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
-                [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
-                [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
-                [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
-            ]
-            
-            for row in 0..<boardSize {
-                for col in 0..<boardSize {
-                    let x = CGFloat(col) * squareSize
-                    let y = CGFloat(row) * squareSize + yOffset
-
-                    let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                    square.backgroundColor = Colors.square(boardSpec[row][col], style: style)
-                    boardContainerView.addSubview(square)
-                    squares[row][col] = square
-                    
-                    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                    square.addGestureRecognizer(tapGestureRecognizer)
-                    square.col = col
-                    square.row = row
-                }
+        
+        // TODO: move somewhere from here
+        let boardSpec: [[Square]] = [
+            [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p],
+            [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+            [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+            [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+            [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+            [.c, .w, .b, .w, .b, .s, .b, .w, .b, .w, .c],
+            [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+            [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+            [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+            [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+            [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
+        ]
+        
+        for row in 0..<boardSize {
+            for col in 0..<boardSize {
+                let x = CGFloat(col) * squareSize
+                let y = CGFloat(row) * squareSize + yOffset
+                
+                let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
+                square.backgroundColor = Colors.square(boardSpec[row][col], style: style)
+                boardContainerView.addSubview(square)
+                squares[row][col] = square
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
+                square.addGestureRecognizer(tapGestureRecognizer)
+                square.col = col
+                square.row = row
             }
         }
         
-        for i in game.board.indices {
-            for j in game.board[i].indices {
-                updateCell(i, j)
-            }
-        }
-        didSetupBoard = true
+        reloadPieces()
     }
     
     private func updateCell(_ i: Int, _ j: Int) {
