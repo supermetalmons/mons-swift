@@ -177,6 +177,8 @@ class GameViewController: UIViewController {
         case .basic:
             style = .pixel
         case .pixel:
+            style = .plastic
+        case .plastic:
             style = .basic
         }
         
@@ -304,9 +306,9 @@ class GameViewController: UIViewController {
             // TODO: refactor
             switch mana {
             case .regular:
-                manaView = UIImageView(frame: CGRect(x: 31 / 63 * squareSize, y: 30 / 63 * squareSize, width: 0.54 * squareSize, height: 0.54 * squareSize))
+                manaView = UIImageView(frame: CGRect(x: 27 / 63 * squareSize, y: 23 / 63 * squareSize, width: squareSize, height: squareSize))
             case .superMana:
-                manaView = UIImageView(frame: CGRect(x: 17 / 63 * squareSize, y: 2 / 63 * squareSize, width: 0.48 * squareSize, height: 0.48 * squareSize))
+                manaView = UIImageView(frame: CGRect(x: 0.05 * squareSize, y: -0.3 * squareSize, width: 0.9 * squareSize, height: 0.9 * squareSize))
             }
             
             manaView.image = Images.mana(mana, style: style)

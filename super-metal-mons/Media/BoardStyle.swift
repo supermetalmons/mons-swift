@@ -3,7 +3,7 @@
 import Foundation
 
 enum BoardStyle: String {
-    case basic, pixel
+    case basic, pixel, plastic
     
     var namespace: String {
         return rawValue + "/"
