@@ -10,6 +10,7 @@ class SpaceView: UIView {
 class GameViewController: UIViewController {
     
     private var gameDataSource: GameDataSource!
+    private var style = BoardStyle.pixel
     
     static func with(gameDataSource: GameDataSource) -> GameViewController {
         let new = instantiate(GameViewController.self)
@@ -172,7 +173,14 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func moreButtonTapped(_ sender: Any) {
-        // TODO: toggle appearance
+        switch style {
+        case .basic:
+            style = .pixel
+        case .pixel:
+            style = .basic
+        }
+        
+        setupBoard()
     }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
@@ -190,7 +198,6 @@ class GameViewController: UIViewController {
     }
     
     private var squareSize = CGFloat.zero
-    private let style = BoardStyle.pixel
     
     private func reloadPieces() {
         for i in game.board.indices {
@@ -201,7 +208,7 @@ class GameViewController: UIViewController {
     }
     
     private func setupBoard() {
-        guard boardContainerView.subviews.isEmpty else { return }
+        let isFirstSetup = boardContainerView.subviews.isEmpty
         
         #if targetEnvironment(macCatalyst)
         let screenWidth: CGFloat = macosWidth
@@ -231,11 +238,18 @@ class GameViewController: UIViewController {
         
         for row in 0..<boardSize {
             for col in 0..<boardSize {
+                let color = Colors.square(boardSpec[row][col], style: style)
+                
+                guard isFirstSetup else {
+                    squares[row][col]?.backgroundColor = color
+                    continue
+                }
+                
                 let x = CGFloat(col) * squareSize
                 let y = CGFloat(row) * squareSize + yOffset
                 
                 let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                square.backgroundColor = Colors.square(boardSpec[row][col], style: style)
+                square.backgroundColor = color
                 boardContainerView.addSubview(square)
                 squares[row][col] = square
                 
@@ -250,6 +264,10 @@ class GameViewController: UIViewController {
     }
     
     private func updateCell(_ i: Int, _ j: Int) {
+        let previouslySetImageView = monsOnBoard[i][j]
+        // TODO: refactor, make reloading cells strict and clear
+        // rn views are removed here and there. should be able to simply reload a cell
+        
         let piece = game.board[i][j]
         switch piece {
         case let .consumable(consumable):
@@ -308,6 +326,8 @@ class GameViewController: UIViewController {
         case .none:
             break
         }
+        
+        previouslySetImageView?.removeFromSuperview()
     }
     
     // TODO: act differently when i click spaces while opponent makes his turns
