@@ -299,7 +299,16 @@ class GameViewController: UIViewController {
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             
-            let manaView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
+            let manaView: UIImageView
+            
+            // TODO: refactor
+            switch mana {
+            case .regular:
+                manaView = UIImageView(frame: CGRect(x: 31 / 63 * squareSize, y: 30 / 63 * squareSize, width: 0.54 * squareSize, height: 0.54 * squareSize))
+            case .superMana:
+                manaView = UIImageView(frame: CGRect(x: 17 / 63 * squareSize, y: 2 / 63 * squareSize, width: 0.48 * squareSize, height: 0.48 * squareSize))
+            }
+            
             manaView.image = Images.mana(mana, style: style)
             manaView.contentMode = .scaleAspectFit
             imageView.addSubview(manaView)
