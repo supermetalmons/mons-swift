@@ -4,8 +4,8 @@ import UIKit
 
 struct Colors {
     
-    static func square(_ square: Square) -> UIColor {
-        return named("square/" + square.rawValue)
+    static func square(_ square: Square, style: BoardStyle) -> UIColor {
+        return named("board/\(style.rawValue)/\(square.rawValue)")
     }
     
     private static func named(_ name: String) -> UIColor {

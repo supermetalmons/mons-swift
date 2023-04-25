@@ -192,6 +192,7 @@ class GameViewController: UIViewController {
     }
     
     private var squareSize = CGFloat.zero
+    private let style = BoardStyle.pixel
     
     private func setupMonsboard() {
         #if targetEnvironment(macCatalyst)
@@ -227,7 +228,7 @@ class GameViewController: UIViewController {
                     let y = CGFloat(row) * squareSize + yOffset
 
                     let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                    square.backgroundColor = Colors.square(boardSpec[row][col])
+                    square.backgroundColor = Colors.square(boardSpec[row][col], style: style)
                     boardContainerView.addSubview(square)
                     squares[row][col] = square
                     
@@ -249,7 +250,6 @@ class GameViewController: UIViewController {
     
     private func updateCell(_ i: Int, _ j: Int) {
         let piece = game.board[i][j]
-        let style = BoardStyle.pixel
         switch piece {
         case let .consumable(consumable):
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
