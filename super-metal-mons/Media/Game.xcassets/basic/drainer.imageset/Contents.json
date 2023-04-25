@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "drainer.png",
+      "filename" : "IMG_9414.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "IMG_9388.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "IMG_9349.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

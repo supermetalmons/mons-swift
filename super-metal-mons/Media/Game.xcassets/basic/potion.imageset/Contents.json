@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "potion2.png",
+      "filename" : "IMG_9436.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "IMG_9410.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "IMG_9371.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
