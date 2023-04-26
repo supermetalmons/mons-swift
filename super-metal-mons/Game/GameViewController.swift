@@ -28,17 +28,11 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerScoreLabel: UILabel!
     
     private let boardSize = 11
-    private var gameDataSource: GameDataSource!
     private var style = BoardStyle.pixel
     
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
     private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
-
-    // TODO: remove it from here
-    private lazy var game: MonsGame = {
-        return MonsGame()
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
