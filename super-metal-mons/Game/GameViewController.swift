@@ -9,6 +9,33 @@ class BoardSquareView: UIView {
     var col = 0
 }
 
+class BoardView: UIView {
+    var subviewsArray: [UIView] = []
+
+    func addArrangedSubview(_ view: UIView) {
+        addSubview(view)
+        subviewsArray.append(view)
+    }
+
+    func layoutGrid(rows: Int, columns: Int) {
+        let viewWidth = bounds.width / CGFloat(columns)
+        let viewHeight = bounds.height / CGFloat(rows)
+
+        for (index, view) in subviewsArray.enumerated() {
+            let row = index / columns
+            let column = index % columns
+            let x = CGFloat(column) * viewWidth
+            let y = CGFloat(row) * viewHeight
+            view.frame = CGRect(x: x, y: y, width: viewWidth, height: viewHeight)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutGrid(rows: 11, columns: 11)
+    }
+}
+
 // TODO: move protocol implementation to the extension
 class GameViewController: UIViewController, GameView {
     
@@ -20,8 +47,7 @@ class GameViewController: UIViewController, GameView {
     
     private var controller: GameController!
     
-    @IBOutlet weak var boardContainerView: UIView!
-    @IBOutlet weak var boardStackView: UIStackView!
+    @IBOutlet weak var boardView: BoardView!
     
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
@@ -64,19 +90,20 @@ class GameViewController: UIViewController, GameView {
     // MARK: - setup
     
     private func setupBoard() {
-        for row in 0..<controller.boardSize {
-            for col in 0..<controller.boardSize {
-                let color = Colors.square(controller.squares[row][col], style: controller.boardStyle)
-                let square = (boardStackView.arrangedSubviews[row].subviews.first as? UIStackView)?.arrangedSubviews[col] as? BoardSquareView
-                square?.backgroundColor = color
+        for i in 0..<11 {
+            for j in 0..<11 {
+                let square = BoardSquareView()
+                square.backgroundColor = Colors.square(controller.squares[i][j], style: controller.boardStyle)
+                
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                square?.addGestureRecognizer(tapGestureRecognizer)
-                square?.col = col
-                square?.row = row
-                squares[row][col] = square
+                square.addGestureRecognizer(tapGestureRecognizer)
+                square.row = i
+                square.col = j
+                
+                boardView.addArrangedSubview(square)
+                squares[i][j] = square
             }
         }
-        
         reloadPieces()
     }
     
@@ -287,7 +314,7 @@ class GameViewController: UIViewController, GameView {
             case .setSelected(let index):
                 let effectView = UIView()
                 effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 3 * CGFloat.pixel * 3
+                effectView.layer.borderWidth = 3
                 effectView.layer.borderColor = UIColor.green.cgColor
                 squares[index.0][index.1]?.addSubviewConstrainedToFrame(effectView)
                 squares[index.0][index.1]?.sendSubviewToBack(effectView)
@@ -303,7 +330,7 @@ class GameViewController: UIViewController, GameView {
                 // TODO: use dot for an empty field
                 let effectView = UIView()
                 effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 5 * CGFloat.pixel * 3
+                effectView.layer.borderWidth = 5
                 effectView.layer.borderColor = UIColor.yellow.cgColor
                 squares[index.0][index.1]?.addSubviewConstrainedToFrame(effectView)
                 squares[index.0][index.1]?.sendSubviewToBack(effectView)
