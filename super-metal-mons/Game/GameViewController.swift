@@ -2,18 +2,23 @@
 
 import UIKit
 
+// TODO: call it sqare view, maake it contain all the stuff
+// both mon and tile and effects
 class SpaceView: UIView {
     var row = 0
     var col = 0
 }
 
-class GameViewController: UIViewController {
+// TODO: move protocol implementation to the extension
+class GameViewController: UIViewController, GameView {
     
-    static func with(gameDataSource: GameDataSource) -> GameViewController {
+    static func with(gameController: GameController) -> GameViewController {
         let new = instantiate(GameViewController.self)
-        new.gameDataSource = gameDataSource
+        new.controller = gameController
         return new
     }
+    
+    private var controller: GameController!
     
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
@@ -28,12 +33,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
-    private let boardSize = 11
-    private var style = BoardStyle.pixel
-    
-    private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
+    private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
     private var effectsViews = [UIView]()
-    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
+    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,16 +51,7 @@ class GameViewController: UIViewController {
         setupBoard()
         updateGameInfo()
         
-        gameDataSource.observe { [weak self] fen in
-            DispatchQueue.main.async {
-                self?.game = MonsGame(fen: fen)! // TODO: do not force unwrap
-                self?.restartBoardForTest()
-                self?.updateGameInfo()
-                if let winner = self?.game.winnerColor {
-                    self?.didWin(color: winner)
-                }
-            }
-        }
+        controller.setGameView(self)
     }
     
     private func setupMovesView(_ stackView: UIStackView, moves: [MonsGame.Move: Int]) {
@@ -78,21 +71,21 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func updateGameInfo() {
+    func updateGameInfo() {
         // TODO: setup correctly depending on player's color
         let bold = UIFont.systemFont(ofSize: 19, weight: .semibold)
         let light = UIFont.systemFont(ofSize: 19, weight: .medium)
         
-        switch game.activeColor {
+        switch controller.activeColor {
         case .white:
-            setupMovesView(playerMovesStackView, moves: game.availableMoves)
+            setupMovesView(playerMovesStackView, moves: controller.availableMoves)
             opponentMovesStackView.isHidden = true
             playerMovesStackView.isHidden = false
             
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
         case .black:
-            setupMovesView(opponentMovesStackView, moves: game.availableMoves)
+            setupMovesView(opponentMovesStackView, moves: controller.availableMoves)
             opponentMovesStackView.isHidden = false
             playerMovesStackView.isHidden = true
             
@@ -100,8 +93,8 @@ class GameViewController: UIViewController {
             playerScoreLabel.font = light
         }
         
-        opponentScoreLabel.text = String(game.blackScore)
-        playerScoreLabel.text = String(game.whiteScore)
+        opponentScoreLabel.text = String(controller.blackScore)
+        playerScoreLabel.text = String(controller.whiteScore)
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
@@ -112,7 +105,7 @@ class GameViewController: UIViewController {
         opponentImageView.image = Images.randomEmoji
     }
     
-    private func didWin(color: Color) {
+    func didWin(color: Color) {
         let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             // TODO: do not restart the game if the opponent has done so already
@@ -123,13 +116,8 @@ class GameViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func sendFen(_ fen: String) {
-        gameDataSource.update(fen: fen)
-    }
-    
     private func endGame(openMenu: Bool) {
-        game = MonsGame()
-        sendFen(game.fen)
+        controller.endGame()
         if openMenu {
             dismiss(animated: false)
         } else {
@@ -153,18 +141,7 @@ class GameViewController: UIViewController {
         soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
     }
     
-    @IBAction func moreButtonTapped(_ sender: Any) {
-        switch style {
-        case .basic:
-            style = .pixel
-        case .pixel:
-            style = .plastic
-        case .plastic:
-            style = .basic
-        }
-        
-        setupBoard()
-    }
+    @IBAction func moreButtonTapped(_ sender: Any) { }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
         let wasDisabled = Defaults.isSoundDisabled
@@ -174,7 +151,7 @@ class GameViewController: UIViewController {
     
     // TODO: remove this one, this is for development only
     // TODO: separate board setup from pieces reloading
-    private func restartBoardForTest() {
+    func restartBoardForTest() {
         monsOnBoard.forEach { $0.forEach { $0?.removeFromSuperview() } }
         monsOnBoard = Array(repeating: Array(repeating: nil, count: 11), count: 11)
         reloadPieces()
@@ -183,8 +160,8 @@ class GameViewController: UIViewController {
     private var squareSize = CGFloat.zero
     
     private func reloadPieces() {
-        for i in game.board.indices {
-            for j in game.board[i].indices {
+        for i in controller.board.indices {
+            for j in controller.board[i].indices {
                 updateCell(i, j)
             }
         }
@@ -200,7 +177,7 @@ class GameViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         #endif
-        squareSize = screenWidth / CGFloat(boardSize)
+        squareSize = screenWidth / CGFloat(controller.boardSize)
         let totalBoardSize = screenWidth
         let yOffset = (screenHeight - totalBoardSize) / 2
         
@@ -219,9 +196,9 @@ class GameViewController: UIViewController {
             [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
         ]
         
-        for row in 0..<boardSize {
-            for col in 0..<boardSize {
-                let color = Colors.square(boardSpec[row][col], style: style)
+        for row in 0..<controller.boardSize {
+            for col in 0..<controller.boardSize {
+                let color = Colors.square(boardSpec[row][col], style: controller.boardStyle)
                 
                 guard isFirstSetup else {
                     squares[row][col]?.backgroundColor = color
@@ -251,18 +228,18 @@ class GameViewController: UIViewController {
         // TODO: refactor, make reloading cells strict and clear
         // rn views are removed here and there. should be able to simply reload a cell
         
-        let piece = game.board[i][j]
+        let piece = controller.board[i][j]
         switch piece {
         case let .consumable(consumable):
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.consumable(consumable, style: style)
+            imageView.image = Images.consumable(consumable, style: controller.boardStyle)
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
             boardContainerView.addSubview(imageView)
             monsOnBoard[i][j] = imageView
         case let .mon(mon: mon):
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.mon(mon, style: style)
+            imageView.image = Images.mon(mon, style: controller.boardStyle)
             
             if mon.isFainted {
                 imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -276,7 +253,7 @@ class GameViewController: UIViewController {
             
         case let .monWithMana(mon: mon, mana: mana):
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.mon(mon, style: style)
+            imageView.image = Images.mon(mon, style: controller.boardStyle)
             
             imageView.contentMode = .scaleAspectFit
             imageView.center = squares[i][j]?.center ?? CGPoint.zero
@@ -292,7 +269,7 @@ class GameViewController: UIViewController {
                 manaView = UIImageView(frame: CGRect(x: 0.13 * squareSize, y: -0.15 * squareSize, width: 0.74 * squareSize, height: 0.74 * squareSize))
             }
             
-            manaView.image = Images.mana(mana, style: style)
+            manaView.image = Images.mana(mana, style: controller.boardStyle)
             manaView.contentMode = .scaleAspectFit
             imageView.addSubview(manaView)
             
@@ -302,14 +279,14 @@ class GameViewController: UIViewController {
             switch mana {
             case .regular:
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                imageView.image = Images.mana(mana, style: style)
+                imageView.image = Images.mana(mana, style: controller.boardStyle)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
                 boardContainerView.addSubview(imageView)
                 monsOnBoard[i][j] = imageView
             case .superMana:
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                imageView.image = Images.mana(mana, style: style)
+                imageView.image = Images.mana(mana, style: controller.boardStyle)
                 imageView.contentMode = .scaleAspectFit
                 imageView.center = squares[i][j]?.center ?? CGPoint.zero
                 boardContainerView.addSubview(imageView)
@@ -329,7 +306,7 @@ class GameViewController: UIViewController {
         let i = spaceView.row // TODO: use location model here as well
         let j = spaceView.col
         
-        let effects = game.didTapSpace((i, j))
+        let effects = controller.didTapSpace((i, j))
         applyEffects(effects)
     }
     
@@ -355,9 +332,9 @@ class GameViewController: UIViewController {
                 effectsViews.append(effectView)
             case .updateGameStatus:
                 updateGameInfo()
-                sendFen(game.fen)
+                controller.shareGameState()
                 
-                if let winner = game.winnerColor {
+                if let winner = controller.winnerColor {
                     didWin(color: winner)
                 }
             case .availableForStep(let index):

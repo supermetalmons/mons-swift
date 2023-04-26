@@ -34,15 +34,15 @@ class MainMenuViewController: UIViewController {
     
     private func connectToURL(_ url: URL) {
         if let id = url.gameId {
-            let dataSource = RemoteGameDataSource(gameId: id)
-            presentGameViewController(dataSource: dataSource)
+            let controller = GameController(gameId: id)
+            presentGameViewController(gameController: controller)
         } else {
             // TODO: communicate failed connection
         }
     }
     
-    @discardableResult private func presentGameViewController(dataSource: GameDataSource) -> UIViewController {
-        let gameViewController = GameViewController.with(gameDataSource: dataSource)
+    @discardableResult private func presentGameViewController(gameController: GameController) -> UIViewController {
+        let gameViewController = GameViewController.with(gameController: gameController)
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
         return gameViewController
@@ -50,8 +50,8 @@ class MainMenuViewController: UIViewController {
     
     @IBAction func playButtonTapped(_ sender: Any) {
         let id = String.newGameId
-        let dataSource = RemoteGameDataSource(gameId: id)
-        let gameViewController = presentGameViewController(dataSource: dataSource)
+        let controller = GameController(gameId: id)
+        let gameViewController = presentGameViewController(gameController: controller)
         
         let link = URL.forGame(id: id)
         let alert = UIAlertController(title: Strings.inviteWith, message: link, preferredStyle: .alert)
@@ -63,8 +63,8 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func localGameButtonTapped(_ sender: Any) {
-        let dataSource = LocalGameDataSource()
-        presentGameViewController(dataSource: dataSource)
+        let controller = GameController()
+        presentGameViewController(gameController: controller)
     }
     
     @IBAction func joinButtonTapped(_ sender: Any) {
