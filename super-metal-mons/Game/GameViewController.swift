@@ -9,42 +9,35 @@ class SpaceView: UIView {
 
 class GameViewController: UIViewController {
     
-    private var gameDataSource: GameDataSource!
-    private var style = BoardStyle.pixel
-    
     static func with(gameDataSource: GameDataSource) -> GameViewController {
         let new = instantiate(GameViewController.self)
         new.gameDataSource = gameDataSource
         return new
     }
     
-    private var effectsViews = [UIView]()
-    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
-    
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesStackView: UIStackView!
     @IBOutlet weak var playerMovesStackView: UIStackView!
-    
     @IBOutlet weak var topButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
-    
-    @IBOutlet weak var soundControlButton: UIButton! {
-        didSet {
-            updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
-        }
-    }
+    @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var boardContainerView: UIView!
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
     private let boardSize = 11
+    private var gameDataSource: GameDataSource!
+    private var style = BoardStyle.pixel
+    
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
+    private var effectsViews = [UIView]()
+    private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: boardSize), count: boardSize)
 
-    // TODO: mb it should be in a game data source
+    // TODO: remove it from here
     private lazy var game: MonsGame = {
-        return MonsGame() // TODO: load the last game if there is one
+        return MonsGame()
     }()
     
     override func viewDidLoad() {
@@ -56,6 +49,7 @@ class GameViewController: UIViewController {
         opponentMovesTrailingConstraint.constant = 7
         #endif
         
+        updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
         setupBoard()
         updateGameInfo()
         
