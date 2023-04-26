@@ -30,9 +30,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
     
-    @IBOutlet weak var opponentHighlightView: UIImageView!
-    @IBOutlet weak var playerHighlightView: UIImageView!
-    
     @IBOutlet weak var soundControlButton: UIButton! {
         didSet {
             updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
@@ -98,9 +95,6 @@ class GameViewController: UIViewController {
         
         switch game.activeColor {
         case .white:
-            opponentHighlightView.isHidden = true
-            playerHighlightView.isHidden = false
-            
             setupMovesView(playerMovesStackView, moves: game.availableMoves)
             opponentMovesStackView.isHidden = true
             playerMovesStackView.isHidden = false
@@ -108,9 +102,6 @@ class GameViewController: UIViewController {
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
         case .black:
-            opponentHighlightView.isHidden = false
-            playerHighlightView.isHidden = true
-            
             setupMovesView(opponentMovesStackView, moves: game.availableMoves)
             opponentMovesStackView.isHidden = false
             playerMovesStackView.isHidden = true
