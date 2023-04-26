@@ -55,7 +55,7 @@ class GameViewController: UIViewController {
         
         gameDataSource.observe { [weak self] fen in
             DispatchQueue.main.async {
-                self?.game = MonsGame(fen: fen)!
+                self?.game = MonsGame(fen: fen)! // TODO: do not force unwrap
                 self?.restartBoardForTest()
                 self?.updateGameInfo()
                 if let winner = self?.game.winnerColor {
