@@ -20,19 +20,27 @@ class GameViewController: UIViewController, GameView {
     
     private var controller: GameController!
     
+    @IBOutlet weak var boardContainerView: UIView!
+    
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topButtonTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var opponentMovesStackView: UIStackView!
     @IBOutlet weak var playerMovesStackView: UIStackView!
-    @IBOutlet weak var topButtonTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
+    
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
-    @IBOutlet weak var boardContainerView: UIView!
+    
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
+    private var squareSize = CGFloat.zero
+    
+    // TODO: keep view models as well — in order to check if an update is needed
     private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
     private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
@@ -54,7 +62,98 @@ class GameViewController: UIViewController, GameView {
         controller.setGameView(self)
     }
     
-    private func setupMovesView(_ stackView: UIStackView, moves: [MonsGame.Move: Int]) {
+    // MARK: - setup
+    
+    private func setupBoard() {
+        #if targetEnvironment(macCatalyst)
+        let screenWidth: CGFloat = macosWidth
+        let screenHeight: CGFloat = macosHeight
+        #else
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        #endif
+        squareSize = screenWidth / CGFloat(controller.boardSize)
+        let totalBoardSize = screenWidth
+        let yOffset = (screenHeight - totalBoardSize) / 2
+        
+        for row in 0..<controller.boardSize {
+            for col in 0..<controller.boardSize {
+                let color = Colors.square(controller.squares[row][col], style: controller.boardStyle)
+                
+                let x = CGFloat(col) * squareSize
+                let y = CGFloat(row) * squareSize + yOffset
+                
+                let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
+                square.backgroundColor = color
+                boardContainerView.addSubview(square)
+                squares[row][col] = square
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
+                square.addGestureRecognizer(tapGestureRecognizer)
+                square.col = col
+                square.row = row
+            }
+        }
+        
+        reloadPieces()
+    }
+    
+    // MARK: - actions
+    
+    @objc private func didTapSquare(sender: UITapGestureRecognizer) {
+        guard let spaceView = sender.view as? SpaceView else { return }
+        
+        let i = spaceView.row // TODO: use location model here as well
+        let j = spaceView.col
+        
+        let effects = controller.didTapSpace((i, j))
+        applyEffects(effects)
+    }
+    
+    @IBAction func didTapPlayerAvatar(_ sender: Any) {
+        playerImageView.image = Images.randomEmoji
+    }
+    
+    @IBAction func didTapOpponentAvatar(_ sender: Any) {
+        opponentImageView.image = Images.randomEmoji
+    }
+    
+    @IBAction func escapeButtonTapped(_ sender: Any) {
+        let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
+            self?.endGame(openMenu: true)
+        }
+        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    @IBAction func moreButtonTapped(_ sender: Any) { }
+    
+    @IBAction func didTapSoundButton(_ sender: Any) {
+        let wasDisabled = Defaults.isSoundDisabled
+        Defaults.isSoundDisabled = !wasDisabled
+        updateSoundButton(isSoundEnabled: wasDisabled)
+    }
+    
+    private func endGame(openMenu: Bool) {
+        controller.endGame()
+        if openMenu {
+            dismiss(animated: false)
+        } else {
+            updateGameInfo()
+            restartBoardForTest()
+        }
+    }
+    
+    // MARK: - updates
+    
+    private func updateSoundButton(isSoundEnabled: Bool) {
+        soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
+    }
+    
+    private func updateMovesView(_ stackView: UIStackView, moves: [MonsGame.Move: Int]) {
         let steps = moves[.step] ?? 0
         let mana = moves[.mana] ?? 0
         let actions = moves[.action] ?? 0
@@ -78,14 +177,14 @@ class GameViewController: UIViewController, GameView {
         
         switch controller.activeColor {
         case .white:
-            setupMovesView(playerMovesStackView, moves: controller.availableMoves)
+            updateMovesView(playerMovesStackView, moves: controller.availableMoves)
             opponentMovesStackView.isHidden = true
             playerMovesStackView.isHidden = false
             
             opponentScoreLabel.font = light
             playerScoreLabel.font = bold
         case .black:
-            setupMovesView(opponentMovesStackView, moves: controller.availableMoves)
+            updateMovesView(opponentMovesStackView, moves: controller.availableMoves)
             opponentMovesStackView.isHidden = false
             playerMovesStackView.isHidden = true
             
@@ -95,14 +194,6 @@ class GameViewController: UIViewController, GameView {
         
         opponentScoreLabel.text = String(controller.blackScore)
         playerScoreLabel.text = String(controller.whiteScore)
-    }
-    
-    @IBAction func didTapPlayerAvatar(_ sender: Any) {
-        playerImageView.image = Images.randomEmoji
-    }
-    
-    @IBAction func didTapOpponentAvatar(_ sender: Any) {
-        opponentImageView.image = Images.randomEmoji
     }
     
     func didWin(color: Color) {
@@ -116,39 +207,6 @@ class GameViewController: UIViewController, GameView {
         present(alert, animated: true)
     }
     
-    private func endGame(openMenu: Bool) {
-        controller.endGame()
-        if openMenu {
-            dismiss(animated: false)
-        } else {
-            updateGameInfo()
-            restartBoardForTest()
-        }
-    }
-    
-    @IBAction func escapeButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
-            self?.endGame(openMenu: true)
-        }
-        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
-    }
-    
-    private func updateSoundButton(isSoundEnabled: Bool) {
-        soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
-    }
-    
-    @IBAction func moreButtonTapped(_ sender: Any) { }
-    
-    @IBAction func didTapSoundButton(_ sender: Any) {
-        let wasDisabled = Defaults.isSoundDisabled
-        Defaults.isSoundDisabled = !wasDisabled
-        updateSoundButton(isSoundEnabled: wasDisabled)
-    }
-    
     // TODO: remove this one, this is for development only
     // TODO: separate board setup from pieces reloading
     func restartBoardForTest() {
@@ -157,70 +215,12 @@ class GameViewController: UIViewController, GameView {
         reloadPieces()
     }
     
-    private var squareSize = CGFloat.zero
-    
     private func reloadPieces() {
         for i in controller.board.indices {
             for j in controller.board[i].indices {
                 updateCell(i, j)
             }
         }
-    }
-    
-    private func setupBoard() {
-        let isFirstSetup = boardContainerView.subviews.isEmpty
-        
-        #if targetEnvironment(macCatalyst)
-        let screenWidth: CGFloat = macosWidth
-        let screenHeight: CGFloat = macosHeight
-        #else
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        #endif
-        squareSize = screenWidth / CGFloat(controller.boardSize)
-        let totalBoardSize = screenWidth
-        let yOffset = (screenHeight - totalBoardSize) / 2
-        
-        // TODO: move somewhere from here
-        let boardSpec: [[Square]] = [
-            [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p],
-            [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
-            [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
-            [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
-            [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
-            [.c, .w, .b, .w, .b, .s, .b, .w, .b, .w, .c],
-            [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
-            [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
-            [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
-            [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
-            [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
-        ]
-        
-        for row in 0..<controller.boardSize {
-            for col in 0..<controller.boardSize {
-                let color = Colors.square(boardSpec[row][col], style: controller.boardStyle)
-                
-                guard isFirstSetup else {
-                    squares[row][col]?.backgroundColor = color
-                    continue
-                }
-                
-                let x = CGFloat(col) * squareSize
-                let y = CGFloat(row) * squareSize + yOffset
-                
-                let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                square.backgroundColor = color
-                boardContainerView.addSubview(square)
-                squares[row][col] = square
-                
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                square.addGestureRecognizer(tapGestureRecognizer)
-                square.col = col
-                square.row = row
-            }
-        }
-        
-        reloadPieces()
     }
     
     private func updateCell(_ i: Int, _ j: Int) {
@@ -297,17 +297,6 @@ class GameViewController: UIViewController, GameView {
         }
         
         previouslySetImageView?.removeFromSuperview()
-    }
-    
-    // TODO: act differently when i click spaces while opponent makes his turns
-    @objc private func didTapSquare(sender: UITapGestureRecognizer) {
-        guard let spaceView = sender.view as? SpaceView else { return }
-        
-        let i = spaceView.row // TODO: use location model here as well
-        let j = spaceView.col
-        
-        let effects = controller.didTapSpace((i, j))
-        applyEffects(effects)
     }
     
     private func applyEffects(_ effects: [Effect]) {

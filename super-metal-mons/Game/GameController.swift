@@ -20,6 +20,20 @@ enum GameViewEffect {
 // TODO: refactor
 class GameController {
     
+    let squares: [[Square]] = [
+        [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p],
+        [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+        [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+        [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+        [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+        [.c, .w, .b, .w, .b, .s, .b, .w, .b, .w, .c],
+        [.w, .b, .w, .m, .w, .m, .w, .m, .w, .b, .w],
+        [.b, .w, .b, .w, .m, .w, .m, .w, .b, .w, .b],
+        [.w, .b, .w, .b, .w, .b, .w, .b, .w, .b, .w],
+        [.b, .w, .b, .w, .b, .w, .b, .w, .b, .w, .b],
+        [.p, .b, .w, .b, .w, .b, .w, .b, .w, .b, .p]
+    ]
+    
     var board: [[Piece]] {
         return game.board
     }
@@ -94,6 +108,7 @@ class GameController {
     
     // TODO: deprecate
     func didTapSpace(_ index: (Int, Int)) -> [Effect] {
+        // TODO: act differently when i click spaces while opponent makes his turns
         return game.didTapSpace(index)
     }
     
