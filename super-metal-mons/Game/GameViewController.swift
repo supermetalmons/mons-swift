@@ -23,6 +23,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
     @IBOutlet weak var soundControlButton: UIButton!
+    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var boardContainerView: UIView!
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
@@ -43,6 +44,7 @@ class GameViewController: UIViewController {
         opponentMovesTrailingConstraint.constant = 7
         #endif
         
+        moreButton.isHidden = true
         updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
         setupBoard()
         updateGameInfo()

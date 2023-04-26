@@ -274,6 +274,7 @@
                     </view>
                     <connections>
                         <outlet property="boardContainerView" destination="FgO-1g-3sr" id="2Gw-OJ-RU8"/>
+                        <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
                         <outlet property="opponentMovesTrailingConstraint" destination="cN8-og-VYM" id="a9R-aj-LTP"/>
