@@ -17,19 +17,685 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgO-1g-3sr">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTh-AV-1yS">
-                                <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
-                                <color key="backgroundColor" systemColor="systemCyanColor"/>
+                                <rect key="frame" x="0.0" y="242" width="393" height="393"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UQ0-Cy-vex">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rHZ-ID-bSd">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aG5-0C-bgJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyd-xm-iwH" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LzT-xt-DTU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUA-35-Rz7" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8k-xj-cEF" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXS-cn-3co" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAU-xq-7Cl" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-hn-Bgk" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Fk-rn-RqX" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cc-cq-CTf" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGz-nj-RVR" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Md6-0c-Ugd" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="aG5-0C-bgJ" secondAttribute="bottom" id="FZj-5f-doW"/>
+                                                    <constraint firstItem="aG5-0C-bgJ" firstAttribute="top" secondItem="rHZ-ID-bSd" secondAttribute="top" id="HU4-HB-VGy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aG5-0C-bgJ" secondAttribute="trailing" id="mpi-C4-go3"/>
+                                                    <constraint firstItem="aG5-0C-bgJ" firstAttribute="leading" secondItem="rHZ-ID-bSd" secondAttribute="leading" id="vOS-eM-DWI"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsv-BP-VzO">
+                                                <rect key="frame" x="0.0" y="35.666666666666686" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ofC-Qs-3e7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ob-Ek-BR1" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rys-8g-Pa0" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHk-Th-Uum" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjN-TU-j4Q" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AA7-5h-oPa" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPg-jc-cT4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVx-9w-9a5" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D9n-XB-ySj" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Bi-3B-ZkJ" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMT-FA-zNa" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKZ-yL-34n" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ofC-Qs-3e7" secondAttribute="bottom" id="3o8-xv-Xzu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ofC-Qs-3e7" secondAttribute="trailing" id="MOg-aB-9WO"/>
+                                                    <constraint firstItem="ofC-Qs-3e7" firstAttribute="leading" secondItem="Tsv-BP-VzO" secondAttribute="leading" id="hjD-Uo-SJ9"/>
+                                                    <constraint firstItem="ofC-Qs-3e7" firstAttribute="top" secondItem="Tsv-BP-VzO" secondAttribute="top" id="ve5-f7-O9h"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tfg-Yc-Ge6">
+                                                <rect key="frame" x="0.0" y="71.333333333333314" width="393" height="36"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="s4V-kP-13U">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="36"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1N4-IA-hZu" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slr-2B-XJz" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fo0-8j-u10" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VER-Ju-6MH" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42B-Hg-MMD" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khr-0P-vcp" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnU-aJ-Kla" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6f-YJ-Lmm" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqM-ZB-5hB" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8J-nF-dUz" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j46-xU-ScV" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="s4V-kP-13U" secondAttribute="trailing" id="Q02-vM-q2c"/>
+                                                    <constraint firstItem="s4V-kP-13U" firstAttribute="leading" secondItem="Tfg-Yc-Ge6" secondAttribute="leading" id="SPv-z3-avy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="s4V-kP-13U" secondAttribute="bottom" id="eiW-Qv-PxJ"/>
+                                                    <constraint firstItem="s4V-kP-13U" firstAttribute="top" secondItem="Tfg-Yc-Ge6" secondAttribute="top" id="tUB-zN-bwx"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZR-0M-mI6">
+                                                <rect key="frame" x="0.0" y="107.33333333333331" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Iup-Ok-L2x">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kt-XR-uT3" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQZ-60-Elr" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ye-H5-l07" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aef-4n-2kW" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBz-gd-T8O" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Osh-g7-YP4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vsg-Hk-14s" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npv-tn-QKH" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ts9-vs-mdF" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neA-dw-Zqv" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofu-4X-7Dh" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Iup-Ok-L2x" secondAttribute="bottom" id="GqN-8r-rp5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Iup-Ok-L2x" secondAttribute="trailing" id="MYp-Fr-h8z"/>
+                                                    <constraint firstItem="Iup-Ok-L2x" firstAttribute="leading" secondItem="PZR-0M-mI6" secondAttribute="leading" id="eSJ-bU-2B4"/>
+                                                    <constraint firstItem="Iup-Ok-L2x" firstAttribute="top" secondItem="PZR-0M-mI6" secondAttribute="top" id="szW-LI-EfP"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQS-E9-KhM">
+                                                <rect key="frame" x="0.0" y="143" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rxY-V5-ACs">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUS-lh-wCo" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbT-sm-mMP" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJY-2F-JnX" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWd-LW-Awj" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pV2-9t-JAm" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MaT-6g-r6f" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0n-Bz-qSh" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uee-6L-wNK" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvF-IB-HIJ" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fey-1d-uY1" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4g-kU-YfU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="rxY-V5-ACs" firstAttribute="top" secondItem="TQS-E9-KhM" secondAttribute="top" id="745-Oh-BSc"/>
+                                                    <constraint firstItem="rxY-V5-ACs" firstAttribute="leading" secondItem="TQS-E9-KhM" secondAttribute="leading" id="CeX-Zq-Fpy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rxY-V5-ACs" secondAttribute="bottom" id="ZuQ-aQ-cc1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rxY-V5-ACs" secondAttribute="trailing" id="dlW-J4-tbD"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X37-nH-okI">
+                                                <rect key="frame" x="0.0" y="178.66666666666669" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bSv-Q1-t1r">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fv0-7s-YPb" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jn-kt-5h2" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEH-vI-cci" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ak-hK-SsU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5v3-tG-3a8" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fb5-4t-mcZ" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iem-qQ-RVf" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Foq-q8-eIK" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dLY-zZ-fMu" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yL6-7b-crB" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYo-Ns-1eB" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="bSv-Q1-t1r" firstAttribute="leading" secondItem="X37-nH-okI" secondAttribute="leading" id="8Wc-n0-5aL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bSv-Q1-t1r" secondAttribute="trailing" id="D95-SX-v4Z"/>
+                                                    <constraint firstItem="bSv-Q1-t1r" firstAttribute="top" secondItem="X37-nH-okI" secondAttribute="top" id="FOu-HS-2e4"/>
+                                                    <constraint firstAttribute="bottom" secondItem="bSv-Q1-t1r" secondAttribute="bottom" id="gQ4-Jh-kDb"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQd-Zc-fN4">
+                                                <rect key="frame" x="0.0" y="214.33333333333331" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ZKE-9S-BUr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBy-Fg-Cd4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjO-cQ-SxI" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRA-sX-TAM" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XKX-fW-JYx" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A4I-x2-kRg" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zj1-qG-0Bb" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJ9-1h-wFe" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7d-cy-U5v" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cH-wB-rcU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxQ-5L-Suc" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGy-wi-TcA" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="ZKE-9S-BUr" firstAttribute="leading" secondItem="jQd-Zc-fN4" secondAttribute="leading" id="DGE-wW-Z1h"/>
+                                                    <constraint firstItem="ZKE-9S-BUr" firstAttribute="top" secondItem="jQd-Zc-fN4" secondAttribute="top" id="ImD-u5-FZZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ZKE-9S-BUr" secondAttribute="trailing" id="KLg-38-PvB"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ZKE-9S-BUr" secondAttribute="bottom" id="yoZ-FL-Yp0"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSh-pa-TQQ">
+                                                <rect key="frame" x="0.0" y="249.99999999999997" width="393" height="35.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Irg-s5-ZqU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sg1-d0-TAG" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTf-kT-f83" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FM-LV-Nnt" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xj4-QB-QeB" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYV-Co-Zi7" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00m-Cs-IAU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoo-nL-Hf0" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVF-ho-MKu" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-TJ-VGs" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ax-Qv-wi1" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm0-5f-qTV" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Irg-s5-ZqU" secondAttribute="trailing" id="o5J-to-hiK"/>
+                                                    <constraint firstItem="Irg-s5-ZqU" firstAttribute="leading" secondItem="xSh-pa-TQQ" secondAttribute="leading" id="sIt-X3-sir"/>
+                                                    <constraint firstItem="Irg-s5-ZqU" firstAttribute="top" secondItem="xSh-pa-TQQ" secondAttribute="top" id="vIf-yc-bR6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Irg-s5-ZqU" secondAttribute="bottom" id="yOy-wQ-vCz"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cy-Bx-NEz">
+                                                <rect key="frame" x="0.0" y="285.66666666666663" width="393" height="36"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-DU-Lmh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="36"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhG-BK-Cne" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-b6-RyU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aav-5o-ORw" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LPs-w1-Ftu" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXP-4G-a8r" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9d-Vg-6mN" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRA-Cq-OkN" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ciY-Ih-aKU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dv-it-tZe" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Dr-MU4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKn-oh-LHh" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="36"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="eEf-DU-Lmh" firstAttribute="top" secondItem="4cy-Bx-NEz" secondAttribute="top" id="42G-vb-iXC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="eEf-DU-Lmh" secondAttribute="trailing" id="NvS-fR-3sR"/>
+                                                    <constraint firstItem="eEf-DU-Lmh" firstAttribute="leading" secondItem="4cy-Bx-NEz" secondAttribute="leading" id="PhZ-cm-AnO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="eEf-DU-Lmh" secondAttribute="bottom" id="z0N-QT-y1I"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YF-W2-ZJF">
+                                                <rect key="frame" x="0.0" y="321.66666666666663" width="393" height="35.666666666666686"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HgF-Ol-Cxj">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="odk-LX-mD7" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Zs-AB-MIj" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJQ-rX-0Re" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gu-2g-OYm" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQI-D2-Owd" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HwY-Cp-1gs" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jiG-JJ-Pm6" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAB-AN-AUR" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5MI-H8-CvL" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxv-7Q-LA4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AU-cg-toF" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="HgF-Ol-Cxj" secondAttribute="trailing" id="4ao-gp-vp2"/>
+                                                    <constraint firstItem="HgF-Ol-Cxj" firstAttribute="leading" secondItem="6YF-W2-ZJF" secondAttribute="leading" id="Sql-zd-mFP"/>
+                                                    <constraint firstItem="HgF-Ol-Cxj" firstAttribute="top" secondItem="6YF-W2-ZJF" secondAttribute="top" id="d7N-vM-VEh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="HgF-Ol-Cxj" secondAttribute="bottom" id="gQ6-gW-mLa"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zDX-Op-dLG">
+                                                <rect key="frame" x="0.0" y="357.33333333333337" width="393" height="35.666666666666686"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="VHF-WQ-I87">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="35.666666666666664"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QeC-p7-Zjj" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35.666666666666664" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2JN-Id-XZ4" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="35.666666666666671" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2n-ZQ-ivJ" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="71.333333333333329" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRl-PF-25H" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="107.33333333333333" y="0.0" width="35.666666666666671" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFS-rS-HZN" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="143" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeN-gP-QS9" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="178.66666666666666" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hez-7E-ZgK" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="214.33333333333334" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKX-Gs-DSz" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="249.99999999999997" y="0.0" width="35.666666666666657" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyG-wd-3ef" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="285.66666666666669" y="0.0" width="36" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugC-9X-Dvf" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="321.66666666666669" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5n4-ZH-UoU" customClass="BoardSquareView" customModule="mons" customModuleProvider="target">
+                                                                <rect key="frame" x="357.33333333333331" y="0.0" width="35.666666666666686" height="35.666666666666664"/>
+                                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="VHF-WQ-I87" firstAttribute="leading" secondItem="zDX-Op-dLG" secondAttribute="leading" id="Fps-Bu-GGU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="VHF-WQ-I87" secondAttribute="bottom" id="H2U-tq-jC4"/>
+                                                    <constraint firstAttribute="trailing" secondItem="VHF-WQ-I87" secondAttribute="trailing" id="Uiu-Qr-qsF"/>
+                                                    <constraint firstItem="VHF-WQ-I87" firstAttribute="top" secondItem="zDX-Op-dLG" secondAttribute="top" id="ZJd-6K-2zZ"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UQ0-Cy-vex" secondAttribute="trailing" id="0ex-Qb-uds"/>
+                                    <constraint firstItem="UQ0-Cy-vex" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="4gD-5e-Rm1"/>
                                     <constraint firstAttribute="width" secondItem="tTh-AV-1yS" secondAttribute="height" multiplier="1:1" id="IHU-j1-y32"/>
+                                    <constraint firstAttribute="bottom" secondItem="UQ0-Cy-vex" secondAttribute="bottom" id="QK5-db-AXN"/>
+                                    <constraint firstItem="UQ0-Cy-vex" firstAttribute="top" secondItem="tTh-AV-1yS" secondAttribute="top" id="gbh-Bo-Xbk"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONt-Hy-v98">
-                                <rect key="frame" x="0.0" y="164.66666666666666" width="393" height="65"/>
+                                <rect key="frame" x="0.0" y="177" width="393" height="65"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
                                         <rect key="frame" x="201" y="35" width="186" height="18"/>
@@ -76,7 +742,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-Mc-0Jq">
-                                        <rect key="frame" x="46" y="30.333333333333343" width="12.666666666666664" height="23"/>
+                                        <rect key="frame" x="46" y="30.666666666666657" width="12.666666666666664" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
@@ -116,10 +782,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j">
-                                <rect key="frame" x="0.0" y="622.66666666666663" width="393" height="74"/>
+                                <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-AV-kZ9">
-                                        <rect key="frame" x="46" y="11.333333333333371" width="12.666666666666664" height="23"/>
+                                        <rect key="frame" x="46" y="11.666666666666629" width="12.666666666666664" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
@@ -258,26 +924,23 @@
                         <constraints>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="1jU-wt-xwP"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2zD-i8-USp"/>
+                            <constraint firstItem="tTh-AV-1yS" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3mn-bb-Jgb"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" secondItem="ONt-Hy-v98" secondAttribute="bottom" constant="-2.8421709430404007e-14" id="Beh-uK-fYK"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="Ndc-Be-f6K"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QFa-iI-DYC"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TFo-ZL-ece"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="top" secondItem="tTh-AV-1yS" secondAttribute="bottom" id="Ub9-W6-zCV"/>
-                            <constraint firstItem="tTh-AV-1yS" firstAttribute="centerY" secondItem="FgO-1g-3sr" secondAttribute="centerY" id="ZUv-jz-E3p"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="bse-03-rzh"/>
-                            <constraint firstItem="tTh-AV-1yS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="e4d-Lo-SXE"/>
-                            <constraint firstAttribute="bottom" secondItem="FgO-1g-3sr" secondAttribute="bottom" id="f4L-xN-JS7"/>
+                            <constraint firstItem="tTh-AV-1yS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="e4d-Lo-SXE"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="hpK-b5-oB1"/>
-                            <constraint firstItem="FgO-1g-3sr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="n3P-5c-hRv"/>
-                            <constraint firstAttribute="trailing" secondItem="FgO-1g-3sr" secondAttribute="trailing" id="pRU-qh-UbZ"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="qMy-Xj-gYr"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vXC-AT-FaN"/>
-                            <constraint firstItem="FgO-1g-3sr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wHe-Q6-8Kg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P29-PV-UEw" secondAttribute="trailing" id="wPw-RU-Z2b"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="boardContainerView" destination="FgO-1g-3sr" id="2Gw-OJ-RU8"/>
+                        <outlet property="boardContainerView" destination="tTh-AV-1yS" id="6gN-pP-TzO"/>
+                        <outlet property="boardStackView" destination="UQ0-Cy-vex" id="Y4B-4K-YeG"/>
                         <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
@@ -396,8 +1059,11 @@
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
