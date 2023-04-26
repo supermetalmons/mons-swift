@@ -57,6 +57,7 @@
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
 		2CDB1AF229EF020500C51230 /* moveMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AF129EF020500C51230 /* moveMana.wav */; };
+		2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC6E4E29F9BE6100EF34FA /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
 		2CDB1AF129EF020500C51230 /* moveMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = moveMana.wav; sourceTree = "<group>"; };
+		2CFC6E4E29F9BE6100EF34FA /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
+				2CFC6E4E29F9BE6100EF34FA /* UIView.swift */,
 				2CB6D3B729F7316F00605255 /* Bool.swift */,
 				2CC4FBDF29F6C69200A90CDD /* String.swift */,
 				2CC4FBE129F6C69900A90CDD /* URL.swift */,
@@ -384,6 +387,7 @@
 				2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */,
 				2CB6D3B229F730F600605255 /* Mon.swift in Sources */,
 				2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */,
+				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */,
