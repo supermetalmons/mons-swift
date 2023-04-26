@@ -7,7 +7,7 @@ enum Color {
     
     init?(fen: String) {
         switch fen {
-        case "w":
+        case "r":
             self = .white
         case "b":
             self = .black
@@ -18,7 +18,7 @@ enum Color {
     
     var fen: String {
         switch self {
-        case .white: return "w"
+        case .white: return "r"
         case .black: return "b"
         }
     }
