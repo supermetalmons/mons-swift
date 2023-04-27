@@ -22,6 +22,24 @@ struct Location: Equatable, Hashable {
         return monsBases.contains(Location(i, j))
     }
     
+    static func basedMon(_ i: Int, _ j: Int) -> Mon? {
+        let color: Color
+        switch i {
+        case 0: color = .black
+        case 10: color = .white // TODO: DRY
+        default: return nil
+        }
+        
+        switch (i, j) {
+        case (10, 5), (0, 5): return Mon(kind: .drainer, color: color)
+        case (10, 4), (0, 6): return Mon(kind: .angel, color: color)
+        case (10, 6), (0, 4): return Mon(kind: .spirit, color: color)
+        case (10, 3), (0, 7): return Mon(kind: .demon, color: color)
+        case (10, 7), (0, 3): return Mon(kind: .mystic, color: color)
+        default: return nil
+        }
+    }
+    
     static func isSuperManaBase(_ i: Int, _ j: Int) -> Bool {
         // TODO: DRY
         return i == 5 && j == 5

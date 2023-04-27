@@ -4,6 +4,10 @@ import UIKit
 
 struct Images {
     
+    static func monsBase(mon: Mon, style: BoardStyle) -> UIImage {
+        return named(style.namespace + "base-" + mon.kind.rawValue)
+    }
+
     static func consumable(_ consumable: Consumable, style: BoardStyle) -> UIImage {
         switch consumable {
         case .potion:

@@ -268,7 +268,23 @@ class GameViewController: UIViewController, GameView {
                 monsOnBoard[i][j] = imageView
             }
         case .none:
-            break
+            // TODO: refactor
+            if let mon = Location.basedMon(i, j), let square = squares[i][j] {
+                let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
+                imageView.contentMode = .scaleAspectFit
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                
+                squares[i][j]?.addSubview(imageView)
+                NSLayoutConstraint.activate([
+                    imageView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.6),
+                    imageView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.6),
+                    imageView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
+                    imageView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
+                ])
+                
+                imageView.alpha = 0.4
+                monsOnBoard[i][j] = imageView // TODO: do not add to mons on board, this is smth different
+            }
         }
         
         previouslySetImageView?.removeFromSuperview()
