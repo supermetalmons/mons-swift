@@ -13,6 +13,8 @@ class GameViewController: UIViewController, GameView {
     
     private var controller: GameController!
     private var playerSideColor = Color.white
+    private var whiteEmoji = Images.randomEmoji // TODO: get from controller
+    private var blackEmoji = Images.randomEmoji
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -86,11 +88,18 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
-        playerImageView.image = Images.randomEmoji
+        let newRandom = Images.randomEmoji
+        switch playerSideColor {
+        case .white:
+            whiteEmoji = newRandom
+        case .black:
+            blackEmoji = newRandom
+        }
+        playerImageView.image = newRandom
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
-        opponentImageView.image = Images.randomEmoji
+        // TODO: make it big
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
@@ -162,9 +171,13 @@ class GameViewController: UIViewController, GameView {
         let opponentScore: Int
         switch playerSideColor {
         case .white:
+            playerImageView.image = whiteEmoji
+            opponentImageView.image = blackEmoji
             myScore = controller.whiteScore
             opponentScore = controller.blackScore
         case .black:
+            playerImageView.image = blackEmoji
+            opponentImageView.image = whiteEmoji
             myScore = controller.blackScore
             opponentScore = controller.whiteScore
         }
