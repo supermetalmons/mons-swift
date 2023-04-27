@@ -10,7 +10,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
-        scene.sizeRestrictions?.minimumSize = CGSize(width: 500, height: 500)
+        scene.sizeRestrictions?.minimumSize = CGSize(width: 420, height: 420)
         if let url = connectionOptions.userActivities.first?.webpageURL ?? connectionOptions.urlContexts.first?.url {
             wasOpenedWithURL(url, onStart: true)
         }
