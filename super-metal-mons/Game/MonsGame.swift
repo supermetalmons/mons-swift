@@ -599,7 +599,7 @@ class MonsGame {
         let isSpiritAction: Bool // TODO: there should be a better way to implement this
         switch source {
         case let .mon(mon: mon):
-            isSpiritAction = mon.kind == .spirit && distance > 1 && !Location.isMonsBase(from.0, from.1)
+            isSpiritAction = mon.kind == .spirit && distance > 1
         default:
             isSpiritAction = false
         }
@@ -671,7 +671,7 @@ class MonsGame {
                     return ([from, to].map { Effect.updateCell($0) }, true)
                 }
             } else {
-                guard canUseAction else { return ([], false) }
+                guard canUseAction, !Location.isMonsBase(from.0, from.1) else { return ([], false) }
                 
                 switch mon.kind {
                 case .mystic:
