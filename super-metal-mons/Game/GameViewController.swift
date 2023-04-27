@@ -12,6 +12,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     private var controller: GameController!
+    private var playerSideColor = Color.white
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -45,7 +46,6 @@ class GameViewController: UIViewController, GameView {
         opponentMovesTrailingConstraint.constant = 7
         #endif
         
-        moreButton.isHidden = true
         updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
         setupBoard()
         updateGameInfo()
@@ -104,12 +104,20 @@ class GameViewController: UIViewController, GameView {
         present(alert, animated: true)
     }
     
-    @IBAction func moreButtonTapped(_ sender: Any) { }
+    @IBAction func moreButtonTapped(_ sender: Any) {
+        flipBoard()
+    }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
         let wasDisabled = Defaults.isSoundDisabled
         Defaults.isSoundDisabled = !wasDisabled
         updateSoundButton(isSoundEnabled: wasDisabled)
+    }
+    
+    private func flipBoard() {
+        playerSideColor = playerSideColor.other
+        boardView.setPlayerSide(color: playerSideColor)
+        updateGameInfo()
     }
     
     private func endGame(openMenu: Bool) {
@@ -146,29 +154,29 @@ class GameViewController: UIViewController, GameView {
     }
     
     func updateGameInfo() {
-        // TODO: setup correctly depending on player's color
-        let bold = UIFont.systemFont(ofSize: 19, weight: .semibold)
-        let light = UIFont.systemFont(ofSize: 19, weight: .medium)
+        let boldFont = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        let lightFont = UIFont.systemFont(ofSize: 19, weight: .medium)
         
-        switch controller.activeColor {
+        let myTurn = playerSideColor == controller.activeColor
+        let myScore: Int
+        let opponentScore: Int
+        switch playerSideColor {
         case .white:
-            updateMovesView(playerMovesStackView, moves: controller.availableMoves)
-            opponentMovesStackView.isHidden = true
-            playerMovesStackView.isHidden = false
-            
-            opponentScoreLabel.font = light
-            playerScoreLabel.font = bold
+            myScore = controller.whiteScore
+            opponentScore = controller.blackScore
         case .black:
-            updateMovesView(opponentMovesStackView, moves: controller.availableMoves)
-            opponentMovesStackView.isHidden = false
-            playerMovesStackView.isHidden = true
-            
-            opponentScoreLabel.font = bold
-            playerScoreLabel.font = light
+            myScore = controller.blackScore
+            opponentScore = controller.whiteScore
         }
         
-        opponentScoreLabel.text = String(controller.blackScore)
-        playerScoreLabel.text = String(controller.whiteScore)
+        updateMovesView(myTurn ? playerMovesStackView : opponentMovesStackView, moves: controller.availableMoves)
+        opponentMovesStackView.isHidden = myTurn
+        playerMovesStackView.isHidden = !myTurn
+        opponentScoreLabel.font = myTurn ? lightFont : boldFont
+        playerScoreLabel.font = myTurn ?  boldFont : lightFont
+        
+        opponentScoreLabel.text = String(opponentScore)
+        playerScoreLabel.text = String(myScore)
     }
     
     func didWin(color: Color) {

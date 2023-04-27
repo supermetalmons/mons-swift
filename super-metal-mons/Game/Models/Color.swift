@@ -22,4 +22,14 @@ enum Color {
         case .black: return "b"
         }
     }
+    
+    var other: Color {
+        switch self {
+        case .black:
+            return .white
+        case .white:
+            return .black
+        }
+    }
+    
 }
