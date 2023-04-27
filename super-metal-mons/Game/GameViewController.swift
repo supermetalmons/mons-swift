@@ -32,7 +32,7 @@ class BoardView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutGrid(rows: 11, columns: 11)
+        layoutGrid(rows: 11, columns: 11) // TODO: DRY 11
     }
 }
 
