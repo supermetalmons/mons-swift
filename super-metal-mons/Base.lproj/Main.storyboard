@@ -351,6 +351,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="igJ-1y-p3U" firstAttribute="leading" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="9d0-mu-tsQ"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" constant="20" id="Hua-yB-dYV"/>
