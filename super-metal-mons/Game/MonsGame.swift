@@ -363,14 +363,14 @@ class MonsGame {
                 return []
             case .demon:
                 let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (a, b) -> Bool in
-                    guard isValidLocation(a, b), !Location.isMonsBase(a, b) else { return false }
+                    guard isValidLocation(a, b) else { return false }
                     let validTarget: Bool
                     let destination = board[a][b]
                     switch destination {
                     case .monWithMana(mon: let targetMon, mana: _):
                         validTarget = mon.color != targetMon.color
                     case .mon(mon: let targetMon):
-                        validTarget = mon.color != targetMon.color
+                        validTarget = mon.color != targetMon.color && !targetMon.isFainted
                     case .consumable, .mana, .none:
                         return false
                     }
@@ -381,14 +381,14 @@ class MonsGame {
                 return valid
             case .mystic:
                 let valid = [(i - 2, j - 2), (i + 2, j + 2), (i - 2, j + 2), (i + 2, j - 2)].filter { (i, j) -> Bool in
-                    guard isValidLocation(i, j), !Location.isMonsBase(i, j) else { return false }
+                    guard isValidLocation(i, j) else { return false }
                     let validTarget: Bool
                     let destination = board[i][j]
                     switch destination {
                     case .monWithMana(mon: let targetMon, mana: _):
                         validTarget = mon.color != targetMon.color
                     case .mon(mon: let targetMon):
-                        validTarget = mon.color != targetMon.color
+                        validTarget = mon.color != targetMon.color && !targetMon.isFainted
                     case .consumable, .mana, .none:
                         return false
                     }
@@ -596,15 +596,7 @@ class MonsGame {
         let yDistance = abs(to.0 - from.0)
         let distance = max(xDistance, yDistance)
         
-        let isSpiritAction: Bool // TODO: there should be a better way to implement this
-        switch source {
-        case let .mon(mon: mon):
-            isSpiritAction = mon.kind == .spirit && distance > 1
-        default:
-            isSpiritAction = false
-        }
-        
-        if Location.isMonsBase(to.0, to.1) && !isSpiritAction {
+        if Location.isMonsBase(to.0, to.1) && distance == 1 {
             switch source {
             case let .mon(mon: mon):
                 let base = mon.base
@@ -681,7 +673,7 @@ class MonsGame {
                     case .none, .mana, .consumable:
                         return ([], false)
                     case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color else { return ([], false) }
+                        guard targetMon.color != mon.color && !targetMon.isFainted else { return ([], false) }
                         board[to.0][to.1] = .none
                         didUseAction()
                         
@@ -725,10 +717,32 @@ class MonsGame {
                     case .none, .mana, .consumable:
                         return ([], false)
                     case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color else { return ([], false) }
-                        
+                        guard targetMon.color != mon.color && !targetMon.isFainted else { return ([], false) }
+                        var also = (0, 0) // TODO: just add it to the list when needed
                         board[from.0][from.1] = .none
-                        board[to.0][to.1] = source
+                        
+                        if Location.isMonsBase(to.0, to.1) {
+                            
+                            // TODO: DRY - duplicated code - like when jumping of mana
+                            let additionalStep = nearbySpaces(from: to).first(where: { (i, j) -> Bool in
+                                let destination = board[i][j]
+                                switch destination {
+                                case .none:
+                                    return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
+                                case .mana, .consumable, .monWithMana, .mon:
+                                    // TODO: should be able to pick up a potion
+                                    return false
+                                }
+                            })
+                            if let additionalStep = additionalStep {
+                                board[additionalStep.0][additionalStep.1] = source
+                                also = additionalStep
+                            }
+                            
+                        } else {
+                            board[to.0][to.1] = source
+                        }
+                        
                         didUseAction()
                         Audio.play(.demonAbility)
                         // TODO: move fainting to the separate function. these three lines repeat in each fainting case
@@ -736,7 +750,7 @@ class MonsGame {
                         targetMon.faint()
                         board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
                         
-                        return ([faintIndex, from, to].map { Effect.updateCell($0) }, true)
+                        return ([also, faintIndex, from, to].map { Effect.updateCell($0) }, true)
                     case .monWithMana(mon: var targetMon, mana: let mana):
                         guard targetMon.color != mon.color else { return ([], false) }
                         let manaIndex: (Int, Int)
