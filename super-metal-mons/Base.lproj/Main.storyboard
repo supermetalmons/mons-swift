@@ -27,7 +27,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONt-Hy-v98" userLabel="Opponent View">
                                 <rect key="frame" x="0.0" y="177" width="393" height="65"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
+                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="1000" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
                                         <rect key="frame" x="201" y="35" width="186" height="18"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Kg-huf">
@@ -108,7 +108,7 @@
                                     <constraint firstAttribute="bottom" secondItem="cH0-Tg-7PM" secondAttribute="bottom" constant="8" id="PXq-dw-DpI"/>
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" secondItem="ONt-Hy-v98" secondAttribute="leading" priority="500" id="SjJ-ha-NjK"/>
                                     <constraint firstItem="fvM-Mc-0Jq" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="trailing" constant="8" id="Srl-ue-7Ty"/>
-                                    <constraint firstAttribute="trailing" secondItem="p1T-kR-zQa" secondAttribute="trailing" constant="6" id="cN8-og-VYM"/>
+                                    <constraint firstAttribute="trailing" secondItem="p1T-kR-zQa" secondAttribute="trailing" priority="749" id="cN8-og-VYM"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j" userLabel="Player View">
@@ -120,7 +120,7 @@
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IbZ-z9-By4">
+                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="1000" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IbZ-z9-By4">
                                         <rect key="frame" x="201" y="13" width="186" height="18"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-yc-YdC">
@@ -188,7 +188,7 @@
                                 <constraints>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" secondItem="VZQ-Gn-G9j" secondAttribute="leading" priority="750" id="0Iw-EF-07h"/>
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QPa-AV-kZ9" secondAttribute="trailing" constant="12" id="4Mr-G4-lcH"/>
-                                    <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" constant="6" id="4q9-Zs-oyg"/>
+                                    <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" priority="749" id="4q9-Zs-oyg"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerY" secondItem="6H7-6P-ClF" secondAttribute="centerY" id="XPo-dB-UQK"/>
@@ -252,6 +252,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IbZ-z9-By4" secondAttribute="trailing" constant="6" id="02g-id-1w9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="0cg-l7-Ff0"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="1jU-wt-xwP"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2zD-i8-USp"/>
@@ -267,6 +268,7 @@
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="e4d-Lo-SXE"/>
                             <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="fIL-Lq-JBU"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="hpK-b5-oB1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p1T-kR-zQa" secondAttribute="trailing" constant="6" id="lpL-xC-gYv"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="qMy-Xj-gYr"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vXC-AT-FaN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P29-PV-UEw" secondAttribute="trailing" id="wPw-RU-Z2b"/>
@@ -277,11 +279,11 @@
                         <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
-                        <outlet property="opponentMovesTrailingConstraint" destination="cN8-og-VYM" id="a9R-aj-LTP"/>
+                        <outlet property="opponentMovesTrailingConstraint" destination="lpL-xC-gYv" id="jjk-Y8-g7q"/>
                         <outlet property="opponentScoreLabel" destination="fvM-Mc-0Jq" id="CIe-nE-c2F"/>
                         <outlet property="playerImageView" destination="6H7-6P-ClF" id="UQu-Uj-Cy3"/>
                         <outlet property="playerMovesStackView" destination="IbZ-z9-By4" id="Br5-7r-egJ"/>
-                        <outlet property="playerMovesTrailingConstraint" destination="4q9-Zs-oyg" id="184-4e-9fE"/>
+                        <outlet property="playerMovesTrailingConstraint" destination="02g-id-1w9" id="hNQ-FX-RWX"/>
                         <outlet property="playerScoreLabel" destination="QPa-AV-kZ9" id="PlX-lP-4wH"/>
                         <outlet property="soundControlButton" destination="haM-vj-jVh" id="f4e-4l-yNg"/>
                         <outlet property="topButtonTopConstraint" destination="0eZ-wc-v35" id="ZrP-Ck-Mjq"/>
