@@ -349,6 +349,8 @@ class MonsGame {
     private func availableForAction(from: (Int, Int)) -> [(Int, Int)] {
         let piece = board[from.0][from.1]
         
+        guard !Location.isMonsBase(from.0, from.1) else { return [] }
+        
         switch piece {
         case .monWithMana, .mana, .none, .consumable:
             return []
@@ -597,7 +599,7 @@ class MonsGame {
         let isSpiritAction: Bool // TODO: there should be a better way to implement this
         switch source {
         case let .mon(mon: mon):
-            isSpiritAction = mon.kind == .spirit && distance > 1
+            isSpiritAction = mon.kind == .spirit && distance > 1 && !Location.isMonsBase(from.0, from.1)
         default:
             isSpiritAction = false
         }
