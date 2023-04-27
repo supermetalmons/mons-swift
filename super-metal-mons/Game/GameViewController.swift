@@ -15,6 +15,8 @@ class GameViewController: UIViewController, GameView {
     private var playerSideColor = Color.white
     private var whiteEmoji = Images.randomEmoji // TODO: get from controller
     private var blackEmoji = Images.randomEmoji
+
+    private var isAnimatingOpponentAvatar = false
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -99,7 +101,23 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
-        // TODO: make it big
+        guard !isAnimatingOpponentAvatar else { return }
+        self.isAnimatingOpponentAvatar = true
+        
+        let originalTransform = opponentImageView.transform
+        let scaleFactor: CGFloat = 10
+        let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
+        let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: 14)
+                
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak self] in
+            self?.opponentImageView.transform = translatedAndScaledTransform
+        }) { [weak self] _ in
+            UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
+                self?.opponentImageView.transform = originalTransform
+            }) { _ in
+                self?.isAnimatingOpponentAvatar = false
+            }
+        }
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
