@@ -102,14 +102,13 @@
                                     <constraint firstItem="p1T-kR-zQa" firstAttribute="centerY" secondItem="fvM-Mc-0Jq" secondAttribute="centerY" constant="2" id="CvX-SJ-heT"/>
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="centerY" secondItem="fvM-Mc-0Jq" secondAttribute="centerY" id="Ezl-m3-J2l"/>
                                     <constraint firstAttribute="height" constant="65" id="FNk-cN-G9X"/>
-                                    <constraint firstItem="KMm-VV-J06" firstAttribute="leading" secondItem="ONt-Hy-v98" secondAttribute="leading" id="FZ5-OO-v0W"/>
                                     <constraint firstItem="KMm-VV-J06" firstAttribute="centerX" secondItem="cH0-Tg-7PM" secondAttribute="centerX" id="IZH-Oh-PAa"/>
                                     <constraint firstItem="KMm-VV-J06" firstAttribute="centerY" secondItem="cH0-Tg-7PM" secondAttribute="centerY" id="JWf-oV-y0o"/>
                                     <constraint firstAttribute="bottom" secondItem="cH0-Tg-7PM" secondAttribute="bottom" constant="8" id="PXq-dw-DpI"/>
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" secondItem="ONt-Hy-v98" secondAttribute="leading" constant="8" id="SjJ-ha-NjK"/>
-                                    <constraint firstAttribute="bottom" secondItem="KMm-VV-J06" secondAttribute="bottom" id="So4-14-Q9F"/>
                                     <constraint firstItem="fvM-Mc-0Jq" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="trailing" constant="8" id="Srl-ue-7Ty"/>
                                     <constraint firstAttribute="trailing" secondItem="p1T-kR-zQa" secondAttribute="trailing" constant="6" id="cN8-og-VYM"/>
+                                    <constraint firstAttribute="bottom" secondItem="KMm-VV-J06" secondAttribute="bottom" id="cOW-T5-FIB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j">
@@ -191,7 +190,6 @@
                                     <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" constant="6" id="4q9-Zs-oyg"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
-                                    <constraint firstItem="bWa-sd-JdS" firstAttribute="leading" secondItem="VZQ-Gn-G9j" secondAttribute="leading" id="Wpm-Jm-C55"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerY" secondItem="6H7-6P-ClF" secondAttribute="centerY" id="XPo-dB-UQK"/>
                                     <constraint firstItem="QPa-AV-kZ9" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="8" id="jIL-iV-h7V"/>
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" constant="-1" id="m3k-FW-4YG"/>
