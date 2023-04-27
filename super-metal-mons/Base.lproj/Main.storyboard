@@ -309,6 +309,9 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YE-AP-K09">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="142.66666666666666"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="kqT-yG-QkS"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="button-new-game" title="new game link" imagePadding="6">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
@@ -339,8 +342,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="1080" id="9xb-U3-lsP"/>
                                     <constraint firstItem="4YE-AP-K09" firstAttribute="width" secondItem="YFl-js-bfN" secondAttribute="width" id="Qbf-46-ZMs"/>
-                                    <constraint firstItem="4YE-AP-K09" firstAttribute="height" secondItem="YFl-js-bfN" secondAttribute="height" id="aoS-aT-Wi8"/>
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="asW-Wi-Sw3">
@@ -353,13 +356,14 @@
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="igJ-1y-p3U" firstAttribute="leading" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="9d0-mu-tsQ"/>
+                            <constraint firstItem="igJ-1y-p3U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iKp-lT-Tno" secondAttribute="leading" constant="20" id="9d0-mu-tsQ"/>
+                            <constraint firstItem="igJ-1y-p3U" firstAttribute="centerX" secondItem="iKp-lT-Tno" secondAttribute="centerX" id="CtJ-Oc-Pe6"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" constant="20" id="Hua-yB-dYV"/>
                             <constraint firstItem="iKp-lT-Tno" firstAttribute="bottom" secondItem="igJ-1y-p3U" secondAttribute="bottom" constant="20" id="MFX-U9-1t0"/>
                             <constraint firstItem="igJ-1y-p3U" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20.000000000000114" id="NVG-Q2-6fX"/>
-                            <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
+                            <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" relation="lessThanOrEqual" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="fhr-GJ-Ent"/>
-                            <constraint firstItem="iKp-lT-Tno" firstAttribute="trailing" secondItem="igJ-1y-p3U" secondAttribute="trailing" constant="20" id="tst-zw-tg3"/>
+                            <constraint firstItem="iKp-lT-Tno" firstAttribute="trailing" secondItem="igJ-1y-p3U" secondAttribute="trailing" priority="750" constant="20" id="tst-zw-tg3"/>
                         </constraints>
                     </view>
                     <connections>
