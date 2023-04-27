@@ -2,13 +2,6 @@
 
 import UIKit
 
-// TODO: call it sqare view, maake it contain all the stuff
-// both mon and tile and effects
-class SpaceView: UIView {
-    var row = 0
-    var col = 0
-}
-
 // TODO: move protocol implementation to the extension
 class GameViewController: UIViewController, GameView {
     
@@ -20,7 +13,7 @@ class GameViewController: UIViewController, GameView {
     
     private var controller: GameController!
     
-    @IBOutlet weak var boardContainerView: UIView!
+    @IBOutlet weak var boardView: BoardView!
     
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
@@ -38,10 +31,8 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
-    private var squareSize = CGFloat.zero
-    
     // TODO: keep view models as well — in order to check if an update is needed
-    private lazy var squares: [[SpaceView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
+    private lazy var squares: [[BoardSquareView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
     private var effectsViews = [UIView]()
     private lazy var monsOnBoard: [[UIImageView?]] = Array(repeating: Array(repeating: nil, count: controller.boardSize), count: controller.boardSize)
     
@@ -65,46 +56,30 @@ class GameViewController: UIViewController, GameView {
     // MARK: - setup
     
     private func setupBoard() {
-        #if targetEnvironment(macCatalyst)
-        let screenWidth: CGFloat = macosWidth
-        let screenHeight: CGFloat = macosHeight
-        #else
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        #endif
-        squareSize = screenWidth / CGFloat(controller.boardSize)
-        let totalBoardSize = screenWidth
-        let yOffset = (screenHeight - totalBoardSize) / 2
-        
-        for row in 0..<controller.boardSize {
-            for col in 0..<controller.boardSize {
-                let color = Colors.square(controller.squares[row][col], style: controller.boardStyle)
-                
-                let x = CGFloat(col) * squareSize
-                let y = CGFloat(row) * squareSize + yOffset
-                
-                let square = SpaceView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
-                square.backgroundColor = color
-                boardContainerView.addSubview(square)
-                squares[row][col] = square
+        for i in 0..<11 {
+            for j in 0..<11 {
+                let square = BoardSquareView()
+                square.backgroundColor = Colors.square(controller.squares[i][j], style: controller.boardStyle)
                 
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
                 square.addGestureRecognizer(tapGestureRecognizer)
-                square.col = col
-                square.row = row
+                square.row = i
+                square.col = j
+                
+                boardView.addArrangedSubview(square)
+                squares[i][j] = square
             }
         }
-        
         reloadPieces()
     }
     
     // MARK: - actions
     
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
-        guard let spaceView = sender.view as? SpaceView else { return }
+        guard let squareView = sender.view as? BoardSquareView else { return }
         
-        let i = spaceView.row // TODO: use location model here as well
-        let j = spaceView.col
+        let i = squareView.row // TODO: use location model here as well
+        let j = squareView.col
         
         let effects = controller.didTapSpace((i, j))
         applyEffects(effects)
@@ -231,37 +206,32 @@ class GameViewController: UIViewController, GameView {
         let piece = controller.board[i][j]
         switch piece {
         case let .consumable(consumable):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.consumable(consumable, style: controller.boardStyle)
+            let imageView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
             imageView.contentMode = .scaleAspectFit
-            imageView.center = squares[i][j]?.center ?? CGPoint.zero
-            boardContainerView.addSubview(imageView)
+            squares[i][j]?.addSubviewConstrainedToFrame(imageView)
             monsOnBoard[i][j] = imageView
         case let .mon(mon: mon):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.mon(mon, style: controller.boardStyle)
+            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
             
             if mon.isFainted {
                 imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
             }
             
             imageView.contentMode = .scaleAspectFit
-            imageView.center = squares[i][j]?.center ?? CGPoint.zero
-            boardContainerView.addSubview(imageView)
             
+            squares[i][j]?.addSubviewConstrainedToFrame(imageView)
             monsOnBoard[i][j] = imageView
             
         case let .monWithMana(mon: mon, mana: mana):
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-            imageView.image = Images.mon(mon, style: controller.boardStyle)
+            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
             
             imageView.contentMode = .scaleAspectFit
-            imageView.center = squares[i][j]?.center ?? CGPoint.zero
-            boardContainerView.addSubview(imageView)
+            squares[i][j]?.addSubviewConstrainedToFrame(imageView)
             
             let manaView: UIImageView
             
-            // TODO: refactor
+            // TODO: remake with autolayout
+            let squareSize = squares[i][j]?.bounds.size.width ?? .zero // TODO: TMP!!!
             switch mana {
             case .regular:
                 manaView = UIImageView(frame: CGRect(x: 0.36 * squareSize, y: 0.24 * squareSize, width: 0.93 * squareSize, height: 0.93 * squareSize))
@@ -278,18 +248,14 @@ class GameViewController: UIViewController, GameView {
         case let .mana(mana: mana):
             switch mana {
             case .regular:
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                imageView.image = Images.mana(mana, style: controller.boardStyle)
+                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
                 imageView.contentMode = .scaleAspectFit
-                imageView.center = squares[i][j]?.center ?? CGPoint.zero
-                boardContainerView.addSubview(imageView)
+                squares[i][j]?.addSubviewConstrainedToFrame(imageView)
                 monsOnBoard[i][j] = imageView
             case .superMana:
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: squareSize, height: squareSize))
-                imageView.image = Images.mana(mana, style: controller.boardStyle)
+                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
                 imageView.contentMode = .scaleAspectFit
-                imageView.center = squares[i][j]?.center ?? CGPoint.zero
-                boardContainerView.addSubview(imageView)
+                squares[i][j]?.addSubviewConstrainedToFrame(imageView)
                 monsOnBoard[i][j] = imageView
             }
         case .none:
@@ -316,8 +282,8 @@ class GameViewController: UIViewController, GameView {
                 effectView.backgroundColor = .clear
                 effectView.layer.borderWidth = 3
                 effectView.layer.borderColor = UIColor.green.cgColor
-                effectView.frame = CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize))
-                squares[index.0][index.1]?.addSubview(effectView)
+                squares[index.0][index.1]?.addSubviewConstrainedToFrame(effectView)
+                squares[index.0][index.1]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
             case .updateGameStatus:
                 updateGameInfo()
@@ -332,8 +298,8 @@ class GameViewController: UIViewController, GameView {
                 effectView.backgroundColor = .clear
                 effectView.layer.borderWidth = 5
                 effectView.layer.borderColor = UIColor.yellow.cgColor
-                effectView.frame = CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize))
-                squares[index.0][index.1]?.addSubview(effectView)
+                squares[index.0][index.1]?.addSubviewConstrainedToFrame(effectView)
+                squares[index.0][index.1]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
             }
         }
