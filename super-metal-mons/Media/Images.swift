@@ -15,12 +15,12 @@ struct Images {
         return named(style.namespace + mon.kind.rawValue + mon.color.imageNameSuffix)
     }
     
-    static func mana(_ mana: Mana, style: BoardStyle) -> UIImage {
+    static func mana(_ mana: Mana, picked: Bool = false, style: BoardStyle) -> UIImage {
         switch mana {
         case .regular(let color):
             return named(style.namespace + "mana" + color.imageNameSuffix)
         case .superMana:
-            return named(style.namespace + "supermana")
+            return named(style.namespace + "supermana" + (picked ? "-simple" : ""))
         }
     }
     

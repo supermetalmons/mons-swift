@@ -228,20 +228,29 @@ class GameViewController: UIViewController, GameView {
             imageView.contentMode = .scaleAspectFit
             squares[i][j]?.addSubviewConstrainedToFrame(imageView)
             
-            let manaView: UIImageView
+            let manaView = UIImageView(image: Images.mana(mana, picked: true, style: controller.boardStyle))
+            manaView.contentMode = .scaleAspectFit
             
-            // TODO: remake with autolayout
-            let squareSize = squares[i][j]?.bounds.size.width ?? .zero // TODO: TMP!!!
+            imageView.addSubview(manaView)
+            manaView.translatesAutoresizingMaskIntoConstraints = false
+            
             switch mana {
             case .regular:
-                manaView = UIImageView(frame: CGRect(x: 0.36 * squareSize, y: 0.24 * squareSize, width: 0.93 * squareSize, height: 0.93 * squareSize))
+                NSLayoutConstraint.activate([
+                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.93),
+                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.93),
+                    NSLayoutConstraint(item: manaView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.61, constant: 0),
+                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.45, constant: 0)
+                ])
             case .superMana:
-                manaView = UIImageView(frame: CGRect(x: 0.13 * squareSize, y: -0.15 * squareSize, width: 0.74 * squareSize, height: 0.74 * squareSize))
+                NSLayoutConstraint.activate([
+                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.74),
+                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.74),
+                    manaView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 0.5, constant: 0)
+                ])
             }
             
-            manaView.image = Images.mana(mana, style: controller.boardStyle)
-            manaView.contentMode = .scaleAspectFit
-            imageView.addSubview(manaView)
             
             monsOnBoard[i][j] = imageView
             
