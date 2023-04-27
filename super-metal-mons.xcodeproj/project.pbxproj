@@ -42,6 +42,8 @@
 		2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBD829F69A3300A90CDD /* Notification.swift */; };
 		2CC4FBE029F6C69200A90CDD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBDF29F6C69200A90CDD /* String.swift */; };
 		2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBE129F6C69900A90CDD /* URL.swift */; };
+		2CC770BF29FA9CEE00A59BEF /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC770BE29FA9CEE00A59BEF /* BoardView.swift */; };
+		2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */; };
@@ -98,6 +100,8 @@
 		2CC4FBD829F69A3300A90CDD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		2CC4FBDF29F6C69200A90CDD /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2CC4FBE129F6C69900A90CDD /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		2CC770BE29FA9CEE00A59BEF /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSquareView.swift; sourceTree = "<group>"; };
 		2CDB1AD029ED87C900C51230 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		2CDB1AD229ED87E600C51230 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickUpPotion.wav; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				2CC4FBE629F6C7D300A90CDD /* App */,
 				2CC4FBE729F6C7E700A90CDD /* Screens */,
 				2CC4FBE429F6C77F00A90CDD /* Game */,
+				2CC770BD29FA9CCE00A59BEF /* Views */,
 				2CC4FBE529F6C7B900A90CDD /* Services */,
 				2CC4FBE329F6C72E00A90CDD /* Utilities */,
 				2CC4FBDE29F6B5AB00A90CDD /* Extensions */,
@@ -261,6 +266,15 @@
 				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CC770BD29FA9CCE00A59BEF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2CC770BE29FA9CEE00A59BEF /* BoardView.swift */,
+				2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2CDB1AD429EEF48E00C51230 /* Sounds */ = {
@@ -381,6 +395,7 @@
 				2CC4FBE029F6C69200A90CDD /* String.swift in Sources */,
 				2CB6D3B029F730E500605255 /* Color.swift in Sources */,
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
+				2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */,
 				2CB6D3B429F7310800605255 /* Mana.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
 				2CB6D3BC29F7320800605255 /* Location.swift in Sources */,
@@ -397,6 +412,7 @@
 				2CB6D3B629F7311500605255 /* Consumable.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
 				2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */,
+				2CC770BF29FA9CEE00A59BEF /* BoardView.swift in Sources */,
 				2CB7462629F18DC700ACC855 /* Images.swift in Sources */,
 				2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */,
 				2C09E3D829F6D0630082B774 /* GameController.swift in Sources */,

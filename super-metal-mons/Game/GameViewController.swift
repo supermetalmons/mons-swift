@@ -2,40 +2,6 @@
 
 import UIKit
 
-// TODO: call it sqare view, maake it contain all the stuff
-// both mon and tile and effects
-class BoardSquareView: UIView {
-    var row = 0
-    var col = 0
-}
-
-class BoardView: UIView {
-    var subviewsArray: [UIView] = []
-
-    func addArrangedSubview(_ view: UIView) {
-        addSubview(view)
-        subviewsArray.append(view)
-    }
-
-    func layoutGrid(rows: Int, columns: Int) {
-        let viewWidth = bounds.width / CGFloat(columns)
-        let viewHeight = bounds.height / CGFloat(rows)
-
-        for (index, view) in subviewsArray.enumerated() {
-            let row = index / columns
-            let column = index % columns
-            let x = CGFloat(column) * viewWidth
-            let y = CGFloat(row) * viewHeight
-            view.frame = CGRect(x: x, y: y, width: viewWidth, height: viewHeight)
-        }
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layoutGrid(rows: 11, columns: 11) // TODO: DRY 11
-    }
-}
-
 // TODO: move protocol implementation to the extension
 class GameViewController: UIViewController, GameView {
     
