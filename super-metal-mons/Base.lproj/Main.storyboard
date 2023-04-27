@@ -27,40 +27,40 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONt-Hy-v98" userLabel="Opponent View">
                                 <rect key="frame" x="0.0" y="177" width="393" height="65"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="1000" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
+                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="250" distribution="fillEqually" alignment="bottom" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
                                         <rect key="frame" x="201" y="35" width="186" height="18"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Kg-huf">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Kg-huf">
                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="goV-5O-za6">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="goV-5O-za6">
                                                 <rect key="frame" x="21" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="q0A-ZT-IRI">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="q0A-ZT-IRI">
                                                 <rect key="frame" x="42" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-PO-kw5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-PO-kw5">
                                                 <rect key="frame" x="63" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-rh-rb5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-rh-rb5">
                                                 <rect key="frame" x="84" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="umS-nl-oFg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="umS-nl-oFg">
                                                 <rect key="frame" x="105" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-aT-4Ur">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-aT-4Ur">
                                                 <rect key="frame" x="126" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bTr-SL-GFv">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bTr-SL-GFv">
                                                 <rect key="frame" x="147" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="J49-qf-Ta5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="J49-qf-Ta5">
                                                 <rect key="frame" x="168" y="0.0" width="18" height="18"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="7nw-aT-4Ur" firstAttribute="width" secondItem="7nw-aT-4Ur" secondAttribute="height" multiplier="1:1" id="0FL-ZH-pZg"/>
-                                            <constraint firstAttribute="height" constant="18" id="2jN-tW-dyz"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="18" id="2jN-tW-dyz"/>
                                             <constraint firstItem="SP4-Kg-huf" firstAttribute="width" secondItem="SP4-Kg-huf" secondAttribute="height" multiplier="1:1" id="7IE-nr-dq7"/>
                                             <constraint firstItem="YSf-rh-rb5" firstAttribute="width" secondItem="YSf-rh-rb5" secondAttribute="height" multiplier="1:1" id="M4w-TR-gKO"/>
                                             <constraint firstItem="umS-nl-oFg" firstAttribute="width" secondItem="umS-nl-oFg" secondAttribute="height" multiplier="1:1" id="hI6-JJ-cbY"/>
@@ -120,39 +120,39 @@
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="1000" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IbZ-z9-By4">
+                                    <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="250" distribution="fillEqually" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IbZ-z9-By4">
                                         <rect key="frame" x="201" y="13" width="186" height="18"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-yc-YdC">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-yc-YdC">
                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-Pu-r2J">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-Pu-r2J">
                                                 <rect key="frame" x="21" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="1ZR-gR-oGe">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="1ZR-gR-oGe">
                                                 <rect key="frame" x="42" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-P3-xcc">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-P3-xcc">
                                                 <rect key="frame" x="63" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="F6A-HU-BbX">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="F6A-HU-BbX">
                                                 <rect key="frame" x="84" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="E6Z-yt-vEN">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="E6Z-yt-vEN">
                                                 <rect key="frame" x="105" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="lRZ-tu-ZdT">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="lRZ-tu-ZdT">
                                                 <rect key="frame" x="126" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bLP-Jd-Vo6">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bLP-Jd-Vo6">
                                                 <rect key="frame" x="147" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-wB-0jg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-wB-0jg">
                                                 <rect key="frame" x="168" y="0.0" width="18" height="18"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="18" id="3Wh-Xs-DxQ"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="18" id="3Wh-Xs-DxQ"/>
                                             <constraint firstItem="bLP-Jd-Vo6" firstAttribute="width" secondItem="bLP-Jd-Vo6" secondAttribute="height" multiplier="1:1" id="Mmb-8Y-qU0"/>
                                             <constraint firstItem="lRZ-tu-ZdT" firstAttribute="width" secondItem="lRZ-tu-ZdT" secondAttribute="height" multiplier="1:1" id="WYD-zX-bMS"/>
                                             <constraint firstItem="vRf-wB-0jg" firstAttribute="width" secondItem="vRf-wB-0jg" secondAttribute="height" multiplier="1:1" id="e1N-Gx-f4g"/>
@@ -261,8 +261,11 @@
                             <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="leading" id="JvX-Jr-NEA"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="Ndc-Be-f6K"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QFa-iI-DYC"/>
+                            <constraint firstItem="tTh-AV-1yS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p1T-kR-zQa" secondAttribute="trailing" priority="750" id="T0O-bl-Df4"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TFo-ZL-ece"/>
+                            <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="leading" id="U81-rG-MGu"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="top" secondItem="tTh-AV-1yS" secondAttribute="bottom" id="Ub9-W6-zCV"/>
+                            <constraint firstItem="tTh-AV-1yS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IbZ-z9-By4" secondAttribute="trailing" priority="750" id="XNe-nD-99v"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="bse-03-rzh"/>
                             <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="c7s-Q3-aPe"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="e4d-Lo-SXE"/>
