@@ -56,7 +56,7 @@ class GameViewController: UIViewController, GameView {
     // MARK: - setup
     
     private func setupBoard() {
-        for i in 0..<11 {
+        for i in 0..<11 { // TODO: DRY
             for j in 0..<11 {
                 let square = BoardSquareView()
                 square.backgroundColor = Colors.square(controller.squares[i][j], style: controller.boardStyle)
