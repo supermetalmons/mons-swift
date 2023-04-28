@@ -95,6 +95,10 @@ class GameViewController: UIViewController, GameView {
         
         let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
         
+        if let parent = animatedImageView.superview {
+            view.bringSubviewToFront(parent)
+        }
+        
         let originalTransform = animatedImageView.transform
         let scaleFactor = CGFloat(10)
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
