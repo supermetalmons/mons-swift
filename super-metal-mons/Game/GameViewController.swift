@@ -90,21 +90,21 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func animateAvatar(opponents: Bool) {
-        guard opponents else { return } // TODO: animate mine as well
-        
         guard !isAnimatingAvatar else { return }
         isAnimatingAvatar = true
         
-        let originalTransform = opponentImageView.transform
-        let scaleFactor: CGFloat = 10
+        let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
+        
+        let originalTransform = animatedImageView.transform
+        let scaleFactor = CGFloat(10)
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
-        let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: 14)
+        let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: opponents ? 14 : -14)
                 
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak self] in
-            self?.opponentImageView.transform = translatedAndScaledTransform
-        }) { [weak self] _ in
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak animatedImageView] in
+            animatedImageView?.transform = translatedAndScaledTransform
+        }) { [weak self, weak animatedImageView] _ in
             UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
-                self?.opponentImageView.transform = originalTransform
+                animatedImageView?.transform = originalTransform
             }) { _ in
                 self?.isAnimatingAvatar = false
             }
@@ -112,6 +112,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
+        guard !isAnimatingAvatar else { return }
         let newRandom = Images.randomEmoji
         switch playerSideColor {
         case .white:
@@ -124,6 +125,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
+        guard !isAnimatingAvatar else { return }
         animateAvatar(opponents: true)
     }
     
