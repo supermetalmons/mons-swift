@@ -16,7 +16,7 @@ class GameViewController: UIViewController, GameView {
     private var whiteEmoji = Images.randomEmoji // TODO: get from controller
     private var blackEmoji = Images.randomEmoji
 
-    private var isAnimatingOpponentAvatar = false
+    private var isAnimatingAvatar = false
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -89,20 +89,11 @@ class GameViewController: UIViewController, GameView {
         applyEffects(effects)
     }
     
-    @IBAction func didTapPlayerAvatar(_ sender: Any) {
-        let newRandom = Images.randomEmoji
-        switch playerSideColor {
-        case .white:
-            whiteEmoji = newRandom
-        case .black:
-            blackEmoji = newRandom
-        }
-        playerImageView.image = newRandom
-    }
-    
-    @IBAction func didTapOpponentAvatar(_ sender: Any) {
-        guard !isAnimatingOpponentAvatar else { return }
-        self.isAnimatingOpponentAvatar = true
+    private func animateAvatar(opponents: Bool) {
+        guard opponents else { return } // TODO: animate mine as well
+        
+        guard !isAnimatingAvatar else { return }
+        isAnimatingAvatar = true
         
         let originalTransform = opponentImageView.transform
         let scaleFactor: CGFloat = 10
@@ -115,9 +106,25 @@ class GameViewController: UIViewController, GameView {
             UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
                 self?.opponentImageView.transform = originalTransform
             }) { _ in
-                self?.isAnimatingOpponentAvatar = false
+                self?.isAnimatingAvatar = false
             }
         }
+    }
+    
+    @IBAction func didTapPlayerAvatar(_ sender: Any) {
+        let newRandom = Images.randomEmoji
+        switch playerSideColor {
+        case .white:
+            whiteEmoji = newRandom
+        case .black:
+            blackEmoji = newRandom
+        }
+        playerImageView.image = newRandom
+        animateAvatar(opponents: false)
+    }
+    
+    @IBAction func didTapOpponentAvatar(_ sender: Any) {
+        animateAvatar(opponents: true)
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
