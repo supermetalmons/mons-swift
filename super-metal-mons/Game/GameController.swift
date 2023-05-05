@@ -114,6 +114,9 @@ class GameController {
                     Audio.play(.move)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
+                    
+                    // TODO: keep mon selection if there are next input options
+                    
                 case .manaMove(_, let from, let to):
                     Audio.play(.moveMana)
                     locationsToUpdate.append(from)
