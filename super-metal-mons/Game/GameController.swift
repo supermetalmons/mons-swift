@@ -97,6 +97,7 @@ class GameController {
     // TODO: refactor
     func processInput(_ input: MonsGame.Input) -> [ViewEffect] {
         // TODO: act differently when i click spaces while opponent makes his turns
+        // TODO: should play sounds / moves when opponent moves, but should not show his highlights
         
         var viewEffects = [ViewEffect]() // TODO: tmp
         
@@ -115,7 +116,10 @@ class GameController {
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                     
-                    // TODO: keep mon selection if there are next input options
+                    let nextMoveHighlights = processInput(.location(to))
+                    if !nextMoveHighlights.isEmpty {
+                        viewEffects.append(contentsOf: nextMoveHighlights)
+                    }
                     
                 case .manaMove(_, let from, let to):
                     Audio.play(.moveMana)
@@ -200,7 +204,14 @@ class GameController {
             }
             
         case .invalidInput:
+            let shouldTryToReselect = inputs.count > 1 && inputs.first != input
             inputs = []
+            if shouldTryToReselect {
+                let reselectHighlights = processInput(input)
+                if !reselectHighlights.isEmpty {
+                    viewEffects.append(contentsOf: reselectHighlights)
+                }
+            }
         }
         
         return viewEffects
