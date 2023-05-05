@@ -108,7 +108,7 @@ class GameController {
         switch output {
         case let .events(events):
             inputs = []
-            var locationsToUpdate = [Location]()
+            var locationsToUpdate = [Location]() // TODO: use set here
             for event in events {
                 switch event {
                 case .monMove(_, let from, let to):
@@ -205,12 +205,15 @@ class GameController {
             
         case .invalidInput:
             let shouldTryToReselect = inputs.count > 1 && inputs.first != input
+            let shouldHelpFindOptions = inputs.count == 1
             inputs = []
             if shouldTryToReselect {
                 let reselectHighlights = processInput(input)
                 if !reselectHighlights.isEmpty {
                     viewEffects.append(contentsOf: reselectHighlights)
                 }
+            } else if shouldHelpFindOptions {
+                // TODO: find items available to be moved and blink them
             }
         }
         
