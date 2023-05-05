@@ -95,12 +95,12 @@ class GameController {
     private var inputs = [MonsGame.Input]()
     
     // TODO: refactor
-    func didTap(_ location: Location) -> [ViewEffect] {
+    func processInput(_ input: MonsGame.Input) -> [ViewEffect] {
         // TODO: act differently when i click spaces while opponent makes his turns
         
         var viewEffects = [ViewEffect]() // TODO: tmp
         
-        inputs.append(MonsGame.Input.location(location))
+        inputs.append(input)
         
         let output = game.processInput(inputs)
         
@@ -169,12 +169,18 @@ class GameController {
             }
             
             for nextInputOption in nextInputOptions {
-                if case let .location(location) = nextInputOption.input {
+                if nextInputOption.kind == .selectConsumable {
+                    viewEffects.append(.selectBombOrPotion)
+                }
+                
+                switch nextInputOption.input {
+                case .location(let location):
                     viewEffects.append(.availableForStep(location))
+                case .modifier:
+                    break
                 }
             }
             
-            break
         case .invalidInput:
             // TODO: DESELECT ALL PREVIOUSLY SELECTED (ON VIEW)
             inputs = []

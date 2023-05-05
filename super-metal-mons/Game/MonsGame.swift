@@ -58,7 +58,7 @@ extension MonsGame {
 extension MonsGame {
     
     enum Modifier {
-        case selectPotion, selectBomb
+        case selectPotion, selectBomb, cancel
     }
     
     enum Input: Equatable {
@@ -736,6 +736,8 @@ extension MonsGame {
                 events.append(.pickupBomb(by: mon, at: targetLocation))
             case .selectPotion:
                 events.append(.pickupPotion(by: mon, at: targetLocation))
+            case .cancel:
+                return .invalidInput
             }
         }
         
@@ -761,6 +763,8 @@ extension MonsGame {
             events.append(.pickupBomb(by: mon, at: destinationLocation))
         case .selectPotion:
             events.append(.pickupPotion(by: mon, at: destinationLocation))
+        case .cancel:
+            return .invalidInput
         }
         
         return .events(apply(events: events))

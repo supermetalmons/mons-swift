@@ -80,7 +80,11 @@ class GameViewController: UIViewController, GameView {
     
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let squareView = sender.view as? BoardSquareView else { return }
-        let effects = controller.didTap(squareView.location)
+        processInput(.location(squareView.location))
+    }
+    
+    private func processInput(_ input: MonsGame.Input) {
+        let effects = controller.processInput(input)
         applyEffects(effects)
     }
     
@@ -396,6 +400,21 @@ class GameViewController: UIViewController, GameView {
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
+            case .selectBombOrPotion:
+                let alert = UIAlertController(title: "?", message: nil, preferredStyle: .alert)
+                let bombAction = UIAlertAction(title: "💣", style: .default) { [weak self] _ in
+                    self?.processInput(.modifier(.selectBomb))
+                }
+                let potionAction = UIAlertAction(title: "🧪", style: .default) { [weak self] _ in
+                    self?.processInput(.modifier(.selectPotion))
+                }
+                let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { [weak self] _ in
+                    self?.processInput(.modifier(.cancel))
+                }
+                alert.addAction(cancelAction)
+                alert.addAction(potionAction)
+                alert.addAction(bombAction)
+                present(alert, animated: true)
             }
         }
     }

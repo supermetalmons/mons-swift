@@ -8,4 +8,5 @@ enum ViewEffect {
     case updateCell(Location)
     case setSelected(Location)
     case updateGameStatus
+    case selectBombOrPotion
 }
