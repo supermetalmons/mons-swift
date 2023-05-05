@@ -116,9 +116,11 @@ class GameController {
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                     
-                    let nextMoveHighlights = processInput(.location(to))
-                    if !nextMoveHighlights.isEmpty {
-                        viewEffects.append(contentsOf: nextMoveHighlights)
+                    if events.count == 1 {
+                        let nextMoveHighlights = processInput(.location(to))
+                        if !nextMoveHighlights.isEmpty {
+                            viewEffects.append(contentsOf: nextMoveHighlights)
+                        }
                     }
                     
                 case .manaMove(_, let from, let to):
