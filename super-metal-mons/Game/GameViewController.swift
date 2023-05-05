@@ -99,7 +99,7 @@ class GameViewController: UIViewController, GameView {
         }
         
         let originalTransform = animatedImageView.transform
-        let scaleFactor = CGFloat(10)
+        let scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
         let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: opponents ? 14 : -14)
                 
