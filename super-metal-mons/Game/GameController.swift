@@ -111,30 +111,44 @@ class GameController {
             for event in events {
                 switch event {
                 case .monMove(_, let from, let to):
+                    Audio.play(.move)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .manaMove(_, let from, let to):
+                    Audio.play(.moveMana)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
-                case .manaScored(_, let at, _):
+                case let .manaScored(mana, at, _):
+                    switch mana {
+                    case .regular:
+                        Audio.play(.scoreMana)
+                    case .supermana:
+                        Audio.play(.scoreSupermana)
+                    }
                     locationsToUpdate.append(at)
                 case .mysticAction(_, let from, let to):
+                    Audio.play(.mysticAbility)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .demonAction(_, let from, let to):
+                    Audio.play(.demonAbility)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .demonAdditionalStep(_, let from, let to):
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .spiritTargetMove(_, let from, let to):
+                    Audio.play(.spiritAbility)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .pickupBomb(_, let at):
+                    Audio.play(.pickUpPotion)
                     locationsToUpdate.append(at)
                 case .pickupPotion(_, let at):
+                    Audio.play(.pickUpPotion)
                     locationsToUpdate.append(at)
                 case .pickupMana(_, _, let at):
+                    Audio.play(.manaPickUp)
                     locationsToUpdate.append(at)
                 case .monFainted(_, let from, let to):
                     locationsToUpdate.append(from)
@@ -145,11 +159,13 @@ class GameController {
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .bombAttack(_, let from, let to):
+                    Audio.play(.bomb)
                     locationsToUpdate.append(from)
                     locationsToUpdate.append(to)
                 case .monAwake(_, let at):
                     locationsToUpdate.append(at)
                 case .bombExplosion(let at):
+                    Audio.play(.bomb)
                     locationsToUpdate.append(at)
                 case .nextTurn(_):
                     break
@@ -160,7 +176,6 @@ class GameController {
             
             viewEffects.append(contentsOf: locationsToUpdate.map { ViewEffect.updateCell($0) })
             viewEffects.append(.updateGameStatus)
-            // TODO: DESELECT ALL PREVIOUSLY SELECTED (ON VIEW)
         case let .nextInputOptions(nextInputOptions):
             for input in inputs {
                 if case let .location(location) = input {
@@ -182,7 +197,6 @@ class GameController {
             }
             
         case .invalidInput:
-            // TODO: DESELECT ALL PREVIOUSLY SELECTED (ON VIEW)
             inputs = []
         }
         
