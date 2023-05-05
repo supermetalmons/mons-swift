@@ -39,7 +39,7 @@
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="zQl-mM-JDM"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="pixel/bomb"/>
+                                                    <buttonConfiguration key="configuration" style="tinted" image="pixel/bomb"/>
                                                     <connections>
                                                         <action selector="bombButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mcy-01-A4x"/>
                                                     </connections>
@@ -47,7 +47,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNp-5u-Pcp">
                                                     <rect key="frame" x="112.66666666666666" y="0.0" width="92.333333333333343" height="78"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="pixel/potion"/>
+                                                    <buttonConfiguration key="configuration" style="tinted" image="pixel/potion"/>
                                                     <connections>
                                                         <action selector="potionButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="afM-KM-W1p"/>
                                                     </connections>
