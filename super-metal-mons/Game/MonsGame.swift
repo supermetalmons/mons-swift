@@ -82,6 +82,13 @@ extension MonsGame {
         
         let input: Input
         let kind: Kind
+        let actorMonItem: Item?
+        
+        init(input: Input, kind: Kind, actorMonItem: Item? = nil) {
+            self.input = input
+            self.kind = kind
+            self.actorMonItem = actorMonItem
+        }
         
     }
     
@@ -94,7 +101,7 @@ extension MonsGame {
         case demonAdditionalStep(demon: Mon, from: Location, to: Location)
         case spiritTargetMove(item: Item, from: Location, to: Location)
         case pickupBomb(by: Mon, at: Location)
-        case pickupPotion(by: Mon, at: Location)
+        case pickupPotion(by: Item, at: Location)
         case pickupMana(mana: Mana, by: Mon, at: Location)
         case monFainted(mon: Mon, from: Location, to: Location)
         case manaDropped(mana: Mana, at: Location)
@@ -349,11 +356,11 @@ extension MonsGame {
                         return .invalidInput
                     case .bombOrPotion:
                         if startItem.consumable != nil || startItem.mana != nil {
-                            events.append(.pickupPotion(by: startMon, at: targetLocation))
+                            events.append(.pickupPotion(by: startItem, at: targetLocation))
                         } else {
                             nextInputOptions = [
-                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
-                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: startItem),
+                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: startItem)
                             ]
                         }
                     }
@@ -639,8 +646,8 @@ extension MonsGame {
                             return .invalidInput
                         case .bombOrPotion:
                             nextInputOptions = [
-                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
-                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: targetItem),
+                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: targetItem)
                             ]
                         }
                     }
@@ -653,7 +660,7 @@ extension MonsGame {
                         events.append(.pickupMana(mana: travellingMana, by: destinationMon, at: destinationLocation))
                     }
                     
-                case .monWithMana(let travellingMon, _):
+                case .monWithMana:
                     switch destinationItem {
                     case .mon, .mana, .monWithMana, .monWithConsumable:
                         return .invalidInput
@@ -662,11 +669,11 @@ extension MonsGame {
                         case .potion, .bomb:
                             return .invalidInput
                         case .bombOrPotion:
-                            events.append(.pickupPotion(by: travellingMon, at: destinationLocation))
+                            events.append(.pickupPotion(by: targetItem, at: destinationLocation))
                         }
                     }
                     
-                case .monWithConsumable(let travellingMon, _):
+                case .monWithConsumable:
                     switch destinationItem {
                     case .mon, .mana, .monWithMana, .monWithConsumable:
                         return .invalidInput
@@ -675,7 +682,7 @@ extension MonsGame {
                         case .potion, .bomb:
                             return .invalidInput
                         case .bombOrPotion:
-                            events.append(.pickupPotion(by: travellingMon, at: destinationLocation))
+                            events.append(.pickupPotion(by: targetItem, at: destinationLocation))
                         }
                     }
                     
@@ -685,15 +692,15 @@ extension MonsGame {
                         return .invalidInput
                     case .mon:
                         nextInputOptions = [
-                            NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
-                            NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                            NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: destinationItem),
+                            NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: destinationItem)
                         ]
-                    case .monWithMana(let destinationMon, _), .monWithConsumable(let destinationMon, _):
+                    case .monWithMana, .monWithConsumable:
                         switch travellingConsumable {
                         case .potion, .bomb:
                             return .invalidInput
                         case .bombOrPotion:
-                            events.append(.pickupPotion(by: destinationMon, at: destinationLocation))
+                            events.append(.pickupPotion(by: destinationItem, at: destinationLocation))
                         }
                     }
                 }
@@ -714,8 +721,8 @@ extension MonsGame {
                     return .invalidInput
                 case .bombOrPotion:
                     nextInputOptions = [
-                        NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
-                        NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                        NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: startItem),
+                        NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: startItem)
                     ]
                 }
             }
@@ -726,7 +733,7 @@ extension MonsGame {
             case .selectBomb:
                 events.append(.pickupBomb(by: mon, at: targetLocation))
             case .selectPotion:
-                events.append(.pickupPotion(by: mon, at: targetLocation))
+                events.append(.pickupPotion(by: startItem, at: targetLocation))
             case .cancel:
                 return .invalidInput
             }
@@ -747,13 +754,13 @@ extension MonsGame {
         guard case let .modifier(modifier) = forthInput else { return .invalidInput }
         guard nextInputOptions.contains(where: { $0.input == forthInput }),
               case let .location(destinationLocation) = thirdInput,
-              let mon = targetItem?.mon else { return .invalidInput }
+              let actorMonItem = nextInputOptions.last?.actorMonItem, let actorMon = actorMonItem.mon else { return .invalidInput }
         
         switch modifier {
         case .selectBomb:
-            events.append(.pickupBomb(by: mon, at: destinationLocation))
+            events.append(.pickupBomb(by: actorMon, at: destinationLocation))
         case .selectPotion:
-            events.append(.pickupPotion(by: mon, at: destinationLocation))
+            events.append(.pickupPotion(by: actorMonItem, at: destinationLocation))
         case .cancel:
             return .invalidInput
         }
@@ -815,13 +822,16 @@ extension MonsGame {
                 board.put(item: item, location: to)
             case .pickupBomb(let by, let at):
                 board.put(item: .monWithConsumable(mon: by, consumable: .bomb), location: at)
-            case .pickupPotion(let by, _):
-                switch by.color {
-                case .black:
-                    blackPotionsCount += 1
-                case .white:
-                    whitePotionsCount += 1
+            case .pickupPotion(let by, let at):
+                if let color = by.mon?.color {
+                    switch color {
+                    case .black:
+                        blackPotionsCount += 1
+                    case .white:
+                        whitePotionsCount += 1
+                    }
                 }
+                board.put(item: by, location: at)
             case .pickupMana(let mana, let by, let at):
                 board.put(item: .monWithMana(mon: by, mana: mana), location: at)
             case .monFainted(var mon, _, let to):
