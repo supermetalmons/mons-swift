@@ -386,10 +386,6 @@ extension MonsGame {
             case .manaBase, .consumableBase, .regular:
                 break
             case .manaPool(let color):
-                if case .pickupMana = events.last {
-                    events.removeLast()
-                }
-                
                 events.append(.manaScored(mana: mana, at: targetLocation, pool: color))
             case .monBase, .supermanaBase:
                 return .invalidInput
@@ -702,10 +698,10 @@ extension MonsGame {
                     }
                 }
                 
-            } else {
-                if case .manaPool(let color) = destinationSquare, let mana = targetItem.mana {
-                    events.append(.manaScored(mana: mana, at: destinationLocation, pool: color))
-                }
+            }
+            
+            if case .manaPool(let color) = destinationSquare, let mana = targetItem.mana {
+                events.append(.manaScored(mana: mana, at: destinationLocation, pool: color))
             }
             
         case .demonAdditionalStep:
