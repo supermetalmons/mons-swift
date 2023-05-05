@@ -12,6 +12,10 @@ struct Images {
         switch consumable {
         case .potion:
             return named(style.namespace + "potion")
+        case .bomb:
+            return named(style.namespace + "bomb")
+        case .bombOrPotion:
+            return named(style.namespace + "bag")
         }
     }
     
@@ -23,7 +27,7 @@ struct Images {
         switch mana {
         case .regular(let color):
             return named(style.namespace + "mana" + color.imageNameSuffix)
-        case .superMana:
+        case .supermana:
             return named(style.namespace + "supermana" + (picked ? "-simple" : ""))
         }
     }
@@ -37,7 +41,7 @@ struct Images {
         return named("emoji-\(index)")
     }
     
-    static func move(_ move: MonsGame.Move) -> UIImage {
+    static func move(_ move: Move) -> UIImage {
         return named("move-\(move.rawValue)")
     }
     

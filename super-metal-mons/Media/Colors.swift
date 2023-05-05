@@ -4,7 +4,7 @@ import UIKit
 
 struct Colors {
     
-    static func square(_ square: Square, style: BoardStyle) -> UIColor {
+    static func square(_ square: SquareColor, style: BoardStyle) -> UIColor {
         return named("board/\(style.namespace)\(square.rawValue)")
     }
     

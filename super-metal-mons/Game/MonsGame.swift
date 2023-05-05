@@ -4,999 +4,928 @@ import Foundation
 
 // TODO: do not play audio from the game logic code
 
-class MonsGame {
-    
-    private let boardSize = 11 // TODO: use it when creating a board as well
-    
-    enum Move: String {
-        case step, action, mana
-    }
-    
+// TODO: refactor. do not add computed / helpers stuff to the base MonsGame implementaion — to keep it clean
+extension MonsGame {
+    // TODO: хочется понятную терминологию. и тут moves и там moves
+    // TODO: вот непонятно, почему слева monStep, а справа monsMovesPerTurn
     var availableMoves: [Move: Int] {
         var moves: [Move: Int] = [
-            .step: 5 - monsMovesCount,
+            .monStep: Config.monsMovesPerTurn - monsMovesCount,
             .action: 0,
-            .mana: 0
+            .manaStep: 0
         ]
-        
-        if isFirstTurn {
+
+        if turnNumber == 1 {
             return moves
         }
         
-        moves[.action] = (actionUsed ? 0 : 1) + potionsCount
-        
-        if !manaMoved {
-            moves[.mana] = 1
-        }
+        let playerPotionsCount = activeColor == .white ? whitePotionsCount : blackPotionsCount
+        moves[.action] = (Config.actionsPerTurn - actionsUsedCount) + playerPotionsCount
+        moves[.manaStep] = Config.manaMovesPerTurn - manaMovesCount
         
         return moves
     }
     
-    let version: Int
+    var winnerColor: Color? {
+        if whiteScore >= Config.targetScore {
+            return .white
+        } else if blackScore >= Config.targetScore {
+            return .black
+        } else {
+            return nil
+        }
+    }
     
-    var whiteScore: Int
-    var blackScore: Int
+}
+
+extension MonsGame {
+    var isFirstTurn: Bool { turnNumber == 1 }
+    var playerPotionsCount: Int { activeColor == .white ? whitePotionsCount : blackPotionsCount }
+    var playerCanMoveMon: Bool { monsMovesCount < Config.monsMovesPerTurn }
+    var playerCanMoveMana: Bool { !isFirstTurn && manaMovesCount < Config.manaMovesPerTurn }
+    var playerCanUseAction: Bool { !isFirstTurn && (playerPotionsCount > 0 || actionsUsedCount < Config.actionsPerTurn) }
     
-    var activeColor: Color
-    var actionUsed: Bool // TODO: use int here to make game more configurable
-    var manaMoved: Bool // TODO: use int here to make game more configurable
-    var monsMovesCount: Int
+    var protectedByOpponentsAngel: Set<Location> {
+        if let location = board.findAwakeAngel(color: activeColor.other) {
+            let protected = location.nearbyLocations
+            return Set(protected)
+        } else {
+            return Set()
+        }
+    }
+}
+
+extension MonsGame {
     
-    var whitePotionsCount: Int
-    var blackPotionsCount: Int
+    enum Modifier {
+        case selectPotion, selectBomb
+    }
     
-    var turnNumber: Int
-    var board: [[Piece]]
+    enum Input: Equatable {
+        case location(Location)
+        case modifier(Modifier)
+    }
     
-    var isFirstTurn: Bool { return turnNumber == 1 }
+    enum Output {
+        case invalidInput
+        case nextInputOptions([NextInput])
+        case events([Event])
+    }
+    
+    struct NextInput {
+        
+        enum Kind {
+            case monMove, manaMove
+            case mysticAction, demonAction, demonAdditionalStep, spiritTargetCapture, spiritTargetMove
+            case selectConsumable, bombAttack
+        }
+        
+        let input: Input
+        let kind: Kind
+        
+    }
+    
+    enum Event {
+        case monMove(item: Item, from: Location, to: Location)
+        case manaMove(mana: Mana, from: Location, to: Location)
+        case manaScored(mana: Mana, at: Location, pool: Color)
+        case mysticAction(mystic: Mon, from: Location, to: Location)
+        case demonAction(demon: Mon, from: Location, to: Location)
+        case demonAdditionalStep(demon: Mon, from: Location, to: Location)
+        case spiritTargetMove(item: Item, from: Location, to: Location)
+        case pickupBomb(by: Mon, at: Location)
+        case pickupPotion(by: Mon, at: Location)
+        case pickupMana(mana: Mana, by: Mon, at: Location)
+        case monFainted(mon: Mon, from: Location, to: Location)
+        case manaDropped(mana: Mana, at: Location)
+        case supermanaBackToBase(from: Location, to: Location)
+        case bombAttack(by: Mon, from: Location, to: Location)
+        case monAwake(mon: Mon, at: Location)
+        case bombExplosion(at: Location)
+        case nextTurn(color: Color)
+        case gameOver(winner: Color)
+    }
+    
+    func processInput(_ input: [Input]) -> Output {
+        guard !input.isEmpty,
+              case let .location(startLocation) = input[0],
+                let startItem = board.item(at: startLocation) else { return .invalidInput }
+        
+        let startSquare = board.square(at: startLocation)
+        
+        var nextInputOptions = [NextInput]()
+        
+        switch startItem {
+        case .mon(let mon):
+            guard mon.color == activeColor, !mon.isFainted else { return .invalidInput }
+            
+            if playerCanMoveMon {
+                let moveLocations = startLocation.nearbyLocations.filter { location in
+                    let item = board.item(at: location)
+                    let square = board.square(at: location)
+                    
+                    if let item = item {
+                        switch item {
+                        case .mon, .monWithMana, .monWithConsumable:
+                            return false
+                        case .mana:
+                            if mon.kind == .drainer {
+                                break
+                            } else {
+                                return false
+                            }
+                        case .consumable:
+                            break
+                        }
+                    }
+                    
+                    switch square {
+                    case .regular, .consumableBase, .manaBase, .manaPool:
+                        return true
+                    case .supermanaBase:
+                        return item == .mana(mana: .supermana) && mon.kind == .drainer
+                    case .monBase(let kind, let color):
+                        return mon.kind == kind && mon.color == color
+                    }
+                }
+                
+                nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
+            }
+            
+            if case .monBase = startSquare {
+                // can't use action from the base
+            } else if playerCanUseAction {
+                var actionOptions = [NextInput]()
+                switch mon.kind {
+                case .angel, .drainer:
+                    break
+                case .mystic:
+                    actionOptions = startLocation.reachableByMysticAction.compactMap { location -> NextInput? in
+                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return nil }
+                        
+                        switch item {
+                        case let .mon(targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
+                            if mon.color == targetMon.color || targetMon.isFainted {
+                                return nil
+                            }
+                        case .mana, .consumable:
+                            return nil
+                        }
+                        
+                        return NextInput(input: .location(location), kind: .mysticAction)
+                    }
+                case .demon:
+                    actionOptions = startLocation.reachableByDemonAction.compactMap { location -> NextInput? in
+                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return nil }
+                        let locationBetween = startLocation.locationBetween(another: location)
+                        guard board.item(at: locationBetween) == nil else { return nil }
+                        
+                        switch item {
+                        case .mon(let targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
+                            if mon.color == targetMon.color || targetMon.isFainted {
+                                return nil
+                            }
+                        case .mana, .consumable:
+                            return nil
+                        }
+                        
+                        return NextInput(input: .location(location), kind: .demonAction)
+                    }
+                case .spirit:
+                    actionOptions = startLocation.reachableBySpiritAction.compactMap { location -> NextInput? in
+                        guard let item = board.item(at: location) else { return nil }
+                        
+                        switch item {
+                        case .mon(let targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
+                            if targetMon.isFainted { return nil }
+                        case .mana, .consumable:
+                            break
+                        }
+                        
+                        return NextInput(input: .location(location), kind: .spiritTargetCapture)
+                    }
+                }
+                nextInputOptions.append(contentsOf: actionOptions)
+            }
+            
+        case .mana(let mana):
+            guard case let .regular(color) = mana, color == activeColor, playerCanMoveMana else { return .invalidInput }
+            
+            let manaMoveLocations = startLocation.nearbyLocations.filter { location in
+                let item = board.item(at: location)
+                let square = board.square(at: location)
+                
+                if let item = item {
+                    switch item {
+                    case .mon(let mon):
+                        if mon.kind == .drainer {
+                            break
+                        } else {
+                            return false
+                        }
+                    case .monWithConsumable, .consumable, .monWithMana, .mana:
+                        return false
+                    }
+                }
+                
+                switch square {
+                case .regular, .consumableBase, .manaBase, .manaPool:
+                    return true
+                case .supermanaBase, .monBase:
+                    return false
+                }
+            }
+            
+            nextInputOptions.append(contentsOf: manaMoveLocations.map { NextInput(input: Input.location($0), kind: .manaMove) })
+            
+        case .monWithMana(let mon, let mana):
+            guard mon.color == activeColor, playerCanMoveMon else { return .invalidInput }
+            
+            let moveLocations = startLocation.nearbyLocations.filter { location in
+                let item = board.item(at: location)
+                let square = board.square(at: location)
+                
+                if let item = item {
+                    switch item {
+                    case .mon, .mana, .monWithMana, .monWithConsumable:
+                        return false
+                    case .consumable:
+                        break
+                    }
+                }
+                
+                switch square {
+                case .regular, .consumableBase, .manaBase, .manaPool:
+                    return true
+                case .supermanaBase:
+                    return mana == .supermana
+                case .monBase:
+                    return false
+                }
+            }
+            
+            nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
+                        
+        case .monWithConsumable(let mon, let consumable):
+            guard mon.color == activeColor else { return .invalidInput }
+            
+            if playerCanMoveMon {
+                let moveLocations = startLocation.nearbyLocations.filter { location in
+                    let item = board.item(at: location)
+                    let square = board.square(at: location)
+                    
+                    if let item = item {
+                        switch item {
+                        case .mon, .mana, .monWithMana, .monWithConsumable:
+                            return false
+                        case .consumable:
+                            break
+                        }
+                    }
+                    
+                    switch square {
+                    case .regular, .consumableBase, .manaBase, .manaPool:
+                        return true
+                    case .supermanaBase, .monBase:
+                        return false
+                    }
+                }
+                
+                nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
+            }
+            
+            if case .bomb = consumable {
+                let bombOptions = startLocation.reachableByBomb.compactMap { location -> NextInput? in
+                    guard let item = board.item(at: location) else { return nil }
+                    
+                    switch item {
+                    case let .mon(targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
+                        if mon.color == targetMon.color || targetMon.isFainted {
+                            return nil
+                        }
+                    case .consumable, .mana:
+                        return nil
+                    }
+                    
+                    return NextInput(input: .location(location), kind: .bombAttack)
+                }
+                nextInputOptions.append(contentsOf: bombOptions)
+            }
+        case .consumable:
+            return .invalidInput
+        }
+                
+        guard input.count > 1 else {
+            if nextInputOptions.isEmpty {
+                return .invalidInput
+            } else {
+                return .nextInputOptions(nextInputOptions)
+            }
+        }
+        
+        let secondInput = input[1]
+        guard case let .location(targetLocation) = secondInput else { return .invalidInput }
+        guard let option = nextInputOptions.first(where: { $0.input == secondInput }) else { return .invalidInput }
+        
+        nextInputOptions = []
+        var events = [Event]()
+        let targetSquare = board.square(at: targetLocation)
+        let targetItem = board.item(at: targetLocation)
+        
+        switch option.kind {
+        case .monMove:
+            guard let startMon = startItem.mon else { return .invalidInput }
+            events.append(.monMove(item: startItem, from: startLocation, to: targetLocation))
+            
+            if let targetItem = targetItem {
+                switch targetItem {
+                case .mon, .monWithMana, .monWithConsumable:
+                    return .invalidInput
+                case .mana(let mana):
+                    events.append(.pickupMana(mana: mana, by: startMon, at: targetLocation))
+                case .consumable(let consumable):
+                    switch consumable {
+                    case .potion, .bomb:
+                        return .invalidInput
+                    case .bombOrPotion:
+                        if startItem.consumable != nil || startItem.mana != nil {
+                            events.append(.pickupPotion(by: startMon, at: targetLocation))
+                        } else {
+                            nextInputOptions = [
+                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
+                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                            ]
+                        }
+                    }
+                }
+            }
+            
+            switch targetSquare {
+            case .regular, .consumableBase, .supermanaBase, .manaBase, .monBase:
+                break
+            case .manaPool(let color):
+                if let manaInHand = startItem.mana {
+                    events.append(.manaScored(mana: manaInHand, at: targetLocation, pool: color))
+                }
+            }
+            
+        case .manaMove:
+            guard case let .mana(mana) = startItem else { return .invalidInput }
+            events.append(.manaMove(mana: mana, from: startLocation, to: targetLocation))
+            
+            if let targetItem = targetItem {
+                switch targetItem {
+                case .mon(let mon):
+                    events.append(.pickupMana(mana: mana, by: mon, at: targetLocation))
+                case .mana, .consumable, .monWithMana, .monWithConsumable:
+                    return .invalidInput
+                }
+            }
+            
+            switch targetSquare {
+            case .manaBase, .consumableBase, .regular:
+                break
+            case .manaPool(let color):
+                if case .pickupMana = events.last {
+                    events.removeLast()
+                }
+                
+                events.append(.manaScored(mana: mana, at: targetLocation, pool: color))
+            case .monBase, .supermanaBase:
+                return .invalidInput
+            }
+        case .mysticAction:
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            events.append(.mysticAction(mystic: startMon, from: startLocation, to: targetLocation))
+            
+            var targetMon: Mon?
+            
+            switch targetItem {
+            case .mon(let mon):
+                targetMon = mon
+            case .monWithMana(let mon, let mana):
+                targetMon = mon
+                
+                switch mana {
+                case .regular:
+                    events.append(.manaDropped(mana: mana, at: targetLocation))
+                case .supermana:
+                    events.append(.supermanaBackToBase(from: targetLocation, to: board.supermanaBase))
+                }
+            case .monWithConsumable(let mon, let consumable):
+                targetMon = mon
+                switch consumable {
+                case .potion, .bombOrPotion:
+                    return .invalidInput
+                case .bomb:
+                    events.append(.bombExplosion(at: targetLocation))
+                }
+            case .consumable, .mana:
+                return .invalidInput
+            }
+            
+            guard let targetMon = targetMon else { return .invalidInput }
+            events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
+            
+        case .demonAction:
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            events.append(.demonAction(demon: startMon, from: startLocation, to: targetLocation))
+            var requiresAdditionalStep = false
+      
+            switch targetItem {
+            case .mana, .consumable:
+                return .invalidInput
+            case .mon(let targetMon):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
+            case .monWithMana(let targetMon, let mana):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
+                switch mana {
+                case .regular:
+                    requiresAdditionalStep = true
+                    events.append(.manaDropped(mana: mana, at: targetLocation))
+                case .supermana:
+                    events.append(.supermanaBackToBase(from: targetLocation, to: board.supermanaBase))
+                }
+            case .monWithConsumable(let targetMon, let consumable):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
+                switch consumable {
+                case .potion, .bombOrPotion:
+                    return .invalidInput
+                case .bomb:
+                    events.append(.bombExplosion(at: targetLocation))
+                    events.append(.monFainted(mon: startMon, from: targetLocation, to: board.base(mon: startMon)))
+                }
+            }
+            
+            switch targetSquare {
+            case .regular, .consumableBase, .manaBase, .manaPool:
+                break
+            case .supermanaBase, .monBase:
+                requiresAdditionalStep = true
+            }
+            
+            if requiresAdditionalStep {
+                let additionalStepLocations = targetLocation.nearbyLocations.filter { location in
+                    let item = board.item(at: location)
+                    let square = board.square(at: location)
+                    
+                    if let item = item {
+                        switch item {
+                        case .mon, .mana, .monWithMana, .monWithConsumable:
+                            return false
+                        case .consumable:
+                            break
+                        }
+                    }
+                    
+                    switch square {
+                    case .regular, .consumableBase, .manaBase, .manaPool:
+                        return true
+                    case let .monBase(kind, color):
+                        return startMon.kind == kind && startMon.color == color
+                    case .supermanaBase:
+                        return false
+                    }
+                }
+                
+                nextInputOptions.append(contentsOf: additionalStepLocations.map { NextInput(input: Input.location($0), kind: .demonAdditionalStep) })
+            }
+            
+        case .spiritTargetCapture:
+            guard let targetItem = targetItem else { return .invalidInput }
+            let targetMon = targetItem.mon
+            let targetMana = targetItem.mana
+            
+            let spiritMoveLocations = targetLocation.nearbyLocations.filter { location in
+                let destinationItem = board.item(at: location)
+                let destinationSquare = board.square(at: location)
+                
+                if let destinationItem = destinationItem {
+                    switch destinationItem {
+                    case .mon(let destinationMon):
+                        switch targetItem {
+                        case .mon, .monWithMana, .monWithConsumable:
+                            return false
+                        case .mana:
+                            if destinationMon.kind != .drainer || destinationMon.isFainted {
+                                return false
+                            }
+                        case .consumable(let targetConsumable):
+                            if targetConsumable != .bombOrPotion {
+                                return false
+                            }
+                        }
+                        
+                    case .mana:
+                        switch targetItem {
+                        case .mon(let targetMon):
+                            if targetMon.kind != .drainer || targetMon.isFainted {
+                                return false
+                            }
+                        case .consumable, .monWithConsumable, .monWithMana, .mana:
+                            return false
+                        }
+                        
+                    case .monWithMana:
+                        switch targetItem {
+                        case .mon, .monWithMana, .monWithConsumable, .mana:
+                            return false
+                        case .consumable(let targetConsumable):
+                            if targetConsumable != .bombOrPotion {
+                                return false
+                            }
+                        }
+                        
+                    case .monWithConsumable:
+                        switch targetItem {
+                        case .mon, .monWithMana, .monWithConsumable, .mana:
+                            return false
+                        case .consumable(let targetConsumable):
+                            if targetConsumable != .bombOrPotion {
+                                return false
+                            }
+                        }
+                        
+                    case .consumable(let destinationConsumable):
+                        switch targetItem {
+                        case .mon, .monWithMana, .monWithConsumable:
+                            if destinationConsumable != .bombOrPotion {
+                                return false
+                            }
+                        case .mana, .consumable:
+                            return false
+                        }
+                    }
+                }
+                
+                switch destinationSquare {
+                case .regular, .consumableBase, .manaBase, .manaPool:
+                    return true
+                case .supermanaBase:
+                    if let mana = targetMana, case .supermana = mana {
+                        return true
+                    } else {
+                        return false
+                    }
+                case .monBase(let kind, let color):
+                    if targetMon?.kind == kind && targetMon?.color == color && targetMana == nil && targetItem.consumable == nil {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            }
+            
+            nextInputOptions.append(contentsOf: spiritMoveLocations.map { NextInput(input: Input.location($0), kind: .spiritTargetMove) })
+            
+        case .bombAttack:
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            events.append(.bombAttack(by: startMon, from: startLocation, to: targetLocation))
+            
+            switch targetItem {
+            case .mon(let mon):
+                events.append(.monFainted(mon: mon, from: targetLocation, to: board.base(mon: mon)))
+            case .monWithMana(let mon, let mana):
+                events.append(.monFainted(mon: mon, from: targetLocation, to: board.base(mon: mon)))
+                switch mana {
+                case .regular:
+                    events.append(.manaDropped(mana: mana, at: targetLocation))
+                case .supermana:
+                    events.append(.supermanaBackToBase(from: targetLocation, to: board.supermanaBase))
+                }
+            case .monWithConsumable(let mon, let consumable):
+                events.append(.monFainted(mon: mon, from: targetLocation, to: board.base(mon: mon)))
+                switch consumable {
+                case .potion, .bombOrPotion:
+                    return .invalidInput
+                case .bomb:
+                    events.append(.bombExplosion(at: targetLocation))
+                }
+            case .mana, .consumable:
+                return .invalidInput
+            }
+
+        case .spiritTargetMove, .demonAdditionalStep, .selectConsumable:
+            return .invalidInput
+        }
+        
+        guard input.count > 2 else {
+            if !nextInputOptions.isEmpty {
+                return .nextInputOptions(nextInputOptions)
+            } else if !events.isEmpty {
+                return .events(apply(events: events))
+            } else {
+                return .invalidInput
+            }
+        }
+        
+        let thirdInput = input[2]
+        guard let option = nextInputOptions.first(where: { $0.input == thirdInput }) else { return .invalidInput }
+        nextInputOptions = []
+                
+        switch option.kind {
+        case .monMove, .manaMove, .mysticAction, .demonAction, .spiritTargetCapture, .bombAttack:
+            return .invalidInput
+        case .spiritTargetMove:
+            guard case let .location(destinationLocation) = thirdInput, let targetItem = targetItem else { return .invalidInput }
+            let destinationItem = board.item(at: destinationLocation)
+            let destinationSquare = board.square(at: destinationLocation)
+            
+            events.append(.spiritTargetMove(item: targetItem, from: targetLocation, to: destinationLocation))
+            
+            if let destinationItem = destinationItem {
+                
+                switch targetItem {
+                case .mon(let travellingMon):
+                    switch destinationItem {
+                    case .mon, .monWithMana, .monWithConsumable:
+                        return .invalidInput
+                    case .mana(let destinationMana):
+                        events.append(.pickupMana(mana: destinationMana, by: travellingMon, at: destinationLocation))
+                    case .consumable(let destinationConsumable):
+                        switch destinationConsumable {
+                        case .potion, .bomb:
+                            return .invalidInput
+                        case .bombOrPotion:
+                            nextInputOptions = [
+                                NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
+                                NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                            ]
+                        }
+                    }
+                    
+                case .mana(let travellingMana):
+                    switch destinationItem {
+                    case .mana, .monWithMana, .monWithConsumable, .consumable:
+                        return .invalidInput
+                    case .mon(let destinationMon):
+                        events.append(.pickupMana(mana: travellingMana, by: destinationMon, at: destinationLocation))
+                    }
+                    
+                case .monWithMana(let travellingMon, _):
+                    switch destinationItem {
+                    case .mon, .mana, .monWithMana, .monWithConsumable:
+                        return .invalidInput
+                    case .consumable(let destinationConsumable):
+                        switch destinationConsumable {
+                        case .potion, .bomb:
+                            return .invalidInput
+                        case .bombOrPotion:
+                            events.append(.pickupPotion(by: travellingMon, at: destinationLocation))
+                        }
+                    }
+                    
+                case .monWithConsumable(let travellingMon, _):
+                    switch destinationItem {
+                    case .mon, .mana, .monWithMana, .monWithConsumable:
+                        return .invalidInput
+                    case .consumable(let destinationConsumable):
+                        switch destinationConsumable {
+                        case .potion, .bomb:
+                            return .invalidInput
+                        case .bombOrPotion:
+                            events.append(.pickupPotion(by: travellingMon, at: destinationLocation))
+                        }
+                    }
+                    
+                case .consumable(let travellingConsumable):
+                    switch destinationItem {
+                    case .mana, .consumable:
+                        return .invalidInput
+                    case .mon:
+                        nextInputOptions = [
+                            NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
+                            NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                        ]
+                    case .monWithMana(let destinationMon, _), .monWithConsumable(let destinationMon, _):
+                        switch travellingConsumable {
+                        case .potion, .bomb:
+                            return .invalidInput
+                        case .bombOrPotion:
+                            events.append(.pickupPotion(by: destinationMon, at: destinationLocation))
+                        }
+                    }
+                }
+                
+            } else {
+                if case .manaPool(let color) = destinationSquare, let mana = targetItem.mana {
+                    events.append(.manaScored(mana: mana, at: destinationLocation, pool: color))
+                }
+            }
+            
+        case .demonAdditionalStep:
+            guard case let .location(destinationLocation) = thirdInput, let demon = startItem.mon else { return .invalidInput }
+            events.append(.demonAdditionalStep(demon: demon, from: targetLocation, to: destinationLocation))
+            
+            if let item = board.item(at: destinationLocation), case .consumable(let consumable) = item {
+                switch consumable {
+                case .potion, .bomb:
+                    return .invalidInput
+                case .bombOrPotion:
+                    nextInputOptions = [
+                        NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable),
+                        NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable)
+                    ]
+                }
+            }
+            
+        case .selectConsumable:
+            guard case let .modifier(modifier) = thirdInput, let mon = startItem.mon else { return .invalidInput }
+            switch modifier {
+            case .selectBomb:
+                events.append(.pickupBomb(by: mon, at: targetLocation))
+            case .selectPotion:
+                events.append(.pickupPotion(by: mon, at: targetLocation))
+            }
+        }
+        
+        guard input.count > 3 else {
+            if !nextInputOptions.isEmpty {
+                return .nextInputOptions(nextInputOptions)
+            } else if !events.isEmpty {
+                return .events(apply(events: events))
+            } else {
+                return .invalidInput
+            }
+        }
+        
+        let forthInput = input[3]
+        
+        guard case let .modifier(modifier) = forthInput else { return .invalidInput }
+        guard nextInputOptions.contains(where: { $0.input == forthInput }),
+              case let .location(destinationLocation) = thirdInput,
+              let mon = targetItem?.mon else { return .invalidInput }
+        
+        switch modifier {
+        case .selectBomb:
+            events.append(.pickupBomb(by: mon, at: destinationLocation))
+        case .selectPotion:
+            events.append(.pickupPotion(by: mon, at: destinationLocation))
+        }
+        
+        return .events(apply(events: events))
+    }
+    
+    private func apply(events: [Event]) -> [Event] {
+        
+        func didUseAction() {
+            if actionsUsedCount >= Config.actionsPerTurn {
+                switch activeColor {
+                case .white:
+                    whitePotionsCount -= 1
+                case .black:
+                    blackPotionsCount -= 1
+                }
+            } else {
+                actionsUsedCount += 1
+            }
+        }
+        
+        for event in events {
+            switch event {
+            case .monMove(let item, let from, let to):
+                monsMovesCount += 1
+                board.remove(item: item, location: from)
+                board.put(item: item, location: to)
+            case .manaMove(let mana, let from, let to):
+                manaMovesCount += 1
+                board.remove(item: .mana(mana: mana), location: from)
+                board.put(item: .mana(mana: mana), location: to)
+            case .manaScored(let mana, let at, let pool):
+                switch pool {
+                case .black:
+                    blackScore += mana.score
+                case .white:
+                    whiteScore += mana.score
+                }
+                
+                if let mon = board.item(at: at)?.mon {
+                    board.put(item: .mon(mon: mon), location: at)
+                } else {
+                    board.remove(item: .mana(mana: mana), location: at)
+                }
+                
+            case .mysticAction:
+                didUseAction()
+            case .demonAction(let demon, let from, let to):
+                didUseAction()
+                board.remove(item: .mon(mon: demon), location: from)
+                board.put(item: .mon(mon: demon), location: to)
+            case .demonAdditionalStep(let demon, _, let to):
+                board.put(item: .mon(mon: demon), location: to)
+            case .spiritTargetMove(let item, let from, let to):
+                didUseAction()
+                board.remove(item: item, location: from)
+                board.put(item: item, location: to)
+            case .pickupBomb(let by, let at):
+                board.put(item: .monWithConsumable(mon: by, consumable: .bomb), location: at)
+            case .pickupPotion(let by, _):
+                switch by.color {
+                case .black:
+                    blackPotionsCount += 1
+                case .white:
+                    whitePotionsCount += 1
+                }
+            case .pickupMana(let mana, let by, let at):
+                board.put(item: .monWithMana(mon: by, mana: mana), location: at)
+            case .monFainted(var mon, let from, let to):
+                board.remove(item: .mon(mon: mon), location: from)
+                mon.faint()
+                board.put(item: .mon(mon: mon), location: to)
+            case .manaDropped(let mana, let at):
+                board.put(item: .mana(mana: mana), location: at)
+            case .supermanaBackToBase(let from, let to):
+                board.remove(item: .mana(mana: .supermana), location: from)
+                board.put(item: .mana(mana: .supermana), location: to)
+            case .bombAttack(let by, let from, _):
+                board.put(item: .mon(mon: by), location: from)
+            case .bombExplosion(let at):
+                board.removeAnyItem(location: at)
+            case .monAwake, .gameOver, .nextTurn:
+                break
+            }
+        }
+        
+        var extraEvents = [Event]()
+        
+        if let winner = winnerColor {
+            extraEvents.append(.gameOver(winner: winner))
+        } else if isFirstTurn && !playerCanMoveMon ||
+            !isFirstTurn && !playerCanMoveMana ||
+            !isFirstTurn && !playerCanMoveMon && board.findMana(color: activeColor) == nil {
+            activeColor = activeColor == .white ? .black : .white
+            turnNumber += 1
+            extraEvents.append(.nextTurn(color: activeColor))
+            actionsUsedCount = 0
+            manaMovesCount = 0
+            monsMovesCount = 0
+            
+            for monLocation in board.faintedMonsLocations(color: activeColor) {
+                if var mon = board.item(at: monLocation)?.mon {
+                    mon.decreaseCooldown()
+                    board.put(item: .mon(mon: mon), location: monLocation)
+                    if !mon.isFainted {
+                        extraEvents.append(.monAwake(mon: mon, at: monLocation))
+                    }
+                }
+            }
+        }
+
+        return events + extraEvents
+    }
+    
+}
+
+class MonsGame {
+    
+    let board: Board
+        
+    private(set) var whiteScore: Int
+    private(set) var blackScore: Int
+    private(set) var activeColor: Color
+    
+    private(set) var actionsUsedCount: Int
+    private(set) var manaMovesCount: Int
+    private(set) var monsMovesCount: Int
+    
+    private(set) var whitePotionsCount: Int
+    private(set) var blackPotionsCount: Int
+    
+    private(set) var turnNumber: Int
     
     init() {
-        self.version = 1
+        self.board = Board()
         self.whiteScore = 0
         self.blackScore = 0
         self.activeColor = .white
-        self.actionUsed = false
-        self.manaMoved = false
+        self.actionsUsedCount = 0
+        self.manaMovesCount = 0
         self.monsMovesCount = 0
         self.whitePotionsCount = 0
         self.blackPotionsCount = 0
         self.turnNumber = 1
-        self.board = [
-            [.none, .none, .none,
-             .mon(mon: Mon(kind: .mystic, color: .black)), // 3
-             .mon(mon: Mon(kind: .spirit, color: .black)), // 4
-             .mon(mon: Mon(kind: .drainer, color: .black)), // 5
-             .mon(mon: Mon(kind: .angel, color: .black)), // 6
-             .mon(mon: Mon(kind: .demon, color: .black)), // 7
-             .none, .none, .none],
-            
-            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
-            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
-            
-            [.none, .none,  .none, .none,
-             .mana(mana: .regular(color: .black)),
-             .none,
-             .mana(mana: .regular(color: .black)),
-             .none, .none, .none, .none],
-            
-            [.none, .none,  .none,
-             .mana(mana: .regular(color: .black)),
-             .none,
-             .mana(mana: .regular(color: .black)),
-             .none,
-             .mana(mana: .regular(color: .black)),
-             .none, .none, .none],
-            
-            [.consumable(consumable: .potion),
-             .none,  .none, .none, .none,
-             .mana(mana: .superMana),
-             .none, .none, .none, .none,
-             .consumable(consumable: .potion)],
-            
-            [.none, .none,  .none,
-             .mana(mana: .regular(color: .white)),
-             .none,
-             .mana(mana: .regular(color: .white)),
-             .none,
-             .mana(mana: .regular(color: .white)),
-             .none, .none, .none],
-            
-            [.none, .none,  .none, .none,
-             .mana(mana: .regular(color: .white)),
-             .none,
-             .mana(mana: .regular(color: .white)),
-             .none, .none, .none, .none],
-            
-            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
-            [.none, .none,  .none, .none, .none, .none, .none, .none, .none, .none, .none],
-            
-            [.none, .none, .none,
-             .mon(mon: Mon(kind: .demon, color: .white)), // 3
-             .mon(mon: Mon(kind: .angel, color: .white)), // 4
-             .mon(mon: Mon(kind: .drainer, color: .white)), // 5
-             .mon(mon: Mon(kind: .spirit, color: .white)), // 6
-             .mon(mon: Mon(kind: .mystic, color: .white)), // 7
-             .none, .none, .none],
-        ]
     }
     
-    init?(fen: String) {
-        let fields = fen.split(separator: " ")
-        guard fields.count == 11,
-              let version = Int(fields[0]),
-              let whiteScore = Int(fields[1]),
-              let blackScore = Int(fields[2]),
-              let activeColor = Color(fen: String(fields[3])),
-              let actionUsed = Bool(fen: String(fields[4])),
-              let manaMoved = Bool(fen: String(fields[5])),
-              let monsMovesCount = Int(fields[6]),
-              let whitePotionsCount = Int(fields[7]),
-              let blackPotionsCount = Int(fields[8]),
-              let turnNumber = Int(fields[9]),
-              let board = [[Piece]](fen: String(fields[10]))
-        else { return nil }
-        
-        self.version = version
+    init(board: Board,
+         whiteScore: Int,
+         blackScore: Int,
+         activeColor: Color,
+         actionsUsedCount: Int,
+         manaMovesCount: Int,
+         monsMovesCount: Int,
+         whitePotionsCount: Int,
+         blackPotionsCount: Int,
+         turnNumber: Int) {
+        self.board = board
         self.whiteScore = whiteScore
         self.blackScore = blackScore
         self.activeColor = activeColor
-        self.actionUsed = actionUsed
-        self.manaMoved = manaMoved
+        self.actionsUsedCount = actionsUsedCount
+        self.manaMovesCount = manaMovesCount
         self.monsMovesCount = monsMovesCount
         self.whitePotionsCount = whitePotionsCount
         self.blackPotionsCount = blackPotionsCount
         self.turnNumber = turnNumber
-        self.board = board
     }
-    
-    
-    private var potionsCount: Int {
-        return activeColor == .white ? whitePotionsCount : blackPotionsCount
-    }
-    
-    private var canUseAction: Bool {
-        return !isFirstTurn && (!actionUsed || potionsCount > 0)
-    }
-    
-    // TODO: optimize mana search the same way as mons iteration
-    private var hasFreeMana: Bool {
-        for i in 0..<boardSize {
-            for j in 0..<boardSize {
-                let piece = board[i][j]
-                if case let .mana(.regular(color: color)) = piece, color == activeColor {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    private var canMoveMana: Bool {
-        return !isFirstTurn && !manaMoved
-    }
-    
-    private func didUseAction() {
-        if !actionUsed {
-            actionUsed = true
-        } else {
-            switch activeColor {
-            case .white:
-                whitePotionsCount -= 1
-            case .black:
-                blackPotionsCount -= 1
-            }
-        }
-    }
-    
-    private func isProtectedByAngel(_ index: (Int, Int)) -> Bool {
-        // TODO: keep set of mons to avoid iterating so much
-        for i in 0..<boardSize {
-            for j in 0..<boardSize {
-                let piece = board[i][j]
-                if case let .mon(mon) = piece, mon.kind == .angel, mon.color != activeColor {
-                    if !mon.isFainted && max(abs(index.0 - i), abs(index.1 - j)) == 1 {
-                        return true
-                    } else {
-                        return false
-                    }
-                }
-            }
-        }
-        
-        return false
-    }
-    
-    func didTapSpace(_ index: (Int, Int)) -> [Effect] {
-        inputSequence.append(index)
-        return processInput()
-    }
-    
-    private var inputSequence = [(Int, Int)]()
-    
-    private func nearbySpaces(from: (Int, Int)) -> [(Int, Int)] {
-        var nearby = [(Int, Int)]()
-        for i in (from.0 - 1)...(from.0 + 1) {
-            for j in (from.1 - 1)...(from.1 + 1) {
-                if isValidLocation(i, j), i != from.0 || j != from.1 {
-                    nearby.append((i, j))
-                }
-            }
-        }
-        return nearby
-    }
-    
-    // TODO: move into location model
-    // though if i move it to the location model, why how would it know about the current board size
-    private func isValidLocation(_ i: Int, _ j: Int) -> Bool {
-        return i >= 0 && j >= 0 && i < boardSize && j < boardSize
-    }
-    
-    // TODO: извлечить код тестирования конкретного поля, чтобы его можно было переиспользовать, когда получили два или три инпута
-    // TODO: да вот не нравится вот этот инпут bySpiritMagic. сверху мудрый коммент про то, что надо это поле разбить.
-    private func availableForStep(from: (Int, Int), bySpiritMagic: Bool = false) -> [(Int, Int)] {
-        let piece = board[from.0][from.1]
-        switch piece {
-        case .none:
-            return []
-        case .consumable:
-            if bySpiritMagic {
-                let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
-                    let destination = board[i][j]
-                    
-                    switch destination {
-                    case .none:
-                        return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                    case .monWithMana, .mon:
-                        return true
-                    case .mana, .consumable:
-                        return false
-                    }
-                }
-                return available
-            } else {
-                return []
-            }
-        case let .mana(mana: mana):
-            switch mana {
-            case .superMana:
-                if bySpiritMagic {
-                    let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
-                        let destination = board[i][j]
-                        
-                        switch destination {
-                        case .none:
-                            return !Location.isMonsBase(i, j)
-                        case .mana, .monWithMana, .consumable:
-                            return false
-                        case let .mon(mon: mon):
-                            if mon.kind == .drainer {
-                                return !Location.isMonsBase(i, j)
-                            } else {
-                                return false
-                            }
-                        }
-                    }
-                    return available
-                } else {
-                    return []
-                }
-            case .regular:
-                let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
-                    let destination = board[i][j]
-                    
-                    switch destination {
-                    case .none:
-                        return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                    case .mana, .monWithMana, .consumable:
-                        return false
-                    case let .mon(mon: mon):
-                        if mon.kind == .drainer {
-                            return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                        } else {
-                            return false
-                        }
-                    }
-                }
-                return available
-            }
-        case let .monWithMana(mon: mon, mana: mana):
-            let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
-                let destination = board[i][j]
-                
-                switch destination {
-                case .consumable, .none:
-                    if Location.isMonsBase(i, j) {
-                        let ownBase = mon.base
-                        return ownBase.i == i && ownBase.j == j // TODO: implement getting home while leaving mana
-                    } else if Location.isSuperManaBase(i, j) {
-                        if case .superMana = mana {
-                            return true
-                        } else {
-                            return false
-                        }
-                    } else {
-                        return true
-                    }
-                case .mana:
-                    return true // TODO: implement jumping from mana to mana
-                case .mon, .monWithMana:
-                    return false
-                }
-            }
-            return available
-        case let .mon(mon: mon):
-            let available = nearbySpaces(from: from).filter { (i, j) -> Bool in
-                let destination = board[i][j]
-                
-                switch destination {
-                case .consumable, .none:
-                    if Location.isMonsBase(i, j) {
-                        let ownBase = mon.base
-                        return ownBase.i == i && ownBase.j == j
-                    } else {
-                        return !Location.isSuperManaBase(i, j)
-                    }
-                case .mana:
-                    return mon.kind == .drainer
-                case .mon, .monWithMana:
-                    return false
-                }
-            }
-            return available
-        }
-    }
-    
-    private func availableForAction(from: (Int, Int)) -> [(Int, Int)] {
-        let piece = board[from.0][from.1]
-        
-        guard !Location.isMonsBase(from.0, from.1) else { return [] }
-        
-        switch piece {
-        case .monWithMana, .mana, .none, .consumable:
-            return []
-        case let .mon(mon: mon):
-            let i = from.0
-            let j = from.1
-            
-            switch mon.kind {
-            case .drainer, .angel:
-                return []
-            case .demon:
-                let valid = [(i - 2, j), (i + 2, j), (i, j - 2), (i, j + 2)].filter { (a, b) -> Bool in
-                    guard isValidLocation(a, b) else { return false }
-                    let validTarget: Bool
-                    let destination = board[a][b]
-                    switch destination {
-                    case .monWithMana(mon: let targetMon, mana: _):
-                        validTarget = mon.color != targetMon.color
-                    case .mon(mon: let targetMon):
-                        validTarget = mon.color != targetMon.color && !targetMon.isFainted
-                    case .consumable, .mana, .none:
-                        return false
-                    }
-                    
-                    guard case .none = board[(i + a) / 2][(j + b) / 2] else { return false }
-                    return validTarget && !isProtectedByAngel((a, b)) // TODO: implement jumping out of super mana base
-                }
-                return valid
-            case .mystic:
-                let valid = [(i - 2, j - 2), (i + 2, j + 2), (i - 2, j + 2), (i + 2, j - 2)].filter { (i, j) -> Bool in
-                    guard isValidLocation(i, j) else { return false }
-                    let validTarget: Bool
-                    let destination = board[i][j]
-                    switch destination {
-                    case .monWithMana(mon: let targetMon, mana: _):
-                        validTarget = mon.color != targetMon.color
-                    case .mon(mon: let targetMon):
-                        validTarget = mon.color != targetMon.color && !targetMon.isFainted
-                    case .consumable, .mana, .none:
-                        return false
-                    }
-                    return validTarget && !isProtectedByAngel((i, j))
-                }
-                return valid
-            case .spirit:
-                var valid = [(Int, Int)]()
-                for x in -2...2 {
-                    for y in -2...2 {
-                        guard max(abs(x), abs(y)) == 2 else { continue }
-                        let a = i + x
-                        let b = j + y
-                        guard isValidLocation(a, b) else { continue }
-                        
-                        let destination = board[a][b]
-                        switch destination {
-                        case .consumable, .mana, .monWithMana:
-                            valid.append((a, b))
-                        case let .mon(mon):
-                            if mon.isFainted {
-                                continue
-                            } else {
-                                valid.append((a, b))
-                            }
-                        case .none:
-                            continue
-                        }
-                    }
-                }
-                return valid
-            }
-        }
-    }
-    
-    private func processInput() -> [Effect] {
-        var effects = [Effect]()
-        
-        switch inputSequence.count {
-        case 1:
-            let index = inputSequence[0]
-            
-            var canSelect: Bool
-            var forNextStep = [(Int, Int)]()
-            var forAction = [(Int, Int)]()
-            
-            let piece = board[index.0][index.1]
-            switch piece {
-            case .none, .consumable:
-                canSelect = false
-            case let .mon(mon: mon):
-                canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = canMoveMon ? availableForStep(from: index) : []
-                forAction = canUseAction ? availableForAction(from: index) : []
-                canSelect = canSelect && !(forNextStep.isEmpty && forAction.isEmpty)
-            case let .mana(mana: mana):
-                switch mana {
-                case .superMana:
-                    canSelect = false
-                case let .regular(color: color):
-                    canSelect = color == activeColor && canMoveMana
-                    forNextStep = availableForStep(from: index)
-                    canSelect = canSelect && !forNextStep.isEmpty
-                }
-            case let .monWithMana(mon: mon, mana: _):
-                canSelect = mon.color == activeColor && !mon.isFainted
-                forNextStep = canMoveMon ? availableForStep(from: index) : []
-                canSelect = canSelect && !forNextStep.isEmpty
-            }
-            
-            if canSelect {
-                effects.append(.setSelected(index))
-                
-                let nextStepsEffects = forNextStep.map { Effect.availableForStep($0) }
-                effects.append(contentsOf: nextStepsEffects)
-                
-                let nextActionEffects = forAction.map { Effect.availableForStep($0) }
-                effects.append(contentsOf: nextActionEffects)
-            } else {
-                inputSequence = []
-            }
-            
-            return effects
-        case 2:
-            let from = inputSequence[0]
-            let to = inputSequence[1]
-            
-            // TODO: тут же понимаю, удобно ли по итогам хода оставить какую-то из клеток подсвеченной
-            var (effects, didMove) = move(from: from, to: to)
-            
-            if didMove || effects.isEmpty {
-                inputSequence = []
-            }
-            
-            if !effects.isEmpty && didMove {
-                effects += endTurnIfNeeded()
-                effects += [.updateGameStatus]
-            }
-            
-            return effects
-        case 3:
-            let spiritLocation = inputSequence[0]
-            let targetLocation = inputSequence[1]
-            let destinationLocation = inputSequence[2]
-            
-            inputSequence = []
-            
-            let spirit = board[spiritLocation.0][spiritLocation.1]
-            let target = board[targetLocation.0][targetLocation.1]
-            let destination = board[destinationLocation.0][destinationLocation.1]
-            
-            guard canUseAction, case let .mon(mon) = spirit, mon.kind == .spirit, !mon.isFainted else {
-                return effects
-            }
-            
-            guard max(abs(spiritLocation.0 - targetLocation.0), abs(spiritLocation.1 - targetLocation.1)) == 2 else {
-                return effects
-            }
-            
-            guard availableForStep(from: targetLocation, bySpiritMagic: true).contains(where: { $0.0 == destinationLocation.0 && $0.1 == destinationLocation.1 }) else {
-                return effects
-            }
-            
-            switch target {
-            case .none:
-                return effects
-            case let .mana(mana):
-                board[targetLocation.0][targetLocation.1] = .none
-                if case let .mon(mon) = destination {
-                    board[destinationLocation.0][destinationLocation.1] = Piece.monWithMana(mon: mon, mana: mana)
-                } else {
-                    board[destinationLocation.0][destinationLocation.1] = target
-                }
-            case .consumable:
-                board[targetLocation.0][targetLocation.1] = .none
-                if case let .mon(mon) = destination {
-                    switch mon.color {
-                    case .black:
-                        blackPotionsCount += 1
-                    case .white:
-                        whitePotionsCount += 1
-                    }
-                } else if case let .monWithMana(mon, _) = destination {
-                    switch mon.color {
-                    case .black:
-                        blackPotionsCount += 1
-                    case .white:
-                        whitePotionsCount += 1
-                    }
-                } else {
-                    board[destinationLocation.0][destinationLocation.1] = target
-                }
-            case let .mon(mon):
-                board[targetLocation.0][targetLocation.1] = .none
-                if case .consumable = destination {
-                    switch mon.color {
-                    case .black:
-                        blackPotionsCount += 1
-                    case .white:
-                        whitePotionsCount += 1
-                    }
-                    board[destinationLocation.0][destinationLocation.1] = target
-                } else if case let .mana(mana) = destination {
-                    board[destinationLocation.0][destinationLocation.1] = Piece.monWithMana(mon: mon, mana: mana)
-                } else {
-                    board[destinationLocation.0][destinationLocation.1] = target
-                }
-            case let .monWithMana(mon, _):
-                if case .consumable = destination {
-                    switch mon.color {
-                    case .black:
-                        blackPotionsCount += 1
-                    case .white:
-                        whitePotionsCount += 1
-                    }
-                }
-                board[targetLocation.0][targetLocation.1] = .none
-                board[destinationLocation.0][destinationLocation.1] = target
-                // TODO: should be able to go to mana (later)
-            }
-            
-            didUseAction()
-            Audio.play(.spiritAbility) // tmp
-            
-            effects = [targetLocation, destinationLocation].map { Effect.updateCell($0) }
-            effects += endTurnIfNeeded()
-            effects += [.updateGameStatus]
-            
-            return effects
-        default:
-            return []
-        }
-    }
-    
-    var canMoveMon: Bool {
-        monsMovesCount < 5 // TODO: add to game config
-    }
-    
-    // TODO: flag is needed when moving drainer with mana. spirit can also move drainer with mana in a three ways
-    private func move(from: (Int, Int), to: (Int, Int)) -> ([Effect], Bool) {
-        let source = board[from.0][from.1]
-        let destination = board[to.0][to.1]
-        
-        let xDistance = abs(to.1 - from.1)
-        let yDistance = abs(to.0 - from.0)
-        let distance = max(xDistance, yDistance)
-        
-        if Location.isMonsBase(to.0, to.1) && distance == 1 {
-            switch source {
-            case let .mon(mon: mon):
-                let base = mon.base
-                if base.i != to.0 || base.j != to.1 {
-                    return ([], false)
-                }
-            case .none, .mana, .monWithMana, .consumable:
-                return ([], false)
-            }
-        } else if Location.isSuperManaBase(to.0, to.1), distance == 1 { // TODO: remove implicit move / action disambiguation by checking distance
-            switch source {
-            case let .mon(mon: mon):
-                guard mon.kind == .drainer, case let .mana(mana) = destination, case .superMana = mana else { return ([], false) }
-            case let .monWithMana(mon: mon, mana: mana):
-                guard mon.kind == .drainer, case .superMana = mana else { return ([], false) }
-            case .consumable, .mana, .none:
-                return ([], false)
-            }
-        }
-        
-        switch source {
-        case .mon(let mon):
-            guard !mon.isFainted && mon.color == activeColor else { return ([], false) }
-            
-            if distance == 1 {
-                guard canMoveMon else { return ([], false) }
-                
-                switch destination {
-                case .mon, .monWithMana:
-                    return ([], false)
-                case .mana(let mana):
-                    guard mon.kind == .drainer else { return ([], false) }
-                    board[from.0][from.1] = .none
-                    board[to.0][to.1] = Piece.monWithMana(mon: mon, mana: mana)
-                    Audio.play(.manaPickUp)
-                    monsMovesCount += 1
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                case .consumable(let consumable):
-                    switch consumable {
-                    case .potion:
-                        switch activeColor {
-                        case .white:
-                            whitePotionsCount += 1
-                        case .black:
-                            blackPotionsCount += 1
-                        }
-                    }
-                    board[from.0][from.1] = .none
-                    board[to.0][to.1] = source
-                    monsMovesCount += 1
-                    Audio.play(.pickUpPotion)
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                case .none:
-                    // TODO: move this boilerplate moving into a separate function
-                    board[from.0][from.1] = .none
-                    board[to.0][to.1] = source
-                    monsMovesCount += 1
-                    switch mon.kind {
-                    case .demon:
-                        Audio.play(.demonMove)
-                    default:
-                        Audio.play(.move)
-                    }
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                }
-            } else {
-                guard canUseAction, !Location.isMonsBase(from.0, from.1) else { return ([], false) }
-                
-                switch mon.kind {
-                case .mystic:
-                    guard xDistance == 2 && yDistance == 2, !isProtectedByAngel(to) else { return ([], false) }
-                    
-                    switch destination {
-                    case .none, .mana, .consumable:
-                        return ([], false)
-                    case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color && !targetMon.isFainted else { return ([], false) }
-                        board[to.0][to.1] = .none
-                        didUseAction()
-                        
-                        let faintIndex = targetMon.base
-                        targetMon.faint()
-                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
-                        Audio.play(.mysticAbility)
-                        return ([faintIndex, to].map { Effect.updateCell($0) }, true)
-                    case .monWithMana(mon: var targetMon, mana: let mana):
-                        guard targetMon.color != mon.color else { return ([], false) }
-                        
-                        let manaIndex: (Int, Int)
-                        switch mana {
-                        case .regular:
-                            manaIndex = to
-                            board[to.0][to.1] = .mana(mana: mana)
-                        case .superMana:
-                            manaIndex = (5, 5) // TODO: move to the config
-                            board[to.0][to.1] = .none
-                            board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
-                        }
-                        
-                        didUseAction()
-                        Audio.play(.mysticAbility)
-                        
-                        let faintIndex = targetMon.base
-                        targetMon.faint()
-                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
-                        
-                        // TODO: in regular mana case manaIndex == to
-                        // TODO: do not add repeating indices in the first place
-                        return ([manaIndex, faintIndex, to].map { Effect.updateCell($0) }, true)
-                    }
-                case .demon:
-                    guard !isProtectedByAngel(to), xDistance == 2 && yDistance == 0 || xDistance == 0 && yDistance == 2 else { return ([], false) }
-                    
-                    let between = ((from.0 + to.0) / 2, (from.1 + to.1) / 2)
-                    guard case .none = board[between.0][between.1] else { return ([], false) }
-                    
-                    switch destination {
-                    case .none, .mana, .consumable:
-                        return ([], false)
-                    case .mon(mon: var targetMon):
-                        guard targetMon.color != mon.color && !targetMon.isFainted else { return ([], false) }
-                        var also = (0, 0) // TODO: just add it to the list when needed
-                        board[from.0][from.1] = .none
-                        
-                        if Location.isMonsBase(to.0, to.1) {
-                            
-                            // TODO: DRY - duplicated code - like when jumping of mana
-                            let additionalStep = nearbySpaces(from: to).first(where: { (i, j) -> Bool in
-                                let destination = board[i][j]
-                                switch destination {
-                                case .none:
-                                    return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                                case .mana, .consumable, .monWithMana, .mon:
-                                    // TODO: should be able to pick up a potion
-                                    return false
-                                }
-                            })
-                            if let additionalStep = additionalStep {
-                                board[additionalStep.0][additionalStep.1] = source
-                                also = additionalStep
-                            }
-                            
-                        } else {
-                            board[to.0][to.1] = source
-                        }
-                        
-                        didUseAction()
-                        Audio.play(.demonAbility)
-                        // TODO: move fainting to the separate function. these three lines repeat in each fainting case
-                        let faintIndex = targetMon.base
-                        targetMon.faint()
-                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
-                        
-                        return ([also, faintIndex, from, to].map { Effect.updateCell($0) }, true)
-                    case .monWithMana(mon: var targetMon, mana: let mana):
-                        guard targetMon.color != mon.color else { return ([], false) }
-                        let manaIndex: (Int, Int)
-                        var also = (0, 0) // TODO: just add it to the list when needed
-                        switch mana {
-                        case .regular:
-                            manaIndex = to
-                            board[to.0][to.1] = .mana(mana: mana)
-                            let additionalStep = nearbySpaces(from: to).first(where: { (i, j) -> Bool in
-                                let destination = board[i][j]
-                                switch destination {
-                                case .none:
-                                    return !Location.isMonsBase(i, j) && !Location.isSuperManaBase(i, j)
-                                case .mana, .consumable, .monWithMana, .mon:
-                                    // TODO: should be able to pick up a potion
-                                    return false
-                                }
-                            })
-                            if let additionalStep = additionalStep {
-                                board[additionalStep.0][additionalStep.1] = source
-                                also = additionalStep
-                            }
-                        case .superMana:
-                            manaIndex = (5, 5) // TODO: move to the config
-                            board[manaIndex.0][manaIndex.1] = .mana(mana: mana)
-                            board[to.0][to.1] = source
-                        }
-                        
-                        board[from.0][from.1] = .none
-                        
-                        let faintIndex = targetMon.base
-                        targetMon.faint()
-                        board[faintIndex.0][faintIndex.1] = .mon(mon: targetMon)
-                        
-                        didUseAction()
-                        Audio.play(.demonAbility)
-                        // TODO: in regular mana case manaIndex == to
-                        // TODO: do not add repeating indices in the first place
-                        return ([manaIndex, faintIndex, from, to, also].map { Effect.updateCell($0) }, true)
-                    }
-                case .spirit:
-                    guard max(abs(from.0 - to.0), abs(from.1 - to.1)) == 2 else { return ([], false) }
-                    switch board[to.0][to.1] {
-                    case .none:
-                        return ([], false)
-                    case let .mon(mon):
-                        if mon.isFainted {
-                            return ([], false)
-                        }
-                    case .mana, .consumable, .monWithMana:
-                        break
-                    }
-                    
-                    let nextStep = availableForStep(from: to, bySpiritMagic: true).map { Effect.availableForStep($0) }
-                    
-                    return ([Effect.setSelected(from), Effect.setSelected(to)] + nextStep, false)
-                case .angel, .drainer:
-                    return ([], false)
-                }
-            }
-        case let .mana(mana):
-            if distance == 1 {
-                guard case let .regular(color) = mana, color == activeColor && canMoveMana else { return ([], false) }
-                switch destination {
-                case .none:
-                    if let poolColor = poolColor(to.0, to.1) {
-                        board[from.0][from.1] = .none
-                        board[to.0][to.1] = .none
-                        switch poolColor {
-                        case .white:
-                            whiteScore += 1
-                        case .black:
-                            blackScore += 1
-                        }
-                        Audio.play(.scoreMana)
-                    } else {
-                        board[from.0][from.1] = .none
-                        board[to.0][to.1] = source
-                        Audio.play(.moveMana)
-                    }
-                    manaMoved = true
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                case let .mon(mon: mon):
-                    guard mon.kind == .drainer else { return ([], false) }
-                    board[from.0][from.1] = .none
-                    board[to.0][to.1] = Piece.monWithMana(mon: mon, mana: mana)
-                    Audio.play(.manaPickUp)
-                    manaMoved = true
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                case .mana, .monWithMana, .consumable:
-                    return ([], false)
-                }
-            } else {
-                return ([], false)
-            }
-        case let .monWithMana(mon, mana):
-            if distance == 1 {
-                guard canMoveMon && !mon.isFainted && mon.color == activeColor else { return ([], false) }
-                switch destination {
-                case .mon, .monWithMana, .mana:
-                    return ([], false)
-                case .consumable(let consumable):
-                    switch consumable {
-                    case .potion:
-                        switch activeColor {
-                        case .white:
-                            whitePotionsCount += 1
-                        case .black:
-                            blackPotionsCount += 1
-                        }
-                    }
-                    Audio.play(.pickUpPotion)
-                    board[from.0][from.1] = .none
-                    board[to.0][to.1] = source
-                    monsMovesCount += 1
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                case .none:
-                    if let poolColor = poolColor(to.0, to.1) {
-                        board[from.0][from.1] = .none
-                        board[to.0][to.1] = .mon(mon: mon)
-                        
-                        let delta: Int
-                        switch mana {
-                        case .superMana:
-                            delta = 2
-                            Audio.play(.scoreSuperMana)
-                        case .regular:
-                            delta = 1
-                            Audio.play(.scoreMana)
-                        }
-                        
-                        switch poolColor {
-                        case .white:
-                            whiteScore += delta
-                        case .black:
-                            blackScore += delta
-                        }
-                    } else {
-                        board[from.0][from.1] = .none
-                        board[to.0][to.1] = source
-                        Audio.play(.move)
-                    }
-                    
-                    monsMovesCount += 1
-                    return ([from, to].map { Effect.updateCell($0) }, true)
-                }
-            } else {
-                return ([], false)
-            }
-        case .consumable, .none:
-            return ([], false)
-        }
-    }
-    
-    func poolColor(_ i: Int, _ j: Int) -> Color? {
-        let endIndex = boardSize - 1
-        switch (i, j) {
-        case (0, 0), (0, endIndex):
-            return .black
-        case (endIndex, 0), (endIndex, endIndex):
-            return .white
-        default:
-            return nil
-        }
-    }
-    
-    private func endTurn() -> [Effect] {
-        activeColor = activeColor == .white ? .black : .white
-        actionUsed = false
-        manaMoved = false
-        monsMovesCount = 0
-        
-        // TODO: keep set of mons to avoid iterating so much
-        var indicesToUpdate = [(Int, Int)]()
-        for i in [0, boardSize - 1] {
-            for j in 0..<boardSize {
-                let piece = board[i][j]
-                if case var .mon(mon) = piece, mon.color == activeColor, mon.isFainted {
-                    mon.decreaseCooldown()
-                    board[i][j] = .mon(mon: mon)
-                    if !mon.isFainted {
-                        indicesToUpdate.append((i, j))
-                    }
-                }
-            }
-        }
-       
-        turnNumber += 1
-        
-        let effects = indicesToUpdate.map { Effect.updateCell($0) }
-        
-        inputSequence = []
-        
-        return effects
-    }
-    
-    private func endTurnIfNeeded() -> [Effect] {
-        guard winnerColor == nil else { return [] }
-        
-        if isFirstTurn && !canMoveMon ||
-            !isFirstTurn && !canMoveMana ||
-            !isFirstTurn && !canMoveMon && !hasFreeMana {
-            return endTurn()
-        } else {
-            return []
-        }
-    }
-    
-    // TODO: move target score to the game config
-    var winnerColor: Color? {
-        if whiteScore >= 5 {
-            return .white
-        } else if blackScore >= 5 {
-            return .black
-        } else {
-            return nil
-        }
-    }
-    
-    var fen: String {
-        let fields = [
-            String(version),
-            String(whiteScore),
-            String(blackScore),
-            activeColor.fen,
-            actionUsed.fen,
-            manaMoved.fen,
-            String(monsMovesCount),
-            String(whitePotionsCount),
-            String(blackPotionsCount),
-            String(turnNumber),
-            board.fen
-        ]
-        return fields.joined(separator: " ")
-    }
-    
-    // TODO: keep it or remove it
-    func moves() -> [String] {
-        // Returns a list of legal moves from the current position.
-        // Optionally takes previous input / selected piece / square as an argument
-        return []
-    }
-    
-    func squareColor() {
-        // TODO: use for board setup
-        // should know color types, not the exact colors
-    }
-    
+   
 }

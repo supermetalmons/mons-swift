@@ -2,4 +2,6 @@
 
 import Foundation
 
-
+enum Move: String {
+    case monStep, manaStep, action
+}

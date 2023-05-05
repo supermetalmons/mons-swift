@@ -5,15 +5,16 @@ import UIKit
 class BoardView: UIView {
     
     private var playerSideColor = Color.white
+    
+    private var subviewsArray: [UIView] = []
+    
     private var isFlipped: Bool {
         return playerSideColor != .white
     }
     
-    private var subviewsArray: [UIView] = []
-
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutGrid(rows: 11, columns: 11) // TODO: DRY 11
+        layoutGrid()
     }
     
     func setPlayerSide(color: Color) {
@@ -28,7 +29,10 @@ class BoardView: UIView {
         subviewsArray.append(view)
     }
 
-    private func layoutGrid(rows: Int, columns: Int) {
+    private func layoutGrid() {
+        let rows = Config.boardSize
+        let columns = Config.boardSize
+        
         let viewWidth = bounds.width / CGFloat(columns)
         let viewHeight = bounds.height / CGFloat(rows)
 

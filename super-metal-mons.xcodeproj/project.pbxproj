@@ -16,17 +16,21 @@
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
 		2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B929F336260052F455 /* GameDataSource.swift */; };
 		2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */; };
+		2C7E80C429FC372C00114943 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C329FC372C00114943 /* Board.swift */; };
+		2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C929FC3BAA00114943 /* SquareColor.swift */; };
+		2C7E80CC29FC3F3900114943 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CB29FC3F3900114943 /* Square.swift */; };
+		2C7E80CE29FC54B300114943 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CD29FC54B300114943 /* Config.swift */; };
+		2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */; };
+		2C7E80D229FC6AA400114943 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* Move.swift */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */; };
-		2CB6D3AE29F730B200605255 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AD29F730B200605255 /* Piece.swift */; };
+		2CB6D3AE29F730B200605255 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AD29F730B200605255 /* Item.swift */; };
 		2CB6D3B029F730E500605255 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AF29F730E500605255 /* Color.swift */; };
 		2CB6D3B229F730F600605255 /* Mon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B129F730F600605255 /* Mon.swift */; };
 		2CB6D3B429F7310800605255 /* Mana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B329F7310800605255 /* Mana.swift */; };
 		2CB6D3B629F7311500605255 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B529F7311500605255 /* Consumable.swift */; };
-		2CB6D3B829F7316F00605255 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B729F7316F00605255 /* Bool.swift */; };
-		2CB6D3BA29F731E100605255 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B929F731E100605255 /* Effect.swift */; };
+		2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B929F731E100605255 /* ViewEffect.swift */; };
 		2CB6D3BC29F7320800605255 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
-		2CB6D3BE29F7F3A400605255 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BD29F7F3A400605255 /* Square.swift */; };
 		2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2CB7462629F18DC700ACC855 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
@@ -71,17 +75,21 @@
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
 		2C7AE8B929F336260052F455 /* GameDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataSource.swift; sourceTree = "<group>"; };
 		2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithExtendedArea.swift; sourceTree = "<group>"; };
+		2C7E80C329FC372C00114943 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		2C7E80C929FC3BAA00114943 /* SquareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareColor.swift; sourceTree = "<group>"; };
+		2C7E80CB29FC3F3900114943 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		2C7E80CD29FC54B300114943 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenRepresentable.swift; sourceTree = "<group>"; };
+		2C7E80D129FC6AA400114943 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStyle.swift; sourceTree = "<group>"; };
-		2CB6D3AD29F730B200605255 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		2CB6D3AD29F730B200605255 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2CB6D3AF29F730E500605255 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2CB6D3B129F730F600605255 /* Mon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mon.swift; sourceTree = "<group>"; };
 		2CB6D3B329F7310800605255 /* Mana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mana.swift; sourceTree = "<group>"; };
 		2CB6D3B529F7311500605255 /* Consumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
-		2CB6D3B729F7316F00605255 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
-		2CB6D3B929F731E100605255 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
+		2CB6D3B929F731E100605255 /* ViewEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEffect.swift; sourceTree = "<group>"; };
 		2CB6D3BB29F7320800605255 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		2CB6D3BD29F7F3A400605255 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		2CB7462329F12BA100ACC855 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2CB7462529F18DC700ACC855 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,19 +140,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2CB6D3AC29F730A300605255 /* Models */ = {
+		2C7E80C729FC3B3900114943 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				2CB6D3AD29F730B200605255 /* Piece.swift */,
-				2CB6D3BD29F7F3A400605255 /* Square.swift */,
-				2CB6D3B129F730F600605255 /* Mon.swift */,
-				2CB6D3BB29F7320800605255 /* Location.swift */,
-				2CB6D3B329F7310800605255 /* Mana.swift */,
-				2CB6D3B929F731E100605255 /* Effect.swift */,
-				2CB6D3B529F7311500605255 /* Consumable.swift */,
-				2CB6D3AF29F730E500605255 /* Color.swift */,
+				2CB6D3B929F731E100605255 /* ViewEffect.swift */,
+				2C7E80C929FC3BAA00114943 /* SquareColor.swift */,
 			);
-			path = Models;
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		2C7E80C829FC3B7900114943 /* Shared Models */ = {
+			isa = PBXGroup;
+			children = (
+				2CB6D3BB29F7320800605255 /* Location.swift */,
+				2C7E80D129FC6AA400114943 /* Move.swift */,
+				2CB6D3AF29F730E500605255 /* Color.swift */,
+				2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */,
+			);
+			path = "Shared Models";
+			sourceTree = "<group>";
+		};
+		2CB6D3AC29F730A300605255 /* Game Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C7E80CD29FC54B300114943 /* Config.swift */,
+				2C7E80C329FC372C00114943 /* Board.swift */,
+				2C7E80CB29FC3F3900114943 /* Square.swift */,
+				2CB6D3AD29F730B200605255 /* Item.swift */,
+				2CB6D3B129F730F600605255 /* Mon.swift */,
+				2CB6D3B329F7310800605255 /* Mana.swift */,
+				2CB6D3B529F7311500605255 /* Consumable.swift */,
+			);
+			path = "Game Models";
 			sourceTree = "<group>";
 		};
 		2CC39E7329CA48B200EDF779 = {
@@ -203,7 +230,6 @@
 				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
 				2CFC6E4E29F9BE6100EF34FA /* UIView.swift */,
-				2CB6D3B729F7316F00605255 /* Bool.swift */,
 				2CC4FBDF29F6C69200A90CDD /* String.swift */,
 				2CC4FBE129F6C69900A90CDD /* URL.swift */,
 			);
@@ -226,7 +252,9 @@
 				2CC39E8329CA48B200EDF779 /* GameViewController.swift */,
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
-				2CB6D3AC29F730A300605255 /* Models */,
+				2C7E80C729FC3B3900114943 /* View Models */,
+				2CB6D3AC29F730A300605255 /* Game Models */,
+				2C7E80C829FC3B7900114943 /* Shared Models */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -391,11 +419,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB6D3AE29F730B200605255 /* Piece.swift in Sources */,
+				2CB6D3AE29F730B200605255 /* Item.swift in Sources */,
+				2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */,
 				2CC4FBE029F6C69200A90CDD /* String.swift in Sources */,
 				2CB6D3B029F730E500605255 /* Color.swift in Sources */,
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */,
+				2C7E80CC29FC3F3900114943 /* Square.swift in Sources */,
 				2CB6D3B429F7310800605255 /* Mana.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
 				2CB6D3BC29F7320800605255 /* Location.swift in Sources */,
@@ -405,8 +435,9 @@
 				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
+				2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */,
 				2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */,
-				2CB6D3BA29F731E100605255 /* Effect.swift in Sources */,
+				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* GameViewController.swift in Sources */,
 				2CB6D3B629F7311500605255 /* Consumable.swift in Sources */,
@@ -417,10 +448,11 @@
 				2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */,
 				2C09E3D829F6D0630082B774 /* GameController.swift in Sources */,
 				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
+				2C7E80CE29FC54B300114943 /* Config.swift in Sources */,
+				2C7E80C429FC372C00114943 /* Board.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
-				2CB6D3BE29F7F3A400605255 /* Square.swift in Sources */,
-				2CB6D3B829F7316F00605255 /* Bool.swift in Sources */,
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
+				2C7E80D229FC6AA400114943 /* Move.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 				2C53FC5C29CD280300F49668 /* Audio.swift in Sources */,
 			);

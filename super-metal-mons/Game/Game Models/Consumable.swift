@@ -2,4 +2,8 @@
 
 import Foundation
 
-
+enum Consumable {
+    case potion
+    case bomb
+    case bombOrPotion
+}
