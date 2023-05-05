@@ -370,6 +370,7 @@ class GameViewController: UIViewController, GameView {
         }
         effectsViews = []
         
+        // TODO: refactor
         for effect in effects {
             switch effect {
             case .updateCell(let location):
@@ -397,6 +398,24 @@ class GameViewController: UIViewController, GameView {
                 effectView.backgroundColor = .clear
                 effectView.layer.borderWidth = 5
                 effectView.layer.borderColor = UIColor.yellow.cgColor
+                squares[location]?.addSubviewConstrainedToFrame(effectView)
+                squares[location]?.sendSubviewToBack(effectView)
+                effectsViews.append(effectView)
+            case .availableForAction(let location):
+                // TODO: use dot for an empty field
+                let effectView = UIView()
+                effectView.backgroundColor = .clear
+                effectView.layer.borderWidth = 5
+                effectView.layer.borderColor = UIColor.red.cgColor
+                squares[location]?.addSubviewConstrainedToFrame(effectView)
+                squares[location]?.sendSubviewToBack(effectView)
+                effectsViews.append(effectView)
+            case .availableForSpiritAction(let location):
+                // TODO: use dot for an empty field
+                let effectView = UIView()
+                effectView.backgroundColor = .clear
+                effectView.layer.borderWidth = 5
+                effectView.layer.borderColor = UIColor.cyan.cgColor
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)

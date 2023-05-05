@@ -197,7 +197,14 @@ class GameController {
                 
                 switch nextInputOption.input {
                 case .location(let location):
-                    viewEffects.append(.availableForStep(location))
+                    switch nextInputOption.kind {
+                    case .monMove, .manaMove, .selectConsumable:
+                        viewEffects.append(.availableForStep(location))
+                    case .mysticAction, .demonAction, .demonAdditionalStep, .bombAttack:
+                        viewEffects.append(.availableForAction(location))
+                    case .spiritTargetCapture, .spiritTargetMove:
+                        viewEffects.append(.availableForSpiritAction(location))
+                    }
                 case .modifier:
                     break
                 }
