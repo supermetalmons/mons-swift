@@ -562,7 +562,10 @@ extension MonsGame {
                 case .supermanaBase:
                     if let mana = targetMana, case .supermana = mana {
                         return true
-                    } else {
+                    } else if .drainer == targetMon?.kind, destinationItem?.mana == .supermana {
+                        return true
+                    }
+                    else {
                         return false
                     }
                 case .monBase(let kind, let color):
