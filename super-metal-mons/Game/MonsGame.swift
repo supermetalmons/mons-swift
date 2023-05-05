@@ -398,13 +398,11 @@ extension MonsGame {
             guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
             events.append(.mysticAction(mystic: startMon, from: startLocation, to: targetLocation))
             
-            var targetMon: Mon?
-            
             switch targetItem {
-            case .mon(let mon):
-                targetMon = mon
-            case .monWithMana(let mon, let mana):
-                targetMon = mon
+            case .mon(let targetMon):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
+            case .monWithMana(let targetMon, let mana):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
                 
                 switch mana {
                 case .regular:
@@ -412,8 +410,8 @@ extension MonsGame {
                 case .supermana:
                     events.append(.supermanaBackToBase(from: targetLocation, to: board.supermanaBase))
                 }
-            case .monWithConsumable(let mon, let consumable):
-                targetMon = mon
+            case .monWithConsumable(let targetMon, let consumable):
+                events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
                 switch consumable {
                 case .potion, .bombOrPotion:
                     return .invalidInput
@@ -423,9 +421,6 @@ extension MonsGame {
             case .consumable, .mana:
                 return .invalidInput
             }
-            
-            guard let targetMon = targetMon else { return .invalidInput }
-            events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
             
         case .demonAction:
             guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
@@ -789,11 +784,11 @@ extension MonsGame {
             switch event {
             case .monMove(let item, let from, let to):
                 monsMovesCount += 1
-                board.remove(item: item, location: from)
+                board.removeItem(location: from)
                 board.put(item: item, location: to)
             case .manaMove(let mana, let from, let to):
                 manaMovesCount += 1
-                board.remove(item: .mana(mana: mana), location: from)
+                board.removeItem(location: from)
                 board.put(item: .mana(mana: mana), location: to)
             case .manaScored(let mana, let at, let pool):
                 switch pool {
@@ -806,20 +801,21 @@ extension MonsGame {
                 if let mon = board.item(at: at)?.mon {
                     board.put(item: .mon(mon: mon), location: at)
                 } else {
-                    board.remove(item: .mana(mana: mana), location: at)
+                    board.removeItem(location: at)
                 }
                 
-            case .mysticAction:
+            case .mysticAction(_, _, let to):
                 didUseAction()
-            case .demonAction(let demon, let from, let to):
+                board.removeItem(location: to)
+            case let .demonAction(demon, from, to):
                 didUseAction()
-                board.remove(item: .mon(mon: demon), location: from)
+                board.removeItem(location: from)
                 board.put(item: .mon(mon: demon), location: to)
             case .demonAdditionalStep(let demon, _, let to):
                 board.put(item: .mon(mon: demon), location: to)
             case .spiritTargetMove(let item, let from, let to):
                 didUseAction()
-                board.remove(item: item, location: from)
+                board.removeItem(location: from)
                 board.put(item: item, location: to)
             case .pickupBomb(let by, let at):
                 board.put(item: .monWithConsumable(mon: by, consumable: .bomb), location: at)
@@ -832,19 +828,18 @@ extension MonsGame {
                 }
             case .pickupMana(let mana, let by, let at):
                 board.put(item: .monWithMana(mon: by, mana: mana), location: at)
-            case .monFainted(var mon, let from, let to):
-                board.remove(item: .mon(mon: mon), location: from)
+            case .monFainted(var mon, _, let to):
                 mon.faint()
                 board.put(item: .mon(mon: mon), location: to)
             case .manaDropped(let mana, let at):
                 board.put(item: .mana(mana: mana), location: at)
-            case .supermanaBackToBase(let from, let to):
-                board.remove(item: .mana(mana: .supermana), location: from)
+            case .supermanaBackToBase(_, let to):
                 board.put(item: .mana(mana: .supermana), location: to)
-            case .bombAttack(let by, let from, _):
+            case let .bombAttack(by, from, to):
+                board.removeItem(location: to)
                 board.put(item: .mon(mon: by), location: from)
             case .bombExplosion(let at):
-                board.removeAnyItem(location: at)
+                board.removeItem(location: at)
             case .monAwake, .gameOver, .nextTurn:
                 break
             }

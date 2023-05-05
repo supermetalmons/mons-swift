@@ -11,14 +11,8 @@ class Board {
         self.items = items
     }
     
-    func removeAnyItem(location: Location) {
+    func removeItem(location: Location) {
         items.removeValue(forKey: location)
-    }
-    
-    func remove(item: Item, location: Location) {
-        if item == items[location] {
-            items.removeValue(forKey: location)
-        }
     }
     
     func put(item: Item, location: Location) {
