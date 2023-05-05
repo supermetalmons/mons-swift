@@ -24,6 +24,51 @@
                                     <constraint firstAttribute="width" secondItem="tTh-AV-1yS" secondAttribute="height" multiplier="1:1" id="IHU-j1-y32"/>
                                 </constraints>
                             </view>
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fb1-vQ-MZv">
+                                <rect key="frame" x="0.0" y="242" width="393" height="393"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="d7B-A1-fJ4">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rGf-8k-WeG">
+                                            <rect key="frame" x="94" y="157.66666666666669" width="205" height="78"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3G-UU-XeJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="78"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="zQl-mM-JDM"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="gray" image="pixel/bomb"/>
+                                                    <connections>
+                                                        <action selector="bombButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mcy-01-A4x"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNp-5u-Pcp">
+                                                    <rect key="frame" x="112.66666666666666" y="0.0" width="92.333333333333343" height="78"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="gray" image="pixel/potion"/>
+                                                    <connections>
+                                                        <action selector="potionButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="afM-KM-W1p"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstItem="rGf-8k-WeG" firstAttribute="centerY" secondItem="d7B-A1-fJ4" secondAttribute="centerY" id="arx-Ha-fIi"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rGf-8k-WeG" secondAttribute="trailing" constant="20" id="opd-4C-FB8"/>
+                                        <constraint firstItem="rGf-8k-WeG" firstAttribute="width" secondItem="d7B-A1-fJ4" secondAttribute="width" multiplier="0.521628" priority="750" id="tpj-6b-sG0"/>
+                                        <constraint firstItem="rGf-8k-WeG" firstAttribute="centerX" secondItem="d7B-A1-fJ4" secondAttribute="centerX" id="yIy-b3-lOZ"/>
+                                    </constraints>
+                                </view>
+                                <gestureRecognizers/>
+                                <blurEffect style="regular"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="y4U-aP-CSi" appends="YES" id="dFH-6m-iNx"/>
+                                </connections>
+                            </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONt-Hy-v98" userLabel="Opponent View">
                                 <rect key="frame" x="0.0" y="177" width="393" height="65"/>
                                 <subviews>
@@ -258,6 +303,7 @@
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2zD-i8-USp"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3mn-bb-Jgb"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" secondItem="ONt-Hy-v98" secondAttribute="bottom" constant="-2.8421709430404007e-14" id="Beh-uK-fYK"/>
+                            <constraint firstItem="Fb1-vQ-MZv" firstAttribute="centerX" secondItem="tTh-AV-1yS" secondAttribute="centerX" id="G8g-Rh-XRA"/>
                             <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="leading" id="JvX-Jr-NEA"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="Ndc-Be-f6K"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QFa-iI-DYC"/>
@@ -269,16 +315,21 @@
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="bse-03-rzh"/>
                             <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="c7s-Q3-aPe"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="e4d-Lo-SXE"/>
+                            <constraint firstItem="Fb1-vQ-MZv" firstAttribute="centerY" secondItem="tTh-AV-1yS" secondAttribute="centerY" id="eKC-y3-Vj4"/>
                             <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="fIL-Lq-JBU"/>
+                            <constraint firstItem="Fb1-vQ-MZv" firstAttribute="width" secondItem="tTh-AV-1yS" secondAttribute="width" id="fjM-AJ-y9N"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="hpK-b5-oB1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p1T-kR-zQa" secondAttribute="trailing" constant="6" id="lpL-xC-gYv"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="qMy-Xj-gYr"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vXC-AT-FaN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P29-PV-UEw" secondAttribute="trailing" id="wPw-RU-Z2b"/>
+                            <constraint firstItem="Fb1-vQ-MZv" firstAttribute="height" secondItem="tTh-AV-1yS" secondAttribute="height" id="yu1-Ra-y1W"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="boardOverlayView" destination="Fb1-vQ-MZv" id="Vol-VX-XY5"/>
                         <outlet property="boardView" destination="tTh-AV-1yS" id="WGz-q9-3U9"/>
+                        <outlet property="bombButton" destination="E3G-UU-XeJ" id="8pf-xt-1ep"/>
                         <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
@@ -288,11 +339,17 @@
                         <outlet property="playerMovesStackView" destination="IbZ-z9-By4" id="Br5-7r-egJ"/>
                         <outlet property="playerMovesTrailingConstraint" destination="02g-id-1w9" id="hNQ-FX-RWX"/>
                         <outlet property="playerScoreLabel" destination="QPa-AV-kZ9" id="PlX-lP-4wH"/>
+                        <outlet property="potionButton" destination="YNp-5u-Pcp" id="bCb-xN-eCB"/>
                         <outlet property="soundControlButton" destination="haM-vj-jVh" id="f4e-4l-yNg"/>
                         <outlet property="topButtonTopConstraint" destination="0eZ-wc-v35" id="ZrP-Ck-Mjq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="y4U-aP-CSi">
+                    <connections>
+                        <action selector="boardOverlayTapped:" destination="BYZ-38-t0r" id="mr5-RZ-hTY"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1525.9541984732823" y="24.647887323943664"/>
         </scene>
@@ -389,6 +446,8 @@
         <image name="move-action" width="32" height="32"/>
         <image name="move-mana" width="32" height="32"/>
         <image name="move-step" width="32" height="32"/>
+        <image name="pixel/bomb" width="64" height="64"/>
+        <image name="pixel/potion" width="64" height="64"/>
         <image name="speaker" catalog="system" width="128" height="123"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

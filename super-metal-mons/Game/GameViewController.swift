@@ -20,6 +20,10 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var boardView: BoardView!
     
+    @IBOutlet weak var boardOverlayView: UIVisualEffectView!
+    @IBOutlet weak var bombButton: UIButton!
+    @IBOutlet weak var potionButton: UIButton!
+    
     @IBOutlet weak var playerMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentMovesTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var topButtonTopConstraint: NSLayoutConstraint!
@@ -112,6 +116,21 @@ class GameViewController: UIViewController, GameView {
                 self?.isAnimatingAvatar = false
             }
         }
+    }
+    
+    @IBAction func bombButtonTapped(_ sender: Any) {
+        processInput(.modifier(.selectBomb))
+        boardOverlayView.isHidden = true
+    }
+    
+    @IBAction func potionButtonTapped(_ sender: Any) {
+        processInput(.modifier(.selectPotion))
+        boardOverlayView.isHidden = true
+    }
+    
+    @IBAction func boardOverlayTapped(_ sender: Any) {
+        processInput(.modifier(.cancel))
+        boardOverlayView.isHidden = true
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
@@ -420,20 +439,7 @@ class GameViewController: UIViewController, GameView {
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
             case .selectBombOrPotion:
-                let alert = UIAlertController(title: "?", message: nil, preferredStyle: .alert)
-                let bombAction = UIAlertAction(title: "💣", style: .default) { [weak self] _ in
-                    self?.processInput(.modifier(.selectBomb))
-                }
-                let potionAction = UIAlertAction(title: "🧪", style: .default) { [weak self] _ in
-                    self?.processInput(.modifier(.selectPotion))
-                }
-                let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { [weak self] _ in
-                    self?.processInput(.modifier(.cancel))
-                }
-                alert.addAction(cancelAction)
-                alert.addAction(potionAction)
-                alert.addAction(bombAction)
-                present(alert, animated: true)
+                boardOverlayView.isHidden = false
             }
         }
     }
