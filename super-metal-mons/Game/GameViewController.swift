@@ -352,10 +352,10 @@ class GameViewController: UIViewController, GameView {
             consumableView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                consumableView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.93),
-                consumableView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.93),
-                NSLayoutConstraint(item: consumableView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.61, constant: 0),
-                NSLayoutConstraint(item: consumableView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.45, constant: 0)
+                consumableView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.54),
+                consumableView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.54),
+                NSLayoutConstraint(item: consumableView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.60, constant: 0),
+                NSLayoutConstraint(item: consumableView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.50, constant: 0)
             ])
             
             monsOnBoard[location] = imageView
