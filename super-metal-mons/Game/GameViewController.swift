@@ -446,8 +446,8 @@ class GameViewController: UIViewController, GameView {
             case .availableToStartFrom(let location):
                 let effectView = UIView()
                 effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 5
-                effectView.layer.borderColor = UIColor.green.cgColor
+                effectView.layer.borderWidth = 4
+                effectView.layer.borderColor = UIColor.yellow.cgColor
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)

@@ -115,11 +115,30 @@ extension MonsGame {
         case gameOver(winner: Color)
     }
     
-    func processInput(_ input: [Input]) -> Output {
+    func processInput(_ input: [Input], doNotLookForAllOptions: Bool = false) -> Output {
         guard !input.isEmpty else {
-            // TODO: implement
-            let locations = [Location(5, 5)]
-            return .locationsToStartFrom(locations)
+            var suggestedLocations = [Location]()
+            
+            func findValidLocations(in locations: [Location]) {
+                for location in locations {
+                    let output = processInput([.location(location)], doNotLookForAllOptions: true)
+                    if case let .nextInputOptions(options) = output, !options.isEmpty {
+                        suggestedLocations.append(location)
+                    }
+                }
+            }
+            
+            findValidLocations(in: board.allMonsLocations(color: activeColor))
+            
+            if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
+                findValidLocations(in: board.allFreeRegularManaLocations(color: activeColor))
+            }
+            
+            if suggestedLocations.isEmpty {
+                return .invalidInput
+            } else {
+                return .locationsToStartFrom(suggestedLocations)
+            }
         }
         
         guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else {
@@ -127,15 +146,31 @@ extension MonsGame {
         }
         
         let startSquare = board.square(at: startLocation)
-        
         var nextInputOptions = [NextInput]()
+        
+        func findValidLocations(_ locations: [Location], kind: NextInput.Kind, filter: ((Location) -> Bool)) {
+            if doNotLookForAllOptions && !nextInputOptions.isEmpty { return }
+            
+            let filtered: [Location]
+            if doNotLookForAllOptions {
+                if let first = locations.first(where: filter) {
+                    filtered = [first]
+                } else {
+                    filtered = []
+                }
+            } else {
+                filtered = locations.filter(filter)
+            }
+            
+            nextInputOptions.append(contentsOf: filtered.map { NextInput(input: .location($0), kind: kind) })
+        }
         
         switch startItem {
         case .mon(let mon):
             guard mon.color == activeColor, !mon.isFainted else { return .invalidInput }
             
             if playerCanMoveMon {
-                let moveLocations = startLocation.nearbyLocations.filter { location in
+                findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -163,70 +198,66 @@ extension MonsGame {
                         return mon.kind == kind && mon.color == color
                     }
                 }
-                
-                nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
             }
             
             if case .monBase = startSquare {
                 // can't use action from the base
             } else if playerCanUseAction {
-                var actionOptions = [NextInput]()
                 switch mon.kind {
                 case .angel, .drainer:
                     break
                 case .mystic:
-                    actionOptions = startLocation.reachableByMysticAction.compactMap { location -> NextInput? in
-                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return nil }
+                    findValidLocations(startLocation.reachableByMysticAction, kind: .mysticAction) { location -> Bool in
+                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         
                         switch item {
                         case let .mon(targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
                             if mon.color == targetMon.color || targetMon.isFainted {
-                                return nil
+                                return false
                             }
                         case .mana, .consumable:
-                            return nil
+                            return false
                         }
                         
-                        return NextInput(input: .location(location), kind: .mysticAction)
+                        return true
                     }
                 case .demon:
-                    actionOptions = startLocation.reachableByDemonAction.compactMap { location -> NextInput? in
-                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return nil }
+                    findValidLocations(startLocation.reachableByDemonAction, kind: .demonAction) { location -> Bool in
+                        guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         let locationBetween = startLocation.locationBetween(another: location)
-                        guard board.item(at: locationBetween) == nil else { return nil }
+                        guard board.item(at: locationBetween) == nil else { return false }
                         
                         switch item {
                         case .mon(let targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
                             if mon.color == targetMon.color || targetMon.isFainted {
-                                return nil
+                                return false
                             }
                         case .mana, .consumable:
-                            return nil
+                            return false
                         }
                         
-                        return NextInput(input: .location(location), kind: .demonAction)
+                        return true
                     }
                 case .spirit:
-                    actionOptions = startLocation.reachableBySpiritAction.compactMap { location -> NextInput? in
-                        guard let item = board.item(at: location) else { return nil }
+                    findValidLocations(startLocation.reachableBySpiritAction, kind: .spiritTargetCapture) { location -> Bool in
+                        guard let item = board.item(at: location) else { return false }
                         
                         switch item {
                         case .mon(let targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
-                            if targetMon.isFainted { return nil }
+                            if targetMon.isFainted { return false }
                         case .mana, .consumable:
                             break
                         }
                         
-                        return NextInput(input: .location(location), kind: .spiritTargetCapture)
+                        return true
                     }
                 }
-                nextInputOptions.append(contentsOf: actionOptions)
             }
             
         case .mana(let mana):
             guard case let .regular(color) = mana, color == activeColor, playerCanMoveMana else { return .invalidInput }
             
-            let manaMoveLocations = startLocation.nearbyLocations.filter { location in
+            findValidLocations(startLocation.nearbyLocations, kind: .manaMove) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -251,12 +282,10 @@ extension MonsGame {
                 }
             }
             
-            nextInputOptions.append(contentsOf: manaMoveLocations.map { NextInput(input: Input.location($0), kind: .manaMove) })
-            
         case .monWithMana(let mon, let mana):
             guard mon.color == activeColor, playerCanMoveMon else { return .invalidInput }
             
-            let moveLocations = startLocation.nearbyLocations.filter { location in
+            findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -278,14 +307,12 @@ extension MonsGame {
                     return false
                 }
             }
-            
-            nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
                         
         case .monWithConsumable(let mon, let consumable):
             guard mon.color == activeColor else { return .invalidInput }
             
             if playerCanMoveMon {
-                let moveLocations = startLocation.nearbyLocations.filter { location in
+                findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -305,26 +332,23 @@ extension MonsGame {
                         return false
                     }
                 }
-                
-                nextInputOptions.append(contentsOf: moveLocations.map { NextInput(input: Input.location($0), kind: .monMove) })
             }
             
             if case .bomb = consumable {
-                let bombOptions = startLocation.reachableByBomb.compactMap { location -> NextInput? in
-                    guard let item = board.item(at: location) else { return nil }
+                findValidLocations(startLocation.reachableByBomb, kind: .bombAttack) { location -> Bool in
+                    guard let item = board.item(at: location) else { return false }
                     
                     switch item {
                     case let .mon(targetMon), let .monWithMana(targetMon, _), let .monWithConsumable(targetMon, _):
                         if mon.color == targetMon.color || targetMon.isFainted {
-                            return nil
+                            return false
                         }
                     case .consumable, .mana:
-                        return nil
+                        return false
                     }
                     
-                    return NextInput(input: .location(location), kind: .bombAttack)
+                    return true
                 }
-                nextInputOptions.append(contentsOf: bombOptions)
             }
         case .consumable:
             return .invalidInput
@@ -471,7 +495,7 @@ extension MonsGame {
             }
             
             if requiresAdditionalStep {
-                let additionalStepLocations = targetLocation.nearbyLocations.filter { location in
+                findValidLocations(targetLocation.nearbyLocations, kind: .demonAdditionalStep) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -493,8 +517,6 @@ extension MonsGame {
                         return false
                     }
                 }
-                
-                nextInputOptions.append(contentsOf: additionalStepLocations.map { NextInput(input: Input.location($0), kind: .demonAdditionalStep) })
             }
             
         case .spiritTargetCapture:
@@ -502,7 +524,7 @@ extension MonsGame {
             let targetMon = targetItem.mon
             let targetMana = targetItem.mana
             
-            let spiritMoveLocations = targetLocation.nearbyLocations.filter { location in
+            findValidLocations(targetLocation.nearbyLocations, kind: .spiritTargetMove) { location in
                 let destinationItem = board.item(at: location)
                 let destinationSquare = board.square(at: location)
                 
@@ -584,8 +606,6 @@ extension MonsGame {
                     }
                 }
             }
-            
-            nextInputOptions.append(contentsOf: spiritMoveLocations.map { NextInput(input: Input.location($0), kind: .spiritTargetMove) })
             
         case .bombAttack:
             guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }

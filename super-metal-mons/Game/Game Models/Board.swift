@@ -41,6 +41,22 @@ extension Board {
         })!.key
     }
     
+    func allMonsLocations(color: Color) -> [Location] {
+        return items.compactMap { (location, item) -> Location? in
+            return item.mon?.color == color ? location : nil
+        }
+    }
+    
+    func allFreeRegularManaLocations(color: Color) -> [Location] {
+        return items.compactMap { (location, item) -> Location? in
+            if case let .mana(mana) = item, case let .regular(manaColor) = mana, manaColor == color {
+                return location
+            } else {
+                return nil
+            }
+        }
+    }
+    
     func base(mon: Mon) -> Location {
         return Config.squares.first(where: { location, square -> (Bool) in
             if case let .monBase(kind, color) = square, kind == mon.kind, color == mon.color {

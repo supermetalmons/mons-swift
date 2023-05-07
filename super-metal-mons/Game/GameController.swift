@@ -119,7 +119,7 @@ class GameController {
                     locationsToUpdate.append(to)
                     
                     if events.count == 1 {
-                        let nextMoveHighlights = processInput(.location(to))
+                        let nextMoveHighlights = processInput(.location(to), isAssistedInput: true)
                         if !nextMoveHighlights.isEmpty {
                             viewEffects.append(contentsOf: nextMoveHighlights)
                         }
