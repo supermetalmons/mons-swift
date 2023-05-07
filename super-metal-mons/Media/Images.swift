@@ -33,7 +33,7 @@ struct Images {
     }
     
     static var randomEmoji: UIImage {
-        let index = Int.random(in: 1...164)
+        let index = Int.random(in: 1...156)
         return emoji(index)
     }
     
