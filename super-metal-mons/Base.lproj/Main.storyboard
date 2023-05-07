@@ -75,31 +75,31 @@
                                     <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="250" distribution="fillEqually" alignment="bottom" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="p1T-kR-zQa">
                                         <rect key="frame" x="201" y="35" width="186" height="18"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Kg-huf">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Kg-huf">
                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="goV-5O-za6">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="goV-5O-za6">
                                                 <rect key="frame" x="21" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="q0A-ZT-IRI">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="q0A-ZT-IRI">
                                                 <rect key="frame" x="42" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-PO-kw5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-PO-kw5">
                                                 <rect key="frame" x="63" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-rh-rb5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-rh-rb5">
                                                 <rect key="frame" x="84" y="0.0" width="18" height="18"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="umS-nl-oFg">
                                                 <rect key="frame" x="105" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-aT-4Ur">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-potion" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-aT-4Ur">
                                                 <rect key="frame" x="126" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bTr-SL-GFv">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-potion" translatesAutoresizingMaskIntoConstraints="NO" id="bTr-SL-GFv">
                                                 <rect key="frame" x="147" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="J49-qf-Ta5">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-manaMove" translatesAutoresizingMaskIntoConstraints="NO" id="J49-qf-Ta5">
                                                 <rect key="frame" x="168" y="0.0" width="18" height="18"/>
                                             </imageView>
                                         </subviews>
@@ -168,31 +168,31 @@
                                     <stackView opaque="NO" contentMode="right" horizontalCompressionResistancePriority="250" distribution="fillEqually" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IbZ-z9-By4">
                                         <rect key="frame" x="201" y="13" width="186" height="18"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-yc-YdC">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-yc-YdC">
                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-Pu-r2J">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-Pu-r2J">
                                                 <rect key="frame" x="21" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="1ZR-gR-oGe">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="1ZR-gR-oGe">
                                                 <rect key="frame" x="42" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-P3-xcc">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-P3-xcc">
                                                 <rect key="frame" x="63" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-step" translatesAutoresizingMaskIntoConstraints="NO" id="F6A-HU-BbX">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-monMove" translatesAutoresizingMaskIntoConstraints="NO" id="F6A-HU-BbX">
                                                 <rect key="frame" x="84" y="0.0" width="18" height="18"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="E6Z-yt-vEN">
                                                 <rect key="frame" x="105" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="lRZ-tu-ZdT">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-potion" translatesAutoresizingMaskIntoConstraints="NO" id="lRZ-tu-ZdT">
                                                 <rect key="frame" x="126" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-action" translatesAutoresizingMaskIntoConstraints="NO" id="bLP-Jd-Vo6">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-potion" translatesAutoresizingMaskIntoConstraints="NO" id="bLP-Jd-Vo6">
                                                 <rect key="frame" x="147" y="0.0" width="18" height="18"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-mana" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-wB-0jg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="move-manaMove" translatesAutoresizingMaskIntoConstraints="NO" id="vRf-wB-0jg">
                                                 <rect key="frame" x="168" y="0.0" width="18" height="18"/>
                                             </imageView>
                                         </subviews>
@@ -436,7 +436,7 @@
     </scenes>
     <resources>
         <image name="button-link" width="32" height="32"/>
-        <image name="button-local" width="32" height="32"/>
+        <image name="button-local" width="37.333332061767578" height="32"/>
         <image name="button-new-game" width="36.333332061767578" height="32"/>
         <image name="ellipsis.rectangle" catalog="system" width="128" height="79"/>
         <image name="emoji-52" width="256" height="256"/>
@@ -444,8 +444,9 @@
         <image name="escape" catalog="system" width="128" height="123"/>
         <image name="logo" width="1310" height="817"/>
         <image name="move-action" width="32" height="32"/>
-        <image name="move-mana" width="32" height="32"/>
-        <image name="move-step" width="32" height="32"/>
+        <image name="move-manaMove" width="32" height="32"/>
+        <image name="move-monMove" width="32" height="32"/>
+        <image name="move-potion" width="32.333332061767578" height="32"/>
         <image name="pixel/bomb" width="64" height="64"/>
         <image name="pixel/potion" width="64" height="64"/>
         <image name="speaker" catalog="system" width="128" height="123"/>

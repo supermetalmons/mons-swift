@@ -194,17 +194,20 @@ class GameViewController: UIViewController, GameView {
         soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
     }
     
-    private func updateMovesView(_ stackView: UIStackView, moves: [Move: Int]) {
-        let steps = moves[.monStep] ?? 0
-        let mana = moves[.manaStep] ?? 0
+    private func updateMovesView(_ stackView: UIStackView, moves: [AvailableMoveKind: Int]) {
+        let steps = moves[.monMove] ?? 0
         let actions = moves[.action] ?? 0
+        let potions = moves[.potion] ?? 0
+        let mana = moves[.manaMove] ?? 0
         
         for (i, moveView) in stackView.arrangedSubviews.enumerated() {
             switch i {
             case 0...4:
                 moveView.isHidden = i >= steps
-            case 5...7:
+            case 5:
                 moveView.isHidden = (i - 5) >= actions
+            case 6...7:
+                moveView.isHidden = (i - 6) >= potions
             default:
                 moveView.isHidden = mana == 0
             }

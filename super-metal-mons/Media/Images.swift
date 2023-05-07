@@ -41,7 +41,7 @@ struct Images {
         return named("emoji-\(index)")
     }
     
-    static func move(_ move: Move) -> UIImage {
+    static func moveEmoji(_ move: AvailableMoveKind) -> UIImage {
         return named("move-\(move.rawValue)")
     }
     

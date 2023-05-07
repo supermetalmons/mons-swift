@@ -8,20 +8,21 @@ import Foundation
 extension MonsGame {
     // TODO: хочется понятную терминологию. и тут moves и там moves
     // TODO: вот непонятно, почему слева monStep, а справа monsMovesPerTurn
-    var availableMoves: [Move: Int] {
-        var moves: [Move: Int] = [
-            .monStep: Config.monsMovesPerTurn - monsMovesCount,
+    var availableMoveKinds: [AvailableMoveKind: Int] {
+        var moves: [AvailableMoveKind: Int] = [
+            .monMove: Config.monsMovesPerTurn - monsMovesCount,
             .action: 0,
-            .manaStep: 0
+            .potion: 0,
+            .manaMove: 0
         ]
 
         if turnNumber == 1 {
             return moves
         }
         
-        let playerPotionsCount = activeColor == .white ? whitePotionsCount : blackPotionsCount
-        moves[.action] = (Config.actionsPerTurn - actionsUsedCount) + playerPotionsCount
-        moves[.manaStep] = Config.manaMovesPerTurn - manaMovesCount
+        moves[.action] = (Config.actionsPerTurn - actionsUsedCount)
+        moves[.potion] = playerPotionsCount
+        moves[.manaMove] = Config.manaMovesPerTurn - manaMovesCount
         
         return moves
     }

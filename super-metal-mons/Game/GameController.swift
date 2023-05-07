@@ -28,8 +28,8 @@ class GameController {
         return game.activeColor
     }
     
-    var availableMoves: [Move: Int] {
-        return game.availableMoves
+    var availableMoves: [AvailableMoveKind: Int] {
+        return game.availableMoveKinds
     }
     
     var blackScore: Int {

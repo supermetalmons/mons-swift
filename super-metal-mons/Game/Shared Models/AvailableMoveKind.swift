@@ -2,6 +2,6 @@
 
 import Foundation
 
-enum Move: String {
-    case monStep, manaStep, action
+enum AvailableMoveKind: String {
+    case monMove, manaMove, action, potion
 }
