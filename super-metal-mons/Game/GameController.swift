@@ -95,13 +95,15 @@ class GameController {
     private var inputs = [MonsGame.Input]()
     
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input) -> [ViewEffect] {
+    func processInput(_ input: MonsGame.Input?, isAssistedInput: Bool = false) -> [ViewEffect] {
         // TODO: act differently when i click spaces while opponent makes his turns
         // TODO: should play sounds / moves when opponent moves, but should not show his highlights
         
         var viewEffects = [ViewEffect]() // TODO: tmp
         
-        inputs.append(input)
+        if let input = input {
+            inputs.append(input)
+        }
         
         let output = game.processInput(inputs)
         
@@ -213,17 +215,23 @@ class GameController {
             }
             
         case .invalidInput:
-            let shouldTryToReselect = inputs.count > 1 && inputs.first != input
-            let shouldHelpFindOptions = inputs.count == 1
+            let shouldTryToReselect = !isAssistedInput && inputs.count > 1 && inputs.first != input
+            let shouldHelpFindOptions = !isAssistedInput && inputs.count == 1
+            
             inputs = []
+            
             if shouldTryToReselect {
-                let reselectHighlights = processInput(input)
+                let reselectHighlights = processInput(input, isAssistedInput: true)
                 if !reselectHighlights.isEmpty {
                     viewEffects.append(contentsOf: reselectHighlights)
                 }
             } else if shouldHelpFindOptions {
-                // TODO: find items available to be moved and blink them
+                let startLocationHighlights = processInput(nil, isAssistedInput: true)
+                viewEffects.append(contentsOf: startLocationHighlights)
             }
+        case let .locationsToStartFrom(locations):
+            inputs = []
+            viewEffects.append(contentsOf: locations.map { .availableToStartFrom($0) })
         }
         
         return viewEffects

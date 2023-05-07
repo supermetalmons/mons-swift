@@ -4,6 +4,7 @@ import Foundation
 
 // TODO: do not use in Game logic
 enum ViewEffect {
+    case availableToStartFrom(Location)
     case availableForSpiritAction(Location)
     case availableForStep(Location)
     case availableForAction(Location)

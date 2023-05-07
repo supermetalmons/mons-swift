@@ -392,6 +392,8 @@ class GameViewController: UIViewController, GameView {
         }
         effectsViews = []
         
+        var blinkingViews = [UIView]()
+        
         // TODO: refactor
         for effect in effects {
             switch effect {
@@ -441,8 +443,26 @@ class GameViewController: UIViewController, GameView {
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
+            case .availableToStartFrom(let location):
+                let effectView = UIView()
+                effectView.backgroundColor = .clear
+                effectView.layer.borderWidth = 5
+                effectView.layer.borderColor = UIColor.green.cgColor
+                squares[location]?.addSubviewConstrainedToFrame(effectView)
+                squares[location]?.sendSubviewToBack(effectView)
+                effectsViews.append(effectView)
+                blinkingViews.append(effectView)
             case .selectBombOrPotion:
                 boardOverlayView.isHidden = false
+            }
+        }
+        
+        if !blinkingViews.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                for blinkingView in blinkingViews {
+                    blinkingView.removeFromSuperview()
+                }
+                blinkingViews = []
             }
         }
     }

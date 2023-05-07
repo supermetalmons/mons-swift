@@ -69,6 +69,7 @@ extension MonsGame {
     
     enum Output {
         case invalidInput
+        case locationsToStartFrom([Location])
         case nextInputOptions([NextInput])
         case events([Event])
     }
@@ -115,9 +116,15 @@ extension MonsGame {
     }
     
     func processInput(_ input: [Input]) -> Output {
-        guard !input.isEmpty,
-              case let .location(startLocation) = input[0],
-                let startItem = board.item(at: startLocation) else { return .invalidInput }
+        guard !input.isEmpty else {
+            // TODO: implement
+            let locations = [Location(5, 5)]
+            return .locationsToStartFrom(locations)
+        }
+        
+        guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else {
+            return .invalidInput
+        }
         
         let startSquare = board.square(at: startLocation)
         
