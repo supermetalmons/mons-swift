@@ -110,25 +110,22 @@ class GameController {
         switch output {
         case let .events(events):
             inputs = []
-            var locationsToUpdate = [Location]() // TODO: use set here
+            var locationsToUpdate = Set<Location>()
+            
+            var mightKeepHighlightOnLocation: Location?
+            var mustReleaseHighlight = false
+            
             for event in events {
                 switch event {
                 case .monMove(_, let from, let to):
                     Audio.play(.move)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
-                    
-                    if events.count == 1 {
-                        let nextMoveHighlights = processInput(.location(to), isAssistedInput: true)
-                        if !nextMoveHighlights.isEmpty {
-                            viewEffects.append(contentsOf: nextMoveHighlights)
-                        }
-                    }
-                    
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
+                    mightKeepHighlightOnLocation = to
                 case .manaMove(_, let from, let to):
                     Audio.play(.moveMana)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case let .manaScored(mana, at, _):
                     switch mana {
                     case .regular:
@@ -136,52 +133,62 @@ class GameController {
                     case .supermana:
                         Audio.play(.scoreSupermana)
                     }
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
+                    mustReleaseHighlight = true
                 case .mysticAction(_, let from, let to):
                     Audio.play(.mysticAbility)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .demonAction(_, let from, let to):
                     Audio.play(.demonAbility)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .demonAdditionalStep(_, let from, let to):
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .spiritTargetMove(_, let from, let to):
                     Audio.play(.spiritAbility)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .pickupBomb(_, let at):
                     Audio.play(.pickUpPotion)
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
+                    mustReleaseHighlight = true
                 case .pickupPotion(_, let at):
                     Audio.play(.pickUpPotion)
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
+                    mustReleaseHighlight = true
                 case .pickupMana(_, _, let at):
                     Audio.play(.manaPickUp)
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
                 case .monFainted(_, let from, let to):
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .manaDropped(_, let at):
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
                 case .supermanaBackToBase(let from, let to):
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .bombAttack(_, let from, let to):
                     Audio.play(.bomb)
-                    locationsToUpdate.append(from)
-                    locationsToUpdate.append(to)
+                    locationsToUpdate.insert(from)
+                    locationsToUpdate.insert(to)
                 case .monAwake(_, let at):
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
                 case .bombExplosion(let at):
                     Audio.play(.bomb)
-                    locationsToUpdate.append(at)
+                    locationsToUpdate.insert(at)
                 case .nextTurn(_):
                     break
                 case .gameOver(_):
                     break
+                }
+            }
+            
+            if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
+                let nextMoveHighlights = processInput(.location(to), isAssistedInput: true)
+                if !nextMoveHighlights.isEmpty {
+                    viewEffects.append(contentsOf: nextMoveHighlights)
                 }
             }
             
