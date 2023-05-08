@@ -20,6 +20,13 @@ enum GameViewEffect {
 // TODO: refactor
 class GameController {
     
+    // TODO: refactor, move somewhere
+    enum AssistedInputKind {
+        case keepSelectionAfterMove
+        case findStartLocationsAfterInvalidInput
+        case reselectLastInvalidInput
+    }
+    
     var winnerColor: Color? {
         return game.winnerColor
     }
@@ -96,7 +103,7 @@ class GameController {
     private var cachedOutput: MonsGame.Output?
     
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input?, isAssistedInput: Bool = false) -> [ViewEffect] {
+    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil) -> [ViewEffect] {
         // TODO: act differently when i click spaces while opponent makes his turns
         // TODO: should play sounds / moves when opponent moves, but should not show his highlights
         
@@ -193,7 +200,7 @@ class GameController {
             }
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
-                let nextMoveHighlights = processInput(.location(to), isAssistedInput: true)
+                let nextMoveHighlights = processInput(.location(to), assistedInputKind: .keepSelectionAfterMove)
                 if !nextMoveHighlights.isEmpty {
                     viewEffects.append(contentsOf: nextMoveHighlights)
                 }
@@ -229,18 +236,18 @@ class GameController {
             }
             
         case .invalidInput:
-            let shouldTryToReselect = !isAssistedInput && inputs.count > 1 && inputs.first != input
-            let shouldHelpFindOptions = !isAssistedInput && inputs.count == 1
+            let shouldTryToReselect = assistedInputKind == nil && inputs.count > 1 && inputs.first != input
+            let shouldHelpFindOptions = assistedInputKind == nil && inputs.count == 1
             
             inputs = []
             
             if shouldTryToReselect {
-                let reselectHighlights = processInput(input, isAssistedInput: true)
+                let reselectHighlights = processInput(input, assistedInputKind: .reselectLastInvalidInput)
                 if !reselectHighlights.isEmpty {
                     viewEffects.append(contentsOf: reselectHighlights)
                 }
             } else if shouldHelpFindOptions {
-                let startLocationHighlights = processInput(nil, isAssistedInput: true)
+                let startLocationHighlights = processInput(nil, assistedInputKind: .findStartLocationsAfterInvalidInput)
                 viewEffects.append(contentsOf: startLocationHighlights)
             }
         case let .locationsToStartFrom(locations):

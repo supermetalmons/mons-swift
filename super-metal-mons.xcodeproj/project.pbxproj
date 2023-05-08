@@ -50,6 +50,7 @@
 		2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */; };
 		2CD302702A0883D3009DFCC2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3026F2A0883D3009DFCC2 /* CircleView.swift */; };
 		2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302712A092905009DFCC2 /* SparklingView.swift */; };
+		2CD302762A097286009DFCC2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CD302752A097286009DFCC2 /* click.wav */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */; };
@@ -113,6 +114,7 @@
 		2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSquareView.swift; sourceTree = "<group>"; };
 		2CD3026F2A0883D3009DFCC2 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		2CD302712A092905009DFCC2 /* SparklingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklingView.swift; sourceTree = "<group>"; };
+		2CD302752A097286009DFCC2 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		2CDB1AD029ED87C900C51230 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		2CDB1AD229ED87E600C51230 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickUpPotion.wav; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			children = (
 				2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */,
 				2CDB1AD629EEF48E00C51230 /* demonAbility.wav */,
+				2CD302752A097286009DFCC2 /* click.wav */,
 				2CDB1AD729EEF48E00C51230 /* bomb.wav */,
 				2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */,
 				2CDB1ADA29EEF48E00C51230 /* spiritAbility.wav */,
@@ -399,6 +402,7 @@
 				2CDB1AEB29EEF48E00C51230 /* downBump.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
+				2CD302762A097286009DFCC2 /* click.wav in Resources */,
 				2CDB1AF229EF020500C51230 /* moveMana.wav in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,

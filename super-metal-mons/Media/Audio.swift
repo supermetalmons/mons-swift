@@ -6,6 +6,7 @@ struct Audio {
     
     enum Sound: String {
         case bomb
+        case click
         case demonAbility
         case downBump
         case dropMana

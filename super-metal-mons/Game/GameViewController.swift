@@ -134,6 +134,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
+        Audio.play(.click)
         guard !isAnimatingAvatar else { return }
         let newRandom = Images.randomEmoji
         switch playerSideColor {
