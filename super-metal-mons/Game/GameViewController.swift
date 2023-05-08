@@ -403,9 +403,8 @@ class GameViewController: UIViewController, GameView {
                 updateCell(location)
             case .setSelected(let location):
                 let effectView = UIView()
-                effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 3
-                effectView.layer.borderColor = UIColor.green.cgColor
+                effectView.backgroundColor = .systemMint
+                effectView.alpha = 0.7
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
@@ -417,14 +416,32 @@ class GameViewController: UIViewController, GameView {
                     didWin(color: winner)
                 }
             case .availableForStep(let location):
-                // TODO: use dot for an empty field
-                let effectView = UIView()
-                effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 5
-                effectView.layer.borderColor = UIColor.yellow.cgColor
-                squares[location]?.addSubviewConstrainedToFrame(effectView)
-                squares[location]?.sendSubviewToBack(effectView)
-                effectsViews.append(effectView)
+                if controller.board.item(at: location) == nil, let square = squares[location] {
+                    let effectView = CircleView()
+                    effectView.backgroundColor = .systemMint
+                    effectView.alpha = 0.7
+                    effectView.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    square.addSubview(effectView)
+                    square.sendSubviewToBack(effectView)
+                    effectsViews.append(effectView)
+                    
+                    NSLayoutConstraint.activate([
+                        effectView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.3),
+                        effectView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.3),
+                        effectView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
+                        effectView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
+                    ])
+                    
+                } else {
+                    let effectView = UIView()
+                    effectView.backgroundColor = .clear
+                    effectView.layer.borderWidth = 5
+                    effectView.layer.borderColor = UIColor.yellow.cgColor
+                    squares[location]?.addSubviewConstrainedToFrame(effectView)
+                    squares[location]?.sendSubviewToBack(effectView)
+                    effectsViews.append(effectView)
+                }
             case .availableForAction(let location):
                 // TODO: use dot for an empty field
                 let effectView = UIView()
