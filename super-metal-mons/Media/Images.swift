@@ -9,14 +9,7 @@ struct Images {
     }
 
     static func consumable(_ consumable: Consumable, style: BoardStyle) -> UIImage {
-        switch consumable {
-        case .potion:
-            return named(style.namespace + "potion")
-        case .bomb:
-            return named(style.namespace + "bomb")
-        case .bombOrPotion:
-            return named(style.namespace + "bag")
-        }
+        return named(style.namespace + consumable.rawValue)
     }
     
     static func mon(_ mon: Mon, style: BoardStyle) -> UIImage {

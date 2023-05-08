@@ -284,6 +284,11 @@ class GameViewController: UIViewController, GameView {
             let imageView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
             imageView.contentMode = .scaleAspectFit
             squares[location]?.addSubviewConstrainedToFrame(imageView)
+            
+            // TODO: show under the image view
+            let sparklingView = SparklingView(frame: imageView.bounds)
+            imageView.addSubviewConstrainedToFrame(sparklingView)
+            
             monsOnBoard[location] = imageView
         case let .mon(mon: mon):
             let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
