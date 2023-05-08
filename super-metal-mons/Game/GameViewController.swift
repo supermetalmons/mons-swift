@@ -286,8 +286,8 @@ class GameViewController: UIViewController, GameView {
             squares[location]?.addSubviewConstrainedToFrame(imageView)
             
             // TODO: show under the image view
-            let sparklingView = SparklingView(frame: imageView.bounds)
-            imageView.addSubviewConstrainedToFrame(sparklingView)
+//            let sparklingView = SparklingView(frame: imageView.bounds)
+//            imageView.addSubviewConstrainedToFrame(sparklingView)
             
             monsOnBoard[location] = imageView
         case let .mon(mon: mon):
