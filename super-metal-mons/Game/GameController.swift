@@ -93,6 +93,7 @@ class GameController {
     }
     
     private var inputs = [MonsGame.Input]()
+    private var cachedOutput: MonsGame.Output?
     
     // TODO: refactor
     func processInput(_ input: MonsGame.Input?, isAssistedInput: Bool = false) -> [ViewEffect] {
@@ -105,10 +106,16 @@ class GameController {
             inputs.append(input)
         }
         
-        let output = game.processInput(inputs)
+        let output: MonsGame.Output
+        if inputs.isEmpty, let cachedOutput = cachedOutput {
+            output = cachedOutput
+        } else {
+            output = game.processInput(inputs)
+        }
         
         switch output {
         case let .events(events):
+            cachedOutput = nil
             inputs = []
             var locationsToUpdate = Set<Location>()
             
@@ -237,6 +244,7 @@ class GameController {
                 viewEffects.append(contentsOf: startLocationHighlights)
             }
         case let .locationsToStartFrom(locations):
+            cachedOutput = output
             inputs = []
             viewEffects.append(contentsOf: locations.map { .availableToStartFrom($0) })
         }
