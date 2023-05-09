@@ -408,23 +408,24 @@ class GameViewController: UIViewController, GameView {
                 monsOnBoard[location]?.removeFromSuperview()
                 monsOnBoard[location] = nil
                 updateCell(location)
-            case .setSelected(let location):
-                let effectView = CircleCutoutView(color: Colors.highlight(.selectedItem, style: style), inverted: true)
-                // TODO: different selection styles for different situations
-                squares[location]?.addSubviewConstrainedToFrame(effectView)
-                squares[location]?.sendSubviewToBack(effectView)
-                effectsViews.append(effectView)
-            case .updateGameStatus:
-                updateGameInfo()
-                controller.shareGameState()
                 
-                if let winner = controller.winnerColor {
-                    didWin(color: winner)
-                }
-            case .availableForStep(let location):
-                if controller.board.item(at: location) == nil, let square = squares[location] {
+            case let .highlight(highlight):
+                guard let square = squares[highlight.location] else { continue }
+                let color = highlight.color
+                switch highlight.kind {
+                case .selected:
+                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: true)
+                    square.addSubviewConstrainedToFrame(effectView)
+                    square.sendSubviewToBack(effectView)
+                    effectsViews.append(effectView)
+                    
+                    if highlight.isBlink {
+                        blinkingViews.append(effectView)
+                    }
+                    
+                case .emptySquare:
                     let effectView = CircleView()
-                    effectView.backgroundColor = Colors.highlight(.destinationItem, style: style)
+                    effectView.backgroundColor = Colors.highlight(color, style: style)
                     effectView.translatesAutoresizingMaskIntoConstraints = false
                     
                     square.addSubview(effectView)
@@ -437,35 +438,19 @@ class GameViewController: UIViewController, GameView {
                         effectView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
                         effectView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
                     ])
-                    
-                } else {
-                    let effectView = CircleCutoutView(color: Colors.highlight(.emptyDestination, style: style))
-                    squares[location]?.addSubviewConstrainedToFrame(effectView)
-                    squares[location]?.sendSubviewToBack(effectView)
+                case .targetSuggestion:
+                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: false)
+                    square.addSubviewConstrainedToFrame(effectView)
+                    square.sendSubviewToBack(effectView)
                     effectsViews.append(effectView)
                 }
-            case .availableForAction(let location):
-                let effectView = CircleCutoutView(color: Colors.highlight(.attackTarget, style: style))
-                squares[location]?.addSubviewConstrainedToFrame(effectView)
-                squares[location]?.sendSubviewToBack(effectView)
-                effectsViews.append(effectView)
-            case .availableForSpiritAction(let location):
+            case .updateGameStatus:
+                updateGameInfo()
+                controller.shareGameState()
                 
-                // TODO: update
-                // TODO: use dot for an empty field
-                let effectView = UIView()
-                effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 5
-                effectView.layer.borderColor = UIColor.cyan.cgColor
-                squares[location]?.addSubviewConstrainedToFrame(effectView)
-                squares[location]?.sendSubviewToBack(effectView)
-                effectsViews.append(effectView)
-            case .availableToStartFrom(let location):
-                let effectView = CircleCutoutView(color: Colors.highlight(.startFrom, style: style), inverted: true)
-                squares[location]?.addSubviewConstrainedToFrame(effectView)
-                squares[location]?.sendSubviewToBack(effectView)
-                effectsViews.append(effectView)
-                blinkingViews.append(effectView)
+                if let winner = controller.winnerColor {
+                    didWin(color: winner)
+                }
             case .selectBombOrPotion:
                 boardOverlayView.isHidden = false
             }

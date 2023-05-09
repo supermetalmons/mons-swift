@@ -8,7 +8,7 @@ struct Colors {
         return named("board/\(style.namespace)\(square.rawValue)")
     }
     
-    static func highlight(_ color: BoardHighlightColor, style: BoardStyle) -> UIColor {
+    static func highlight(_ color: Highlight.Color, style: BoardStyle) -> UIColor {
         return named("board/\(style.namespace)highlights/\(color.rawValue)")
     }
     

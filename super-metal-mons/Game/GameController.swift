@@ -50,6 +50,7 @@ class GameController {
     let boardStyle = BoardStyle.pixel
     
     // idk about this one
+    // yeah i feel like we should keep it private
     var board: Board {
         return game.board
     }
@@ -211,7 +212,8 @@ class GameController {
         case let .nextInputOptions(nextInputOptions):
             for input in inputs {
                 if case let .location(location) = input {
-                    viewEffects.append(.setSelected(location))
+                    // TODO: there should be different colors actually
+                    viewEffects.append(.highlight(Highlight(location: location, kind: .selected, color: .selectedStartItem, isBlink: false)))
                 }
             }
             
@@ -222,14 +224,30 @@ class GameController {
                 
                 switch nextInputOption.input {
                 case .location(let location):
+                    let locationIsEmpty = board.item(at: location) == nil
+                    
+                    let highlightKind: Highlight.Kind
+                    let highlightColor: Highlight.Color
+                    
                     switch nextInputOption.kind {
                     case .monMove, .manaMove, .selectConsumable:
-                        viewEffects.append(.availableForStep(location))
-                    case .mysticAction, .demonAction, .demonAdditionalStep, .bombAttack:
-                        viewEffects.append(.availableForAction(location))
-                    case .spiritTargetCapture, .spiritTargetMove:
-                        viewEffects.append(.availableForSpiritAction(location))
+                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightColor = locationIsEmpty ? .emptyStepDestination : .destinationItem
+                    case .mysticAction, .demonAction, .bombAttack:
+                        highlightKind = .targetSuggestion
+                        highlightColor = .attackTarget
+                    case .demonAdditionalStep:
+                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightColor = .attackTarget
+                    case .spiritTargetCapture:
+                        highlightKind = .targetSuggestion
+                        highlightColor = .spiritTarget
+                    case .spiritTargetMove:
+                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightColor = .spiritTarget
                     }
+                    
+                    viewEffects.append(.highlight(Highlight(location: location, kind: highlightKind, color: highlightColor, isBlink: false)))
                 case .modifier:
                     break
                 }
@@ -253,7 +271,8 @@ class GameController {
         case let .locationsToStartFrom(locations):
             cachedOutput = output
             inputs = []
-            viewEffects.append(contentsOf: locations.map { .availableToStartFrom($0) })
+            let effects = locations.map { return ViewEffect.highlight(Highlight(location: $0, kind: .selected, color: .startFrom, isBlink: true)) }
+            viewEffects.append(contentsOf: effects)
         }
         
         return viewEffects

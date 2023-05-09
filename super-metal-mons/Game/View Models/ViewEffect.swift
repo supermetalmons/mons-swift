@@ -2,14 +2,10 @@
 
 import Foundation
 
-// TODO: do not use in Game logic
+// TODO: refactor? see usages
 enum ViewEffect {
-    case availableToStartFrom(Location)
-    case availableForSpiritAction(Location)
-    case availableForStep(Location)
-    case availableForAction(Location)
     case updateCell(Location)
-    case setSelected(Location)
     case updateGameStatus
     case selectBombOrPotion
+    case highlight(Highlight)
 }
