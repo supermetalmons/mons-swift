@@ -242,22 +242,24 @@ class GameController {
                     
                     let highlightKind: Highlight.Kind
                     let highlightColor: Highlight.Color
+                    let isBase = Config.monsBases.contains(location)
+                    let emptySquareHighlight: Highlight.Kind = isBase ? .targetSuggestion : .emptySquare
                     
                     switch nextInputOption.kind {
                     case .monMove, .manaMove, .selectConsumable:
-                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightKind = locationIsEmpty ? emptySquareHighlight : .targetSuggestion
                         highlightColor = locationIsEmpty ? .emptyStepDestination : .destinationItem
                     case .mysticAction, .demonAction, .bombAttack:
                         highlightKind = .targetSuggestion
                         highlightColor = .attackTarget
                     case .demonAdditionalStep:
-                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightKind = locationIsEmpty ? emptySquareHighlight : .targetSuggestion
                         highlightColor = .attackTarget
                     case .spiritTargetCapture:
                         highlightKind = .targetSuggestion
                         highlightColor = .spiritTarget
                     case .spiritTargetMove:
-                        highlightKind = locationIsEmpty ? .emptySquare : .targetSuggestion
+                        highlightKind = locationIsEmpty ? emptySquareHighlight : .targetSuggestion
                         highlightColor = .spiritTarget
                     }
                     

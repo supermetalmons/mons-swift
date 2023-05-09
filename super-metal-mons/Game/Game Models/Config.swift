@@ -68,4 +68,16 @@ extension Config {
         return items
     }()
     
+    static let monsBases: Set<Location> = {
+        let bases = squares.compactMap { (location, square) -> Location? in
+            switch square {
+            case .regular, .manaPool, .manaBase, .supermanaBase, .consumableBase:
+                return nil
+            case .monBase:
+                return location
+            }
+        }
+        return Set(bases)
+    }()
+    
 }
