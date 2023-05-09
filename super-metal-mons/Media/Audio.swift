@@ -38,7 +38,8 @@ struct Audio {
         
         queue.async {
             try? AVAudioSession.sharedInstance().setActive(true)
-            players[sound]?.play()
+            let player = players[sound]
+            player?.play()
         }
     }
 
