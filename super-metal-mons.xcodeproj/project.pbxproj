@@ -51,6 +51,8 @@
 		2CD302702A0883D3009DFCC2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3026F2A0883D3009DFCC2 /* CircleView.swift */; };
 		2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302712A092905009DFCC2 /* SparklingView.swift */; };
 		2CD302762A097286009DFCC2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CD302752A097286009DFCC2 /* click.wav */; };
+		2CD3027A2A099124009DFCC2 /* CircleCutoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302792A099124009DFCC2 /* CircleCutoutView.swift */; };
+		2CD3027C2A099834009DFCC2 /* BoardHighlightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3027B2A099834009DFCC2 /* BoardHighlightColor.swift */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */; };
@@ -115,6 +117,8 @@
 		2CD3026F2A0883D3009DFCC2 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		2CD302712A092905009DFCC2 /* SparklingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklingView.swift; sourceTree = "<group>"; };
 		2CD302752A097286009DFCC2 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
+		2CD302792A099124009DFCC2 /* CircleCutoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCutoutView.swift; sourceTree = "<group>"; };
+		2CD3027B2A099834009DFCC2 /* BoardHighlightColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHighlightColor.swift; sourceTree = "<group>"; };
 		2CDB1AD029ED87C900C51230 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		2CDB1AD229ED87E600C51230 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickUpPotion.wav; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB6D3B929F731E100605255 /* ViewEffect.swift */,
+				2CD3027B2A099834009DFCC2 /* BoardHighlightColor.swift */,
 				2C7E80C929FC3BAA00114943 /* SquareColor.swift */,
 			);
 			path = "View Models";
@@ -305,6 +310,7 @@
 			children = (
 				2CC770BE29FA9CEE00A59BEF /* BoardView.swift */,
 				2CD302712A092905009DFCC2 /* SparklingView.swift */,
+				2CD302792A099124009DFCC2 /* CircleCutoutView.swift */,
 				2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */,
 				2CD3026F2A0883D3009DFCC2 /* CircleView.swift */,
 			);
@@ -446,11 +452,13 @@
 				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* GameViewController.swift in Sources */,
+				2CD3027A2A099124009DFCC2 /* CircleCutoutView.swift in Sources */,
 				2CB6D3B629F7311500605255 /* Consumable.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
 				2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */,
 				2CC770BF29FA9CEE00A59BEF /* BoardView.swift in Sources */,
 				2CB7462629F18DC700ACC855 /* Images.swift in Sources */,
+				2CD3027C2A099834009DFCC2 /* BoardHighlightColor.swift in Sources */,
 				2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */,
 				2C09E3D829F6D0630082B774 /* GameController.swift in Sources */,
 				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
