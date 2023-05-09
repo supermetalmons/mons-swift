@@ -210,10 +210,24 @@ class GameController {
             viewEffects.append(contentsOf: locationsToUpdate.map { ViewEffect.updateCell($0) })
             viewEffects.append(.updateGameStatus)
         case let .nextInputOptions(nextInputOptions):
-            for input in inputs {
+            for (index, input) in inputs.enumerated() {
                 if case let .location(location) = input {
-                    // TODO: there should be different colors actually
-                    viewEffects.append(.highlight(Highlight(location: location, kind: .selected, color: .selectedStartItem, isBlink: false)))
+                    let color: Highlight.Color
+                    
+                    if index > 0 {
+                        switch nextInputOptions.last?.kind {
+                        case .demonAdditionalStep:
+                            color = .attackTarget
+                        case .spiritTargetMove:
+                            color = .spiritTarget
+                        default:
+                            color = .selectedStartItem
+                        }
+                    } else {
+                        color = .selectedStartItem
+                    }
+                    
+                    viewEffects.append(.highlight(Highlight(location: location, kind: .selected, color: color, isBlink: false)))
                 }
             }
             
