@@ -61,8 +61,6 @@
 		2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */; };
 		2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADA29EEF48E00C51230 /* spiritAbility.wav */; };
 		2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADB29EEF48E00C51230 /* scoreSupermana.wav */; };
-		2CDB1AEA29EEF48E00C51230 /* dropMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADC29EEF48E00C51230 /* dropMana.wav */; };
-		2CDB1AEB29EEF48E00C51230 /* downBump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADD29EEF48E00C51230 /* downBump.wav */; };
 		2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
@@ -127,8 +125,6 @@
 		2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = manaPickUp.wav; sourceTree = "<group>"; };
 		2CDB1ADA29EEF48E00C51230 /* spiritAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spiritAbility.wav; sourceTree = "<group>"; };
 		2CDB1ADB29EEF48E00C51230 /* scoreSupermana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreSupermana.wav; sourceTree = "<group>"; };
-		2CDB1ADC29EEF48E00C51230 /* dropMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dropMana.wav; sourceTree = "<group>"; };
-		2CDB1ADD29EEF48E00C51230 /* downBump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = downBump.wav; sourceTree = "<group>"; };
 		2CDB1ADE29EEF48E00C51230 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
@@ -327,8 +323,6 @@
 				2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */,
 				2CDB1ADA29EEF48E00C51230 /* spiritAbility.wav */,
 				2CDB1ADB29EEF48E00C51230 /* scoreSupermana.wav */,
-				2CDB1ADC29EEF48E00C51230 /* dropMana.wav */,
-				2CDB1ADD29EEF48E00C51230 /* downBump.wav */,
 				2CDB1AF129EF020500C51230 /* moveMana.wav */,
 				2CDB1ADE29EEF48E00C51230 /* move.wav */,
 				2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */,
@@ -405,7 +399,6 @@
 				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */,
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
-				2CDB1AEB29EEF48E00C51230 /* downBump.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
 				2CD302762A097286009DFCC2 /* click.wav in Resources */,
@@ -416,7 +409,6 @@
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
 				2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */,
 				2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */,
-				2CDB1AEA29EEF48E00C51230 /* dropMana.wav in Resources */,
 				2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,
 				2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */,

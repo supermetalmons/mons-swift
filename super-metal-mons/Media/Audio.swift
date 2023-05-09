@@ -4,12 +4,10 @@ import AVFoundation
 
 struct Audio {
     
-    enum Sound: String {
+    enum Sound: String, CaseIterable {
         case bomb
         case click
         case demonAbility
-        case downBump
-        case dropMana
         case manaPickUp
         case move
         case moveMana
@@ -21,19 +19,26 @@ struct Audio {
     }
     
     private static let queue = DispatchQueue.global(qos: .userInitiated)
-    private static var player: AVAudioPlayer?
+    private static var players = [Sound: AVAudioPlayer]()
+    
+    static func prepare() {
+        queue.async {
+            for sound in Sound.allCases {
+                guard let soundFileURL = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav"),
+                      let player = try? AVAudioPlayer(contentsOf: soundFileURL) else { continue }
+                players[sound] = player
+            }
+            
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
+        }
+    }
     
     static func play(_ sound: Sound) {
         guard !Defaults.isSoundDisabled else { return }
         
         queue.async {
-            guard let soundFileURL = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav") else { return }
-            
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
-            
-            player = try? AVAudioPlayer(contentsOf: soundFileURL)
-            player?.play()
+            players[sound]?.play()
         }
     }
 
