@@ -8,6 +8,10 @@ struct Images {
         return named(style.namespace + "base-" + mon.kind.rawValue)
     }
 
+    static func sparkle(style: BoardStyle) -> UIImage {
+        return named(style.namespace + "sparkle")
+    }
+    
     static func consumable(_ consumable: Consumable, style: BoardStyle) -> UIImage {
         return named(style.namespace + consumable.rawValue)
     }

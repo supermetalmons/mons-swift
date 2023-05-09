@@ -43,7 +43,7 @@ class GameViewController: UIViewController, GameView {
     // TODO: keep view models as well — in order to check if an update is needed
     private lazy var squares = [Location: BoardSquareView]()
     private var effectsViews = [UIView]()
-    private lazy var monsOnBoard = [Location: UIImageView]()
+    private lazy var monsOnBoard = [Location: UIView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -282,15 +282,16 @@ class GameViewController: UIViewController, GameView {
         let item = controller.board.item(at: location)
         switch item {
         case let .consumable(consumable):
+            guard let square = squares[location] else { break }
+            
+            let sparklingView = SparklingView(frame: square.bounds, style: controller.boardStyle)
+            square.addSubviewConstrainedToFrame(sparklingView)
+            
             let imageView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
             imageView.contentMode = .scaleAspectFit
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
+            sparklingView.addSubviewConstrainedToFrame(imageView)
             
-            // TODO: show under the image view
-//            let sparklingView = SparklingView(frame: imageView.bounds)
-//            imageView.addSubviewConstrainedToFrame(sparklingView)
-            
-            monsOnBoard[location] = imageView
+            monsOnBoard[location] = sparklingView
         case let .mon(mon: mon):
             let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
             
