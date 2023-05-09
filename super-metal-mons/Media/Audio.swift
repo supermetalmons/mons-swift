@@ -34,12 +34,18 @@ struct Audio {
     }
     
     static func play(_ sound: Sound) {
+        play(sounds: [sound])
+    }
+    
+    static func play(sounds: [Sound]) {
         guard !Defaults.isSoundDisabled else { return }
         
         queue.async {
             try? AVAudioSession.sharedInstance().setActive(true)
-            let player = players[sound]
-            player?.play()
+            for sound in sounds {
+                let player = players[sound]
+                player?.play()
+            }
         }
     }
 

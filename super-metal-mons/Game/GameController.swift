@@ -130,51 +130,53 @@ class GameController {
             var mightKeepHighlightOnLocation: Location?
             var mustReleaseHighlight = false
             
+            var sounds = [Audio.Sound]()
+            
             for event in events {
                 switch event {
                 case .monMove(_, let from, let to):
-                    Audio.play(.move)
+                    sounds.append(.move)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                     mightKeepHighlightOnLocation = to
                 case .manaMove(_, let from, let to):
-                    Audio.play(.moveMana)
+                    sounds.append(.moveMana)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case let .manaScored(mana, at, _):
                     switch mana {
                     case .regular:
-                        Audio.play(.scoreMana)
+                        sounds.append(.scoreMana)
                     case .supermana:
-                        Audio.play(.scoreSupermana)
+                        sounds.append(.scoreSupermana)
                     }
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .mysticAction(_, let from, let to):
-                    Audio.play(.mysticAbility)
+                    sounds.append(.mysticAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .demonAction(_, let from, let to):
-                    Audio.play(.demonAbility)
+                    sounds.append(.demonAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .demonAdditionalStep(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .spiritTargetMove(_, let from, let to):
-                    Audio.play(.spiritAbility)
+                    sounds.append(.spiritAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .pickupBomb(_, let at):
-                    Audio.play(.pickUpPotion)
+                    sounds.append(.pickUpPotion)
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .pickupPotion(_, let at):
-                    Audio.play(.pickUpPotion)
+                    sounds.append(.pickUpPotion)
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .pickupMana(_, _, let at):
-                    Audio.play(.manaPickUp)
+                    sounds.append(.manaPickUp)
                     locationsToUpdate.insert(at)
                 case .monFainted(_, let from, let to):
                     locationsToUpdate.insert(from)
@@ -185,13 +187,13 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .bombAttack(_, let from, let to):
-                    Audio.play(.bomb)
+                    sounds.append(.bomb)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .monAwake(_, let at):
                     locationsToUpdate.insert(at)
                 case .bombExplosion(let at):
-                    Audio.play(.bomb)
+                    sounds.append(.bomb)
                     locationsToUpdate.insert(at)
                 case .nextTurn(_):
                     break
@@ -199,6 +201,9 @@ class GameController {
                     break
                 }
             }
+            
+            // TODO: silence some sounds if there was a more important event
+            Audio.play(sounds: sounds)
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
                 let nextMoveHighlights = processInput(.location(to), assistedInputKind: .keepSelectionAfterMove)
