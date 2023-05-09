@@ -12,6 +12,10 @@
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
 		2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
+		2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */; };
+		2C266FD72A0B024E0016C1C5 /* victory.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD32A0B024E0016C1C5 /* victory.wav */; };
+		2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD42A0B024E0016C1C5 /* defeat.wav */; };
+		2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD52A0B024E0016C1C5 /* choosePickup.wav */; };
 		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
@@ -57,7 +61,7 @@
 		2CD3027C2A099834009DFCC2 /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3027B2A099834009DFCC2 /* Highlight.swift */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
-		2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */; };
+		2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickupBomb.wav */; };
 		2CDB1AE429EEF48E00C51230 /* demonAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD629EEF48E00C51230 /* demonAbility.wav */; };
 		2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD729EEF48E00C51230 /* bomb.wav */; };
 		2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */; };
@@ -75,6 +79,10 @@
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		2C266FD02A0B00280016C1C5 /* endTurn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = endTurn.wav; sourceTree = "<group>"; };
+		2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupPotion.wav; sourceTree = "<group>"; };
+		2C266FD32A0B024E0016C1C5 /* victory.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = victory.wav; sourceTree = "<group>"; };
+		2C266FD42A0B024E0016C1C5 /* defeat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defeat.wav; sourceTree = "<group>"; };
+		2C266FD52A0B024E0016C1C5 /* choosePickup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = choosePickup.wav; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -122,7 +130,7 @@
 		2CD3027B2A099834009DFCC2 /* Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlight.swift; sourceTree = "<group>"; };
 		2CDB1AD029ED87C900C51230 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		2CDB1AD229ED87E600C51230 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
-		2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickUpPotion.wav; sourceTree = "<group>"; };
+		2CDB1AD529EEF48E00C51230 /* pickupBomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupBomb.wav; sourceTree = "<group>"; };
 		2CDB1AD629EEF48E00C51230 /* demonAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = demonAbility.wav; sourceTree = "<group>"; };
 		2CDB1AD729EEF48E00C51230 /* bomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bomb.wav; sourceTree = "<group>"; };
 		2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = manaPickUp.wav; sourceTree = "<group>"; };
@@ -319,8 +327,12 @@
 		2CDB1AD429EEF48E00C51230 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				2CDB1AD529EEF48E00C51230 /* pickUpPotion.wav */,
+				2CDB1AD529EEF48E00C51230 /* pickupBomb.wav */,
 				2CDB1AD629EEF48E00C51230 /* demonAbility.wav */,
+				2C266FD52A0B024E0016C1C5 /* choosePickup.wav */,
+				2C266FD42A0B024E0016C1C5 /* defeat.wav */,
+				2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */,
+				2C266FD32A0B024E0016C1C5 /* victory.wav */,
 				2CD302752A097286009DFCC2 /* click.wav */,
 				2CDB1AD729EEF48E00C51230 /* bomb.wav */,
 				2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */,
@@ -401,15 +413,19 @@
 				2CDB1AE429EEF48E00C51230 /* demonAbility.wav in Resources */,
 				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */,
+				2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */,
+				2C266FD72A0B024E0016C1C5 /* victory.wav in Resources */,
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
 				2CD302762A097286009DFCC2 /* click.wav in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
+				2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */,
 				2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */,
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
-				2CDB1AE329EEF48E00C51230 /* pickUpPotion.wav in Resources */,
+				2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */,
+				2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */,
 				2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */,
 				2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,

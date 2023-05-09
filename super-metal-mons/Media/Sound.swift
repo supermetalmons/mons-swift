@@ -10,18 +10,22 @@ enum Sound: String, CaseIterable {
     case move
     case endTurn
     case mysticAbility
-    case pickUpPotion
+    case pickupPotion
+    case pickupBomb
+    case choosePickup
     case scoreMana
     case scoreSupermana
     case spiritAbility
+    case victory
+    case defeat
     
     var priority: Int {
         switch self {
         case .click, .endTurn, .move:
             return 0
-        case .manaPickUp, .pickUpPotion, .mysticAbility, .spiritAbility, .demonAbility, .bomb:
+        case .manaPickUp, .choosePickup, .mysticAbility, .spiritAbility, .demonAbility, .bomb, .pickupBomb, .pickupPotion:
             return 1
-        case .scoreMana, .scoreSupermana:
+        case .scoreMana, .scoreSupermana, .victory, .defeat:
             return 2
         }
     }
