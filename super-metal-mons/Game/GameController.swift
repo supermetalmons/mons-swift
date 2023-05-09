@@ -6,6 +6,7 @@ protocol GameView: AnyObject {
     func restartBoardForTest() // TODO: deprecate
     func updateGameInfo() // TODO: refactor
     func didWin(color: Color) // TODO: refactor
+    var playerSideColor: Color { get } // TODO: this is tmp, move to controller
 }
 
 enum GameViewEffect {
@@ -197,8 +198,11 @@ class GameController {
                 case .nextTurn(_):
                     sounds.append(.endTurn)
                 case let .gameOver(winner):
-                    // TODO: play sound
-                    break
+                    if winner == gameView.playerSideColor {
+                        sounds.append(.victory)
+                    } else {
+                        sounds.append(.defeat)
+                    }
                 }
             }
             

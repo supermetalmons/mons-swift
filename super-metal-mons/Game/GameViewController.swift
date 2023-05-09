@@ -12,7 +12,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     private var controller: GameController!
-    private var playerSideColor = Color.white
+    var playerSideColor = Color.white // TODO: put it to controller
     private var whiteEmoji = Images.randomEmoji // TODO: get from controller
     private var blackEmoji = Images.randomEmoji
 
