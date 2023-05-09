@@ -4,20 +4,6 @@ import AVFoundation
 
 struct Audio {
     
-    enum Sound: String, CaseIterable {
-        case bomb
-        case click
-        case demonAbility
-        case manaPickUp
-        case move
-        case moveMana
-        case mysticAbility
-        case pickUpPotion
-        case scoreMana
-        case scoreSupermana
-        case spiritAbility
-    }
-    
     private static let queue = DispatchQueue.global(qos: .userInitiated)
     private static var players = [Sound: AVAudioPlayer]()
     

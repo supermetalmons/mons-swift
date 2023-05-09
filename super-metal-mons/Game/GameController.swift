@@ -130,7 +130,7 @@ class GameController {
             var mightKeepHighlightOnLocation: Location?
             var mustReleaseHighlight = false
             
-            var sounds = [Audio.Sound]()
+            var sounds = [Sound]()
             
             for event in events {
                 switch event {
@@ -202,7 +202,8 @@ class GameController {
                 }
             }
             
-            // TODO: silence some sounds if there was a more important event
+            let maxSoundPriority = sounds.max(by: { $0.priority < $1.priority })?.priority
+            sounds = sounds.filter { $0.priority == maxSoundPriority }
             Audio.play(sounds: sounds)
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
