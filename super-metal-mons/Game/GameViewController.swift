@@ -134,8 +134,8 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
-        Audio.play(.click)
         guard !isAnimatingAvatar else { return }
+        Audio.play(.click)
         let newRandom = Images.randomEmoji
         switch playerSideColor {
         case .white:
@@ -399,6 +399,7 @@ class GameViewController: UIViewController, GameView {
         effectsViews = []
         
         var blinkingViews = [UIView]()
+        let style = controller.boardStyle
         
         // TODO: refactor
         for effect in effects {
@@ -408,9 +409,8 @@ class GameViewController: UIViewController, GameView {
                 monsOnBoard[location] = nil
                 updateCell(location)
             case .setSelected(let location):
-                let effectView = UIView()
-                effectView.backgroundColor = .systemMint
-                effectView.alpha = 0.7
+                let effectView = CircleCutoutView(color: Colors.highlight(.selectedItem, style: style), inverted: true)
+                // TODO: different selection styles for different situations
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
@@ -424,8 +424,7 @@ class GameViewController: UIViewController, GameView {
             case .availableForStep(let location):
                 if controller.board.item(at: location) == nil, let square = squares[location] {
                     let effectView = CircleView()
-                    effectView.backgroundColor = .systemMint
-                    effectView.alpha = 0.7
+                    effectView.backgroundColor = Colors.highlight(.destinationItem, style: style)
                     effectView.translatesAutoresizingMaskIntoConstraints = false
                     
                     square.addSubview(effectView)
@@ -440,24 +439,19 @@ class GameViewController: UIViewController, GameView {
                     ])
                     
                 } else {
-                    let effectView = UIView()
-                    effectView.backgroundColor = .clear
-                    effectView.layer.borderWidth = 5
-                    effectView.layer.borderColor = UIColor.yellow.cgColor
+                    let effectView = CircleCutoutView(color: Colors.highlight(.emptyDestination, style: style))
                     squares[location]?.addSubviewConstrainedToFrame(effectView)
                     squares[location]?.sendSubviewToBack(effectView)
                     effectsViews.append(effectView)
                 }
             case .availableForAction(let location):
-                // TODO: use dot for an empty field
-                let effectView = UIView()
-                effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 5
-                effectView.layer.borderColor = UIColor.red.cgColor
+                let effectView = CircleCutoutView(color: Colors.highlight(.attackTarget, style: style))
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
             case .availableForSpiritAction(let location):
+                
+                // TODO: update
                 // TODO: use dot for an empty field
                 let effectView = UIView()
                 effectView.backgroundColor = .clear
@@ -467,10 +461,7 @@ class GameViewController: UIViewController, GameView {
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
             case .availableToStartFrom(let location):
-                let effectView = UIView()
-                effectView.backgroundColor = .clear
-                effectView.layer.borderWidth = 4
-                effectView.layer.borderColor = UIColor.yellow.cgColor
+                let effectView = CircleCutoutView(color: Colors.highlight(.startFrom, style: style), inverted: true)
                 squares[location]?.addSubviewConstrainedToFrame(effectView)
                 squares[location]?.sendSubviewToBack(effectView)
                 effectsViews.append(effectView)
