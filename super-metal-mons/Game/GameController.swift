@@ -167,11 +167,11 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case .pickupBomb(_, let at):
-                    sounds.append(.pickUpPotion)
+                    sounds.append(.pickupBomb)
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .pickupPotion(_, let at):
-                    sounds.append(.pickUpPotion)
+                    sounds.append(.pickupPotion)
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .pickupMana(_, _, let at):
@@ -196,7 +196,8 @@ class GameController {
                     locationsToUpdate.insert(at)
                 case .nextTurn(_):
                     sounds.append(.endTurn)
-                case .gameOver(_):
+                case let .gameOver(winner):
+                    // TODO: play sound
                     break
                 }
             }

@@ -453,6 +453,7 @@ class GameViewController: UIViewController, GameView {
                 }
             case .selectBombOrPotion:
                 boardOverlayView.isHidden = false
+                Audio.play(.choosePickup)
             }
         }
         
