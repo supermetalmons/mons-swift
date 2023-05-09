@@ -287,7 +287,7 @@ class GameController {
         case let .locationsToStartFrom(locations):
             cachedOutput = output
             inputs = []
-            let effects = locations.map { return ViewEffect.highlight(Highlight(location: $0, kind: .selected, color: .startFrom, isBlink: true)) }
+            let effects = locations.map { return ViewEffect.highlight(Highlight(location: $0, kind: .targetSuggestion, color: .startFrom, isBlink: true)) }
             viewEffects.append(contentsOf: effects)
         }
         

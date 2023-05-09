@@ -419,10 +419,6 @@ class GameViewController: UIViewController, GameView {
                     square.sendSubviewToBack(effectView)
                     effectsViews.append(effectView)
                     
-                    if highlight.isBlink {
-                        blinkingViews.append(effectView)
-                    }
-                    
                 case .emptySquare:
                     let effectView = CircleView()
                     effectView.backgroundColor = Colors.highlight(color, style: style)
@@ -443,6 +439,10 @@ class GameViewController: UIViewController, GameView {
                     square.addSubviewConstrainedToFrame(effectView)
                     square.sendSubviewToBack(effectView)
                     effectsViews.append(effectView)
+                    
+                    if highlight.isBlink {
+                        blinkingViews.append(effectView)
+                    }
                 }
             case .updateGameStatus:
                 updateGameInfo()
