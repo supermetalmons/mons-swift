@@ -140,7 +140,6 @@ class GameController {
                     locationsToUpdate.insert(to)
                     mightKeepHighlightOnLocation = to
                 case .manaMove(_, let from, let to):
-                    sounds.append(.moveMana)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                 case let .manaScored(mana, at, _):
@@ -196,14 +195,14 @@ class GameController {
                     sounds.append(.bomb)
                     locationsToUpdate.insert(at)
                 case .nextTurn(_):
-                    break
+                    sounds.append(.endTurn)
                 case .gameOver(_):
                     break
                 }
             }
             
             let maxSoundPriority = sounds.max(by: { $0.priority < $1.priority })?.priority
-            sounds = sounds.filter { $0.priority == maxSoundPriority }
+            sounds = sounds.filter { $0.priority == maxSoundPriority || $0 == .endTurn }
             Audio.play(sounds: sounds)
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
