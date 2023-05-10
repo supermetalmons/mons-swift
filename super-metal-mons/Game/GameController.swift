@@ -9,15 +9,6 @@ protocol GameView: AnyObject {
     var playerSideColor: Color { get } // TODO: this is tmp, move to controller
 }
 
-enum GameViewEffect {
-    
-}
-
-// TODO: talk to view in view terms
-// TODO: talk to game in game terms
-// TODO: make sounds
-// TODO: manage networking
-
 // TODO: refactor
 class GameController {
     
