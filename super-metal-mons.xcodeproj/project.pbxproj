@@ -16,6 +16,7 @@
 		2C266FD72A0B024E0016C1C5 /* victory.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD32A0B024E0016C1C5 /* victory.wav */; };
 		2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD42A0B024E0016C1C5 /* defeat.wav */; };
 		2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD52A0B024E0016C1C5 /* choosePickup.wav */; };
+		2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FDE2A0C26930016C1C5 /* Firebase.swift */; };
 		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
@@ -83,6 +84,7 @@
 		2C266FD32A0B024E0016C1C5 /* victory.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = victory.wav; sourceTree = "<group>"; };
 		2C266FD42A0B024E0016C1C5 /* defeat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defeat.wav; sourceTree = "<group>"; };
 		2C266FD52A0B024E0016C1C5 /* choosePickup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = choosePickup.wav; sourceTree = "<group>"; };
+		2C266FDE2A0C26930016C1C5 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -267,6 +269,8 @@
 			children = (
 				2CC39E8329CA48B200EDF779 /* GameViewController.swift */,
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
+				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
+				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C7E80C729FC3B3900114943 /* View Models */,
 				2CB6D3AC29F730A300605255 /* Game Models */,
@@ -278,7 +282,6 @@
 		2CC4FBE529F6C7B900A90CDD /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
 			);
 			path = Services;
@@ -442,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */,
 				2CB6D3AE29F730B200605255 /* Item.swift in Sources */,
 				2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */,
 				2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */,

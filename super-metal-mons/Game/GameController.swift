@@ -6,11 +6,14 @@ protocol GameView: AnyObject {
     func restartBoardForTest() // TODO: deprecate
     func updateGameInfo() // TODO: refactor
     func didWin(color: Color) // TODO: refactor
-    var playerSideColor: Color { get } // TODO: this is tmp, move to controller
 }
 
 // TODO: refactor
 class GameController {
+    
+    var playerSideColor = Color.white // TODO: get from network
+    var whiteEmoji = Images.randomEmoji // TODO: get from network
+    var blackEmoji = Images.randomEmoji // TODO: get from network
     
     // TODO: refactor, move somewhere
     enum AssistedInputKind {
@@ -189,7 +192,7 @@ class GameController {
                 case .nextTurn(_):
                     sounds.append(.endTurn)
                 case let .gameOver(winner):
-                    if winner == gameView.playerSideColor {
+                    if winner == playerSideColor {
                         sounds.append(.victory)
                     } else {
                         sounds.append(.defeat)

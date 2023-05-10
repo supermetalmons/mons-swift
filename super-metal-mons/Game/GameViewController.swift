@@ -12,10 +12,6 @@ class GameViewController: UIViewController, GameView {
     }
     
     private var controller: GameController!
-    var playerSideColor = Color.white // TODO: put it to controller
-    private var whiteEmoji = Images.randomEmoji // TODO: get from controller
-    private var blackEmoji = Images.randomEmoji
-
     private var isAnimatingAvatar = false
     
     @IBOutlet weak var boardView: BoardView!
@@ -137,11 +133,13 @@ class GameViewController: UIViewController, GameView {
         guard !isAnimatingAvatar else { return }
         Audio.play(.click)
         let newRandom = Images.randomEmoji
-        switch playerSideColor {
+        
+        // TODO: message avatar change
+        switch controller.playerSideColor {
         case .white:
-            whiteEmoji = newRandom
+            controller.whiteEmoji = newRandom
         case .black:
-            blackEmoji = newRandom
+            controller.blackEmoji = newRandom
         }
         playerImageView.image = newRandom
         animateAvatar(opponents: false)
@@ -174,8 +172,8 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func flipBoard() {
-        playerSideColor = playerSideColor.other
-        boardView.setPlayerSide(color: playerSideColor)
+        controller.playerSideColor = controller.playerSideColor.other // TODO: should only be possible with local pvp mode
+        boardView.setPlayerSide(color: controller.playerSideColor)
         updateGameInfo()
     }
     
@@ -219,18 +217,18 @@ class GameViewController: UIViewController, GameView {
         let boldFont = UIFont.systemFont(ofSize: 19, weight: .semibold)
         let lightFont = UIFont.systemFont(ofSize: 19, weight: .medium)
         
-        let myTurn = playerSideColor == controller.activeColor
+        let myTurn = controller.playerSideColor == controller.activeColor
         let myScore: Int
         let opponentScore: Int
-        switch playerSideColor {
+        switch controller.playerSideColor {
         case .white:
-            playerImageView.image = whiteEmoji
-            opponentImageView.image = blackEmoji
+            playerImageView.image = controller.whiteEmoji
+            opponentImageView.image = controller.blackEmoji
             myScore = controller.whiteScore
             opponentScore = controller.blackScore
         case .black:
-            playerImageView.image = blackEmoji
-            opponentImageView.image = whiteEmoji
+            playerImageView.image = controller.blackEmoji
+            opponentImageView.image = controller.whiteEmoji
             myScore = controller.blackScore
             opponentScore = controller.whiteScore
         }
