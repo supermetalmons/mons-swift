@@ -17,11 +17,11 @@
 		2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD42A0B024E0016C1C5 /* defeat.wav */; };
 		2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD52A0B024E0016C1C5 /* choosePickup.wav */; };
 		2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FDE2A0C26930016C1C5 /* Firebase.swift */; };
-		2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */; };
+		2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */; };
+		2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
-		2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B929F336260052F455 /* GameDataSource.swift */; };
 		2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */; };
 		2C7E80C429FC372C00114943 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C329FC372C00114943 /* Board.swift */; };
 		2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C929FC3BAA00114943 /* SquareColor.swift */; };
@@ -88,7 +88,6 @@
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
-		2C7AE8B929F336260052F455 /* GameDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataSource.swift; sourceTree = "<group>"; };
 		2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithExtendedArea.swift; sourceTree = "<group>"; };
 		2C7E80C329FC372C00114943 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		2C7E80C929FC3BAA00114943 /* SquareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareColor.swift; sourceTree = "<group>"; };
@@ -149,7 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C53FC5629CCBCA400F49668 /* FirebaseDatabaseSwift in Frameworks */,
+				2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */,
+				2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +270,6 @@
 				2CC39E8329CA48B200EDF779 /* GameViewController.swift */,
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
-				2C7AE8B929F336260052F455 /* GameDataSource.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C7E80C729FC3B3900114943 /* View Models */,
 				2CB6D3AC29F730A300605255 /* Game Models */,
@@ -366,7 +365,8 @@
 			);
 			name = "super-metal-mons";
 			packageProductDependencies = (
-				2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */,
+				2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */,
+				2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */,
 			);
 			productName = "super-metal-mons";
 			productReference = 2CC39E7C29CA48B200EDF779 /* mons.app */;
@@ -397,7 +397,7 @@
 			);
 			mainGroup = 2CC39E7329CA48B200EDF779;
 			packageReferences = (
-				2C53FC5429CCBCA400F49668 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 2CC39E7D29CA48B200EDF779 /* Products */;
 			projectDirPath = "";
@@ -464,7 +464,6 @@
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */,
-				2C7AE8BA29F336260052F455 /* GameDataSource.swift in Sources */,
 				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* GameViewController.swift in Sources */,
@@ -726,20 +725,25 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C53FC5429CCBCA400F49668 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2C53FC5529CCBCA400F49668 /* FirebaseDatabaseSwift */ = {
+		2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C53FC5429CCBCA400F49668 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

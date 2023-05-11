@@ -16,6 +16,11 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var boardView: BoardView!
     
+    @IBOutlet weak var shareLinkButton: UIButton!
+    @IBOutlet weak var inviteLinkLabel: UILabel!
+    @IBOutlet weak var pickupSelectionOverlay: UIView!
+    @IBOutlet weak var hostWaitingOverlay: UIView!
+    
     @IBOutlet weak var boardOverlayView: UIVisualEffectView!
     @IBOutlet weak var bombButton: UIButton!
     @IBOutlet weak var potionButton: UIButton!
@@ -55,6 +60,10 @@ class GameViewController: UIViewController, GameView {
         updateGameInfo()
         
         controller.setGameView(self)
+        
+        // TODO: temporary
+        boardOverlayView.isHidden = false
+        hostWaitingOverlay.isHidden = false
     }
     
     // MARK: - setup
@@ -112,6 +121,18 @@ class GameViewController: UIViewController, GameView {
                 self?.isAnimatingAvatar = false
             }
         }
+    }
+    
+    @IBAction func shareLinkButtonTapped(_ sender: Any) {
+        // TODO: setup with link
+        let shareViewController = UIActivityViewController(activityItems: ["hehe"], applicationActivities: nil)
+        shareViewController.popoverPresentationController?.sourceView = shareLinkButton
+        shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
+        present(shareViewController, animated: true)
+    }
+    
+    @IBAction func copyLinkButtonTapped(_ sender: Any) {
+        // TODO: copy link, show some kind of response that is was actually copied
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {
