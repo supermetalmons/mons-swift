@@ -64,18 +64,22 @@ class GameViewController: UIViewController, GameView {
         #endif
         
         updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
+        moreButton.isHidden = controller.mode.isOnline
+        playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
         setupBoard()
-        updateGameInfo()
         
         controller.setGameView(self)
         
         switch controller.mode {
         case .createInvite:
+            setGameInfoHidden(true)
             showOverlay(.hostWaiting)
         case .joinGameId:
+            setGameInfoHidden(true)
             showOverlay(.guestWaiting)
         case .localGame:
-            break
+            reloadItems()
+            updateGameInfo()
         }
     }
     
@@ -95,7 +99,6 @@ class GameViewController: UIViewController, GameView {
                 squares[location] = square
             }
         }
-        reloadItems()
     }
     
     // MARK: - actions
@@ -197,16 +200,7 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
         Audio.play(.click)
-        let newRandom = Images.randomEmoji
-        
-        // TODO: message avatar change
-        switch controller.playerSideColor {
-        case .white:
-            controller.whiteEmoji = newRandom
-        case .black:
-            controller.blackEmoji = newRandom
-        }
-        playerImageView.image = newRandom
+        playerImageView.image = controller.useDifferentEmoji()
         animateAvatar(opponents: false)
     }
     
@@ -227,7 +221,9 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func moreButtonTapped(_ sender: Any) {
-        flipBoard()
+        guard case .localGame = controller.mode else { return } // TODO: should not be possible when playing vs computer
+        controller.playerSideColor = controller.playerSideColor.other
+        setPlayerSide(color: controller.playerSideColor)
     }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
@@ -236,8 +232,7 @@ class GameViewController: UIViewController, GameView {
         updateSoundButton(isSoundEnabled: wasDisabled)
     }
     
-    private func flipBoard() {
-        controller.playerSideColor = controller.playerSideColor.other // TODO: should only be possible with local pvp mode
+    private func setPlayerSide(color: Color) {
         boardView.setPlayerSide(color: controller.playerSideColor)
         updateGameInfo()
     }
@@ -288,13 +283,13 @@ class GameViewController: UIViewController, GameView {
         let opponentScore: Int
         switch controller.playerSideColor {
         case .white:
-            playerImageView.image = controller.whiteEmoji
-            opponentImageView.image = controller.blackEmoji
+            playerImageView.image = Images.emoji(controller.whiteEmojiId)
+            opponentImageView.image = Images.emoji(controller.blackEmojiId)
             myScore = controller.whiteScore
             opponentScore = controller.blackScore
         case .black:
-            playerImageView.image = controller.blackEmoji
-            opponentImageView.image = controller.whiteEmoji
+            playerImageView.image = Images.emoji(controller.blackEmojiId)
+            opponentImageView.image = Images.emoji(controller.whiteEmojiId)
             myScore = controller.blackScore
             opponentScore = controller.whiteScore
         }
@@ -309,11 +304,29 @@ class GameViewController: UIViewController, GameView {
         playerScoreLabel.text = String(myScore)
     }
     
+    func setGameInfoHidden(_ hidden: Bool) {
+        opponentImageView.isHidden = hidden
+        playerScoreLabel.isHidden = hidden
+        opponentScoreLabel.isHidden = hidden
+        playerMovesStackView.isHidden = hidden
+        opponentMovesStackView.isHidden = hidden
+    }
+    
+    func updateOpponentEmoji() {
+        switch controller.playerSideColor {
+        case .white:
+            opponentImageView.image = Images.emoji(controller.blackEmojiId)
+        case .black:
+            opponentImageView.image = Images.emoji(controller.whiteEmojiId)
+        }
+    }
+    
     func didConnect() {
+        reloadItems()
+        setGameInfoHidden(false)
+        setPlayerSide(color: controller.playerSideColor)
         showOverlay(.none)
-        // TODO: flip board correctly
-        // TODO: setup avatars
-        // TODO: disable moving opponent's pieces
+        updateOpponentEmoji()
     }
     
     func didWin(color: Color) {
