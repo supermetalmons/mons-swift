@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
+		2C0255252A0EA1E600CB1808 /* GameInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255242A0EA1E600CB1808 /* GameInvite.swift */; };
+		2C0255272A0EA1EF00CB1808 /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */; };
+		2C0255292A0EA27700CB1808 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255282A0EA27700CB1808 /* Codable.swift */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
@@ -77,6 +80,9 @@
 
 /* Begin PBXFileReference section */
 		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
+		2C0255242A0EA1E600CB1808 /* GameInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInvite.swift; sourceTree = "<group>"; };
+		2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMatch.swift; sourceTree = "<group>"; };
+		2C0255282A0EA27700CB1808 /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
@@ -158,6 +164,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0255232A0EA1CB00CB1808 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C0255242A0EA1E600CB1808 /* GameInvite.swift */,
+				2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2C7E80C729FC3B3900114943 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +265,7 @@
 			children = (
 				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
+				2C0255282A0EA27700CB1808 /* Codable.swift */,
 				2CFC6E4E29F9BE6100EF34FA /* UIView.swift */,
 				2CC4FBDF29F6C69200A90CDD /* String.swift */,
 				2CC4FBE129F6C69900A90CDD /* URL.swift */,
@@ -274,6 +290,7 @@
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C0255232A0EA1CB00CB1808 /* Models */,
 				2C7E80C729FC3B3900114943 /* View Models */,
 				2CB6D3AC29F730A300605255 /* Game Models */,
 				2C7E80C829FC3B7900114943 /* Shared Models */,
@@ -454,9 +471,12 @@
 				2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */,
 				2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */,
 				2CC4FBE029F6C69200A90CDD /* String.swift in Sources */,
+				2C0255272A0EA1EF00CB1808 /* PlayerMatch.swift in Sources */,
+				2C0255292A0EA27700CB1808 /* Codable.swift in Sources */,
 				2CB6D3B029F730E500605255 /* Color.swift in Sources */,
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */,
+				2C0255252A0EA1E600CB1808 /* GameInvite.swift in Sources */,
 				2C7E80CC29FC3F3900114943 /* Square.swift in Sources */,
 				2CB6D3B429F7310800605255 /* Mana.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
