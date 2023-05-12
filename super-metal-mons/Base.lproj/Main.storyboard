@@ -69,14 +69,14 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cal-Iq-5y1">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mons.link/78HJKfebj3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdX-Dg-5cJ">
-                                                    <rect key="frame" x="113" y="186.33333333333331" width="167" height="20.333333333333343"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="mons.link/78HJKfebj3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdX-Dg-5cJ">
+                                                    <rect key="frame" x="113" y="276.66666666666663" width="167" height="20.333333333333314"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-wm-gH6">
-                                                    <rect key="frame" x="124.66666666666669" y="236.66666666666669" width="144" height="64"/>
+                                                    <rect key="frame" x="124.66666666666669" y="313" width="144" height="64"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP4-th-Eg1">
                                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -102,13 +102,27 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mon-1" translatesAutoresizingMaskIntoConstraints="NO" id="ICp-7R-3J3">
+                                                    <rect key="frame" x="0.0" y="373" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="Eld-X0-Frb"/>
+                                                        <constraint firstAttribute="height" constant="20" id="xKn-NF-e2W"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="30" id="1QF-9Q-b3T"/>
+                                                <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="16" id="1QF-9Q-b3T"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ywo-wm-gH6" secondAttribute="bottom" constant="16" id="WZG-hs-k1P"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
-                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" id="o4m-VN-HOO"/>
+                                                <constraint firstAttribute="bottom" secondItem="ICp-7R-3J3" secondAttribute="bottom" id="gdu-i7-U6q"/>
+                                                <constraint firstItem="ICp-7R-3J3" firstAttribute="leading" secondItem="cal-Iq-5y1" secondAttribute="leading" id="hEs-Ig-7W1"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -393,6 +407,7 @@
                         <outlet property="bombButton" destination="E3G-UU-XeJ" id="8pf-xt-1ep"/>
                         <outlet property="hostWaitingOverlay" destination="cal-Iq-5y1" id="iAH-Ng-hMq"/>
                         <outlet property="inviteLinkLabel" destination="MdX-Dg-5cJ" id="qsm-ba-z2d"/>
+                        <outlet property="monEducationImageView" destination="ICp-7R-3J3" id="Lgu-Ri-Bml"/>
                         <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
@@ -509,6 +524,7 @@
         <image name="emoji-53" width="420" height="420"/>
         <image name="escape" catalog="system" width="128" height="123"/>
         <image name="logo" width="1310" height="817"/>
+        <image name="mon-1" width="1024" height="1024"/>
         <image name="move-action" width="32" height="32"/>
         <image name="move-manaMove" width="32" height="32"/>
         <image name="move-monMove" width="32" height="32"/>

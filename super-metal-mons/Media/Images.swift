@@ -29,6 +29,11 @@ struct Images {
         }
     }
     
+    static var randomMon: UIImage {
+        let index = Int.random(in: 1...61)
+        return named("mon-\(index)")
+    }
+    
     static var randomEmoji: UIImage {
         let index = Int.random(in: 1...156)
         return emoji(index)

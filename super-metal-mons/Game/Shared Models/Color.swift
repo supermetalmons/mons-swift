@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Color {
+enum Color: String, Codable {
     case white, black
     
     var other: Color {

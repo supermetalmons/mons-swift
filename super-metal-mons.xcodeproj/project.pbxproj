@@ -19,6 +19,7 @@
 		2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FDE2A0C26930016C1C5 /* Firebase.swift */; };
 		2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */; };
 		2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */; };
+		2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -85,6 +86,7 @@
 		2C266FD42A0B024E0016C1C5 /* defeat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defeat.wav; sourceTree = "<group>"; };
 		2C266FD52A0B024E0016C1C5 /* choosePickup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = choosePickup.wav; sourceTree = "<group>"; };
 		2C266FDE2A0C26930016C1C5 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mons.xcassets; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				2C09E3D929F6D2550082B774 /* Game.xcassets */,
 				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
 				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
+				2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */,
 				2CC39E8829CA48B300EDF779 /* App.xcassets */,
 			);
 			path = Media;
@@ -426,6 +429,7 @@
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
 				2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */,
 				2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */,
+				2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */,
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
 				2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */,
 				2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */,

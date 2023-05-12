@@ -5,6 +5,10 @@ import UIKit
 // TODO: move protocol implementation to the extension
 class GameViewController: UIViewController, GameView {
     
+    enum Overlay {
+        case none, pickupSelection, hostWaiting
+    }
+    
     static func with(gameController: GameController) -> GameViewController {
         let new = instantiate(GameViewController.self)
         new.controller = gameController
@@ -13,9 +17,11 @@ class GameViewController: UIViewController, GameView {
     
     private var controller: GameController!
     private var isAnimatingAvatar = false
+    private var currentOverlay = Overlay.none
     
     @IBOutlet weak var boardView: BoardView!
     
+    @IBOutlet weak var monEducationImageView: UIImageView!
     @IBOutlet weak var shareLinkButton: UIButton!
     @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!
@@ -61,9 +67,7 @@ class GameViewController: UIViewController, GameView {
         
         controller.setGameView(self)
         
-        // TODO: temporary
-        boardOverlayView.isHidden = false
-        hostWaitingOverlay.isHidden = false
+        showOverlay(.hostWaiting) // TODO: tmp for test, show only when necessary
     }
     
     // MARK: - setup
@@ -86,6 +90,22 @@ class GameViewController: UIViewController, GameView {
     }
     
     // MARK: - actions
+    
+    private func showOverlay(_ overlay: Overlay) {
+        self.currentOverlay = overlay
+        switch overlay {
+        case .none:
+            boardOverlayView.isHidden = true
+        case .pickupSelection:
+            boardOverlayView.isHidden = false
+            pickupSelectionOverlay.isHidden = false
+            hostWaitingOverlay.isHidden = true
+        case .hostWaiting:
+            boardOverlayView.isHidden = false
+            pickupSelectionOverlay.isHidden = true
+            hostWaitingOverlay.isHidden = false
+        }
+    }
     
     @objc private func didTapSquare(sender: UITapGestureRecognizer) {
         guard let squareView = sender.view as? BoardSquareView else { return }
@@ -133,21 +153,27 @@ class GameViewController: UIViewController, GameView {
     
     @IBAction func copyLinkButtonTapped(_ sender: Any) {
         // TODO: copy link, show some kind of response that is was actually copied
+        showOverlay(.none) // TODO: this is temporary
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {
         processInput(.modifier(.selectBomb))
-        boardOverlayView.isHidden = true
+        showOverlay(.none)
     }
     
     @IBAction func potionButtonTapped(_ sender: Any) {
         processInput(.modifier(.selectPotion))
-        boardOverlayView.isHidden = true
+        showOverlay(.none)
     }
     
     @IBAction func boardOverlayTapped(_ sender: Any) {
-        processInput(.modifier(.cancel))
-        boardOverlayView.isHidden = true
+        switch currentOverlay {
+        case .pickupSelection:
+            processInput(.modifier(.cancel))
+            showOverlay(.none)
+        case .none, .hostWaiting:
+            break
+        }
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
@@ -472,7 +498,7 @@ class GameViewController: UIViewController, GameView {
                     didWin(color: winner)
                 }
             case .selectBombOrPotion:
-                boardOverlayView.isHidden = false
+                showOverlay(.pickupSelection)
                 Audio.play(.choosePickup)
             }
         }
