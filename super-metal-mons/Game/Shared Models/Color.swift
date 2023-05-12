@@ -16,7 +16,7 @@ enum Color: String, Codable, CaseIterable {
     }
     
     static var random: Color {
-        return allCases.randomElement()!
+        return allCases.randomElement() ?? .white
     }
     
 }
