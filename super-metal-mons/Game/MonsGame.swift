@@ -58,11 +58,11 @@ extension MonsGame {
 
 extension MonsGame {
     
-    enum Modifier {
+    enum Modifier: String, Codable {
         case selectPotion, selectBomb, cancel
     }
     
-    enum Input: Equatable {
+    enum Input: Equatable, Codable {
         case location(Location)
         case modifier(Modifier)
     }

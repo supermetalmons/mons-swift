@@ -8,9 +8,10 @@ struct PlayerMatch: Codable {
         case waiting, playing, surrendered, victory, defeat
     }
     
-    let emojiId: Int
-    let fen: String
-    let moves: [String]?
-    let status: Status
+    let color: Color
+    var emojiId: Int
+    var fen: String
+    var moves: [[MonsGame.Input]]?
+    var status: Status
     
 }
