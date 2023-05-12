@@ -76,7 +76,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-wm-gH6">
-                                                    <rect key="frame" x="124.66666666666669" y="222.66666666666669" width="144" height="64"/>
+                                                    <rect key="frame" x="124.66666666666669" y="230.66666666666669" width="144" height="64"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP4-th-Eg1">
                                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -120,7 +120,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="16" id="1QF-9Q-b3T"/>
+                                                <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="24" id="1QF-9Q-b3T"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="top" secondItem="Ka8-uC-9Ma" secondAttribute="bottom" constant="30" id="3K9-Bg-7Ya"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
