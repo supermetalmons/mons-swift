@@ -8,7 +8,7 @@ struct PlayerMatch: Codable {
         case waiting, playing, surrendered, victory, defeat
     }
     
-    let avatarEmojiId: String
+    let emojiId: Int
     let fen: String
     let moves: [String]?
     let status: Status
