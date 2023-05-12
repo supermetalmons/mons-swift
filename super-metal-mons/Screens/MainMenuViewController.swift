@@ -34,36 +34,26 @@ class MainMenuViewController: UIViewController {
     
     private func connectToURL(_ url: URL) {
         if let id = url.gameId {
-            let controller = GameController(gameId: id)
+            let controller = GameController(mode: .joinGameId(id))
             presentGameViewController(gameController: controller)
         } else {
             // TODO: communicate failed connection
         }
     }
     
-    @discardableResult private func presentGameViewController(gameController: GameController) -> UIViewController {
+    private func presentGameViewController(gameController: GameController) {
         let gameViewController = GameViewController.with(gameController: gameController)
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
-        return gameViewController
     }
     
-    @IBAction func playButtonTapped(_ sender: Any) {
-        let id = String.newGameId
-        let controller = GameController(gameId: id)
-        let gameViewController = presentGameViewController(gameController: controller)
-        
-        let link = URL.forGame(id: id)
-        let alert = UIAlertController(title: Strings.inviteWith, message: link, preferredStyle: .alert)
-        let copyAction = UIAlertAction(title: Strings.copy, style: .default) { _ in
-            UIPasteboard.general.string = link
-        }
-        alert.addAction(copyAction)
-        gameViewController.present(alert, animated: true)
+    @IBAction func newGameLinkButtonTapped(_ sender: Any) {
+        let controller = GameController(mode: .createInvite)
+        presentGameViewController(gameController: controller)
     }
     
     @IBAction func localGameButtonTapped(_ sender: Any) {
-        let controller = GameController()
+        let controller = GameController(mode: .localGame)
         presentGameViewController(gameController: controller)
     }
     
