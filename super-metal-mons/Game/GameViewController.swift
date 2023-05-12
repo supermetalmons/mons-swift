@@ -6,7 +6,7 @@ import UIKit
 class GameViewController: UIViewController, GameView {
     
     enum Overlay {
-        case none, pickupSelection, hostWaiting
+        case none, pickupSelection, hostWaiting, guestWaiting
     }
     
     static func with(gameController: GameController) -> GameViewController {
@@ -26,6 +26,8 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!
     @IBOutlet weak var hostWaitingOverlay: UIView!
+    @IBOutlet weak var joinActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var linkButtonsStackView: UIStackView!
     
     @IBOutlet weak var boardOverlayView: UIVisualEffectView!
     @IBOutlet weak var bombButton: UIButton!
@@ -67,7 +69,14 @@ class GameViewController: UIViewController, GameView {
         
         controller.setGameView(self)
         
-        showOverlay(.hostWaiting) // TODO: tmp for test, show only when necessary
+        switch controller.mode {
+        case .createInvite:
+            showOverlay(.hostWaiting)
+        case .joinGameId:
+            showOverlay(.guestWaiting)
+        case .localGame:
+            break
+        }
     }
     
     // MARK: - setup
@@ -104,6 +113,17 @@ class GameViewController: UIViewController, GameView {
             boardOverlayView.isHidden = false
             pickupSelectionOverlay.isHidden = true
             hostWaitingOverlay.isHidden = false
+            joinActivityIndicator.isHidden = true
+            linkButtonsStackView.isHidden = false
+            inviteLinkLabel.text = controller.inviteLink
+        case .guestWaiting:
+            boardOverlayView.isHidden = false
+            pickupSelectionOverlay.isHidden = true
+            hostWaitingOverlay.isHidden = false
+            joinActivityIndicator.isHidden = false
+            joinActivityIndicator.startAnimating()
+            linkButtonsStackView.isHidden = true
+            inviteLinkLabel.text = controller.inviteLink
         }
     }
     
@@ -144,16 +164,14 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func shareLinkButtonTapped(_ sender: Any) {
-        // TODO: setup with link
-        let shareViewController = UIActivityViewController(activityItems: ["hehe"], applicationActivities: nil)
+        let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink], applicationActivities: nil)
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
         shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
         present(shareViewController, animated: true)
     }
     
     @IBAction func copyLinkButtonTapped(_ sender: Any) {
-        // TODO: copy link, show some kind of response that is was actually copied
-        showOverlay(.none) // TODO: this is temporary
+        UIPasteboard.general.string = controller.inviteLink
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {
@@ -171,7 +189,7 @@ class GameViewController: UIViewController, GameView {
         case .pickupSelection:
             processInput(.modifier(.cancel))
             showOverlay(.none)
-        case .none, .hostWaiting:
+        case .none, .hostWaiting, .guestWaiting:
             break
         }
     }
@@ -225,12 +243,13 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func endGame(openMenu: Bool) {
+        // TODO: reimplement, this is old stub version
+        
         controller.endGame()
         if openMenu {
             dismiss(animated: false)
         } else {
             updateGameInfo()
-            restartBoardForTest()
         }
     }
     
@@ -290,6 +309,13 @@ class GameViewController: UIViewController, GameView {
         playerScoreLabel.text = String(myScore)
     }
     
+    func didConnect() {
+        showOverlay(.none)
+        // TODO: flip board correctly
+        // TODO: setup avatars
+        // TODO: disable moving opponent's pieces
+    }
+    
     func didWin(color: Color) {
         let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
@@ -299,14 +325,6 @@ class GameViewController: UIViewController, GameView {
         }
         alert.addAction(okAction)
         present(alert, animated: true)
-    }
-    
-    // TODO: remove this one, this is for development only
-    // TODO: separate board setup from items reloading
-    func restartBoardForTest() {
-        monsOnBoard.forEach { $0.value.removeFromSuperview() }
-        monsOnBoard.removeAll()
-        reloadItems()
     }
     
     private func reloadItems() {

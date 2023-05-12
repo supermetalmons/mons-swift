@@ -70,13 +70,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="mons.link/78HJKfebj3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdX-Dg-5cJ">
-                                                    <rect key="frame" x="113" y="276.66666666666663" width="167" height="20.333333333333314"/>
+                                                    <rect key="frame" x="113" y="186.33333333333331" width="167" height="20.333333333333343"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-wm-gH6">
-                                                    <rect key="frame" x="124.66666666666669" y="313" width="144" height="64"/>
+                                                    <rect key="frame" x="124.66666666666669" y="222.66666666666669" width="144" height="64"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP4-th-Eg1">
                                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -114,15 +114,20 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ka8-uC-9Ma">
+                                                    <rect key="frame" x="186.66666666666666" y="136.33333333333331" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="16" id="1QF-9Q-b3T"/>
+                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="top" secondItem="Ka8-uC-9Ma" secondAttribute="bottom" constant="30" id="3K9-Bg-7Ya"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ywo-wm-gH6" secondAttribute="bottom" constant="16" id="WZG-hs-k1P"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
+                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" id="ftS-nx-Zz4"/>
                                                 <constraint firstAttribute="bottom" secondItem="ICp-7R-3J3" secondAttribute="bottom" id="gdu-i7-U6q"/>
                                                 <constraint firstItem="ICp-7R-3J3" firstAttribute="leading" secondItem="cal-Iq-5y1" secondAttribute="leading" id="hEs-Ig-7W1"/>
+                                                <constraint firstItem="Ka8-uC-9Ma" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="mVe-99-mIR"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -407,6 +412,8 @@
                         <outlet property="bombButton" destination="E3G-UU-XeJ" id="8pf-xt-1ep"/>
                         <outlet property="hostWaitingOverlay" destination="cal-Iq-5y1" id="iAH-Ng-hMq"/>
                         <outlet property="inviteLinkLabel" destination="MdX-Dg-5cJ" id="qsm-ba-z2d"/>
+                        <outlet property="joinActivityIndicator" destination="Ka8-uC-9Ma" id="q6K-CI-iLV"/>
+                        <outlet property="linkButtonsStackView" destination="Ywo-wm-gH6" id="soY-uj-Of0"/>
                         <outlet property="monEducationImageView" destination="ICp-7R-3J3" id="Lgu-Ri-Bml"/>
                         <outlet property="moreButton" destination="76Q-K9-7MO" id="KP2-JA-MBL"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
@@ -454,7 +461,7 @@
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="playButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="gvt-hM-aVK"/>
+                                            <action selector="newGameLinkButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="5V3-sr-R1z"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6x-q3-LdO">
