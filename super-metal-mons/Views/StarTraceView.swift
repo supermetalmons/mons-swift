@@ -4,12 +4,10 @@ import UIKit
 
 class StarTraceView: UIView {
 
-    // Make the layer for this view a CAEmitterLayer instance
     override class var layerClass: AnyClass {
         return CAEmitterLayer.self
     }
 
-    // Configure the UIView instance
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupEmitter()
@@ -23,12 +21,10 @@ class StarTraceView: UIView {
     private func setupEmitter() {
         let emitter = self.layer as! CAEmitterLayer
 
-        // Configure emitter
         emitter.emitterShape = .line
         emitter.emitterPosition = CGPoint(x: frame.size.width / 2.0, y: 0)
         emitter.emitterSize = CGSize(width: frame.size.width, height: 1)
 
-        // Create a CAEmitterCell
         let star = CAEmitterCell()
 
         star.contents = generateParticleImage()
@@ -40,8 +36,7 @@ class StarTraceView: UIView {
         star.yAcceleration = 70.0
         star.scale = 0.02
         star.scaleRange = 0.5
-
-        // Adding star to the emitter
+        
         emitter.emitterCells = [star]
     }
 
@@ -59,5 +54,5 @@ class StarTraceView: UIView {
 
         return image!.cgImage!
     }
+    
 }
-

@@ -134,6 +134,7 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                     mightKeepHighlightOnLocation = to
+                    viewEffects.append(.trace(from: from, to: to))
                 case .manaMove(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)

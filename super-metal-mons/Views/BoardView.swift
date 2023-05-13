@@ -24,6 +24,11 @@ class BoardView: UIView {
         }
     }
     
+    func showTrace(from: Location, to: Location) {
+        // TODO: implement
+        // TODO: update traces correctly when board is resized or flipped
+    }
+    
     func addArrangedSubview(_ view: UIView) {
         addSubview(view)
         subviewsArray.append(view)

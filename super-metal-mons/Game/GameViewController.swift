@@ -530,6 +530,8 @@ class GameViewController: UIViewController, GameView {
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
                 Audio.play(.choosePickup)
+            case .trace(from: let from, to: let to):
+                boardView.showTrace(from: from, to: to)
             }
         }
         

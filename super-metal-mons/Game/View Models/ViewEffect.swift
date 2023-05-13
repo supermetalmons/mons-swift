@@ -8,4 +8,5 @@ enum ViewEffect {
     case updateGameStatus
     case selectBombOrPotion
     case highlight(Highlight)
+    case trace(from: Location, to: Location)
 }
