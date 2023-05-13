@@ -212,7 +212,7 @@ class GameViewController: UIViewController, GameView {
     @IBAction func escapeButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
-            self?.endGame(openMenu: true)
+            self?.endGame()
         }
         let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
         alert.addAction(okAction)
@@ -237,18 +237,21 @@ class GameViewController: UIViewController, GameView {
         updateGameInfo()
     }
     
-    private func endGame(openMenu: Bool) {
-        // TODO: reimplement, this is old stub version
-        
+    private func endGame() {
         controller.endGame()
-        if openMenu {
-            dismiss(animated: false)
-        } else {
-            updateGameInfo()
-        }
+        dismiss(animated: false)
     }
     
     // MARK: - updates
+    
+    func showMessageAndDismiss(message: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
+            self?.dismiss(animated: false)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
     
     private func updateSoundButton(isSoundEnabled: Bool) {
         soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
@@ -332,9 +335,7 @@ class GameViewController: UIViewController, GameView {
     func didWin(color: Color) {
         let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
-            // TODO: do not restart the game if the opponent has done so already
-            // or i guess in these case there should be a new game id exchage
-            self?.endGame(openMenu: true)
+            self?.endGame()
         }
         alert.addAction(okAction)
         present(alert, animated: true)
@@ -469,7 +470,7 @@ class GameViewController: UIViewController, GameView {
         previouslySetImageView?.removeFromSuperview()
     }
     
-    private func applyEffects(_ effects: [ViewEffect]) {
+    func applyEffects(_ effects: [ViewEffect]) {
         for effectView in effectsViews {
             effectView.removeFromSuperview()
         }
@@ -523,8 +524,6 @@ class GameViewController: UIViewController, GameView {
                 }
             case .updateGameStatus:
                 updateGameInfo()
-                controller.shareGameState()
-                
                 if let winner = controller.winnerColor {
                     didWin(color: winner)
                 }
