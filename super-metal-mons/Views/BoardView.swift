@@ -68,8 +68,7 @@ class BoardView: UIView {
     
     private func fadeLine(id: UUID) {
         guard let gradientLayer = gradientLayers[id] else { return }
-        // TODO: could we pls avoid strings
-        let animation = CABasicAnimation(keyPath: "opacity")
+        let animation = CABasicAnimation(keyPath: AnimationKey.opacity)
         animation.fromValue = 1
         animation.toValue = 0
         animation.duration = 2
@@ -118,7 +117,7 @@ class BoardView: UIView {
 extension BoardView: CAAnimationDelegate {
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if let id = gradientLayers.first(where: { $0.value.animation(forKey: "opacity") == anim })?.key {
+        if let id = gradientLayers.first(where: { $0.value.animation(forKey: AnimationKey.opacity) == anim })?.key {
             gradientLayers[id]?.removeFromSuperlayer()
             gradientLayers.removeValue(forKey: id)
         }

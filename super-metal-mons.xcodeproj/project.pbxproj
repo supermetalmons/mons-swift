@@ -26,6 +26,7 @@
 		2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */; };
 		2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
 		2C27AFD52A0FC5C2003C959D /* StarTraceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD42A0FC5C2003C959D /* StarTraceView.swift */; };
+		2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD62A113DE8003C959D /* AnimationKey.swift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -99,6 +100,7 @@
 		2C266FDE2A0C26930016C1C5 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mons.xcassets; sourceTree = "<group>"; };
 		2C27AFD42A0FC5C2003C959D /* StarTraceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarTraceView.swift; sourceTree = "<group>"; };
+		2C27AFD62A113DE8003C959D /* AnimationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationKey.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
+				2C27AFD62A113DE8003C959D /* AnimationKey.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
 				2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
+				2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */,
 				2C53FC5C29CD280300F49668 /* Audio.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
