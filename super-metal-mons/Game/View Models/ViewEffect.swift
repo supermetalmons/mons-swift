@@ -2,11 +2,10 @@
 
 import Foundation
 
-// TODO: refactor? see usages
 enum ViewEffect {
-    case updateCell(Location)
     case updateGameStatus
     case selectBombOrPotion
-    case highlight(Highlight)
-    case trace(from: Location, to: Location)
+    case updateCells([Location])
+    case addHighlights([Highlight])
+    case showTraces([Trace])
 }
