@@ -2,8 +2,6 @@
 
 import UIKit
 
-// TODO: make it contain mon and effect view as well?
-// both mon and tile and effects
 class BoardSquareView: UIView {
     
     let location: Location
