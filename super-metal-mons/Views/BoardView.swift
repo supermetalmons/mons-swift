@@ -4,17 +4,19 @@ import UIKit
 
 class BoardView: UIView {
     
-    private var playerSideColor = Color.white
+    private let rows = Config.boardSize
     
+    private var playerSideColor = Color.white
+    private var gradientLayers: [UUID: CAGradientLayer] = [:]
+    private var lines: [UUID: Line] = [:]
     private var subviewsArray: [UIView] = []
     
-    private var isFlipped: Bool {
-        return playerSideColor != .white
-    }
+    private var isFlipped: Bool { return playerSideColor != .white }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layoutGrid()
+    // TODO: pass the whole board model instead
+    func addArrangedSubview(_ view: UIView) {
+        addSubview(view)
+        subviewsArray.append(view)
     }
     
     func setPlayerSide(color: Color) {
@@ -25,29 +27,109 @@ class BoardView: UIView {
     }
     
     func showTrace(from: Location, to: Location) {
-        // TODO: implement
-        // TODO: update traces correctly when board is resized or flipped
+        let half = CGFloat(1) / CGFloat(rows * 2)
+        let from = CGPoint(x: CGFloat(from.j) / CGFloat(rows) + half, y: CGFloat(from.i) / CGFloat(rows) + half)
+        let to = CGPoint(x: CGFloat(to.j) / CGFloat(rows) + half, y: CGFloat(to.i) / CGFloat(rows) + half)
+        drawTraceLine(from: to, to: from, color: .green, width: 10)
     }
     
-    func addArrangedSubview(_ view: UIView) {
-        addSubview(view)
-        subviewsArray.append(view)
+    // MARK: - Private
+    
+    private func drawTraceLine(from startPoint: CGPoint, to endPoint: CGPoint, color: UIColor, width: CGFloat) {
+        let line = Line(from: startPoint, to: endPoint, color: color, width: width, originalBounds: bounds)
+        let id = UUID()
+        lines[id] = line
+        createGradientLayer(for: line, id: id)
     }
-
-    private func layoutGrid() {
-        let rows = Config.boardSize
-        let columns = Config.boardSize
+    
+    private func createGradientLayer(for line: Line, id: UUID) {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
+        path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
         
-        let viewWidth = bounds.width / CGFloat(columns)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.lineWidth = line.width
+        shapeLayer.fillColor = nil
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.startPoint = line.from
+        gradientLayer.endPoint = line.to
+        gradientLayer.colors = [line.color.cgColor, UIColor.clear.cgColor]
+        gradientLayer.frame = bounds
+        gradientLayer.mask = shapeLayer
+        
+        layer.addSublayer(gradientLayer)
+        gradientLayers[id] = gradientLayer
+        
+        fadeLine(id: id)
+    }
+    
+    private func fadeLine(id: UUID) {
+        guard let gradientLayer = gradientLayers[id] else { return }
+        // TODO: could we pls avoid strings
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 1
+        animation.toValue = 0
+        animation.duration = 2
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        animation.delegate = self
+        gradientLayer.add(animation, forKey: nil)
+    }
+    
+    private func layoutGrid() {
+        let viewWidth = bounds.width / CGFloat(rows)
         let viewHeight = bounds.height / CGFloat(rows)
-
+        
         for (index, view) in subviewsArray.enumerated() {
-            let row = index / columns
-            let column = index % columns
-            let x = CGFloat(isFlipped ? columns - column - 1: column) * viewWidth
+            let row = index / rows
+            let column = index % rows
+            let x = CGFloat(isFlipped ? rows - column - 1: column) * viewWidth
             let y = CGFloat(isFlipped ? rows - row - 1: row) * viewHeight
             view.frame = CGRect(x: x, y: y, width: viewWidth, height: viewHeight)
         }
     }
     
+    // MARK: layout subviews
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutGrid()
+        
+        for (id, gradientLayer) in gradientLayers {
+            guard let line = lines[id] else { continue }
+            
+            gradientLayer.frame = bounds
+            
+            guard let shapeLayer = gradientLayer.mask as? CAShapeLayer else { continue }
+            
+            // TODO: might move path creation to the Line model
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
+            path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
+            shapeLayer.path = path.cgPath
+        }
+    }
+    
+}
+
+extension BoardView: CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if let id = gradientLayers.first(where: { $0.value.animation(forKey: "opacity") == anim })?.key {
+            gradientLayers[id]?.removeFromSuperlayer()
+            gradientLayers.removeValue(forKey: id)
+        }
+    }
+    
+}
+
+fileprivate struct Line {
+    let from: CGPoint
+    let to: CGPoint
+    let color: UIColor
+    let width: CGFloat
+    let originalBounds: CGRect
 }
