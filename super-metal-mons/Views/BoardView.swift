@@ -36,19 +36,15 @@ class BoardView: UIView {
     // MARK: - Private
     
     private func drawTraceLine(from startPoint: CGPoint, to endPoint: CGPoint, color: UIColor, width: CGFloat) {
-        let line = Line(from: startPoint, to: endPoint, color: color, width: width, originalBounds: bounds)
+        let line = Line(from: startPoint, to: endPoint, color: color, width: width)
         let id = UUID()
         lines[id] = line
         createGradientLayer(for: line, id: id)
     }
     
     private func createGradientLayer(for line: Line, id: UUID) {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
-        path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
-        
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
+        shapeLayer.path = drawPathForLine(line)
         shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.lineWidth = line.width
         shapeLayer.fillColor = nil
@@ -91,6 +87,13 @@ class BoardView: UIView {
         }
     }
     
+    private func drawPathForLine(_ line: Line) -> CGPath {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
+        path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
+        return path.cgPath
+    }
+    
     // MARK: layout subviews
     
     override func layoutSubviews() {
@@ -99,16 +102,9 @@ class BoardView: UIView {
         
         for (id, gradientLayer) in gradientLayers {
             guard let line = lines[id] else { continue }
-            
             gradientLayer.frame = bounds
-            
             guard let shapeLayer = gradientLayer.mask as? CAShapeLayer else { continue }
-            
-            // TODO: might move path creation to the Line model
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
-            path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
-            shapeLayer.path = path.cgPath
+            shapeLayer.path = drawPathForLine(line)
         }
     }
     
@@ -130,5 +126,4 @@ fileprivate struct Line {
     let to: CGPoint
     let color: UIColor
     let width: CGFloat
-    let originalBounds: CGRect
 }
