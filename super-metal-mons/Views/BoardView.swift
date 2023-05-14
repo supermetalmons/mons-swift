@@ -13,6 +13,10 @@ class BoardView: UIView {
     
     private var isFlipped: Bool { return playerSideColor != .white }
     
+    private var squareSize: CGFloat {
+        bounds.height / CGFloat(rows)
+    }
+    
     // TODO: pass the whole board model instead
     func addArrangedSubview(_ view: UIView) {
         addSubview(view)
@@ -30,13 +34,13 @@ class BoardView: UIView {
         let half = CGFloat(1) / CGFloat(rows * 2)
         let from = CGPoint(x: CGFloat(from.j) / CGFloat(rows) + half, y: CGFloat(from.i) / CGFloat(rows) + half)
         let to = CGPoint(x: CGFloat(to.j) / CGFloat(rows) + half, y: CGFloat(to.i) / CGFloat(rows) + half)
-        drawTraceLine(from: to, to: from, color: .green, width: 10)
+        drawTraceLine(from: to, to: from, color: .green, proportionalWidth: 0.2)
     }
     
     // MARK: - Private
     
-    private func drawTraceLine(from startPoint: CGPoint, to endPoint: CGPoint, color: UIColor, width: CGFloat) {
-        let line = Line(from: startPoint, to: endPoint, color: color, width: width)
+    private func drawTraceLine(from startPoint: CGPoint, to endPoint: CGPoint, color: UIColor, proportionalWidth: CGFloat) {
+        let line = Line(from: startPoint, to: endPoint, color: color, proportionalWidth: proportionalWidth)
         let id = UUID()
         lines[id] = line
         createGradientLayer(for: line, id: id)
@@ -46,7 +50,7 @@ class BoardView: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = drawPathForLine(line)
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = line.width
+        shapeLayer.lineWidth = squareSize * line.proportionalWidth
         shapeLayer.fillColor = nil
         
         let gradientLayer = CAGradientLayer()
@@ -104,6 +108,7 @@ class BoardView: UIView {
             guard let line = lines[id] else { continue }
             gradientLayer.frame = bounds
             guard let shapeLayer = gradientLayer.mask as? CAShapeLayer else { continue }
+            shapeLayer.lineWidth = squareSize * line.proportionalWidth
             shapeLayer.path = drawPathForLine(line)
         }
     }
@@ -125,5 +130,5 @@ fileprivate struct Line {
     let from: CGPoint
     let to: CGPoint
     let color: UIColor
-    let width: CGFloat
+    let proportionalWidth: CGFloat
 }
