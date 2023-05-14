@@ -99,11 +99,25 @@ class GameController {
     private var cachedOutput: MonsGame.Output?
     
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil) -> [ViewEffect] {
-        // TODO: act differently when i click spaces while opponent makes his turns
-        // TODO: should play sounds / moves when opponent moves, but should not show his highlights
-        
-        var viewEffects = [ViewEffect]() // TODO: tmp
+    private func processRemoteInputs(_ inputs: [MonsGame.Input]) {
+        self.inputs = inputs
+        self.inputs.removeLast()
+        let viewEffects = processInput(inputs.last, remoteInput: true)
+        gameView.applyEffects(viewEffects)
+    }
+    
+    // TODO: refactor
+    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteInput: Bool = false) -> [ViewEffect] {
+        switch mode {
+        case .localGame:
+            break
+        case .createInvite, .joinGameId:
+            guard remoteInput || activeColor == playerSideColor else { return [] }
+        }
+                
+        var viewEffects = [ViewEffect]()
+        var highlights = [Highlight]()
+        var traces = [Trace]()
         
         if let input = input {
             inputs.append(input)
@@ -118,6 +132,10 @@ class GameController {
         
         switch output {
         case let .events(events):
+            if !remoteInput {
+                connection?.makeMove(inputs: inputs, newFen: game.fen)
+            }
+            
             cachedOutput = nil
             inputs = []
             var locationsToUpdate = Set<Location>()
@@ -134,7 +152,7 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                     mightKeepHighlightOnLocation = to
-                    viewEffects.append(.trace(from: from, to: to))
+                    traces.append(Trace(from: from, to: to, kind: .monMove))
                 case .manaMove(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
@@ -212,7 +230,7 @@ class GameController {
                 }
             }
             
-            viewEffects.append(contentsOf: locationsToUpdate.map { ViewEffect.updateCell($0) })
+            viewEffects.append(ViewEffect.updateCells(Array(locationsToUpdate)))
             viewEffects.append(.updateGameStatus)
         case let .nextInputOptions(nextInputOptions):
             for (index, input) in inputs.enumerated() {
@@ -232,7 +250,7 @@ class GameController {
                         color = .selectedStartItem
                     }
                     
-                    viewEffects.append(.highlight(Highlight(location: location, kind: .selected, color: color, isBlink: false)))
+                    highlights.append(Highlight(location: location, kind: .selected, color: color, isBlink: false))
                 }
             }
             
@@ -268,7 +286,7 @@ class GameController {
                         highlightColor = .spiritTarget
                     }
                     
-                    viewEffects.append(.highlight(Highlight(location: location, kind: highlightKind, color: highlightColor, isBlink: false)))
+                    highlights.append(Highlight(location: location, kind: highlightKind, color: highlightColor, isBlink: false))
                 case .modifier:
                     break
                 }
@@ -292,8 +310,15 @@ class GameController {
         case let .locationsToStartFrom(locations):
             cachedOutput = output
             inputs = []
-            let effects = locations.map { return ViewEffect.highlight(Highlight(location: $0, kind: .targetSuggestion, color: .startFrom, isBlink: true)) }
-            viewEffects.append(contentsOf: effects)
+            highlights = locations.map { Highlight(location: $0, kind: .targetSuggestion, color: .startFrom, isBlink: true) }
+        }
+        
+        if !highlights.isEmpty {
+            viewEffects.append(.addHighlights(highlights))
+        }
+        
+        if !traces.isEmpty {
+            viewEffects.append(.showTraces(traces))
         }
         
         return viewEffects
