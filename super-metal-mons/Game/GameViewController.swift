@@ -49,11 +49,6 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
-    // TODO: keep view models as well — in order to check if an update is needed
-    private lazy var squares = [Location: BoardSquareView]()
-    private var effectsViews = [UIView]()
-    private lazy var monsOnBoard = [Location: UIView]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,7 +61,7 @@ class GameViewController: UIViewController, GameView {
         updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
         moreButton.isHidden = controller.mode.isOnline
         playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
-        setupBoard()
+        boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
         controller.setGameView(self)
         
@@ -78,26 +73,8 @@ class GameViewController: UIViewController, GameView {
             setGameInfoHidden(true)
             showOverlay(.guestWaiting)
         case .localGame:
-            reloadItems()
+            boardView.reloadItems()
             updateGameInfo()
-        }
-    }
-    
-    // MARK: - setup
-    
-    private func setupBoard() {
-        for i in 0..<11 { // TODO: DRY
-            for j in 0..<11 {
-                let location = Location(i, j)
-                let square = BoardSquareView(location: location)
-                square.backgroundColor = Colors.square(controller.board.square(at: location).color(location: location), style: controller.boardStyle)
-                
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                square.addGestureRecognizer(tapGestureRecognizer)
-                
-                boardView.addArrangedSubview(square)
-                squares[location] = square
-            }
         }
     }
     
@@ -128,11 +105,6 @@ class GameViewController: UIViewController, GameView {
             linkButtonsStackView.isHidden = true
             inviteLinkLabel.text = controller.inviteLink
         }
-    }
-    
-    @objc private func didTapSquare(sender: UITapGestureRecognizer) {
-        guard let squareView = sender.view as? BoardSquareView else { return }
-        processInput(.location(squareView.location))
     }
     
     private func processInput(_ input: MonsGame.Input) {
@@ -325,7 +297,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     func didConnect() {
-        reloadItems()
+        boardView.reloadItems()
         setGameInfoHidden(false)
         setPlayerSide(color: controller.playerSideColor)
         showOverlay(.none)
@@ -341,187 +313,11 @@ class GameViewController: UIViewController, GameView {
         present(alert, animated: true)
     }
     
-    private func reloadItems() {
-        for i in 0..<11 { // TODO: DRY
-            for j in 0..<11 {
-                let location = Location(i, j)
-                updateCell(location)
-            }
-        }
-    }
-    
-    // TODO: remake
-    private func updateCell(_ location: Location) {
-        let previouslySetImageView = monsOnBoard[location]
-        // TODO: refactor, make reloading cells strict and clear
-        // rn views are removed here and there. should be able to simply reload a cell
-        
-        let item = controller.board.item(at: location)
-        switch item {
-        case let .consumable(consumable):
-            guard let square = squares[location] else { break }
-            
-            let sparklingView = SparklingView(frame: square.bounds, style: controller.boardStyle)
-            square.addSubviewConstrainedToFrame(sparklingView)
-            
-            let imageView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
-            imageView.contentMode = .scaleAspectFit
-            sparklingView.addSubviewConstrainedToFrame(imageView)
-            
-            monsOnBoard[location] = sparklingView
-        case let .mon(mon: mon):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            if mon.isFainted {
-                imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-            }
-            
-            imageView.contentMode = .scaleAspectFit
-            
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            monsOnBoard[location] = imageView
-            
-        case let .monWithMana(mon: mon, mana: mana):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            imageView.contentMode = .scaleAspectFit
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            
-            let manaView = UIImageView(image: Images.mana(mana, picked: true, style: controller.boardStyle))
-            manaView.contentMode = .scaleAspectFit
-            
-            imageView.addSubview(manaView)
-            manaView.translatesAutoresizingMaskIntoConstraints = false
-            
-            switch mana {
-            case .regular:
-                NSLayoutConstraint.activate([
-                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.93),
-                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.93),
-                    NSLayoutConstraint(item: manaView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.61, constant: 0),
-                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.45, constant: 0)
-                ])
-            case .supermana:
-                NSLayoutConstraint.activate([
-                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.74),
-                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.74),
-                    manaView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 0.5, constant: 0)
-                ])
-            }
-            
-            
-            monsOnBoard[location] = imageView
-            
-        case let .mana(mana: mana):
-            switch mana {
-            case .regular:
-                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                squares[location]?.addSubviewConstrainedToFrame(imageView)
-                monsOnBoard[location] = imageView
-            case .supermana:
-                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                squares[location]?.addSubviewConstrainedToFrame(imageView)
-                monsOnBoard[location] = imageView
-            }
-        case .none:
-            // TODO: refactor
-            if case let .monBase(kind: kind, color: color) = controller.board.square(at: location), let square = squares[location] {
-                let imageView = UIImageView(image: Images.mon(Mon(kind: kind, color: color), style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                
-                squares[location]?.addSubview(imageView)
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.6),
-                    imageView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.6),
-                    imageView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-                    imageView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
-                ])
-                
-                imageView.alpha = 0.4
-                monsOnBoard[location] = imageView // TODO: do not add to mons on board, this is smth different
-            }
-            
-        case .monWithConsumable(mon: let mon, consumable: let consumable):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            imageView.contentMode = .scaleAspectFit
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            
-            let consumableView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
-            consumableView.contentMode = .scaleAspectFit
-            
-            imageView.addSubview(consumableView)
-            consumableView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                consumableView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.54),
-                consumableView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.54),
-                NSLayoutConstraint(item: consumableView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.60, constant: 0),
-                NSLayoutConstraint(item: consumableView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.50, constant: 0)
-            ])
-            
-            monsOnBoard[location] = imageView
-        }
-        
-        previouslySetImageView?.removeFromSuperview()
-    }
-    
     func applyEffects(_ effects: [ViewEffect]) {
-        for effectView in effectsViews {
-            effectView.removeFromSuperview()
-        }
-        effectsViews = []
+        boardView.removeHighlights()
         
-        var blinkingViews = [UIView]()
-        let style = controller.boardStyle
-        
-        // TODO: refactor
         for effect in effects {
             switch effect {
-            case .updateCell(let location):
-                monsOnBoard[location]?.removeFromSuperview()
-                monsOnBoard[location] = nil
-                updateCell(location)
-                
-            case let .highlight(highlight):
-                guard let square = squares[highlight.location] else { continue }
-                let color = highlight.color
-                switch highlight.kind {
-                case .selected:
-                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: true)
-                    square.addSubviewConstrainedToFrame(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                case .emptySquare:
-                    let effectView = CircleView()
-                    effectView.backgroundColor = Colors.highlight(color, style: style)
-                    effectView.translatesAutoresizingMaskIntoConstraints = false
-                    
-                    square.addSubview(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                    NSLayoutConstraint.activate([
-                        effectView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.3),
-                        effectView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.3),
-                        effectView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-                        effectView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
-                    ])
-                case .targetSuggestion:
-                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: false)
-                    square.addSubviewConstrainedToFrame(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                    if highlight.isBlink {
-                        blinkingViews.append(effectView)
-                    }
-                }
             case .updateGameStatus:
                 updateGameInfo()
                 if let winner = controller.winnerColor {
@@ -530,19 +326,22 @@ class GameViewController: UIViewController, GameView {
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
                 Audio.play(.choosePickup)
-            case .trace(from: let from, to: let to):
-                boardView.showTrace(from: from, to: to)
+            case let .updateCells(locations):
+                boardView.updateCells(locations)
+            case let .addHighlights(highlights):
+                boardView.addHighlights(highlights)
+            case let .showTraces(traces):
+                boardView.showTraces(traces)
             }
         }
-        
-        if !blinkingViews.isEmpty {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                for blinkingView in blinkingViews {
-                    blinkingView.removeFromSuperview()
-                }
-                blinkingViews = []
-            }
-        }
+    }
+    
+}
+
+extension GameViewController: BoardViewDelegate {
+    
+    func didTapSquare(location: Location) {
+        processInput(.location(location))
     }
     
 }
