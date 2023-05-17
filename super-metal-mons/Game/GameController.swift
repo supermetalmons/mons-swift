@@ -156,6 +156,7 @@ class GameController {
                 case .manaMove(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .manaMove))
                 case let .manaScored(mana, at, _):
                     switch mana {
                     case .regular:
@@ -169,17 +170,21 @@ class GameController {
                     sounds.append(.mysticAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .mysticAction))
                 case .demonAction(_, let from, let to):
                     sounds.append(.demonAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .demonAction))
                 case .demonAdditionalStep(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .demonAdditionalStep))
                 case .spiritTargetMove(_, let from, let to):
                     sounds.append(.spiritAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .spiritTargetMove))
                 case .pickupBomb(_, let at):
                     sounds.append(.pickupBomb)
                     locationsToUpdate.insert(at)
@@ -203,6 +208,7 @@ class GameController {
                     sounds.append(.bomb)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .bomb))
                 case .monAwake(_, let at):
                     locationsToUpdate.insert(at)
                 case .bombExplosion(let at):

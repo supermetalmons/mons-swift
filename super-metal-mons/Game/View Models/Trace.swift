@@ -5,7 +5,7 @@ import UIKit
 struct Trace {
     
     enum Kind {
-        case monMove, manaMove, mysticAction, demonAction, spiritTargetCapture, spiritTargetMove, demonAdditionalStep, bomb
+        case monMove, manaMove, mysticAction, demonAction, spiritTargetMove, demonAdditionalStep, bomb
     }
     
     let from: Location
