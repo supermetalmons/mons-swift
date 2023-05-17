@@ -30,6 +30,7 @@
 		2C27AFD92A115B77003C959D /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD82A115B77003C959D /* Trace.swift */; };
 		2C27AFDB2A116509003C959D /* TraceLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDA2A116509003C959D /* TraceLine.swift */; };
 		2C27AFDD2A11949D003C959D /* BoardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDC2A11949D003C959D /* BoardItemView.swift */; };
+		2C27AFDF2A12DEBB003C959D /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDE2A12DEBB003C959D /* RippleView.swift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -107,6 +108,7 @@
 		2C27AFD82A115B77003C959D /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		2C27AFDA2A116509003C959D /* TraceLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLine.swift; sourceTree = "<group>"; };
 		2C27AFDC2A11949D003C959D /* BoardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardItemView.swift; sourceTree = "<group>"; };
+		2C27AFDE2A12DEBB003C959D /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				2CC770BE29FA9CEE00A59BEF /* BoardView.swift */,
 				2C27AFDA2A116509003C959D /* TraceLine.swift */,
 				2C27AFDC2A11949D003C959D /* BoardItemView.swift */,
+				2C27AFDE2A12DEBB003C959D /* RippleView.swift */,
 				2CD302712A092905009DFCC2 /* SparklingView.swift */,
 				2CD302792A099124009DFCC2 /* CircleCutoutView.swift */,
 				2C27AFD42A0FC5C2003C959D /* StarTraceView.swift */,
@@ -512,6 +515,7 @@
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C27AFD52A0FC5C2003C959D /* StarTraceView.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
+				2C27AFDF2A12DEBB003C959D /* RippleView.swift in Sources */,
 				2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */,
 				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
