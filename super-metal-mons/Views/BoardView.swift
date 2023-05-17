@@ -25,6 +25,21 @@ class BoardView: UIView {
     private var gradientLayers = [UUID: CAGradientLayer]()
     private var traces = [UUID: Trace]()
     
+    private lazy var tracesColors = Colors.traces(style: style)
+    private var currentTraceColorIndex = 0
+    private var nextTraceColors: [CGColor] {
+        guard currentTraceColorIndex < tracesColors.count - 1 else {
+            currentTraceColorIndex = 0
+            return self.nextTraceColors
+        }
+        
+        let from = tracesColors[currentTraceColorIndex]
+        let to = tracesColors[currentTraceColorIndex + 1]
+        currentTraceColorIndex += 1
+        
+        return [from.cgColor, to.cgColor]
+    }
+    
     func setup(board: Board, style: BoardStyle, delegate: BoardViewDelegate) {
         self.delegate = delegate
         self.board = board
@@ -285,10 +300,10 @@ class BoardView: UIView {
         
         let gradientLayer = CAGradientLayer()
         
-        gradientLayer.startPoint = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
-        gradientLayer.endPoint = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        gradientLayer.startPoint = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        gradientLayer.endPoint = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
         
-        gradientLayer.colors = [nextColor.cgColor, nextColor.cgColor]
+        gradientLayer.colors = nextTraceColors
         gradientLayer.frame = bounds
         gradientLayer.mask = shapeLayer
         
