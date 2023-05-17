@@ -18,12 +18,12 @@ class BoardView: UIView {
     private var board: Board!
     private var style: BoardStyle!
     
-    private var squares: [BoardSquareView] = []
+    private var squares = [BoardSquareView]()
     private var effectViews = [Location: UIView]()
     private var itemViews = [Location: BoardItemView]()
     
-    private var gradientLayers: [UUID: CAGradientLayer] = [:]
-    private var traceLines: [UUID: TraceLine] = [:]
+    private var gradientLayers = [UUID: CAGradientLayer]()
+    private var traces = [UUID: Trace]()
     
     func setup(board: Board, style: BoardStyle, delegate: BoardViewDelegate) {
         self.delegate = delegate
@@ -142,11 +142,11 @@ class BoardView: UIView {
         }
         
         for (id, gradientLayer) in gradientLayers {
-            guard let line = traceLines[id] else { continue }
-            gradientLayer.frame = bounds // TODO: gradient layout seems broken
+            guard let trace = traces[id] else { continue }
+            gradientLayer.frame = bounds
             guard let shapeLayer = gradientLayer.mask as? CAShapeLayer else { continue }
-            shapeLayer.lineWidth = squareSize * line.proportionalWidth
-            shapeLayer.path = drawPathForLine(line)
+            shapeLayer.lineWidth = squareSize * trace.proportionalWidth
+            shapeLayer.path = drawPathForTrace(trace)
         }
     }
     
@@ -274,22 +274,21 @@ class BoardView: UIView {
     }
     
     private func showTrace(_ trace: Trace) {
-        let half = CGFloat(1) / CGFloat(boardSize * 2)
-        let from = CGPoint(x: CGFloat(trace.from.j) / CGFloat(boardSize) + half, y: CGFloat(trace.from.i) / CGFloat(boardSize) + half)
-        let to = CGPoint(x: CGFloat(trace.to.j) / CGFloat(boardSize) + half, y: CGFloat(trace.to.i) / CGFloat(boardSize) + half)
-        let line = TraceLine(from: from, to: to, color: .green, proportionalWidth: 0.2)
         let id = UUID()
-        traceLines[id] = line
+        traces[id] = trace
+        
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = drawPathForLine(line)
+        shapeLayer.path = drawPathForTrace(trace)
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = squareSize * line.proportionalWidth
+        shapeLayer.lineWidth = squareSize * trace.proportionalWidth
         shapeLayer.fillColor = nil
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.startPoint = line.to
-        gradientLayer.endPoint = line.from
-        gradientLayer.colors = [line.color.cgColor, UIColor.clear.cgColor]
+        
+        gradientLayer.startPoint = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        gradientLayer.endPoint = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        
+        gradientLayer.colors = [nextColor.cgColor, nextColor.cgColor]
         gradientLayer.frame = bounds
         gradientLayer.mask = shapeLayer
         
@@ -306,10 +305,12 @@ class BoardView: UIView {
         gradientLayer.add(animation, forKey: nil)
     }
     
-    private func drawPathForLine(_ line: TraceLine) -> CGPath {
+    private func drawPathForTrace(_ trace: Trace) -> CGPath {
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: bounds.width * line.from.x, y: bounds.height * line.from.y))
-        path.addLine(to: CGPoint(x: bounds.width * line.to.x, y: bounds.height * line.to.y))
+        let from = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        let to = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        path.move(to: CGPoint(x: bounds.width * from.x, y: bounds.height * from.y))
+        path.addLine(to: CGPoint(x: bounds.width * to.x, y: bounds.height * to.y))
         return path.cgPath
     }
     
