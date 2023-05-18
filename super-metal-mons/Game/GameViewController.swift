@@ -113,7 +113,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
-        guard !isAnimatingAvatar else { return }
+        guard !isAnimatingAvatar && isUserInteraction else { return }
         isAnimatingAvatar = true
         
         let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
