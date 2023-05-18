@@ -335,6 +335,11 @@ class GameViewController: UIViewController, GameView {
                 if controller.winnerColor == nil {
                     updateForNextTurn(color: controller.activeColor)
                 }
+                if case .localGame = controller.mode {
+                    // TODO: should not be possible when playing vs computer
+                   controller.playerSideColor = controller.playerSideColor.other
+                   setPlayerSide(color: controller.playerSideColor)
+                }
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
                 Audio.play(.choosePickup)
