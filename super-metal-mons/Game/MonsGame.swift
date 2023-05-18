@@ -97,7 +97,7 @@ extension MonsGame {
     enum Event {
         case monMove(item: Item, from: Location, to: Location)
         case manaMove(mana: Mana, from: Location, to: Location)
-        case manaScored(mana: Mana, at: Location, pool: Color)
+        case manaScored(mana: Mana, at: Location)
         case mysticAction(mystic: Mon, from: Location, to: Location)
         case demonAction(demon: Mon, from: Location, to: Location)
         case demonAdditionalStep(demon: Mon, from: Location, to: Location)
@@ -402,9 +402,9 @@ extension MonsGame {
             switch targetSquare {
             case .regular, .consumableBase, .supermanaBase, .manaBase, .monBase:
                 break
-            case .manaPool(let color):
+            case .manaPool:
                 if let manaInHand = startItem.mana {
-                    events.append(.manaScored(mana: manaInHand, at: targetLocation, pool: color))
+                    events.append(.manaScored(mana: manaInHand, at: targetLocation))
                 }
             }
             
@@ -424,8 +424,8 @@ extension MonsGame {
             switch targetSquare {
             case .manaBase, .consumableBase, .regular:
                 break
-            case .manaPool(let color):
-                events.append(.manaScored(mana: mana, at: targetLocation, pool: color))
+            case .manaPool:
+                events.append(.manaScored(mana: mana, at: targetLocation))
             case .monBase, .supermanaBase:
                 return .invalidInput
             }
@@ -738,8 +738,8 @@ extension MonsGame {
                 
             }
             
-            if case .manaPool(let color) = destinationSquare, let mana = targetItem.mana {
-                events.append(.manaScored(mana: mana, at: destinationLocation, pool: color))
+            if case .manaPool = destinationSquare, let mana = targetItem.mana {
+                events.append(.manaScored(mana: mana, at: destinationLocation))
             }
             
         case .demonAdditionalStep:
@@ -824,12 +824,12 @@ extension MonsGame {
                 manaMovesCount += 1
                 board.removeItem(location: from)
                 board.put(item: .mana(mana: mana), location: to)
-            case .manaScored(let mana, let at, let pool):
-                switch pool {
+            case .manaScored(let mana, let at):
+                switch activeColor {
                 case .black:
-                    blackScore += mana.score
+                    blackScore += mana.score(for: activeColor)
                 case .white:
-                    whiteScore += mana.score
+                    whiteScore += mana.score(for: activeColor)
                 }
                 
                 if let mon = board.item(at: at)?.mon {

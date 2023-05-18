@@ -5,10 +5,10 @@ import Foundation
 enum Mana: Equatable {
     case regular(color: Color), supermana
     
-    var score: Int {
+    func score(for player: Color) -> Int {
         switch self {
-        case .regular:
-            return 1
+        case let .regular(color):
+            return color == player ? 1 : 2
         case .supermana:
             return 2
         }

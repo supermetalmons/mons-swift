@@ -157,7 +157,7 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                     traces.append(Trace(from: from, to: to, kind: .manaMove))
-                case let .manaScored(mana, at, _):
+                case let .manaScored(mana, at):
                     switch mana {
                     case .regular:
                         sounds.append(.scoreMana)
