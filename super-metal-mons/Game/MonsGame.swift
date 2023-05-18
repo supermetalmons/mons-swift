@@ -291,9 +291,9 @@ extension MonsGame {
                 
                 if let item = item {
                     switch item {
-                    case .mon, .mana, .monWithMana, .monWithConsumable:
+                    case .mon, .monWithMana, .monWithConsumable:
                         return false
-                    case .consumable:
+                    case .consumable, .mana:
                         break
                     }
                 }
@@ -302,7 +302,7 @@ extension MonsGame {
                 case .regular, .consumableBase, .manaBase, .manaPool:
                     return true
                 case .supermanaBase:
-                    return mana == .supermana
+                    return mana == .supermana || item?.mana == .supermana
                 case .monBase:
                     return false
                 }
@@ -381,6 +381,13 @@ extension MonsGame {
                 case .mon, .monWithMana, .monWithConsumable:
                     return .invalidInput
                 case .mana(let mana):
+                    if let startMana = startItem.mana {
+                        if case .supermana = startMana {
+                            events.append(.supermanaBackToBase(from: startLocation, to: board.supermanaBase))
+                        } else {
+                            events.append(.manaDropped(mana: startMana, at: startLocation))
+                        }
+                    }
                     events.append(.pickupMana(mana: mana, by: startMon, at: targetLocation))
                 case .consumable(let consumable):
                     switch consumable {
