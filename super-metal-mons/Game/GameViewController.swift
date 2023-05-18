@@ -112,7 +112,7 @@ class GameViewController: UIViewController, GameView {
         applyEffects(effects)
     }
     
-    private func animateAvatar(opponents: Bool) {
+    private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
         guard !isAnimatingAvatar else { return }
         isAnimatingAvatar = true
         
@@ -123,7 +123,10 @@ class GameViewController: UIViewController, GameView {
         }
         
         let originalTransform = animatedImageView.transform
-        let scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
+        var scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
+        if !isUserInteraction {
+            scaleFactor /= 2
+        }
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
         let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: opponents ? 14 : -14)
                 
@@ -173,12 +176,12 @@ class GameViewController: UIViewController, GameView {
         guard !isAnimatingAvatar else { return }
         Audio.play(.click)
         playerImageView.image = controller.useDifferentEmoji()
-        animateAvatar(opponents: false)
+        animateAvatar(opponents: false, isUserInteraction: true)
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
-        animateAvatar(opponents: true)
+        animateAvatar(opponents: true, isUserInteraction: true)
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
@@ -313,6 +316,11 @@ class GameViewController: UIViewController, GameView {
         present(alert, animated: true)
     }
     
+    private func updateForNextTurn(color: Color) {
+        let myTurn = controller.activeColor == controller.playerSideColor
+        animateAvatar(opponents: !myTurn, isUserInteraction: false)
+    }
+    
     func applyEffects(_ effects: [ViewEffect]) {
         boardView.removeHighlights()
         
@@ -322,6 +330,10 @@ class GameViewController: UIViewController, GameView {
                 updateGameInfo()
                 if let winner = controller.winnerColor {
                     didWin(color: winner)
+                }
+            case .nextTurn:
+                if controller.winnerColor == nil {
+                    updateForNextTurn(color: controller.activeColor)
                 }
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)

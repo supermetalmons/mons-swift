@@ -8,4 +8,5 @@ enum ViewEffect {
     case updateCells([Location])
     case addHighlights([Highlight])
     case showTraces([Trace])
+    case nextTurn
 }

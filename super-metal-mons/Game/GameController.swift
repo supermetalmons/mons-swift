@@ -216,6 +216,7 @@ class GameController {
                     locationsToUpdate.insert(at)
                 case .nextTurn(_):
                     sounds.append(.endTurn)
+                    viewEffects.append(.nextTurn)
                 case let .gameOver(winner):
                     if winner == playerSideColor {
                         sounds.append(.victory)
@@ -323,7 +324,7 @@ class GameController {
             viewEffects.append(.addHighlights(highlights))
         }
         
-        if !traces.isEmpty {
+        if !traces.isEmpty && remoteInput {
             viewEffects.append(.showTraces(traces))
         }
         
