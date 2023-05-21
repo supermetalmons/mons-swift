@@ -53,6 +53,12 @@ class BoardView: UIView {
                 square.addGestureRecognizer(tapGestureRecognizer)
                 squares.append(square)
                 addSubview(square)
+                
+                if case .manaPool = board.square(at: location) {
+                    let waveView = WaveView(frame: CGRect(origin: .zero, size: .init(width: squareSize, height: squareSize)))
+                    square.addSubviewConstrainedToFrame(waveView)
+                    // TODO: use manual layout here as well
+                }
             }
         }
     }
