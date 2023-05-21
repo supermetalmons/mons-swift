@@ -4,7 +4,7 @@ import UIKit
 
 // TODO: refactor, optimize, remove magic numbers
 class WaveView: UIImageView {
-    
+
     private var animationImagesCache: [UIImage] = []
     private let numberOfWaves = 10
     private var waveWidths: [Int] = []
@@ -15,7 +15,7 @@ class WaveView: UIImageView {
         setupWaveWidths()
         setupAnimationImages()
         startAnimating()
-        alpha = 0.69
+        alpha = 0.5
     }
 
     required init?(coder: NSCoder) {
@@ -30,13 +30,25 @@ class WaveView: UIImageView {
         waveXs = waveWidths.map { Int.random(in: 0..<(32 - $0)) }
     }
 
+    let upupup = [
+        [],
+        [0],
+        [0, 1],
+        [0, 1, 2],
+        [1, 2, 3],
+        [2, 3, 4],
+        [3, 4, 5],
+        [4, 5],
+        [5],
+    ]
+
     private func setupAnimationImages() {
-        for phase in 0..<12 {
+        for phase in 0..<9 {
             let frameImage = drawWave(phase: phase)
-            animationImagesCache.append(frameImage)
+            animationImagesCache.insert(frameImage, at: 0)
         }
         self.animationImages = animationImagesCache
-        self.animationDuration = 0.9 * 12
+        self.animationDuration = 9 * 0.2 // 0.5s * 12 frames
         self.animationRepeatCount = 0 // repeat indefinitely
     }
 
@@ -49,21 +61,27 @@ class WaveView: UIImageView {
             let rectangleHeight: CGFloat = 2 * scale
             // TODO: remove 24 magic
             let spaceBetweenWaves: CGFloat = ((pointSize-24) / CGFloat(numberOfWaves - 1)).rounded() * scale
-            
+
             for i in 0..<numberOfWaves {
                 let rectangleWidth = CGFloat(waveWidths[i]) * rectangleHeight
-                
+
                 let startWaveY = 2 * rectangleHeight
                 let waveX = CGFloat(waveXs[i]) * rectangleHeight
                 let waveY = startWaveY + CGFloat(i) * (rectangleHeight + spaceBetweenWaves)
-                
-//                let color: UIColor = i < 5 ? .cyan : .white
-                let color: UIColor = .white
+
+                let color: UIColor = i.isMultiple(of: 2) ? .init(red: 0.4, green: 0.4, blue: 1, alpha: 1) : .cyan
                 context.cgContext.setFillColor(color.cgColor)
 
-                for j in 0..<(Int(rectangleWidth / rectangleHeight)) {
+                let waveWidth = Int(rectangleWidth / rectangleHeight)
+                for j in 0..<waveWidth {
                     let x = waveX + CGFloat(j) * rectangleHeight
-                    let isUp = (phase + j).isMultiple(of: 2)
+//                    let isUp = (phase + j).isMultiple(of: 2)
+
+                    // max 3 is up
+                    // starting index can be calculated if we know phase
+//                    let upIndex = phase
+
+                    let isUp = upupup[phase].contains(6-waveWidth+j)
                     let y = waveY + (isUp ? -rectangleHeight : 0)
 
                     let rect = CGRect(x: x, y: y, width: rectangleHeight, height: rectangleHeight)
@@ -73,5 +91,5 @@ class WaveView: UIImageView {
         }
         return image
     }
-    
+
 }
