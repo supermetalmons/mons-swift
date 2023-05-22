@@ -34,7 +34,7 @@ class FoggyView: UIView {
         cell = CAEmitterCell()
         cell.alphaRange = 0.5
         cell.alphaSpeed = -0.05
-        cell.birthRate = 2
+        cell.birthRate = 1
         cell.lifetime = 20.0
         cell.lifetimeRange = 0
         cell.yAcceleration = -0.1
@@ -47,13 +47,16 @@ class FoggyView: UIView {
     }
 
     private func createCloudShape() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 30))
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 80, height: 60))
         return renderer.image { ctx in
-            ctx.cgContext.setFillColor(UIColor.white.withAlphaComponent(0.3).cgColor)
-            ctx.cgContext.fillEllipse(in: CGRect(x: 10, y: 10, width: 20, height: 10))
-            ctx.cgContext.fillEllipse(in: CGRect(x: 5, y: 15, width: 20, height: 10))
-            ctx.cgContext.fillEllipse(in: CGRect(x: 15, y: 15, width: 20, height: 10))
-            ctx.cgContext.fillEllipse(in: CGRect(x: 0, y: 20, width: 40, height: 10))
+            ctx.cgContext.setFillColor(UIColor.white.withAlphaComponent(0.1).cgColor)
+            ctx.cgContext.fillEllipse(in: CGRect(x: 20, y: 20, width: 40, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 10, y: 30, width: 40, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 30, y: 30, width: 40, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 0, y: 40, width: 80, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 20, y: 10, width: 40, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 10, y: 50, width: 40, height: 20))
+            ctx.cgContext.fillEllipse(in: CGRect(x: 30, y: 50, width: 40, height: 20))
         }
     }
 
