@@ -34,13 +34,17 @@ struct Images {
         return named("mon-\(index)")
     }
     
+    static func randomEmojiId(except: Int, andExcept: Int) -> Int {
+        var newRandom = randomEmojiId
+        while newRandom == except || newRandom == andExcept {
+            newRandom = randomEmojiId
+        }
+        return newRandom
+    }
+    
     static var randomEmojiId: Int {
         let index = Int.random(in: 1...156)
         return index
-    }
-    
-    static var randomEmoji: UIImage {
-        return emoji(randomEmojiId)
     }
     
     static func emoji(_ index: Int) -> UIImage {
