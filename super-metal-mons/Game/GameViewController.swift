@@ -113,7 +113,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
-        guard !isAnimatingAvatar && isUserInteraction else { return }
+        guard !isAnimatingAvatar else { return }
         isAnimatingAvatar = true
         
         let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
@@ -123,12 +123,19 @@ class GameViewController: UIViewController, GameView {
         }
         
         let originalTransform = animatedImageView.transform
+        let xDelta: CGFloat
+        let yDelta: CGFloat
         var scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
         if !isUserInteraction {
-            scaleFactor /= 2
+            scaleFactor = max(scaleFactor / 2.8, 2.2)
+            xDelta = 12
+            yDelta = 10
+        } else {
+            xDelta = 14
+            yDelta = 14
         }
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
-        let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: opponents ? 14 : -14)
+        let translatedAndScaledTransform = scaledTransform.translatedBy(x: xDelta, y: opponents ? yDelta : -yDelta)
                 
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak animatedImageView] in
             animatedImageView?.transform = translatedAndScaledTransform
@@ -318,7 +325,9 @@ class GameViewController: UIViewController, GameView {
     
     private func updateForNextTurn(color: Color) {
         let myTurn = controller.activeColor == controller.playerSideColor
-        animateAvatar(opponents: !myTurn, isUserInteraction: false)
+        if myTurn {
+            animateAvatar(opponents: true, isUserInteraction: false)
+        }
     }
     
     func applyEffects(_ effects: [ViewEffect]) {
@@ -332,13 +341,13 @@ class GameViewController: UIViewController, GameView {
                     didWin(color: winner)
                 }
             case .nextTurn:
-                if controller.winnerColor == nil {
-                    updateForNextTurn(color: controller.activeColor)
-                }
                 if case .localGame = controller.mode {
                     // TODO: should not be possible when playing vs computer
                    controller.playerSideColor = controller.playerSideColor.other
                    setPlayerSide(color: controller.playerSideColor)
+                }
+                if controller.winnerColor == nil {
+                    updateForNextTurn(color: controller.activeColor)
                 }
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
