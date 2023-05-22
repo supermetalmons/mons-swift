@@ -58,11 +58,6 @@ class BoardView: UIView {
                     let waveView = WaveView(frame: CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize)))
                     square.addSubviewConstrainedToFrame(waveView) // TODO: use manual layout here as well
                 }
-                
-                if case .supermanaBase = board.square(at: location) {
-                    let foggyView = FoggyView(frame: CGRect(origin: .zero, size: CGSize(width: squareSize, height: squareSize)))
-                    square.addSubviewConstrainedToFrame(foggyView) // TODO: use manual layout here as well
-                }
             }
         }
     }
