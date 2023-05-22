@@ -59,7 +59,7 @@ class GameViewController: UIViewController, GameView {
         #endif
         
         updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
-        moreButton.isHidden = controller.mode.isOnline
+        moreButton.isHidden = true
         playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
