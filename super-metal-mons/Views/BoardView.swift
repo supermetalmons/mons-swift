@@ -62,6 +62,11 @@ class BoardView: UIView {
         }
     }
     
+    func setNewBoard(_ board: Board) {
+        self.board = board
+        reloadItems()
+    }
+    
     func removeHighlights() {
         effectViews.values.forEach { $0.removeFromSuperview() }
         effectViews = [:]

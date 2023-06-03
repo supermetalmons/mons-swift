@@ -7,6 +7,7 @@ protocol GameView: AnyObject {
     func updateOpponentEmoji()
     func applyEffects(_ effects: [ViewEffect])
     func showMessageAndDismiss(message: String)
+    func setNewBoard()
 }
 
 extension GameController: ConnectionDelegate {
@@ -15,26 +16,65 @@ extension GameController: ConnectionDelegate {
         isWatchOnly = true
     }
     
+    private func setInitiallyProcessedMovesCount(color: Color, count: Int) {
+        switch color {
+        case .black:
+            if !didSetBlackProcessedMovesCount {
+                blackProcessedMovesCount = count
+                didSetBlackProcessedMovesCount = true
+            }
+        case .white:
+            if !didSetWhiteProcessedMovesCount {
+                whiteProcessedMovesCount = count
+                didSetWhiteProcessedMovesCount = true
+            }
+        }
+    }
+    
     func didUpdate(match: PlayerMatch) {
         guard didConnect else {
             didConnect = true
-            self.playerSideColor = match.color.other
+            
+            self.playerSideColor = match.color.other // TODO: make always white for watch mode
             updateOpponentEmoji(id: match.emojiId)
+            
+            if isWatchOnly, let game = MonsGame(fen: match.fen) {
+                self.game = game
+                gameView.setNewBoard()
+                setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+            }
+            
             gameView.didConnect()
             Audio.play(.didConnect)
+            
             return
+        }
+        
+        if isWatchOnly, !didSetBlackProcessedMovesCount || !didSetWhiteProcessedMovesCount {
+            if let newGame = MonsGame(fen: match.fen) {
+                if newGame.turnNumber > game.turnNumber {
+                    self.game = newGame
+                    gameView.setNewBoard()
+                } else if newGame.turnNumber == game.turnNumber && newGame.activeColor == game.activeColor {
+                    self.game = newGame
+                    gameView.setNewBoard()
+                }
+            }
+            setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
         }
         
         // TODO: do not update stuff that did not actually change
         
-        updateOpponentEmoji(id: match.emojiId)
+        updateOpponentEmoji(id: match.emojiId) // TODO: should update both emoijs in watch mode
         gameView.updateOpponentEmoji()
         
+        let processedMoves = processedMovesCount(color: match.color)
         if let moves = match.moves, moves.count > processedMoves {
             for i in processedMoves..<moves.count {
                 processRemoteInputs(moves[i])
             }
-            processedMoves = moves.count
+            
+            setProcessedMovesCount(color: match.color, count: moves.count)
             
             if game.fen != match.fen {
                 gameView.showMessageAndDismiss(message: Strings.somethingIsBroken)
@@ -56,7 +96,25 @@ extension GameController: ConnectionDelegate {
 // TODO: refactor
 class GameController {
     
-    private var processedMoves = 0
+    func setProcessedMovesCount(color: Color, count: Int) {
+        switch color {
+        case .black: blackProcessedMovesCount = count
+        case .white: whiteProcessedMovesCount = count
+        }
+    }
+    
+    func processedMovesCount(color: Color) -> Int {
+        switch color {
+        case .black: return blackProcessedMovesCount
+        case .white: return whiteProcessedMovesCount
+        }
+    }
+    
+    private var didSetWhiteProcessedMovesCount = false
+    private var didSetBlackProcessedMovesCount = false
+    
+    private var whiteProcessedMovesCount = 0
+    private var blackProcessedMovesCount = 0
     
     private func updateOpponentEmoji(id: Int) {
         switch playerSideColor {
@@ -167,9 +225,8 @@ class GameController {
     // idk about this one
     // TODO: this one can be created immediatelly for local & invite mode
     // TODO: this one might be different when joining
-    private lazy var game: MonsGame = {
-        return MonsGame()
-    }()
+    
+    private var game = MonsGame()
     
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView

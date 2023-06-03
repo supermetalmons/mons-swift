@@ -49,6 +49,10 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
+    func setNewBoard() {
+        boardView.setNewBoard(controller.board)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
