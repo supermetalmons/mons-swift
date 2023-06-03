@@ -5,6 +5,7 @@ import UIKit
 protocol GameView: AnyObject {
     func didConnect()
     func updateOpponentEmoji()
+    func updateEmoji(color: Color)
     func applyEffects(_ effects: [ViewEffect])
     func showMessageAndDismiss(message: String)
     func setNewBoard()
@@ -35,8 +36,13 @@ extension GameController: ConnectionDelegate {
         guard didConnect else {
             didConnect = true
             
-            self.playerSideColor = match.color.other // TODO: make always white for watch mode
-            updateOpponentEmoji(id: match.emojiId)
+            if isWatchOnly {
+                self.playerSideColor = .white
+                updateEmoji(color: match.color, id: match.emojiId)
+            } else {
+                self.playerSideColor = match.color.other
+                updateOpponentEmoji(id: match.emojiId)
+            }
             
             if isWatchOnly, let game = MonsGame(fen: match.fen) {
                 self.game = game
@@ -65,8 +71,13 @@ extension GameController: ConnectionDelegate {
         
         // TODO: do not update stuff that did not actually change
         
-        updateOpponentEmoji(id: match.emojiId) // TODO: should update both emoijs in watch mode
-        gameView.updateOpponentEmoji()
+        if isWatchOnly {
+            updateEmoji(color: match.color, id: match.emojiId)
+            gameView.updateEmoji(color: match.color)
+        } else {
+            updateOpponentEmoji(id: match.emojiId)
+            gameView.updateOpponentEmoji()
+        }
         
         let processedMoves = processedMovesCount(color: match.color)
         if let moves = match.moves, moves.count > processedMoves {
@@ -116,13 +127,17 @@ class GameController {
     private var whiteProcessedMovesCount = 0
     private var blackProcessedMovesCount = 0
     
-    private func updateOpponentEmoji(id: Int) {
-        switch playerSideColor {
+    private func updateEmoji(color: Color, id: Int) {
+        switch color {
         case .white:
-            blackEmojiId = id
-        case .black:
             whiteEmojiId = id
+        case .black:
+            blackEmojiId = id
         }
+    }
+    
+    private func updateOpponentEmoji(id: Int) {
+        updateEmoji(color: playerSideColor.other, id: id)
     }
     
     var isWatchOnly = false

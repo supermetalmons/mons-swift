@@ -301,6 +301,16 @@ class GameViewController: UIViewController, GameView {
         opponentMovesStackView.isHidden = hidden
     }
     
+    func updateEmoji(color: Color) {
+        let imageViewToUpdate = color == controller.playerSideColor ? playerImageView : opponentImageView
+        switch color {
+        case .white:
+            imageViewToUpdate?.image = Images.emoji(controller.whiteEmojiId)
+        case .black:
+            imageViewToUpdate?.image = Images.emoji(controller.blackEmojiId)
+        }
+    }
+    
     func updateOpponentEmoji() {
         switch controller.playerSideColor {
         case .white:
