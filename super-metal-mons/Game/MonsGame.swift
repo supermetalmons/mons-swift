@@ -37,6 +37,20 @@ extension MonsGame {
         }
     }
     
+    func isLaterThan(game: MonsGame) -> Bool {
+        if turnNumber > game.turnNumber {
+            return true
+        } else if turnNumber == game.turnNumber {
+            return playerPotionsCount < game.playerPotionsCount ||
+            actionsUsedCount > game.actionsUsedCount ||
+            manaMovesCount > game.manaMovesCount ||
+            monsMovesCount > game.monsMovesCount ||
+            board.faintedMonsLocations(color: activeColor.other).count > game.board.faintedMonsLocations(color: activeColor.other).count
+        } else {
+            return false
+        }
+    }
+    
 }
 
 extension MonsGame {

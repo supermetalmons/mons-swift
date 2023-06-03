@@ -57,14 +57,9 @@ extension GameController: ConnectionDelegate {
         }
         
         if isWatchOnly, !didSetBlackProcessedMovesCount || !didSetWhiteProcessedMovesCount {
-            if let newGame = MonsGame(fen: match.fen) {
-                if newGame.turnNumber > game.turnNumber {
-                    self.game = newGame
-                    gameView.setNewBoard()
-                } else if newGame.turnNumber == game.turnNumber && newGame.activeColor == game.activeColor {
-                    self.game = newGame
-                    gameView.setNewBoard()
-                }
+            if let newGame = MonsGame(fen: match.fen), newGame.isLaterThan(game: game) {
+                self.game = newGame
+                gameView.setNewBoard()
             }
             setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
         }
