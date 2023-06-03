@@ -111,10 +111,8 @@ class Connection {
     }
     
     private func watchMatch(id: String, hostId: String, guestId: String) {
-        // TODO: implement
-        
-        // start listening to both players models
-        
+        observe(gameId: id, playerId: hostId)
+        observe(gameId: id, playerId: guestId)
     }
     
     private func getOpponentsMatchAndCreateOwnMatch(id: String, userId: String, emojiId: Int, invite: GameInvite) {
