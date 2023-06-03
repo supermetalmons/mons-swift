@@ -1,19 +1,87 @@
 // Copyright © 2023 super metal mons. All rights reserved.
 
-import Foundation
+import UIKit
 
 protocol GameView: AnyObject {
-    func restartBoardForTest() // TODO: deprecate
-    func updateGameInfo() // TODO: refactor
-    func didWin(color: Color) // TODO: refactor
+    func didConnect()
+    func updateOpponentEmoji()
+    func applyEffects(_ effects: [ViewEffect])
+    func showMessageAndDismiss(message: String)
+}
+
+extension GameController: ConnectionDelegate {
+    
+    func didUpdate(match: PlayerMatch) {
+        guard didConnect else {
+            didConnect = true
+            self.playerSideColor = match.color.other
+            updateOpponentEmoji(id: match.emojiId)
+            gameView.didConnect()
+            Audio.play(.didConnect)
+            return
+        }
+        
+        // TODO: do not update stuff that did not actually change
+        
+        updateOpponentEmoji(id: match.emojiId)
+        gameView.updateOpponentEmoji()
+        
+        if let moves = match.moves, moves.count > processedMoves {
+            for i in processedMoves..<moves.count {
+                processRemoteInputs(moves[i])
+            }
+            processedMoves = moves.count
+            
+            if game.fen != match.fen {
+                gameView.showMessageAndDismiss(message: Strings.somethingIsBroken)
+                connection = nil
+                return
+            }
+        }
+        
+        if match.status == .surrendered {
+            gameView.showMessageAndDismiss(message: Strings.opponentLeft)
+            connection = nil
+        }
+        
+        // TODO: should update game statuses as well sometime – after connection as well – or use less statuses
+    }
+    
 }
 
 // TODO: refactor
 class GameController {
     
-    var playerSideColor = Color.white // TODO: get from network
-    var whiteEmoji = Images.randomEmoji // TODO: get from network
-    var blackEmoji = Images.randomEmoji // TODO: get from network
+    private var processedMoves = 0
+    
+    private func updateOpponentEmoji(id: Int) {
+        switch playerSideColor {
+        case .white:
+            blackEmojiId = id
+        case .black:
+            whiteEmojiId = id
+        }
+    }
+    
+    enum Mode {
+        case localGame
+        case createInvite
+        case joinGameId(String)
+        
+        var isOnline: Bool {
+            switch self {
+            case .createInvite, .joinGameId:
+                return true
+            case .localGame:
+                return false
+            }
+        }
+    }
+    
+    var didConnect = false
+    var playerSideColor: Color
+    var whiteEmojiId: Int
+    var blackEmojiId: Int
     
     // TODO: refactor, move somewhere
     enum AssistedInputKind {
@@ -49,50 +117,81 @@ class GameController {
     var board: Board {
         return game.board
     }
+
+    let mode: Mode
+    private let gameId: String
+    private var connection: Connection?
+    private let version = 1
     
     private unowned var gameView: GameView!
-    private var gameDataSource: GameDataSource
-    
-    init() {
-        gameDataSource = LocalGameDataSource()
+
+    var inviteLink: String {
+        return URL.forGame(id: gameId)
     }
     
-    init(gameId: String) {
-        gameDataSource = RemoteGameDataSource(gameId: gameId)
+    init(mode: Mode) {
+        self.mode = mode
+        
+        let emojiId = Images.randomEmojiId
+        whiteEmojiId = emojiId
+        blackEmojiId = emojiId
+        
+        switch mode {
+        case .localGame:
+            gameId = ""
+            connection = nil
+            playerSideColor = .white
+            blackEmojiId = Images.randomEmojiId
+        case .createInvite:
+            let id = String.newGameId
+            self.gameId = id
+            self.connection = Connection(gameId: id)
+            playerSideColor = .random
+            connection?.addInvite(id: id, version: version, hostColor: playerSideColor, emojiId: emojiId, fen: game.fen)
+        case .joinGameId(let gameId):
+            self.gameId = gameId
+            self.connection = Connection(gameId: gameId)
+            playerSideColor = .random
+            connection?.joinGame(id: gameId, emojiId: emojiId)
+        }
+        
+        connection?.setDelegate(self)
     }
     
     // idk about this one
+    // TODO: this one can be created immediatelly for local & invite mode
+    // TODO: this one might be different when joining
     private lazy var game: MonsGame = {
         return MonsGame()
     }()
     
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView
+    }
+    
+    func useDifferentEmoji() -> UIImage {
+        let emojiId = Images.randomEmojiId(except: whiteEmojiId, andExcept: blackEmojiId)
+        connection?.updateEmoji(id: emojiId)
         
-        gameDataSource.observe { [weak self] fen in
-            DispatchQueue.main.async {
-                self?.game = MonsGame(fen: fen)! // TODO: do not force unwrap
-                self?.gameView.restartBoardForTest()
-                self?.gameView.updateGameInfo()
-                if let winner = self?.game.winnerColor {
-                    self?.gameView.didWin(color: winner)
-                }
-            }
+        switch playerSideColor {
+        case .white:
+            whiteEmojiId = emojiId
+        case .black:
+            blackEmojiId = emojiId
         }
-    }
-    
-    // TODO: deprecate. should not be called from gameviewcontroller. should happen internally here.
-    func shareGameState() {
-        sendFen(game.fen)
-    }
-    
-    private func sendFen(_ fen: String) {
-        gameDataSource.update(fen: fen)
+        
+        if !didConnect && mode.isOnline {
+            whiteEmojiId = emojiId
+            blackEmojiId = emojiId
+        }
+        
+        return Images.emoji(emojiId)
     }
     
     func endGame() {
-        game = MonsGame()
-        sendFen(game.fen)
+        if winnerColor == nil {
+            connection?.updateStatus(.surrendered)
+        }
     }
     
     private var inputs = [MonsGame.Input]()
