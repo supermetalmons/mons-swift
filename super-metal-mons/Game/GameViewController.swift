@@ -339,8 +339,8 @@ class GameViewController: UIViewController, GameView {
     
     private func updateForNextTurn(color: Color) {
         let myTurn = controller.activeColor == controller.playerSideColor
-        if myTurn {
-            animateAvatar(opponents: true, isUserInteraction: false)
+        if myTurn || controller.isWatchOnly {
+            animateAvatar(opponents: myTurn, isUserInteraction: false)
         }
     }
     
