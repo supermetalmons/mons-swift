@@ -185,7 +185,9 @@ class GameViewController: UIViewController, GameView {
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
-        Audio.play(.click)
+        if !controller.isWatchOnly {
+            Audio.play(.click)
+        }
         playerImageView.image = controller.useDifferentEmoji()
         animateAvatar(opponents: false, isUserInteraction: true)
     }
