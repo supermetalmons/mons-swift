@@ -5,6 +5,7 @@ import FirebaseDatabase
 protocol ConnectionDelegate: AnyObject {
     
     func didUpdate(match: PlayerMatch)
+    func enterWatchOnlyMode()
     
 }
 
@@ -111,6 +112,9 @@ class Connection {
     }
     
     private func watchMatch(id: String, hostId: String, guestId: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.connectionDelegate?.enterWatchOnlyMode()
+        }
         observe(gameId: id, playerId: hostId)
         observe(gameId: id, playerId: guestId)
     }

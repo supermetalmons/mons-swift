@@ -11,6 +11,10 @@ protocol GameView: AnyObject {
 
 extension GameController: ConnectionDelegate {
     
+    func enterWatchOnlyMode() {
+        // TODO: implement
+    }
+    
     func didUpdate(match: PlayerMatch) {
         guard didConnect else {
             didConnect = true
