@@ -86,8 +86,8 @@ class Connection {
         database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
     }
 
-    func joinGame(id: String, emojiId: Int) {
-        guard let userId = userId else {
+    func joinGame(id: String, emojiId: Int, retryCount: Int = 0) {
+        guard let userId = userId, retryCount < 3 else {
             // TODO: retry login
             return
         }
@@ -101,8 +101,15 @@ class Connection {
             }
             
             if invite.guestId == nil {
-                self?.database.child("invites/\(id)/guestId").setValue(userId) // TODO: validate it was actually set, retry if not
-                self?.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
+                self?.database.child("invites/\(id)/guestId").setValue(userId) { error, _ in
+                    if error != nil {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                            self?.joinGame(id: id, emojiId: emojiId, retryCount: retryCount + 1)
+                        }
+                    } else {
+                        self?.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
+                    }
+                }
             } else if invite.guestId == userId {
                 // TODO: did join already, get game info and proceed from there
             } else if let guestId = invite.guestId {
