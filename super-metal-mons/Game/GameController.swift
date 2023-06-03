@@ -12,7 +12,7 @@ protocol GameView: AnyObject {
 extension GameController: ConnectionDelegate {
     
     func enterWatchOnlyMode() {
-        // TODO: implement
+        isWatchOnly = true
     }
     
     func didUpdate(match: PlayerMatch) {
@@ -66,6 +66,8 @@ class GameController {
             whiteEmojiId = id
         }
     }
+    
+    var isWatchOnly = false
     
     enum Mode {
         case localGame
@@ -174,6 +176,8 @@ class GameController {
     }
     
     func useDifferentEmoji() -> UIImage {
+        guard !isWatchOnly else { return Images.emoji(whiteEmojiId) }
+        
         let emojiId = Images.randomEmojiId(except: whiteEmojiId, andExcept: blackEmojiId)
         connection?.updateEmoji(id: emojiId)
         
@@ -193,6 +197,7 @@ class GameController {
     }
     
     func endGame() {
+        guard !isWatchOnly else { return }
         if winnerColor == nil {
             connection?.updateStatus(.surrendered)
         }
@@ -211,6 +216,8 @@ class GameController {
     
     // TODO: refactor
     func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteInput: Bool = false) -> [ViewEffect] {
+        guard !isWatchOnly || remoteInput else { return [] }
+        
         switch mode {
         case .localGame:
             break
