@@ -51,6 +51,7 @@ class GameViewController: UIViewController, GameView {
     
     func setNewBoard() {
         boardView.setNewBoard(controller.board)
+        updateGameInfo()
     }
     
     override func viewDidLoad() {
