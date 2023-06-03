@@ -84,14 +84,14 @@ class Connection {
         guard let userId = userId, let myMatch = myMatch else { return }
         database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
     }
-    
+
     func joinGame(id: String, emojiId: Int) {
         guard let userId = userId else {
             // TODO: retry login
             return
         }
         
-        database.child("invites/\(id)").getData { _, snapshot in
+        database.child("invites/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let invite = try? GameInvite(dict: value) else { return }
             
             guard invite.hostId != userId else {
@@ -100,14 +100,21 @@ class Connection {
             }
             
             if invite.guestId == nil {
-                self.database.child("invites/\(id)/guestId").setValue(userId) // TODO: validate it was actually set, retry if not
-                self.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
+                self?.database.child("invites/\(id)/guestId").setValue(userId) // TODO: validate it was actually set, retry if not
+                self?.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
             } else if invite.guestId == userId {
                 // TODO: did join already, get game info and proceed from there
-            } else {
-                // TODO: someone else joined, suggest entering spectator mode
+            } else if let guestId = invite.guestId {
+                self?.watchMatch(id: id, hostId: invite.hostId, guestId: guestId)
             }
         }
+    }
+    
+    private func watchMatch(id: String, hostId: String, guestId: String) {
+        // TODO: implement
+        
+        // start listening to both players models
+        
     }
     
     private func getOpponentsMatchAndCreateOwnMatch(id: String, userId: String, emojiId: Int, invite: GameInvite) {
