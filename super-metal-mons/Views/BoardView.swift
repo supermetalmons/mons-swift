@@ -310,8 +310,8 @@ class BoardView: UIView {
         
         let gradientLayer = CAGradientLayer()
         
-        gradientLayer.startPoint = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
-        gradientLayer.endPoint = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        gradientLayer.startPoint = trace.toPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
+        gradientLayer.endPoint = trace.fromPointRelativePosition(boardSize: boardSize, isFlipped: isFlipped)
         
         gradientLayer.colors = nextTraceColors
         gradientLayer.frame = bounds
