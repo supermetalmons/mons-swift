@@ -31,6 +31,16 @@ class Board {
 
 extension Board {
     
+    var allMonsBases: [Location] {
+        return Config.squares.compactMap { location, square -> (Location?) in
+            if case .monBase = square {
+                return location
+            } else {
+                return nil
+            }
+        }
+    }
+    
     var supermanaBase: Location {
         return Config.squares.first(where: { location, square -> (Bool) in
             if case .supermanaBase = square {

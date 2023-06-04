@@ -81,7 +81,7 @@ class BoardView: UIView {
     func reloadItems() {
         itemViews.values.forEach { $0.removeFromSuperview() }
         itemViews = [:]
-        updateCells(Array(board.items.keys))
+        updateCells(Array(Set(Array(board.items.keys) + board.allMonsBases)))
     }
     
     func setPlayerSide(color: Color) {
