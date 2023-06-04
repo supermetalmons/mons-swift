@@ -60,7 +60,6 @@ class MainMenuViewController: UIViewController {
     @IBAction func joinButtonTapped(_ sender: Any) {
         if let input = UIPasteboard.general.string, let url = URL(string: input) {
             connectToURL(url)
-            UIPasteboard.general.string = ""
         } else {
             let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
