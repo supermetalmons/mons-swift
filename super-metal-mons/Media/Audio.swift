@@ -16,7 +16,18 @@ struct Audio {
             }
             
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
+            
+            playMusic()
         }
+    }
+    
+    private static var musicPlayer: AVAudioPlayer?
+    
+    private static func playMusic() {
+        guard let musicFileURL = Bundle.main.url(forResource: "18whale2", withExtension: "aac"),
+              let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }
+        musicPlayer = player
+        player.play()
     }
     
     static func play(_ sound: Sound) {
