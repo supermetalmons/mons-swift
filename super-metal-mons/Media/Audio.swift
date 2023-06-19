@@ -48,8 +48,8 @@ class Audio: NSObject {
         playbackMode = PlaybackMode(rawValue: rawValue) ?? .regular
     }
     
-    func selectSong(number: Int) -> Bool {
-        if songNumber == number {
+    @discardableResult func selectSong(number: Int, force: Bool) -> Bool {
+        if songNumber == number && !force {
             setMusic(on: false)
             songNumber = 0
             Defaults.songNumber = 0
@@ -124,6 +124,7 @@ class Audio: NSObject {
             return
         }
         
+        #if !targetEnvironment(macCatalyst)
         queue.async { [weak self] in
             switch type {
             case .began:
@@ -137,18 +138,23 @@ class Audio: NSObject {
                 break
             }
         }
+        #endif
     }
     
     @objc func handleApplicationWillResignActive(notification: Notification) {
+        #if !targetEnvironment(macCatalyst)
         queue.async { [weak self] in
             self?.musicPlayer?.pause()
         }
+        #endif
     }
 
     @objc func handleApplicationDidBecomeActive(notification: Notification) {
+        #if !targetEnvironment(macCatalyst)
         queue.async { [weak self] in
             self?.musicPlayer?.play()
         }
+        #endif
     }
 
     deinit {
@@ -177,8 +183,20 @@ class Audio: NSObject {
 extension Audio: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        // TODO: play next track if successfully
-        // TODO: update what's displayed in sound view controller
+        guard flag && songNumber != 0 else { return }
+        
+        let nextSongNumber: Int
+        switch playbackMode {
+        case .regular:
+            nextSongNumber = (songNumber % 30) + 1
+        case .repeatOne:
+            nextSongNumber = songNumber
+        case .shuffle:
+            nextSongNumber = Int.random(in: 1...30)
+        }
+        
+        selectSong(number: nextSongNumber, force: true)
+        NotificationCenter.default.post(name: Notification.Name.nextTrack, object: nil)
     }
 
 }

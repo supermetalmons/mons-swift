@@ -7,6 +7,7 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var songsStackView: UIStackView!
     
     private let audio = Audio.shared
+    private var selectedButtonNumber: Int?
     
     @IBOutlet weak var soundsVolumeSlider: UISlider!
     @IBOutlet weak var musicVolumeSlider: UISlider!
@@ -18,6 +19,20 @@ class SoundViewController: UIViewController {
         musicVolumeSlider.value = audio.musicVolume
         setSongButtonSelected(number: audio.songNumber, isSelected: true)
         playbackModeControl.selectedSegmentIndex = audio.playbackMode.rawValue
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayNextTrack), name: Notification.Name.nextTrack, object: nil)
+    }
+    
+    @objc private func didPlayNextTrack() {
+        let songNumber = audio.songNumber
+        DispatchQueue.main.async { [weak self] in
+            if let selectedButtonNumber = self?.selectedButtonNumber {
+                self?.setSongButtonSelected(number: selectedButtonNumber, isSelected: false)
+                self?.selectedButtonNumber = nil
+            }
+            self?.setSongButtonSelected(number: songNumber, isSelected: true)
+        }
+        
+        
     }
     
     @IBAction func didChangeSoundVolumeSlider(_ sender: Any) {
@@ -31,7 +46,7 @@ class SoundViewController: UIViewController {
     @IBAction func songButtonTapped(_ sender: UIButton) {
         let previouslySelected = audio.songNumber
         guard let numberString = sender.titleLabel?.text, let number = Int(numberString) else { return }
-        let didSelect = audio.selectSong(number: number)
+        let didSelect = audio.selectSong(number: number, force: false)
         setSongButtonSelected(number: number, isSelected: didSelect)
         
         if didSelect {
@@ -54,6 +69,7 @@ class SoundViewController: UIViewController {
         
         if isSelected {
             button?.configuration = .filled()
+            selectedButtonNumber = number
         } else {
             button?.configuration = .plain()
         }
