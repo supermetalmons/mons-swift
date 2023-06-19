@@ -5,9 +5,16 @@ import MediaPlayer
 
 class Audio: NSObject {
     
+    enum PlaybackMode: Int {
+        case regular = 0
+        case repeatOne = 1
+        case shuffle = 2
+    }
+    
     private (set) var soundsVolume = Defaults.soundsVolume
     private (set) var musicVolume = Defaults.musicVolume
     private (set) var songNumber = Defaults.songNumber
+    private (set) var playbackMode = PlaybackMode(rawValue: Defaults.playbackMode) ?? .regular
     
     static let shared = Audio()
     
@@ -34,6 +41,11 @@ class Audio: NSObject {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
         }
+    }
+    
+    func selectPlaybackMode(rawValue: Int) {
+        Defaults.playbackMode = rawValue
+        playbackMode = PlaybackMode(rawValue: rawValue) ?? .regular
     }
     
     func selectSong(number: Int) -> Bool {

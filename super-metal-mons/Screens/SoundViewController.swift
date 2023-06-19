@@ -10,12 +10,14 @@ class SoundViewController: UIViewController {
     
     @IBOutlet weak var soundsVolumeSlider: UISlider!
     @IBOutlet weak var musicVolumeSlider: UISlider!
+    @IBOutlet weak var playbackModeControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         soundsVolumeSlider.value = audio.soundsVolume
         musicVolumeSlider.value = audio.musicVolume
         setSongButtonSelected(number: audio.songNumber, isSelected: true)
+        playbackModeControl.selectedSegmentIndex = audio.playbackMode.rawValue
     }
     
     @IBAction func didChangeSoundVolumeSlider(_ sender: Any) {
@@ -35,6 +37,10 @@ class SoundViewController: UIViewController {
         if didSelect {
             setSongButtonSelected(number: previouslySelected, isSelected: false)
         }
+    }
+    
+    @IBAction func didChangePlaybackMode(_ sender: Any) {
+        audio.selectPlaybackMode(rawValue: playbackModeControl.selectedSegmentIndex)
     }
     
     private func setSongButtonSelected(number: Int, isSelected: Bool) {
