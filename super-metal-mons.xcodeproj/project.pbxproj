@@ -85,35 +85,35 @@
 		2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
-		2CEB9AF52A34C05300B3CD54 /* 6ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* 6ping.aac */; };
-		2CEB9AF62A34C05300B3CD54 /* 29drreams.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD92A34C05100B3CD54 /* 29drreams.aac */; };
-		2CEB9AF72A34C05300B3CD54 /* 13bounce.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADA2A34C05100B3CD54 /* 13bounce.aac */; };
-		2CEB9AF82A34C05300B3CD54 /* 22melodine.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADB2A34C05100B3CD54 /* 22melodine.aac */; };
-		2CEB9AF92A34C05300B3CD54 /* 18whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* 18whale2.aac */; };
-		2CEB9AFA2A34C05300B3CD54 /* 27crumbs.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADD2A34C05100B3CD54 /* 27crumbs.aac */; };
-		2CEB9AFB2A34C05300B3CD54 /* 5chimes photography_going home.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADE2A34C05100B3CD54 /* 5chimes photography_going home.aac */; };
-		2CEB9AFC2A34C05300B3CD54 /* 4organwhawha.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADF2A34C05100B3CD54 /* 4organwhawha.aac */; };
-		2CEB9AFD2A34C05300B3CD54 /* 28buzz.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE02A34C05100B3CD54 /* 28buzz.aac */; };
-		2CEB9AFE2A34C05300B3CD54 /* 15mana pool.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE12A34C05200B3CD54 /* 15mana pool.aac */; };
-		2CEB9AFF2A34C05300B3CD54 /* 20ewejam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE22A34C05200B3CD54 /* 20ewejam.aac */; };
-		2CEB9B002A34C05300B3CD54 /* 3bell dance.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE32A34C05200B3CD54 /* 3bell dance.aac */; };
-		2CEB9B012A34C05300B3CD54 /* 2bell glide.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE42A34C05200B3CD54 /* 2bell glide.aac */; };
-		2CEB9B022A34C05300B3CD54 /* 17arploop.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE52A34C05200B3CD54 /* 17arploop.aac */; };
-		2CEB9B032A34C05300B3CD54 /* 9cloud propeller 2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE62A34C05200B3CD54 /* 9cloud propeller 2.aac */; };
-		2CEB9B042A34C05300B3CD54 /* 14gilded.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE72A34C05200B3CD54 /* 14gilded.aac */; };
-		2CEB9B052A34C05300B3CD54 /* 30super.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE82A34C05200B3CD54 /* 30super.aac */; };
-		2CEB9B062A34C05300B3CD54 /* 23driver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE92A34C05200B3CD54 /* 23driver.aac */; };
-		2CEB9B072A34C05300B3CD54 /* 21change.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEA2A34C05200B3CD54 /* 21change.aac */; };
-		2CEB9B082A34C05300B3CD54 /* 19gustofwind.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEB2A34C05200B3CD54 /* 19gustofwind.aac */; };
-		2CEB9B092A34C05300B3CD54 /* 26band.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEC2A34C05300B3CD54 /* 26band.aac */; };
-		2CEB9B0A2A34C05300B3CD54 /* 24object.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AED2A34C05300B3CD54 /* 24object.aac */; };
-		2CEB9B0B2A34C05300B3CD54 /* 10jelly jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEE2A34C05300B3CD54 /* 10jelly jam.aac */; };
-		2CEB9B0C2A34C05300B3CD54 /* 25runner.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEF2A34C05300B3CD54 /* 25runner.aac */; };
-		2CEB9B0D2A34C05300B3CD54 /* 1cloud propeller.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF02A34C05300B3CD54 /* 1cloud propeller.aac */; };
-		2CEB9B0E2A34C05300B3CD54 /* 7clock tower.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF12A34C05300B3CD54 /* 7clock tower.aac */; };
-		2CEB9B0F2A34C05300B3CD54 /* 12spirit track.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF22A34C05300B3CD54 /* 12spirit track.aac */; };
-		2CEB9B102A34C05300B3CD54 /* 11bubble jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF32A34C05300B3CD54 /* 11bubble jam.aac */; };
-		2CEB9B112A34C05300B3CD54 /* 16honkshoooo memememeee zzzZZZ.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF42A34C05300B3CD54 /* 16honkshoooo memememeee zzzZZZ.aac */; };
+		2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* ping.aac */; };
+		2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD92A34C05100B3CD54 /* drreams.aac */; };
+		2CEB9AF72A34C05300B3CD54 /* bounce.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADA2A34C05100B3CD54 /* bounce.aac */; };
+		2CEB9AF82A34C05300B3CD54 /* melodine.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADB2A34C05100B3CD54 /* melodine.aac */; };
+		2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* whale2.aac */; };
+		2CEB9AFA2A34C05300B3CD54 /* crumbs.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */; };
+		2CEB9AFB2A34C05300B3CD54 /* chimes photography_going home.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */; };
+		2CEB9AFC2A34C05300B3CD54 /* organwhawha.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */; };
+		2CEB9AFD2A34C05300B3CD54 /* buzz.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE02A34C05100B3CD54 /* buzz.aac */; };
+		2CEB9AFE2A34C05300B3CD54 /* mana pool.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE12A34C05200B3CD54 /* mana pool.aac */; };
+		2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE22A34C05200B3CD54 /* ewejam.aac */; };
+		2CEB9B002A34C05300B3CD54 /* bell dance.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE32A34C05200B3CD54 /* bell dance.aac */; };
+		2CEB9B012A34C05300B3CD54 /* bell glide.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE42A34C05200B3CD54 /* bell glide.aac */; };
+		2CEB9B022A34C05300B3CD54 /* arploop.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE52A34C05200B3CD54 /* arploop.aac */; };
+		2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */; };
+		2CEB9B042A34C05300B3CD54 /* gilded.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE72A34C05200B3CD54 /* gilded.aac */; };
+		2CEB9B052A34C05300B3CD54 /* super.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE82A34C05200B3CD54 /* super.aac */; };
+		2CEB9B062A34C05300B3CD54 /* driver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE92A34C05200B3CD54 /* driver.aac */; };
+		2CEB9B072A34C05300B3CD54 /* change.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEA2A34C05200B3CD54 /* change.aac */; };
+		2CEB9B082A34C05300B3CD54 /* gustofwind.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */; };
+		2CEB9B092A34C05300B3CD54 /* band.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEC2A34C05300B3CD54 /* band.aac */; };
+		2CEB9B0A2A34C05300B3CD54 /* object.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AED2A34C05300B3CD54 /* object.aac */; };
+		2CEB9B0B2A34C05300B3CD54 /* jelly jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */; };
+		2CEB9B0C2A34C05300B3CD54 /* runner.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEF2A34C05300B3CD54 /* runner.aac */; };
+		2CEB9B0D2A34C05300B3CD54 /* cloud propeller.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */; };
+		2CEB9B0E2A34C05300B3CD54 /* clock tower.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF12A34C05300B3CD54 /* clock tower.aac */; };
+		2CEB9B0F2A34C05300B3CD54 /* spirit track.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF22A34C05300B3CD54 /* spirit track.aac */; };
+		2CEB9B102A34C05300B3CD54 /* bubble jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */; };
+		2CEB9B112A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */; };
 		2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC6E4E29F9BE6100EF34FA /* UIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -197,35 +197,35 @@
 		2CDB1ADE29EEF48E00C51230 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
-		2CEB9AD82A34C05100B3CD54 /* 6ping.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 6ping.aac; sourceTree = "<group>"; };
-		2CEB9AD92A34C05100B3CD54 /* 29drreams.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 29drreams.aac; sourceTree = "<group>"; };
-		2CEB9ADA2A34C05100B3CD54 /* 13bounce.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 13bounce.aac; sourceTree = "<group>"; };
-		2CEB9ADB2A34C05100B3CD54 /* 22melodine.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 22melodine.aac; sourceTree = "<group>"; };
-		2CEB9ADC2A34C05100B3CD54 /* 18whale2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 18whale2.aac; sourceTree = "<group>"; };
-		2CEB9ADD2A34C05100B3CD54 /* 27crumbs.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 27crumbs.aac; sourceTree = "<group>"; };
-		2CEB9ADE2A34C05100B3CD54 /* 5chimes photography_going home.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "5chimes photography_going home.aac"; sourceTree = "<group>"; };
-		2CEB9ADF2A34C05100B3CD54 /* 4organwhawha.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 4organwhawha.aac; sourceTree = "<group>"; };
-		2CEB9AE02A34C05100B3CD54 /* 28buzz.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 28buzz.aac; sourceTree = "<group>"; };
-		2CEB9AE12A34C05200B3CD54 /* 15mana pool.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "15mana pool.aac"; sourceTree = "<group>"; };
-		2CEB9AE22A34C05200B3CD54 /* 20ewejam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 20ewejam.aac; sourceTree = "<group>"; };
-		2CEB9AE32A34C05200B3CD54 /* 3bell dance.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "3bell dance.aac"; sourceTree = "<group>"; };
-		2CEB9AE42A34C05200B3CD54 /* 2bell glide.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "2bell glide.aac"; sourceTree = "<group>"; };
-		2CEB9AE52A34C05200B3CD54 /* 17arploop.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 17arploop.aac; sourceTree = "<group>"; };
-		2CEB9AE62A34C05200B3CD54 /* 9cloud propeller 2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "9cloud propeller 2.aac"; sourceTree = "<group>"; };
-		2CEB9AE72A34C05200B3CD54 /* 14gilded.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 14gilded.aac; sourceTree = "<group>"; };
-		2CEB9AE82A34C05200B3CD54 /* 30super.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30super.aac; sourceTree = "<group>"; };
-		2CEB9AE92A34C05200B3CD54 /* 23driver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 23driver.aac; sourceTree = "<group>"; };
-		2CEB9AEA2A34C05200B3CD54 /* 21change.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 21change.aac; sourceTree = "<group>"; };
-		2CEB9AEB2A34C05200B3CD54 /* 19gustofwind.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 19gustofwind.aac; sourceTree = "<group>"; };
-		2CEB9AEC2A34C05300B3CD54 /* 26band.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 26band.aac; sourceTree = "<group>"; };
-		2CEB9AED2A34C05300B3CD54 /* 24object.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 24object.aac; sourceTree = "<group>"; };
-		2CEB9AEE2A34C05300B3CD54 /* 10jelly jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "10jelly jam.aac"; sourceTree = "<group>"; };
-		2CEB9AEF2A34C05300B3CD54 /* 25runner.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 25runner.aac; sourceTree = "<group>"; };
-		2CEB9AF02A34C05300B3CD54 /* 1cloud propeller.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1cloud propeller.aac"; sourceTree = "<group>"; };
-		2CEB9AF12A34C05300B3CD54 /* 7clock tower.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "7clock tower.aac"; sourceTree = "<group>"; };
-		2CEB9AF22A34C05300B3CD54 /* 12spirit track.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "12spirit track.aac"; sourceTree = "<group>"; };
-		2CEB9AF32A34C05300B3CD54 /* 11bubble jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "11bubble jam.aac"; sourceTree = "<group>"; };
-		2CEB9AF42A34C05300B3CD54 /* 16honkshoooo memememeee zzzZZZ.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "16honkshoooo memememeee zzzZZZ.aac"; sourceTree = "<group>"; };
+		2CEB9AD82A34C05100B3CD54 /* ping.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = ping.aac; sourceTree = "<group>"; };
+		2CEB9AD92A34C05100B3CD54 /* drreams.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = drreams.aac; sourceTree = "<group>"; };
+		2CEB9ADA2A34C05100B3CD54 /* bounce.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = bounce.aac; sourceTree = "<group>"; };
+		2CEB9ADB2A34C05100B3CD54 /* melodine.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = melodine.aac; sourceTree = "<group>"; };
+		2CEB9ADC2A34C05100B3CD54 /* whale2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = whale2.aac; sourceTree = "<group>"; };
+		2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = crumbs.aac; sourceTree = "<group>"; };
+		2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "chimes photography_going home.aac"; sourceTree = "<group>"; };
+		2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = organwhawha.aac; sourceTree = "<group>"; };
+		2CEB9AE02A34C05100B3CD54 /* buzz.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = buzz.aac; sourceTree = "<group>"; };
+		2CEB9AE12A34C05200B3CD54 /* mana pool.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mana pool.aac"; sourceTree = "<group>"; };
+		2CEB9AE22A34C05200B3CD54 /* ewejam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = ewejam.aac; sourceTree = "<group>"; };
+		2CEB9AE32A34C05200B3CD54 /* bell dance.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bell dance.aac"; sourceTree = "<group>"; };
+		2CEB9AE42A34C05200B3CD54 /* bell glide.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bell glide.aac"; sourceTree = "<group>"; };
+		2CEB9AE52A34C05200B3CD54 /* arploop.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = arploop.aac; sourceTree = "<group>"; };
+		2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cloud propeller 2.aac"; sourceTree = "<group>"; };
+		2CEB9AE72A34C05200B3CD54 /* gilded.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gilded.aac; sourceTree = "<group>"; };
+		2CEB9AE82A34C05200B3CD54 /* super.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = super.aac; sourceTree = "<group>"; };
+		2CEB9AE92A34C05200B3CD54 /* driver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = driver.aac; sourceTree = "<group>"; };
+		2CEB9AEA2A34C05200B3CD54 /* change.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = change.aac; sourceTree = "<group>"; };
+		2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gustofwind.aac; sourceTree = "<group>"; };
+		2CEB9AEC2A34C05300B3CD54 /* band.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.aac; sourceTree = "<group>"; };
+		2CEB9AED2A34C05300B3CD54 /* object.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = object.aac; sourceTree = "<group>"; };
+		2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jelly jam.aac"; sourceTree = "<group>"; };
+		2CEB9AEF2A34C05300B3CD54 /* runner.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = runner.aac; sourceTree = "<group>"; };
+		2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cloud propeller.aac"; sourceTree = "<group>"; };
+		2CEB9AF12A34C05300B3CD54 /* clock tower.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "clock tower.aac"; sourceTree = "<group>"; };
+		2CEB9AF22A34C05300B3CD54 /* spirit track.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "spirit track.aac"; sourceTree = "<group>"; };
+		2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bubble jam.aac"; sourceTree = "<group>"; };
+		2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "honkshoooo memememeee zzzZZZ.aac"; sourceTree = "<group>"; };
 		2CFC6E4E29F9BE6100EF34FA /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -460,35 +460,35 @@
 		2CEB9AD72A34C03E00B3CD54 /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				2CEB9AF02A34C05300B3CD54 /* 1cloud propeller.aac */,
-				2CEB9AE42A34C05200B3CD54 /* 2bell glide.aac */,
-				2CEB9AE32A34C05200B3CD54 /* 3bell dance.aac */,
-				2CEB9ADF2A34C05100B3CD54 /* 4organwhawha.aac */,
-				2CEB9ADE2A34C05100B3CD54 /* 5chimes photography_going home.aac */,
-				2CEB9AD82A34C05100B3CD54 /* 6ping.aac */,
-				2CEB9AF12A34C05300B3CD54 /* 7clock tower.aac */,
-				2CEB9AE62A34C05200B3CD54 /* 9cloud propeller 2.aac */,
-				2CEB9AEE2A34C05300B3CD54 /* 10jelly jam.aac */,
-				2CEB9AF32A34C05300B3CD54 /* 11bubble jam.aac */,
-				2CEB9AF22A34C05300B3CD54 /* 12spirit track.aac */,
-				2CEB9ADA2A34C05100B3CD54 /* 13bounce.aac */,
-				2CEB9AE72A34C05200B3CD54 /* 14gilded.aac */,
-				2CEB9AE12A34C05200B3CD54 /* 15mana pool.aac */,
-				2CEB9AF42A34C05300B3CD54 /* 16honkshoooo memememeee zzzZZZ.aac */,
-				2CEB9AE52A34C05200B3CD54 /* 17arploop.aac */,
-				2CEB9ADC2A34C05100B3CD54 /* 18whale2.aac */,
-				2CEB9AEB2A34C05200B3CD54 /* 19gustofwind.aac */,
-				2CEB9AE22A34C05200B3CD54 /* 20ewejam.aac */,
-				2CEB9AEA2A34C05200B3CD54 /* 21change.aac */,
-				2CEB9ADB2A34C05100B3CD54 /* 22melodine.aac */,
-				2CEB9AE92A34C05200B3CD54 /* 23driver.aac */,
-				2CEB9AED2A34C05300B3CD54 /* 24object.aac */,
-				2CEB9AEF2A34C05300B3CD54 /* 25runner.aac */,
-				2CEB9AEC2A34C05300B3CD54 /* 26band.aac */,
-				2CEB9ADD2A34C05100B3CD54 /* 27crumbs.aac */,
-				2CEB9AE02A34C05100B3CD54 /* 28buzz.aac */,
-				2CEB9AD92A34C05100B3CD54 /* 29drreams.aac */,
-				2CEB9AE82A34C05200B3CD54 /* 30super.aac */,
+				2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */,
+				2CEB9AE42A34C05200B3CD54 /* bell glide.aac */,
+				2CEB9AE32A34C05200B3CD54 /* bell dance.aac */,
+				2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */,
+				2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */,
+				2CEB9AD82A34C05100B3CD54 /* ping.aac */,
+				2CEB9AF12A34C05300B3CD54 /* clock tower.aac */,
+				2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */,
+				2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */,
+				2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */,
+				2CEB9AF22A34C05300B3CD54 /* spirit track.aac */,
+				2CEB9ADA2A34C05100B3CD54 /* bounce.aac */,
+				2CEB9AE72A34C05200B3CD54 /* gilded.aac */,
+				2CEB9AE12A34C05200B3CD54 /* mana pool.aac */,
+				2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */,
+				2CEB9AE52A34C05200B3CD54 /* arploop.aac */,
+				2CEB9ADC2A34C05100B3CD54 /* whale2.aac */,
+				2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */,
+				2CEB9AE22A34C05200B3CD54 /* ewejam.aac */,
+				2CEB9AEA2A34C05200B3CD54 /* change.aac */,
+				2CEB9ADB2A34C05100B3CD54 /* melodine.aac */,
+				2CEB9AE92A34C05200B3CD54 /* driver.aac */,
+				2CEB9AED2A34C05300B3CD54 /* object.aac */,
+				2CEB9AEF2A34C05300B3CD54 /* runner.aac */,
+				2CEB9AEC2A34C05300B3CD54 /* band.aac */,
+				2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */,
+				2CEB9AE02A34C05100B3CD54 /* buzz.aac */,
+				2CEB9AD92A34C05100B3CD54 /* drreams.aac */,
+				2CEB9AE82A34C05200B3CD54 /* super.aac */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -558,21 +558,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CEB9B0D2A34C05300B3CD54 /* 1cloud propeller.aac in Resources */,
+				2CEB9B0D2A34C05300B3CD54 /* cloud propeller.aac in Resources */,
 				2CDB1AE429EEF48E00C51230 /* demonAbility.wav in Resources */,
 				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */,
 				2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */,
-				2CEB9B062A34C05300B3CD54 /* 23driver.aac in Resources */,
-				2CEB9B012A34C05300B3CD54 /* 2bell glide.aac in Resources */,
-				2CEB9AFB2A34C05300B3CD54 /* 5chimes photography_going home.aac in Resources */,
-				2CEB9B022A34C05300B3CD54 /* 17arploop.aac in Resources */,
-				2CEB9B102A34C05300B3CD54 /* 11bubble jam.aac in Resources */,
-				2CEB9B0C2A34C05300B3CD54 /* 25runner.aac in Resources */,
-				2CEB9AFC2A34C05300B3CD54 /* 4organwhawha.aac in Resources */,
+				2CEB9B062A34C05300B3CD54 /* driver.aac in Resources */,
+				2CEB9B012A34C05300B3CD54 /* bell glide.aac in Resources */,
+				2CEB9AFB2A34C05300B3CD54 /* chimes photography_going home.aac in Resources */,
+				2CEB9B022A34C05300B3CD54 /* arploop.aac in Resources */,
+				2CEB9B102A34C05300B3CD54 /* bubble jam.aac in Resources */,
+				2CEB9B0C2A34C05300B3CD54 /* runner.aac in Resources */,
+				2CEB9AFC2A34C05300B3CD54 /* organwhawha.aac in Resources */,
 				2C266FD72A0B024E0016C1C5 /* victory.wav in Resources */,
-				2CEB9B112A34C05300B3CD54 /* 16honkshoooo memememeee zzzZZZ.aac in Resources */,
-				2CEB9B0F2A34C05300B3CD54 /* 12spirit track.aac in Resources */,
+				2CEB9B112A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac in Resources */,
+				2CEB9B0F2A34C05300B3CD54 /* spirit track.aac in Resources */,
 				2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */,
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
@@ -580,34 +580,34 @@
 				2CD302762A097286009DFCC2 /* click.wav in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
-				2CEB9B032A34C05300B3CD54 /* 9cloud propeller 2.aac in Resources */,
-				2CEB9AFF2A34C05300B3CD54 /* 20ewejam.aac in Resources */,
-				2CEB9AF62A34C05300B3CD54 /* 29drreams.aac in Resources */,
-				2CEB9B092A34C05300B3CD54 /* 26band.aac in Resources */,
-				2CEB9B002A34C05300B3CD54 /* 3bell dance.aac in Resources */,
+				2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */,
+				2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */,
+				2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */,
+				2CEB9B092A34C05300B3CD54 /* band.aac in Resources */,
+				2CEB9B002A34C05300B3CD54 /* bell dance.aac in Resources */,
 				2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */,
-				2CEB9AFE2A34C05300B3CD54 /* 15mana pool.aac in Resources */,
-				2CEB9B042A34C05300B3CD54 /* 14gilded.aac in Resources */,
+				2CEB9AFE2A34C05300B3CD54 /* mana pool.aac in Resources */,
+				2CEB9B042A34C05300B3CD54 /* gilded.aac in Resources */,
 				2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */,
-				2CEB9AFA2A34C05300B3CD54 /* 27crumbs.aac in Resources */,
+				2CEB9AFA2A34C05300B3CD54 /* crumbs.aac in Resources */,
 				2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */,
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
-				2CEB9AF52A34C05300B3CD54 /* 6ping.aac in Resources */,
-				2CEB9AF92A34C05300B3CD54 /* 18whale2.aac in Resources */,
+				2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */,
+				2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */,
 				2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */,
-				2CEB9AFD2A34C05300B3CD54 /* 28buzz.aac in Resources */,
-				2CEB9B052A34C05300B3CD54 /* 30super.aac in Resources */,
+				2CEB9AFD2A34C05300B3CD54 /* buzz.aac in Resources */,
+				2CEB9B052A34C05300B3CD54 /* super.aac in Resources */,
 				2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */,
 				2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */,
 				2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */,
-				2CEB9B0A2A34C05300B3CD54 /* 24object.aac in Resources */,
-				2CEB9AF72A34C05300B3CD54 /* 13bounce.aac in Resources */,
-				2CEB9B082A34C05300B3CD54 /* 19gustofwind.aac in Resources */,
-				2CEB9B0E2A34C05300B3CD54 /* 7clock tower.aac in Resources */,
-				2CEB9AF82A34C05300B3CD54 /* 22melodine.aac in Resources */,
+				2CEB9B0A2A34C05300B3CD54 /* object.aac in Resources */,
+				2CEB9AF72A34C05300B3CD54 /* bounce.aac in Resources */,
+				2CEB9B082A34C05300B3CD54 /* gustofwind.aac in Resources */,
+				2CEB9B0E2A34C05300B3CD54 /* clock tower.aac in Resources */,
+				2CEB9AF82A34C05300B3CD54 /* melodine.aac in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,
-				2CEB9B0B2A34C05300B3CD54 /* 10jelly jam.aac in Resources */,
-				2CEB9B072A34C05300B3CD54 /* 21change.aac in Resources */,
+				2CEB9B0B2A34C05300B3CD54 /* jelly jam.aac in Resources */,
+				2CEB9B072A34C05300B3CD54 /* change.aac in Resources */,
 				2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */,
 				2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */,
 				2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */,

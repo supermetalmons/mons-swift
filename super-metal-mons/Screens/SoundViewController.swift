@@ -4,6 +4,8 @@ import UIKit
 
 class SoundViewController: UIViewController {
     
+    @IBOutlet weak var songsStackView: UIStackView!
+    
     private let audio = Audio.shared
     
     @IBOutlet weak var soundsVolumeSlider: UISlider!
@@ -21,6 +23,17 @@ class SoundViewController: UIViewController {
     
     @IBAction func didChangeMusicVolumeSlider(_ sender: Any) {
         audio.setMusicVolume(musicVolumeSlider.value)
+    }
+    
+    @IBAction func songButtonTapped(_ sender: UIButton) {
+        guard let numberString = sender.titleLabel?.text, let number = Int(numberString) else { return }
+        let didSelect = audio.selectSong(number: number)
+        if didSelect {
+            sender.configuration = .filled()
+        } else {
+            sender.configuration = .plain()
+        }
+        sender.configuration?.title = numberString
     }
     
 }

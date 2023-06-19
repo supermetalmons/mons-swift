@@ -36,6 +36,20 @@ class Audio: NSObject {
         }
     }
     
+    func selectSong(number: Int) -> Bool {
+        if songNumber == number {
+            setMusic(on: false)
+            songNumber = 0
+            Defaults.songNumber = 0
+            return false
+        } else {
+            songNumber = number
+            Defaults.songNumber = number
+            setMusic(on: true)
+            return true
+        }
+    }
+    
     func setMusic(on: Bool) {
         queue.async { [weak self] in
             if on {
@@ -132,9 +146,9 @@ class Audio: NSObject {
     // MARK: - Private
     
     private func playMusic() {
-        guard !musicVolume.isZero else { return }
+        guard !musicVolume.isZero, songNumber != 0 else { return }
         
-        let name = String(songNumber) + (songNames[songNumber] ?? "")
+        let name = songNames[songNumber] ?? ""
         
         guard let musicFileURL = Bundle.main.url(forResource: name, withExtension: "aac"),
               let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }

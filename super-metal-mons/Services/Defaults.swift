@@ -8,10 +8,10 @@ struct Defaults {
     
     static var songNumber: Int {
         get {
-            return defaults.integer(forKey: #function) + 1
+            return defaults.integer(forKey: #function)
         }
         set {
-            defaults.set(newValue - 1, forKey: #function)
+            defaults.set(newValue, forKey: #function)
         }
     }
     

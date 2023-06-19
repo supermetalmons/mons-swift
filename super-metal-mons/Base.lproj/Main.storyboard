@@ -472,7 +472,10 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDQ-Dg-AOx">
                                                         <rect key="frame" x="18.666666666666664" y="17.333333333333346" width="31.666666666666664" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="filled" title="1"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="1"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="nKY-DQ-AQn"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -488,6 +491,9 @@
                                                         <rect key="frame" x="17.666666666666657" y="17.333333333333346" width="34" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="2"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="4bI-R5-r71"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -503,6 +509,9 @@
                                                         <rect key="frame" x="17.333333333333346" y="17.333333333333346" width="34.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="3"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="4GU-Fd-83h"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -518,6 +527,9 @@
                                                         <rect key="frame" x="17.333333333333339" y="17.333333333333346" width="34.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="4"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="nHQ-AD-hS8"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -533,6 +545,9 @@
                                                         <rect key="frame" x="17.333333333333375" y="17.333333333333346" width="34.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="5"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="bYc-64-PIk"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -559,6 +574,9 @@
                                                         <rect key="frame" x="17.333333333333332" y="17.333333333333375" width="34.666666666666671" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="6"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="es7-Ss-BlZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -574,6 +592,9 @@
                                                         <rect key="frame" x="18.000000000000004" y="17.333333333333375" width="33.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="7"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="r74-Lc-wyp"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -589,6 +610,9 @@
                                                         <rect key="frame" x="17.333333333333339" y="17.333333333333375" width="34.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="8"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Cca-x9-SPh"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -604,6 +628,9 @@
                                                         <rect key="frame" x="17.333333333333339" y="17.333333333333375" width="34.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="9"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Ule-yO-aLa"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -619,6 +646,9 @@
                                                         <rect key="frame" x="13.666666666666686" y="17.333333333333375" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="10"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="nNQ-hh-TjM"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -645,6 +675,9 @@
                                                         <rect key="frame" x="15" y="17.333333333333375" width="39" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="11"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="SCs-07-r95"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -660,6 +693,9 @@
                                                         <rect key="frame" x="14.000000000000004" y="17.333333333333375" width="41.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="12"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="gQG-Ea-7fq"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -675,6 +711,9 @@
                                                         <rect key="frame" x="13.666666666666657" y="17.333333333333375" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="13"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Z0r-MZ-SQo"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -690,6 +729,9 @@
                                                         <rect key="frame" x="13.666666666666657" y="17.333333333333375" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="14"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="ZMz-7j-1Ow"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -705,6 +747,9 @@
                                                         <rect key="frame" x="13.666666666666682" y="17.333333333333375" width="41.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="15"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Grl-BW-FvQ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -731,6 +776,9 @@
                                                         <rect key="frame" x="13.666666666666671" y="17.333333333333318" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="16"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="GnD-Rj-A8Y"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -746,6 +794,9 @@
                                                         <rect key="frame" x="14.333333333333329" y="17.333333333333318" width="41" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="17"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="fGU-F0-xIA"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -761,6 +812,9 @@
                                                         <rect key="frame" x="13.666666666666657" y="17.333333333333318" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="18"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="zJ3-z1-9Rj"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -776,6 +830,9 @@
                                                         <rect key="frame" x="13.666666666666657" y="17.333333333333318" width="42" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="19"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="mTx-Xl-KsV"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -791,6 +848,9 @@
                                                         <rect key="frame" x="12.333333333333375" y="17.333333333333318" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="20"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Y5d-MM-fN6"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -817,6 +877,9 @@
                                                         <rect key="frame" x="13.999999999999996" y="17.333333333333318" width="41.333333333333329" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="21"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="G02-ZO-1kg"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -832,6 +895,9 @@
                                                         <rect key="frame" x="12.999999999999996" y="17.333333333333318" width="43.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="22"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="VKw-RO-I2B"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -847,6 +913,9 @@
                                                         <rect key="frame" x="12.333333333333346" y="17.333333333333318" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="23"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="TjA-UK-6yW"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -862,6 +931,9 @@
                                                         <rect key="frame" x="12.666666666666661" y="17.333333333333318" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="24"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="wtb-ME-mPN"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -877,6 +949,9 @@
                                                         <rect key="frame" x="12.666666666666686" y="17.333333333333318" width="44" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="25"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="nYo-z4-qr4"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -903,6 +978,9 @@
                                                         <rect key="frame" x="12.333333333333332" y="17.333333333333375" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="26"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="i3g-Fw-oc6"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -918,6 +996,9 @@
                                                         <rect key="frame" x="13.000000000000004" y="17.333333333333375" width="43.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="27"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="UCr-wy-wLN"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -933,6 +1014,9 @@
                                                         <rect key="frame" x="12.333333333333346" y="17.333333333333375" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="28"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="7Qt-h0-nhZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -948,6 +1032,9 @@
                                                         <rect key="frame" x="12.666666666666661" y="17.333333333333375" width="44.333333333333343" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="29"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="MnX-dF-SoB"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -963,6 +1050,9 @@
                                                         <rect key="frame" x="12.333333333333368" y="17.333333333333375" width="44.666666666666657" height="34.333333333333343"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="30"/>
+                                                        <connections>
+                                                            <action selector="songButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="4SB-Ai-zID"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1003,6 +1093,7 @@
                     <size key="freeformSize" width="393" height="647"/>
                     <connections>
                         <outlet property="musicVolumeSlider" destination="g9i-JA-kdP" id="CfO-Ig-WbL"/>
+                        <outlet property="songsStackView" destination="lrx-oI-9Wp" id="rYo-lb-Imd"/>
                         <outlet property="soundsVolumeSlider" destination="aec-n1-MZo" id="UAn-Zt-WhT"/>
                     </connections>
                 </viewController>
