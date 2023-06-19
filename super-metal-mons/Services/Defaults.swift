@@ -6,6 +6,15 @@ struct Defaults {
     
     private static let defaults = UserDefaults.standard
     
+    static var songNumber: Int {
+        get {
+            return defaults.integer(forKey: #function) + 1
+        }
+        set {
+            defaults.set(newValue - 1, forKey: #function)
+        }
+    }
+    
     static var musicVolume: Float {
         get {
             return defaults.float(forKey: #function)

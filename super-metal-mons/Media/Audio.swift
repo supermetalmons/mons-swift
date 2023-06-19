@@ -7,6 +7,7 @@ class Audio: NSObject {
     
     private (set) var soundsVolume = Defaults.soundsVolume
     private (set) var musicVolume = Defaults.musicVolume
+    private (set) var songNumber = Defaults.songNumber
     
     static let shared = Audio()
     
@@ -133,12 +134,14 @@ class Audio: NSObject {
     private func playMusic() {
         guard !musicVolume.isZero else { return }
         
-        // TODO: handle case when there is existing music player already
+        let name = String(songNumber) + (songNames[songNumber] ?? "")
         
-        guard let musicFileURL = Bundle.main.url(forResource: "18whale2", withExtension: "aac"),
+        guard let musicFileURL = Bundle.main.url(forResource: name, withExtension: "aac"),
               let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }
+        
         musicPlayer = player
         musicPlayer?.volume = musicVolume
+        
         player.delegate = self
         player.play()
     }
@@ -149,6 +152,40 @@ extension Audio: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         // TODO: play next track if successfully
+        // TODO: update what's displayed in sound view controller
     }
-    
+
 }
+
+private let songNames: [Int: String] = [
+    1: "cloud propeller",
+    2: "bell glide",
+    3: "bell dance",
+    4: "organwhawha",
+    5: "chimes photography_going home",
+    6: "ping",
+    7: "clock tower",
+    8: "melodine",
+    9: "cloud propeller 2",
+    10: "jelly jam",
+    11: "bubble jam",
+    12: "spirit track",
+    13: "bounce",
+    14: "gilded",
+    15: "mana pool",
+    16: "honkshoooo memememeee zzzZZZ",
+    17: "arploop",
+    18: "whale2",
+    19: "gustofwind",
+    20: "ewejam",
+    21: "change",
+    22: "melodine",
+    23: "driver",
+    24: "object",
+    25: "runner",
+    26: "band",
+    27: "crumbs",
+    28: "buzz",
+    29: "drreams",
+    30: "super"
+]
