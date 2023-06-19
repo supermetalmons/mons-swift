@@ -32,8 +32,16 @@ class Audio: NSObject {
             
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
-            
-            self?.playMusic()
+        }
+    }
+    
+    func setMusic(on: Bool) {
+        queue.async { [weak self] in
+            if on {
+                self?.playMusic()
+            } else {
+                self?.musicPlayer?.pause()
+            }
         }
     }
     

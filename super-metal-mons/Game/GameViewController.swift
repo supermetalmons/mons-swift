@@ -67,6 +67,7 @@ class GameViewController: UIViewController, GameView {
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
         controller.setGameView(self)
+        Audio.shared.setMusic(on: true)
         
         switch controller.mode {
         case .createInvite:
@@ -232,7 +233,12 @@ class GameViewController: UIViewController, GameView {
     
     private func endGame() {
         controller.endGame()
+        dismissBoardViewController()
+    }
+    
+    private func dismissBoardViewController() {
         dismiss(animated: false)
+        Audio.shared.setMusic(on: false)
     }
     
     // MARK: - updates
@@ -240,7 +246,7 @@ class GameViewController: UIViewController, GameView {
     func showMessageAndDismiss(message: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
-            self?.dismiss(animated: false)
+            self?.dismissBoardViewController()
         }
         alert.addAction(okAction)
         present(alert, animated: true)
