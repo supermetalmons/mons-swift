@@ -62,8 +62,6 @@ class GameViewController: UIViewController, GameView {
         playerMovesTrailingConstraint.constant = 7
         opponentMovesTrailingConstraint.constant = 7
         #endif
-        
-        updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
         moreButton.isHidden = true
         playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
@@ -216,9 +214,15 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
-        let wasDisabled = Defaults.isSoundDisabled
-        Defaults.isSoundDisabled = !wasDisabled
-        updateSoundButton(isSoundEnabled: wasDisabled)
+        let soundViewController = instantiate(SoundViewController.self)
+        soundViewController.modalPresentationStyle = .popover
+        if let popoverController = soundViewController.popoverPresentationController {
+            popoverController.permittedArrowDirections = [.up, .down, .left, .right]
+            popoverController.sourceView = soundControlButton
+            popoverController.sourceRect = soundControlButton.bounds
+            popoverController.delegate = self
+        }
+        present(soundViewController, animated: true, completion: nil)
     }
     
     private func setPlayerSide(color: Color) {
@@ -240,10 +244,6 @@ class GameViewController: UIViewController, GameView {
         }
         alert.addAction(okAction)
         present(alert, animated: true)
-    }
-    
-    private func updateSoundButton(isSoundEnabled: Bool) {
-        soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
     }
     
     private func updateMovesView(_ stackView: UIStackView, moves: [AvailableMoveKind: Int]) {
@@ -385,6 +385,14 @@ extension GameViewController: BoardViewDelegate {
     
     func didTapSquare(location: Location) {
         processInput(.location(location))
+    }
+    
+}
+
+extension GameViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
     
 }

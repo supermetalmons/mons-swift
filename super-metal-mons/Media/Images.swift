@@ -55,9 +55,6 @@ struct Images {
         return named("move-\(move.rawValue)")
     }
     
-    static var soundEnabled: UIImage { systemName("speaker") }
-    static var soundDisabled: UIImage { systemName("speaker.slash") }
-    
     private static func named(_ name: String) -> UIImage {
         return UIImage(named: name)!
     }
