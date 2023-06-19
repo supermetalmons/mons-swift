@@ -17,10 +17,10 @@ struct Defaults {
     
     static var musicVolume: Float {
         get {
-            return defaults.float(forKey: #function)
+            return 1 - defaults.float(forKey: #function)
         }
         set {
-            defaults.set(newValue, forKey: #function)
+            defaults.set(1 - newValue, forKey: #function)
         }
     }
     
