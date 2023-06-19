@@ -131,7 +131,8 @@ class Audio: NSObject {
                 self?.musicPlayer?.pause()
             case .ended:
                 if let shouldResume = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt,
-                   AVAudioSession.InterruptionOptions(rawValue: shouldResume).contains(.shouldResume) {
+                   AVAudioSession.InterruptionOptions(rawValue: shouldResume).contains(.shouldResume),
+                    self?.songNumber != 0 {
                     self?.musicPlayer?.play()
                 }
             default:
@@ -152,7 +153,9 @@ class Audio: NSObject {
     @objc func handleApplicationDidBecomeActive(notification: Notification) {
         #if !targetEnvironment(macCatalyst)
         queue.async { [weak self] in
-            self?.musicPlayer?.play()
+            if self?.songNumber != 0 {
+                self?.musicPlayer?.play()
+            }
         }
         #endif
     }
