@@ -51,7 +51,7 @@ extension GameController: ConnectionDelegate {
             }
             
             gameView.didConnect()
-            Audio.play(.didConnect)
+            Audio.shared.play(.didConnect)
             
             return
         }
@@ -405,7 +405,7 @@ class GameController {
             
             let maxSoundPriority = sounds.max(by: { $0.priority < $1.priority })?.priority
             sounds = sounds.filter { $0.priority == maxSoundPriority || $0 == .endTurn }
-            Audio.play(sounds: sounds)
+            Audio.shared.play(sounds: sounds)
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
                 let nextMoveHighlights = processInput(.location(to), assistedInputKind: .keepSelectionAfterMove)

@@ -4,21 +4,23 @@ import UIKit
 
 class SoundViewController: UIViewController {
     
+    private let audio = Audio.shared
+    
     @IBOutlet weak var soundsVolumeSlider: UISlider!
     @IBOutlet weak var musicVolumeSlider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        soundsVolumeSlider.value = Audio.soundsVolume
-        musicVolumeSlider.value = Audio.musicVolume
+        soundsVolumeSlider.value = audio.soundsVolume
+        musicVolumeSlider.value = audio.musicVolume
     }
     
     @IBAction func didChangeSoundVolumeSlider(_ sender: Any) {
-        Audio.setSoundsVolume(soundsVolumeSlider.value)
+        audio.setSoundsVolume(soundsVolumeSlider.value)
     }
     
     @IBAction func didChangeMusicVolumeSlider(_ sender: Any) {
-        Audio.setMusicVolume(musicVolumeSlider.value)
+        audio.setMusicVolume(musicVolumeSlider.value)
     }
     
 }

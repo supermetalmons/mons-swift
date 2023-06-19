@@ -185,7 +185,7 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
         if !controller.isWatchOnly {
-            Audio.play(.click)
+            Audio.shared.play(.click)
         }
         playerImageView.image = controller.useDifferentEmoji()
         animateAvatar(opponents: false, isUserInteraction: true)
@@ -368,7 +368,7 @@ class GameViewController: UIViewController, GameView {
                 }
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
-                Audio.play(.choosePickup)
+                Audio.shared.play(.choosePickup)
             case let .updateCells(locations):
                 boardView.updateCells(locations)
             case let .addHighlights(highlights):
