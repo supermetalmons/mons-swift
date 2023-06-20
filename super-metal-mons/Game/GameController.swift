@@ -250,7 +250,12 @@ class GameController {
     
     func didSelectGameVersusComputer() {
         versusComputer = true
-        blackEmojiId = Images.computerEmojiId // TODO: will be different when will play random color vs computer
+        playerSideColor = .random
+        updateOpponentEmoji(id: Images.computerEmojiId)
+        
+        if activeColor != playerSideColor {
+            makeComputerMoveAfterSmallDelay()
+        }
     }
     
     func setGameView(_ gameView: GameView) {
