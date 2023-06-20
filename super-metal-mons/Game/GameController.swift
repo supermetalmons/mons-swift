@@ -308,6 +308,8 @@ class GameController {
     }
     
     private func makeComputerMove() {
+        guard winnerColor == nil else { return }
+        
         let computerColor = activeColor
         
         let viewEffects = processInput(nil, remoteOrComputerInput: true)
