@@ -122,6 +122,8 @@ class GameController {
     private var whiteProcessedMovesCount = 0
     private var blackProcessedMovesCount = 0
     
+    private var versusComputer = false
+    
     private func updateEmoji(color: Color, id: Int) {
         switch color {
         case .white:
@@ -142,7 +144,7 @@ class GameController {
         case createInvite
         case joinGameId(String)
         
-        var isOnline: Bool {
+        var isRemoteGame: Bool {
             switch self {
             case .createInvite, .joinGameId:
                 return true
@@ -156,6 +158,14 @@ class GameController {
     var playerSideColor: Color
     var whiteEmojiId: Int
     var blackEmojiId: Int
+    
+    var shouldAutoFlipBoard: Bool {
+        if case .localGame = mode, !versusComputer {
+            return true
+        } else {
+            return false
+        }
+    }
     
     // TODO: refactor, move somewhere
     enum AssistedInputKind {
@@ -238,6 +248,16 @@ class GameController {
     
     private var game = MonsGame()
     
+    func didSelectGameVersusComputer() {
+        versusComputer = true
+        playerSideColor = .random
+        updateOpponentEmoji(id: Images.computerEmojiId)
+        
+        if activeColor != playerSideColor {
+            makeComputerMoveAfterSmallDelay()
+        }
+    }
+    
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView
     }
@@ -255,7 +275,7 @@ class GameController {
             blackEmojiId = emojiId
         }
         
-        if !didConnect && mode.isOnline {
+        if !didConnect && mode.isRemoteGame {
             whiteEmojiId = emojiId
             blackEmojiId = emojiId
         }
@@ -277,21 +297,40 @@ class GameController {
     private func processRemoteInputs(_ inputs: [MonsGame.Input]) {
         self.inputs = inputs
         self.inputs.removeLast()
-        let viewEffects = processInput(inputs.last, remoteInput: true)
+        let viewEffects = processInput(inputs.last, remoteOrComputerInput: true)
         gameView.applyEffects(viewEffects)
     }
     
+    private func makeComputerMoveAfterSmallDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+            self?.makeComputerMove()
+        }
+    }
+    
+    private func makeComputerMove() {
+        guard winnerColor == nil else { return }
+        
+        let computerColor = activeColor
+        
+        let viewEffects = processInput(nil, remoteOrComputerInput: true)
+        gameView.applyEffects(viewEffects)
+        
+        if activeColor == computerColor {
+            makeComputerMoveAfterSmallDelay()
+        }
+    }
+    
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteInput: Bool = false) -> [ViewEffect] {
-        guard !isWatchOnly || remoteInput else { return [] }
+    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteOrComputerInput: Bool = false) -> [ViewEffect] {
+        guard !isWatchOnly || remoteOrComputerInput else { return [] }
         
         switch mode {
         case .localGame:
-            break
+            guard !versusComputer || activeColor == playerSideColor || remoteOrComputerInput else { return [] }
         case .createInvite, .joinGameId:
-            guard remoteInput || activeColor == playerSideColor else { return [] }
+            guard remoteOrComputerInput || activeColor == playerSideColor else { return [] }
         }
-                
+        
         var viewEffects = [ViewEffect]()
         var highlights = [Highlight]()
         var traces = [Trace]()
@@ -300,16 +339,40 @@ class GameController {
             inputs.append(input)
         }
         
-        let output: MonsGame.Output
+        var output: MonsGame.Output
         if inputs.isEmpty, let cachedOutput = cachedOutput {
             output = cachedOutput
         } else {
             output = game.processInput(inputs)
         }
         
+        if case .localGame = mode, remoteOrComputerInput {
+            switch output {
+            case let .locationsToStartFrom(locations):
+                guard let start = locations.randomElement() else { return [] }
+                inputs.append(.location(start))
+                var didMakeMove = false
+                while !didMakeMove {
+                    output = game.processInput(inputs)
+                    switch output {
+                    case .invalidInput, .locationsToStartFrom:
+                        return []
+                    case let .nextInputOptions(nextInputOptions):
+                        guard let nextInput = nextInputOptions.randomElement()?.input else { return [] }
+                        inputs.append(nextInput)
+                    case .events:
+                        didMakeMove = true
+                    }
+                }
+                
+            default:
+                return []
+            }
+        }
+        
         switch output {
         case let .events(events):
-            if !remoteInput {
+            if !remoteOrComputerInput {
                 connection?.makeMove(inputs: inputs, newFen: game.fen)
             }
             
@@ -394,6 +457,9 @@ class GameController {
                 case .nextTurn(_):
                     sounds.append(.endTurn)
                     viewEffects.append(.nextTurn)
+                    if case .localGame = mode, versusComputer && !remoteOrComputerInput {
+                        makeComputerMoveAfterSmallDelay()
+                    }
                 case let .gameOver(winner):
                     if winner == playerSideColor {
                         sounds.append(.victory)
@@ -501,7 +567,7 @@ class GameController {
             viewEffects.append(.addHighlights(highlights))
         }
         
-        if !traces.isEmpty && remoteInput {
+        if !traces.isEmpty && remoteOrComputerInput {
             viewEffects.append(.showTraces(traces))
         }
         
