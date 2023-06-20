@@ -42,6 +42,8 @@ struct Images {
         return newRandom
     }
     
+    static let computerEmojiId = 157
+    
     static var randomEmojiId: Int {
         let index = Int.random(in: 1...156)
         return index

@@ -242,7 +242,7 @@ class GameController {
     
     func didSelectGameVersusComputer() {
         versusComputer = true
-        // TODO: implement
+        blackEmojiId = Images.computerEmojiId // TODO: will be different when will play random color vs computer
     }
     
     func setGameView(_ gameView: GameView) {
