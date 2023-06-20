@@ -144,7 +144,7 @@ class GameController {
         case createInvite
         case joinGameId(String)
         
-        var isOnline: Bool {
+        var isRemoteGame: Bool {
             switch self {
             case .createInvite, .joinGameId:
                 return true
@@ -262,7 +262,7 @@ class GameController {
             blackEmojiId = emojiId
         }
         
-        if !didConnect && mode.isOnline {
+        if !didConnect && mode.isRemoteGame {
             whiteEmojiId = emojiId
             blackEmojiId = emojiId
         }
