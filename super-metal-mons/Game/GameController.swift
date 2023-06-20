@@ -122,6 +122,8 @@ class GameController {
     private var whiteProcessedMovesCount = 0
     private var blackProcessedMovesCount = 0
     
+    private var versusComputer = false
+    
     private func updateEmoji(color: Color, id: Int) {
         switch color {
         case .white:
@@ -237,6 +239,11 @@ class GameController {
     // TODO: this one might be different when joining
     
     private var game = MonsGame()
+    
+    func didSelectGameVersusComputer() {
+        versusComputer = true
+        // TODO: implement
+    }
     
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView

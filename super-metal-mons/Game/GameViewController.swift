@@ -184,11 +184,12 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func computerButtonTapped(_ sender: Any) {
-        showOverlay(.none) // TODO: implement
+        controller.didSelectGameVersusComputer()
+        showOverlay(.none)
     }
     
     @IBAction func personButtonTapped(_ sender: Any) {
-        showOverlay(.none) // TODO: implement
+        showOverlay(.none)
     }
     
     @IBAction func boardOverlayTapped(_ sender: Any) {
