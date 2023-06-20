@@ -6,7 +6,7 @@ import UIKit
 class GameViewController: UIViewController, GameView {
     
     enum Overlay {
-        case none, pickupSelection, hostWaiting, guestWaiting
+        case none, pickupSelection, hostWaiting, guestWaiting, personOrComputer
     }
     
     static func with(gameController: GameController) -> GameViewController {
@@ -26,6 +26,7 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!
     @IBOutlet weak var hostWaitingOverlay: UIView!
+    @IBOutlet weak var personOrComputerOverlay: UIView!
     @IBOutlet weak var joinActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var linkButtonsStackView: UIStackView!
     
@@ -79,6 +80,7 @@ class GameViewController: UIViewController, GameView {
         case .localGame:
             boardView.reloadItems()
             updateGameInfo()
+            showOverlay(.personOrComputer)
         }
     }
     
@@ -89,19 +91,27 @@ class GameViewController: UIViewController, GameView {
         switch overlay {
         case .none:
             boardOverlayView.isHidden = true
+        case .personOrComputer:
+            personOrComputerOverlay.isHidden = false
+            boardOverlayView.isHidden = false
+            pickupSelectionOverlay.isHidden = true
+            hostWaitingOverlay.isHidden = true
         case .pickupSelection:
             boardOverlayView.isHidden = false
+            personOrComputerOverlay.isHidden = true
             pickupSelectionOverlay.isHidden = false
             hostWaitingOverlay.isHidden = true
         case .hostWaiting:
             boardOverlayView.isHidden = false
             pickupSelectionOverlay.isHidden = true
+            personOrComputerOverlay.isHidden = true
             hostWaitingOverlay.isHidden = false
             joinActivityIndicator.isHidden = true
             linkButtonsStackView.isHidden = false
             inviteLinkLabel.text = controller.inviteLink
         case .guestWaiting:
             boardOverlayView.isHidden = false
+            personOrComputerOverlay.isHidden = true
             pickupSelectionOverlay.isHidden = true
             hostWaitingOverlay.isHidden = false
             joinActivityIndicator.isHidden = false
@@ -173,12 +183,20 @@ class GameViewController: UIViewController, GameView {
         showOverlay(.none)
     }
     
+    @IBAction func computerButtonTapped(_ sender: Any) {
+        showOverlay(.none) // TODO: implement
+    }
+    
+    @IBAction func personButtonTapped(_ sender: Any) {
+        showOverlay(.none) // TODO: implement
+    }
+    
     @IBAction func boardOverlayTapped(_ sender: Any) {
         switch currentOverlay {
         case .pickupSelection:
             processInput(.modifier(.cancel))
             showOverlay(.none)
-        case .none, .hostWaiting, .guestWaiting:
+        case .none, .hostWaiting, .guestWaiting, .personOrComputer:
             break
         }
     }
