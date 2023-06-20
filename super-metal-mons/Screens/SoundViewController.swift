@@ -31,8 +31,6 @@ class SoundViewController: UIViewController {
             }
             self?.setSongButtonSelected(number: songNumber, isSelected: true)
         }
-        
-        
     }
     
     @IBAction func didChangeSoundVolumeSlider(_ sender: Any) {
