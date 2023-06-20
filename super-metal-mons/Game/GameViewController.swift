@@ -78,8 +78,7 @@ class GameViewController: UIViewController, GameView {
             setGameInfoHidden(true)
             showOverlay(.guestWaiting)
         case .localGame:
-            boardView.reloadItems()
-            updateGameInfo()
+            setGameInfoHidden(true)
             showOverlay(.personOrComputer)
         }
     }
@@ -185,11 +184,11 @@ class GameViewController: UIViewController, GameView {
     
     @IBAction func computerButtonTapped(_ sender: Any) {
         controller.didSelectGameVersusComputer()
-        showOverlay(.none)
+        didConnect()
     }
     
     @IBAction func personButtonTapped(_ sender: Any) {
-        showOverlay(.none)
+        didConnect()
     }
     
     @IBAction func boardOverlayTapped(_ sender: Any) {
