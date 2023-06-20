@@ -159,6 +159,14 @@ class GameController {
     var whiteEmojiId: Int
     var blackEmojiId: Int
     
+    var shouldAutoFlipBoard: Bool {
+        if case .localGame = mode, !versusComputer {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     // TODO: refactor, move somewhere
     enum AssistedInputKind {
         case keepSelectionAfterMove

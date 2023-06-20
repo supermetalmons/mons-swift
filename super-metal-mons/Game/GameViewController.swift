@@ -382,8 +382,7 @@ class GameViewController: UIViewController, GameView {
                     didWin(color: winner)
                 }
             case .nextTurn:
-                if case .localGame = controller.mode {
-                    // TODO: should not be possible when playing vs computer
+                if controller.shouldAutoFlipBoard {
                    controller.playerSideColor = controller.playerSideColor.other
                    setPlayerSide(color: controller.playerSideColor)
                 }
