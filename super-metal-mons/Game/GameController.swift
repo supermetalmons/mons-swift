@@ -1,19 +1,161 @@
 // Copyright © 2023 super metal mons. All rights reserved.
 
-import Foundation
+import UIKit
 
 protocol GameView: AnyObject {
-    func restartBoardForTest() // TODO: deprecate
-    func updateGameInfo() // TODO: refactor
-    func didWin(color: Color) // TODO: refactor
+    func didConnect()
+    func updateOpponentEmoji()
+    func updateEmoji(color: Color)
+    func applyEffects(_ effects: [ViewEffect])
+    func showMessageAndDismiss(message: String)
+    func setNewBoard()
+}
+
+extension GameController: ConnectionDelegate {
+    
+    func enterWatchOnlyMode() {
+        isWatchOnly = true
+    }
+    
+    private func setInitiallyProcessedMovesCount(color: Color, count: Int) {
+        switch color {
+        case .black:
+            if !didSetBlackProcessedMovesCount {
+                blackProcessedMovesCount = count
+                didSetBlackProcessedMovesCount = true
+            }
+        case .white:
+            if !didSetWhiteProcessedMovesCount {
+                whiteProcessedMovesCount = count
+                didSetWhiteProcessedMovesCount = true
+            }
+        }
+    }
+    
+    func didUpdate(match: PlayerMatch) {
+        guard didConnect else {
+            didConnect = true
+            
+            if isWatchOnly {
+                self.playerSideColor = .white
+                updateEmoji(color: match.color, id: match.emojiId)
+            } else {
+                self.playerSideColor = match.color.other
+                updateOpponentEmoji(id: match.emojiId)
+            }
+            
+            if isWatchOnly, let game = MonsGame(fen: match.fen) {
+                self.game = game
+                gameView.setNewBoard()
+                setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+            }
+            
+            gameView.didConnect()
+            Audio.shared.play(.didConnect)
+            
+            return
+        }
+        
+        if isWatchOnly, !didSetBlackProcessedMovesCount || !didSetWhiteProcessedMovesCount {
+            if let newGame = MonsGame(fen: match.fen), newGame.isLaterThan(game: game) {
+                self.game = newGame
+                gameView.setNewBoard()
+            }
+            setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+        }
+        
+        // TODO: do not update stuff that did not actually change
+        
+        if isWatchOnly {
+            updateEmoji(color: match.color, id: match.emojiId)
+            gameView.updateEmoji(color: match.color)
+        } else {
+            updateOpponentEmoji(id: match.emojiId)
+            gameView.updateOpponentEmoji()
+        }
+        
+        let processedMoves = processedMovesCount(color: match.color)
+        if let moves = match.moves, moves.count > processedMoves {
+            for i in processedMoves..<moves.count {
+                processRemoteInputs(moves[i])
+            }
+            
+            setProcessedMovesCount(color: match.color, count: moves.count)
+            
+            if game.fen != match.fen {
+                gameView.showMessageAndDismiss(message: Strings.somethingIsBroken)
+                connection = nil
+                return
+            }
+        }
+        
+        if match.status == .surrendered {
+            gameView.showMessageAndDismiss(message: Strings.opponentLeft)
+            connection = nil
+        }
+        
+        // TODO: should update game statuses as well sometime – after connection as well – or use less statuses
+    }
+    
 }
 
 // TODO: refactor
 class GameController {
     
-    var playerSideColor = Color.white // TODO: get from network
-    var whiteEmoji = Images.randomEmoji // TODO: get from network
-    var blackEmoji = Images.randomEmoji // TODO: get from network
+    func setProcessedMovesCount(color: Color, count: Int) {
+        switch color {
+        case .black: blackProcessedMovesCount = count
+        case .white: whiteProcessedMovesCount = count
+        }
+    }
+    
+    func processedMovesCount(color: Color) -> Int {
+        switch color {
+        case .black: return blackProcessedMovesCount
+        case .white: return whiteProcessedMovesCount
+        }
+    }
+    
+    private var didSetWhiteProcessedMovesCount = false
+    private var didSetBlackProcessedMovesCount = false
+    
+    private var whiteProcessedMovesCount = 0
+    private var blackProcessedMovesCount = 0
+    
+    private func updateEmoji(color: Color, id: Int) {
+        switch color {
+        case .white:
+            whiteEmojiId = id
+        case .black:
+            blackEmojiId = id
+        }
+    }
+    
+    private func updateOpponentEmoji(id: Int) {
+        updateEmoji(color: playerSideColor.other, id: id)
+    }
+    
+    var isWatchOnly = false
+    
+    enum Mode {
+        case localGame
+        case createInvite
+        case joinGameId(String)
+        
+        var isOnline: Bool {
+            switch self {
+            case .createInvite, .joinGameId:
+                return true
+            case .localGame:
+                return false
+            }
+        }
+    }
+    
+    var didConnect = false
+    var playerSideColor: Color
+    var whiteEmojiId: Int
+    var blackEmojiId: Int
     
     // TODO: refactor, move somewhere
     enum AssistedInputKind {
@@ -49,61 +191,110 @@ class GameController {
     var board: Board {
         return game.board
     }
+
+    let mode: Mode
+    private let gameId: String
+    private var connection: Connection?
+    private let version = 1
     
     private unowned var gameView: GameView!
-    private var gameDataSource: GameDataSource
-    
-    init() {
-        gameDataSource = LocalGameDataSource()
+
+    var inviteLink: String {
+        return URL.forGame(id: gameId)
     }
     
-    init(gameId: String) {
-        gameDataSource = RemoteGameDataSource(gameId: gameId)
+    init(mode: Mode) {
+        self.mode = mode
+        
+        let emojiId = Images.randomEmojiId
+        whiteEmojiId = emojiId
+        blackEmojiId = emojiId
+        
+        switch mode {
+        case .localGame:
+            gameId = ""
+            connection = nil
+            playerSideColor = .white
+            blackEmojiId = Images.randomEmojiId
+        case .createInvite:
+            let id = String.newGameId
+            self.gameId = id
+            self.connection = Connection(gameId: id)
+            playerSideColor = .random
+            connection?.addInvite(id: id, version: version, hostColor: playerSideColor, emojiId: emojiId, fen: game.fen)
+        case .joinGameId(let gameId):
+            self.gameId = gameId
+            self.connection = Connection(gameId: gameId)
+            playerSideColor = .random
+            connection?.joinGame(id: gameId, emojiId: emojiId)
+        }
+        
+        connection?.setDelegate(self)
     }
     
     // idk about this one
-    private lazy var game: MonsGame = {
-        return MonsGame()
-    }()
+    // TODO: this one can be created immediatelly for local & invite mode
+    // TODO: this one might be different when joining
+    
+    private var game = MonsGame()
     
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView
+    }
+    
+    func useDifferentEmoji() -> UIImage {
+        guard !isWatchOnly else { return Images.emoji(whiteEmojiId) }
         
-        gameDataSource.observe { [weak self] fen in
-            DispatchQueue.main.async {
-                self?.game = MonsGame(fen: fen)! // TODO: do not force unwrap
-                self?.gameView.restartBoardForTest()
-                self?.gameView.updateGameInfo()
-                if let winner = self?.game.winnerColor {
-                    self?.gameView.didWin(color: winner)
-                }
-            }
+        let emojiId = Images.randomEmojiId(except: whiteEmojiId, andExcept: blackEmojiId)
+        connection?.updateEmoji(id: emojiId)
+        
+        switch playerSideColor {
+        case .white:
+            whiteEmojiId = emojiId
+        case .black:
+            blackEmojiId = emojiId
         }
-    }
-    
-    // TODO: deprecate. should not be called from gameviewcontroller. should happen internally here.
-    func shareGameState() {
-        sendFen(game.fen)
-    }
-    
-    private func sendFen(_ fen: String) {
-        gameDataSource.update(fen: fen)
+        
+        if !didConnect && mode.isOnline {
+            whiteEmojiId = emojiId
+            blackEmojiId = emojiId
+        }
+        
+        return Images.emoji(emojiId)
     }
     
     func endGame() {
-        game = MonsGame()
-        sendFen(game.fen)
+        guard !isWatchOnly else { return }
+        if winnerColor == nil {
+            connection?.updateStatus(.surrendered)
+        }
     }
     
     private var inputs = [MonsGame.Input]()
     private var cachedOutput: MonsGame.Output?
     
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil) -> [ViewEffect] {
-        // TODO: act differently when i click spaces while opponent makes his turns
-        // TODO: should play sounds / moves when opponent moves, but should not show his highlights
+    private func processRemoteInputs(_ inputs: [MonsGame.Input]) {
+        self.inputs = inputs
+        self.inputs.removeLast()
+        let viewEffects = processInput(inputs.last, remoteInput: true)
+        gameView.applyEffects(viewEffects)
+    }
+    
+    // TODO: refactor
+    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteInput: Bool = false) -> [ViewEffect] {
+        guard !isWatchOnly || remoteInput else { return [] }
         
-        var viewEffects = [ViewEffect]() // TODO: tmp
+        switch mode {
+        case .localGame:
+            break
+        case .createInvite, .joinGameId:
+            guard remoteInput || activeColor == playerSideColor else { return [] }
+        }
+                
+        var viewEffects = [ViewEffect]()
+        var highlights = [Highlight]()
+        var traces = [Trace]()
         
         if let input = input {
             inputs.append(input)
@@ -118,6 +309,10 @@ class GameController {
         
         switch output {
         case let .events(events):
+            if !remoteInput {
+                connection?.makeMove(inputs: inputs, newFen: game.fen)
+            }
+            
             cachedOutput = nil
             inputs = []
             var locationsToUpdate = Set<Location>()
@@ -134,10 +329,12 @@ class GameController {
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
                     mightKeepHighlightOnLocation = to
+                    traces.append(Trace(from: from, to: to, kind: .monMove))
                 case .manaMove(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
-                case let .manaScored(mana, at, _):
+                    traces.append(Trace(from: from, to: to, kind: .manaMove))
+                case let .manaScored(mana, at):
                     switch mana {
                     case .regular:
                         sounds.append(.scoreMana)
@@ -150,17 +347,21 @@ class GameController {
                     sounds.append(.mysticAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .mysticAction))
                 case .demonAction(_, let from, let to):
                     sounds.append(.demonAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .demonAction))
                 case .demonAdditionalStep(_, let from, let to):
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .demonAdditionalStep))
                 case .spiritTargetMove(_, let from, let to):
                     sounds.append(.spiritAbility)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .spiritTargetMove))
                 case .pickupBomb(_, let at):
                     sounds.append(.pickupBomb)
                     locationsToUpdate.insert(at)
@@ -184,6 +385,7 @@ class GameController {
                     sounds.append(.bomb)
                     locationsToUpdate.insert(from)
                     locationsToUpdate.insert(to)
+                    traces.append(Trace(from: from, to: to, kind: .bomb))
                 case .monAwake(_, let at):
                     locationsToUpdate.insert(at)
                 case .bombExplosion(let at):
@@ -191,6 +393,7 @@ class GameController {
                     locationsToUpdate.insert(at)
                 case .nextTurn(_):
                     sounds.append(.endTurn)
+                    viewEffects.append(.nextTurn)
                 case let .gameOver(winner):
                     if winner == playerSideColor {
                         sounds.append(.victory)
@@ -202,7 +405,7 @@ class GameController {
             
             let maxSoundPriority = sounds.max(by: { $0.priority < $1.priority })?.priority
             sounds = sounds.filter { $0.priority == maxSoundPriority || $0 == .endTurn }
-            Audio.play(sounds: sounds)
+            Audio.shared.play(sounds: sounds)
             
             if let to = mightKeepHighlightOnLocation, !mustReleaseHighlight {
                 let nextMoveHighlights = processInput(.location(to), assistedInputKind: .keepSelectionAfterMove)
@@ -211,7 +414,7 @@ class GameController {
                 }
             }
             
-            viewEffects.append(contentsOf: locationsToUpdate.map { ViewEffect.updateCell($0) })
+            viewEffects.append(ViewEffect.updateCells(Array(locationsToUpdate)))
             viewEffects.append(.updateGameStatus)
         case let .nextInputOptions(nextInputOptions):
             for (index, input) in inputs.enumerated() {
@@ -231,7 +434,7 @@ class GameController {
                         color = .selectedStartItem
                     }
                     
-                    viewEffects.append(.highlight(Highlight(location: location, kind: .selected, color: color, isBlink: false)))
+                    highlights.append(Highlight(location: location, kind: .selected, color: color, isBlink: false))
                 }
             }
             
@@ -267,7 +470,7 @@ class GameController {
                         highlightColor = .spiritTarget
                     }
                     
-                    viewEffects.append(.highlight(Highlight(location: location, kind: highlightKind, color: highlightColor, isBlink: false)))
+                    highlights.append(Highlight(location: location, kind: highlightKind, color: highlightColor, isBlink: false))
                 case .modifier:
                     break
                 }
@@ -291,8 +494,15 @@ class GameController {
         case let .locationsToStartFrom(locations):
             cachedOutput = output
             inputs = []
-            let effects = locations.map { return ViewEffect.highlight(Highlight(location: $0, kind: .targetSuggestion, color: .startFrom, isBlink: true)) }
-            viewEffects.append(contentsOf: effects)
+            highlights = locations.map { Highlight(location: $0, kind: .targetSuggestion, color: .startFrom, isBlink: true) }
+        }
+        
+        if !highlights.isEmpty {
+            viewEffects.append(.addHighlights(highlights))
+        }
+        
+        if !traces.isEmpty && remoteInput {
+            viewEffects.append(.showTraces(traces))
         }
         
         return viewEffects

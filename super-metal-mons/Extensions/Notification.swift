@@ -5,5 +5,6 @@ import Foundation
 extension Notification.Name {
     
     static let wasOpenedWithLink = Notification.Name("wasOpenedWithLink")
+    static let nextTrack = Notification.Name("nextTrack")
     
 }

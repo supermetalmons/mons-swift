@@ -34,9 +34,17 @@ struct Images {
         return named("mon-\(index)")
     }
     
-    static var randomEmoji: UIImage {
+    static func randomEmojiId(except: Int, andExcept: Int) -> Int {
+        var newRandom = randomEmojiId
+        while newRandom == except || newRandom == andExcept {
+            newRandom = randomEmojiId
+        }
+        return newRandom
+    }
+    
+    static var randomEmojiId: Int {
         let index = Int.random(in: 1...156)
-        return emoji(index)
+        return index
     }
     
     static func emoji(_ index: Int) -> UIImage {
@@ -46,9 +54,6 @@ struct Images {
     static func moveEmoji(_ move: AvailableMoveKind) -> UIImage {
         return named("move-\(move.rawValue)")
     }
-    
-    static var soundEnabled: UIImage { systemName("speaker") }
-    static var soundDisabled: UIImage { systemName("speaker.slash") }
     
     private static func named(_ name: String) -> UIImage {
         return UIImage(named: name)!

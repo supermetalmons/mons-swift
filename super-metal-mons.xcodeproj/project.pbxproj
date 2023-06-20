@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
+		2C0255252A0EA1E600CB1808 /* GameInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255242A0EA1E600CB1808 /* GameInvite.swift */; };
+		2C0255272A0EA1EF00CB1808 /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */; };
+		2C0255292A0EA27700CB1808 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255282A0EA27700CB1808 /* Codable.swift */; };
+		2C02552B2A0EA71A00CB1808 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C02552A2A0EA71A00CB1808 /* Connection.swift */; };
+		2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C02552C2A0ECB6400CB1808 /* didConnect.wav */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
@@ -20,6 +25,11 @@
 		2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */; };
 		2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */; };
 		2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
+		2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD62A113DE8003C959D /* AnimationKey.swift */; };
+		2C27AFD92A115B77003C959D /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD82A115B77003C959D /* Trace.swift */; };
+		2C27AFDD2A11949D003C959D /* BoardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDC2A11949D003C959D /* BoardItemView.swift */; };
+		2C27AFDF2A12DEBB003C959D /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDE2A12DEBB003C959D /* WaveView.swift */; };
+		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -41,6 +51,7 @@
 		2CB6D3BC29F7320800605255 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
 		2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2CB7462629F18DC700ACC855 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
+		2CC157262A351C7B009C2BF1 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC157252A351C7B009C2BF1 /* SoundViewController.swift */; };
 		2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
 		2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
 		2CC39E8429CA48B200EDF779 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* GameViewController.swift */; };
@@ -72,11 +83,45 @@
 		2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
+		2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* ping.aac */; };
+		2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD92A34C05100B3CD54 /* drreams.aac */; };
+		2CEB9AF72A34C05300B3CD54 /* bounce.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADA2A34C05100B3CD54 /* bounce.aac */; };
+		2CEB9AF82A34C05300B3CD54 /* melodine.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADB2A34C05100B3CD54 /* melodine.aac */; };
+		2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* whale2.aac */; };
+		2CEB9AFA2A34C05300B3CD54 /* crumbs.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */; };
+		2CEB9AFB2A34C05300B3CD54 /* chimes photography_going home.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */; };
+		2CEB9AFC2A34C05300B3CD54 /* organwhawha.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */; };
+		2CEB9AFD2A34C05300B3CD54 /* buzz.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE02A34C05100B3CD54 /* buzz.aac */; };
+		2CEB9AFE2A34C05300B3CD54 /* mana pool.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE12A34C05200B3CD54 /* mana pool.aac */; };
+		2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE22A34C05200B3CD54 /* ewejam.aac */; };
+		2CEB9B002A34C05300B3CD54 /* bell dance.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE32A34C05200B3CD54 /* bell dance.aac */; };
+		2CEB9B012A34C05300B3CD54 /* bell glide.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE42A34C05200B3CD54 /* bell glide.aac */; };
+		2CEB9B022A34C05300B3CD54 /* arploop.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE52A34C05200B3CD54 /* arploop.aac */; };
+		2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */; };
+		2CEB9B042A34C05300B3CD54 /* gilded.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE72A34C05200B3CD54 /* gilded.aac */; };
+		2CEB9B052A34C05300B3CD54 /* super.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE82A34C05200B3CD54 /* super.aac */; };
+		2CEB9B062A34C05300B3CD54 /* driver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE92A34C05200B3CD54 /* driver.aac */; };
+		2CEB9B072A34C05300B3CD54 /* change.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEA2A34C05200B3CD54 /* change.aac */; };
+		2CEB9B082A34C05300B3CD54 /* gustofwind.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */; };
+		2CEB9B092A34C05300B3CD54 /* band.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEC2A34C05300B3CD54 /* band.aac */; };
+		2CEB9B0A2A34C05300B3CD54 /* object.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AED2A34C05300B3CD54 /* object.aac */; };
+		2CEB9B0B2A34C05300B3CD54 /* jelly jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */; };
+		2CEB9B0C2A34C05300B3CD54 /* runner.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEF2A34C05300B3CD54 /* runner.aac */; };
+		2CEB9B0D2A34C05300B3CD54 /* cloud propeller.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */; };
+		2CEB9B0E2A34C05300B3CD54 /* clock tower.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF12A34C05300B3CD54 /* clock tower.aac */; };
+		2CEB9B0F2A34C05300B3CD54 /* spirit track.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF22A34C05300B3CD54 /* spirit track.aac */; };
+		2CEB9B102A34C05300B3CD54 /* bubble jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */; };
+		2CEB9B112A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */; };
 		2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC6E4E29F9BE6100EF34FA /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C01C6A029CAF4D500A25465 /* MonsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGame.swift; sourceTree = "<group>"; };
+		2C0255242A0EA1E600CB1808 /* GameInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInvite.swift; sourceTree = "<group>"; };
+		2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMatch.swift; sourceTree = "<group>"; };
+		2C0255282A0EA27700CB1808 /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
+		2C02552A2A0EA71A00CB1808 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		2C02552C2A0ECB6400CB1808 /* didConnect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = didConnect.wav; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
@@ -87,6 +132,11 @@
 		2C266FD52A0B024E0016C1C5 /* choosePickup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = choosePickup.wav; sourceTree = "<group>"; };
 		2C266FDE2A0C26930016C1C5 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mons.xcassets; sourceTree = "<group>"; };
+		2C27AFD62A113DE8003C959D /* AnimationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationKey.swift; sourceTree = "<group>"; };
+		2C27AFD82A115B77003C959D /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
+		2C27AFDC2A11949D003C959D /* BoardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardItemView.swift; sourceTree = "<group>"; };
+		2C27AFDE2A12DEBB003C959D /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5729CCBCBA00F49668 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -108,6 +158,7 @@
 		2CB6D3BB29F7320800605255 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		2CB7462329F12BA100ACC855 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2CB7462529F18DC700ACC855 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		2CC157252A351C7B009C2BF1 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundViewController.swift; sourceTree = "<group>"; };
 		2CC39E7C29CA48B200EDF779 /* mons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +193,35 @@
 		2CDB1ADE29EEF48E00C51230 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
+		2CEB9AD82A34C05100B3CD54 /* ping.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = ping.aac; sourceTree = "<group>"; };
+		2CEB9AD92A34C05100B3CD54 /* drreams.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = drreams.aac; sourceTree = "<group>"; };
+		2CEB9ADA2A34C05100B3CD54 /* bounce.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = bounce.aac; sourceTree = "<group>"; };
+		2CEB9ADB2A34C05100B3CD54 /* melodine.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = melodine.aac; sourceTree = "<group>"; };
+		2CEB9ADC2A34C05100B3CD54 /* whale2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = whale2.aac; sourceTree = "<group>"; };
+		2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = crumbs.aac; sourceTree = "<group>"; };
+		2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "chimes photography_going home.aac"; sourceTree = "<group>"; };
+		2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = organwhawha.aac; sourceTree = "<group>"; };
+		2CEB9AE02A34C05100B3CD54 /* buzz.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = buzz.aac; sourceTree = "<group>"; };
+		2CEB9AE12A34C05200B3CD54 /* mana pool.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mana pool.aac"; sourceTree = "<group>"; };
+		2CEB9AE22A34C05200B3CD54 /* ewejam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = ewejam.aac; sourceTree = "<group>"; };
+		2CEB9AE32A34C05200B3CD54 /* bell dance.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bell dance.aac"; sourceTree = "<group>"; };
+		2CEB9AE42A34C05200B3CD54 /* bell glide.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bell glide.aac"; sourceTree = "<group>"; };
+		2CEB9AE52A34C05200B3CD54 /* arploop.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = arploop.aac; sourceTree = "<group>"; };
+		2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cloud propeller 2.aac"; sourceTree = "<group>"; };
+		2CEB9AE72A34C05200B3CD54 /* gilded.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gilded.aac; sourceTree = "<group>"; };
+		2CEB9AE82A34C05200B3CD54 /* super.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = super.aac; sourceTree = "<group>"; };
+		2CEB9AE92A34C05200B3CD54 /* driver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = driver.aac; sourceTree = "<group>"; };
+		2CEB9AEA2A34C05200B3CD54 /* change.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = change.aac; sourceTree = "<group>"; };
+		2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gustofwind.aac; sourceTree = "<group>"; };
+		2CEB9AEC2A34C05300B3CD54 /* band.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.aac; sourceTree = "<group>"; };
+		2CEB9AED2A34C05300B3CD54 /* object.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = object.aac; sourceTree = "<group>"; };
+		2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jelly jam.aac"; sourceTree = "<group>"; };
+		2CEB9AEF2A34C05300B3CD54 /* runner.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = runner.aac; sourceTree = "<group>"; };
+		2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cloud propeller.aac"; sourceTree = "<group>"; };
+		2CEB9AF12A34C05300B3CD54 /* clock tower.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "clock tower.aac"; sourceTree = "<group>"; };
+		2CEB9AF22A34C05300B3CD54 /* spirit track.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "spirit track.aac"; sourceTree = "<group>"; };
+		2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bubble jam.aac"; sourceTree = "<group>"; };
+		2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "honkshoooo memememeee zzzZZZ.aac"; sourceTree = "<group>"; };
 		2CFC6E4E29F9BE6100EF34FA /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,11 +238,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0255232A0EA1CB00CB1808 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C0255242A0EA1E600CB1808 /* GameInvite.swift */,
+				2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2C7E80C729FC3B3900114943 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 				2CB6D3B929F731E100605255 /* ViewEffect.swift */,
 				2CD3027B2A099834009DFCC2 /* Highlight.swift */,
+				2C27AFD82A115B77003C959D /* Trace.swift */,
 				2C7E80C929FC3BAA00114943 /* SquareColor.swift */,
 			);
 			path = "View Models";
@@ -235,6 +325,7 @@
 				2C266FCE2A0AF6B00016C1C5 /* Sound.swift */,
 				2C53FC5B29CD280300F49668 /* Audio.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
+				2CEB9AD72A34C03E00B3CD54 /* Music */,
 				2CDB1AD429EEF48E00C51230 /* Sounds */,
 				2C09E3D929F6D2550082B774 /* Game.xcassets */,
 				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
@@ -250,6 +341,7 @@
 			children = (
 				2CC4FBD829F69A3300A90CDD /* Notification.swift */,
 				2CDB1AD229ED87E600C51230 /* CGFloat.swift */,
+				2C0255282A0EA27700CB1808 /* Codable.swift */,
 				2CFC6E4E29F9BE6100EF34FA /* UIView.swift */,
 				2CC4FBDF29F6C69200A90CDD /* String.swift */,
 				2CC4FBE129F6C69900A90CDD /* URL.swift */,
@@ -263,6 +355,7 @@
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
+				2C27AFD62A113DE8003C959D /* AnimationKey.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -272,8 +365,9 @@
 			children = (
 				2CC39E8329CA48B200EDF779 /* GameViewController.swift */,
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
-				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
+				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C0255232A0EA1CB00CB1808 /* Models */,
 				2C7E80C729FC3B3900114943 /* View Models */,
 				2CB6D3AC29F730A300605255 /* Game Models */,
 				2C7E80C829FC3B7900114943 /* Shared Models */,
@@ -284,6 +378,7 @@
 		2CC4FBE529F6C7B900A90CDD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
 			);
 			path = Services;
@@ -302,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */,
+				2CC157252A351C7B009C2BF1 /* SoundViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -321,9 +417,12 @@
 			isa = PBXGroup;
 			children = (
 				2CC770BE29FA9CEE00A59BEF /* BoardView.swift */,
+				2C27AFDC2A11949D003C959D /* BoardItemView.swift */,
+				2C27AFDE2A12DEBB003C959D /* WaveView.swift */,
 				2CD302712A092905009DFCC2 /* SparklingView.swift */,
 				2CD302792A099124009DFCC2 /* CircleCutoutView.swift */,
 				2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */,
+				2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */,
 				2CD3026F2A0883D3009DFCC2 /* CircleView.swift */,
 			);
 			path = Views;
@@ -337,6 +436,7 @@
 				2C266FD52A0B024E0016C1C5 /* choosePickup.wav */,
 				2C266FD42A0B024E0016C1C5 /* defeat.wav */,
 				2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */,
+				2C02552C2A0ECB6400CB1808 /* didConnect.wav */,
 				2C266FD32A0B024E0016C1C5 /* victory.wav */,
 				2CD302752A097286009DFCC2 /* click.wav */,
 				2CDB1AD729EEF48E00C51230 /* bomb.wav */,
@@ -349,6 +449,42 @@
 				2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		2CEB9AD72A34C03E00B3CD54 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */,
+				2CEB9AE42A34C05200B3CD54 /* bell glide.aac */,
+				2CEB9AE32A34C05200B3CD54 /* bell dance.aac */,
+				2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */,
+				2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */,
+				2CEB9AD82A34C05100B3CD54 /* ping.aac */,
+				2CEB9AF12A34C05300B3CD54 /* clock tower.aac */,
+				2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */,
+				2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */,
+				2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */,
+				2CEB9AF22A34C05300B3CD54 /* spirit track.aac */,
+				2CEB9ADA2A34C05100B3CD54 /* bounce.aac */,
+				2CEB9AE72A34C05200B3CD54 /* gilded.aac */,
+				2CEB9AE12A34C05200B3CD54 /* mana pool.aac */,
+				2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */,
+				2CEB9AE52A34C05200B3CD54 /* arploop.aac */,
+				2CEB9ADC2A34C05100B3CD54 /* whale2.aac */,
+				2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */,
+				2CEB9AE22A34C05200B3CD54 /* ewejam.aac */,
+				2CEB9AEA2A34C05200B3CD54 /* change.aac */,
+				2CEB9ADB2A34C05100B3CD54 /* melodine.aac */,
+				2CEB9AE92A34C05200B3CD54 /* driver.aac */,
+				2CEB9AED2A34C05300B3CD54 /* object.aac */,
+				2CEB9AEF2A34C05300B3CD54 /* runner.aac */,
+				2CEB9AEC2A34C05300B3CD54 /* band.aac */,
+				2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */,
+				2CEB9AE02A34C05100B3CD54 /* buzz.aac */,
+				2CEB9AD92A34C05100B3CD54 /* drreams.aac */,
+				2CEB9AE82A34C05200B3CD54 /* super.aac */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,26 +552,56 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEB9B0D2A34C05300B3CD54 /* cloud propeller.aac in Resources */,
 				2CDB1AE429EEF48E00C51230 /* demonAbility.wav in Resources */,
 				2CC4E21629E9AFE0002F3AC9 /* Colors.xcassets in Resources */,
 				2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */,
 				2C266FD82A0B024E0016C1C5 /* defeat.wav in Resources */,
+				2CEB9B062A34C05300B3CD54 /* driver.aac in Resources */,
+				2CEB9B012A34C05300B3CD54 /* bell glide.aac in Resources */,
+				2CEB9AFB2A34C05300B3CD54 /* chimes photography_going home.aac in Resources */,
+				2CEB9B022A34C05300B3CD54 /* arploop.aac in Resources */,
+				2CEB9B102A34C05300B3CD54 /* bubble jam.aac in Resources */,
+				2CEB9B0C2A34C05300B3CD54 /* runner.aac in Resources */,
+				2CEB9AFC2A34C05300B3CD54 /* organwhawha.aac in Resources */,
 				2C266FD72A0B024E0016C1C5 /* victory.wav in Resources */,
+				2CEB9B112A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac in Resources */,
+				2CEB9B0F2A34C05300B3CD54 /* spirit track.aac in Resources */,
+				2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */,
 				2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */,
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
 				2CD302762A097286009DFCC2 /* click.wav in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
+				2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */,
+				2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */,
+				2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */,
+				2CEB9B092A34C05300B3CD54 /* band.aac in Resources */,
+				2CEB9B002A34C05300B3CD54 /* bell dance.aac in Resources */,
 				2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */,
+				2CEB9AFE2A34C05300B3CD54 /* mana pool.aac in Resources */,
+				2CEB9B042A34C05300B3CD54 /* gilded.aac in Resources */,
 				2C53FC5829CCBCBA00F49668 /* GoogleService-Info.plist in Resources */,
+				2CEB9AFA2A34C05300B3CD54 /* crumbs.aac in Resources */,
 				2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */,
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
+				2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */,
+				2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */,
 				2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */,
+				2CEB9AFD2A34C05300B3CD54 /* buzz.aac in Resources */,
+				2CEB9B052A34C05300B3CD54 /* super.aac in Resources */,
 				2C266FD92A0B024E0016C1C5 /* choosePickup.wav in Resources */,
 				2CDB1AE829EEF48E00C51230 /* spiritAbility.wav in Resources */,
 				2CC39E8929CA48B300EDF779 /* App.xcassets in Resources */,
+				2CEB9B0A2A34C05300B3CD54 /* object.aac in Resources */,
+				2CEB9AF72A34C05300B3CD54 /* bounce.aac in Resources */,
+				2CEB9B082A34C05300B3CD54 /* gustofwind.aac in Resources */,
+				2CEB9B0E2A34C05300B3CD54 /* clock tower.aac in Resources */,
+				2CEB9AF82A34C05300B3CD54 /* melodine.aac in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,
+				2CEB9B0B2A34C05300B3CD54 /* jelly jam.aac in Resources */,
+				2CEB9B072A34C05300B3CD54 /* change.aac in Resources */,
 				2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */,
 				2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */,
 				2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */,
@@ -454,9 +620,13 @@
 				2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */,
 				2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */,
 				2CC4FBE029F6C69200A90CDD /* String.swift in Sources */,
+				2C27AFD92A115B77003C959D /* Trace.swift in Sources */,
+				2C0255272A0EA1EF00CB1808 /* PlayerMatch.swift in Sources */,
+				2C0255292A0EA27700CB1808 /* Codable.swift in Sources */,
 				2CB6D3B029F730E500605255 /* Color.swift in Sources */,
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */,
+				2C0255252A0EA1E600CB1808 /* GameInvite.swift in Sources */,
 				2C7E80CC29FC3F3900114943 /* Square.swift in Sources */,
 				2CB6D3B429F7310800605255 /* Mana.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
@@ -467,6 +637,8 @@
 				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
+				2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */,
+				2C27AFDF2A12DEBB003C959D /* WaveView.swift in Sources */,
 				2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */,
 				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
@@ -475,6 +647,7 @@
 				2CB6D3B629F7311500605255 /* Consumable.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
 				2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */,
+				2C27AFDD2A11949D003C959D /* BoardItemView.swift in Sources */,
 				2CC770BF29FA9CEE00A59BEF /* BoardView.swift in Sources */,
 				2CB7462629F18DC700ACC855 /* Images.swift in Sources */,
 				2CD3027C2A099834009DFCC2 /* Highlight.swift in Sources */,
@@ -483,12 +656,15 @@
 				2CC4E21E29E9F932002F3AC9 /* Storyboard.swift in Sources */,
 				2CD302702A0883D3009DFCC2 /* CircleView.swift in Sources */,
 				2C7E80CE29FC54B300114943 /* Config.swift in Sources */,
+				2C02552B2A0EA71A00CB1808 /* Connection.swift in Sources */,
 				2C7E80C429FC372C00114943 /* Board.swift in Sources */,
 				2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
+				2CC157262A351C7B009C2BF1 /* SoundViewController.swift in Sources */,
 				2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
+				2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */,
 				2C53FC5C29CD280300F49668 /* Audio.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,7 +741,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -619,7 +795,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

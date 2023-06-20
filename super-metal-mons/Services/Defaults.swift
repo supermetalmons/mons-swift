@@ -6,12 +6,39 @@ struct Defaults {
     
     private static let defaults = UserDefaults.standard
     
-    static var isSoundDisabled: Bool {
+    static var songNumber: Int {
         get {
-            return defaults.bool(forKey: #function)
+            return defaults.integer(forKey: #function)
         }
         set {
             defaults.set(newValue, forKey: #function)
+        }
+    }
+    
+    static var playbackMode: Int {
+        get {
+            return defaults.integer(forKey: #function)
+        }
+        set {
+            defaults.set(newValue, forKey: #function)
+        }
+    }
+    
+    static var musicVolume: Float {
+        get {
+            return 1 - defaults.float(forKey: #function)
+        }
+        set {
+            defaults.set(1 - newValue, forKey: #function)
+        }
+    }
+    
+    static var soundsVolume: Float {
+        get {
+            return 1 - defaults.float(forKey: #function)
+        }
+        set {
+            defaults.set(1 - newValue, forKey: #function)
         }
     }
     

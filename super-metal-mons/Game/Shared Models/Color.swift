@@ -2,7 +2,8 @@
 
 import Foundation
 
-enum Color: String, Codable {
+enum Color: String, Codable, CaseIterable {
+
     case white, black
     
     var other: Color {
@@ -12,6 +13,10 @@ enum Color: String, Codable {
         case .white:
             return .black
         }
+    }
+    
+    static var random: Color {
+        return allCases.randomElement() ?? .white
     }
     
 }

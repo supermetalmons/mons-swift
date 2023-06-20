@@ -6,7 +6,7 @@ import UIKit
 class GameViewController: UIViewController, GameView {
     
     enum Overlay {
-        case none, pickupSelection, hostWaiting
+        case none, pickupSelection, hostWaiting, guestWaiting
     }
     
     static func with(gameController: GameController) -> GameViewController {
@@ -26,6 +26,8 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!
     @IBOutlet weak var hostWaitingOverlay: UIView!
+    @IBOutlet weak var joinActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var linkButtonsStackView: UIStackView!
     
     @IBOutlet weak var boardOverlayView: UIVisualEffectView!
     @IBOutlet weak var bombButton: UIButton!
@@ -47,10 +49,10 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
     
-    // TODO: keep view models as well — in order to check if an update is needed
-    private lazy var squares = [Location: BoardSquareView]()
-    private var effectsViews = [UIView]()
-    private lazy var monsOnBoard = [Location: UIView]()
+    func setNewBoard() {
+        boardView.setNewBoard(controller.board)
+        updateGameInfo()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,33 +62,24 @@ class GameViewController: UIViewController, GameView {
         playerMovesTrailingConstraint.constant = 7
         opponentMovesTrailingConstraint.constant = 7
         #endif
-        
-        updateSoundButton(isSoundEnabled: !Defaults.isSoundDisabled)
-        setupBoard()
-        updateGameInfo()
+        moreButton.isHidden = true
+        playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
+        boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
         controller.setGameView(self)
+        Audio.shared.setMusic(on: true)
         
-        showOverlay(.hostWaiting) // TODO: tmp for test, show only when necessary
-    }
-    
-    // MARK: - setup
-    
-    private func setupBoard() {
-        for i in 0..<11 { // TODO: DRY
-            for j in 0..<11 {
-                let location = Location(i, j)
-                let square = BoardSquareView(location: location)
-                square.backgroundColor = Colors.square(controller.board.square(at: location).color(location: location), style: controller.boardStyle)
-                
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSquare))
-                square.addGestureRecognizer(tapGestureRecognizer)
-                
-                boardView.addArrangedSubview(square)
-                squares[location] = square
-            }
+        switch controller.mode {
+        case .createInvite:
+            setGameInfoHidden(true)
+            showOverlay(.hostWaiting)
+        case .joinGameId:
+            setGameInfoHidden(true)
+            showOverlay(.guestWaiting)
+        case .localGame:
+            boardView.reloadItems()
+            updateGameInfo()
         }
-        reloadItems()
     }
     
     // MARK: - actions
@@ -104,12 +97,18 @@ class GameViewController: UIViewController, GameView {
             boardOverlayView.isHidden = false
             pickupSelectionOverlay.isHidden = true
             hostWaitingOverlay.isHidden = false
+            joinActivityIndicator.isHidden = true
+            linkButtonsStackView.isHidden = false
+            inviteLinkLabel.text = controller.inviteLink
+        case .guestWaiting:
+            boardOverlayView.isHidden = false
+            pickupSelectionOverlay.isHidden = true
+            hostWaitingOverlay.isHidden = false
+            joinActivityIndicator.isHidden = false
+            joinActivityIndicator.startAnimating()
+            linkButtonsStackView.isHidden = true
+            inviteLinkLabel.text = controller.inviteLink
         }
-    }
-    
-    @objc private func didTapSquare(sender: UITapGestureRecognizer) {
-        guard let squareView = sender.view as? BoardSquareView else { return }
-        processInput(.location(squareView.location))
     }
     
     private func processInput(_ input: MonsGame.Input) {
@@ -117,7 +116,7 @@ class GameViewController: UIViewController, GameView {
         applyEffects(effects)
     }
     
-    private func animateAvatar(opponents: Bool) {
+    private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
         guard !isAnimatingAvatar else { return }
         isAnimatingAvatar = true
         
@@ -128,9 +127,19 @@ class GameViewController: UIViewController, GameView {
         }
         
         let originalTransform = animatedImageView.transform
-        let scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
+        let xDelta: CGFloat
+        let yDelta: CGFloat
+        var scaleFactor = CGFloat(boardView.bounds.width / animatedImageView.bounds.width * 0.45)
+        if !isUserInteraction {
+            scaleFactor = max(scaleFactor / 2.8, 2.2)
+            xDelta = 12
+            yDelta = 10
+        } else {
+            xDelta = 14
+            yDelta = 14
+        }
         let scaledTransform = originalTransform.scaledBy(x: scaleFactor, y: scaleFactor)
-        let translatedAndScaledTransform = scaledTransform.translatedBy(x: 14, y: opponents ? 14 : -14)
+        let translatedAndScaledTransform = scaledTransform.translatedBy(x: xDelta, y: opponents ? yDelta : -yDelta)
                 
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak animatedImageView] in
             animatedImageView?.transform = translatedAndScaledTransform
@@ -144,16 +153,14 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func shareLinkButtonTapped(_ sender: Any) {
-        // TODO: setup with link
-        let shareViewController = UIActivityViewController(activityItems: ["hehe"], applicationActivities: nil)
+        let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink], applicationActivities: nil)
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
         shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
         present(shareViewController, animated: true)
     }
     
     @IBAction func copyLinkButtonTapped(_ sender: Any) {
-        // TODO: copy link, show some kind of response that is was actually copied
-        showOverlay(.none) // TODO: this is temporary
+        UIPasteboard.general.string = controller.inviteLink
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {
@@ -171,36 +178,29 @@ class GameViewController: UIViewController, GameView {
         case .pickupSelection:
             processInput(.modifier(.cancel))
             showOverlay(.none)
-        case .none, .hostWaiting:
+        case .none, .hostWaiting, .guestWaiting:
             break
         }
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
-        Audio.play(.click)
-        let newRandom = Images.randomEmoji
-        
-        // TODO: message avatar change
-        switch controller.playerSideColor {
-        case .white:
-            controller.whiteEmoji = newRandom
-        case .black:
-            controller.blackEmoji = newRandom
+        if !controller.isWatchOnly {
+            Audio.shared.play(.click)
         }
-        playerImageView.image = newRandom
-        animateAvatar(opponents: false)
+        playerImageView.image = controller.useDifferentEmoji()
+        animateAvatar(opponents: false, isUserInteraction: true)
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
-        animateAvatar(opponents: true)
+        animateAvatar(opponents: true, isUserInteraction: true)
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
-            self?.endGame(openMenu: true)
+            self?.endGame()
         }
         let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
         alert.addAction(okAction)
@@ -209,35 +209,47 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func moreButtonTapped(_ sender: Any) {
-        flipBoard()
+        guard case .localGame = controller.mode else { return } // TODO: should not be possible when playing vs computer
+        controller.playerSideColor = controller.playerSideColor.other
+        setPlayerSide(color: controller.playerSideColor)
     }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
-        let wasDisabled = Defaults.isSoundDisabled
-        Defaults.isSoundDisabled = !wasDisabled
-        updateSoundButton(isSoundEnabled: wasDisabled)
+        let soundViewController = instantiate(SoundViewController.self)
+        soundViewController.modalPresentationStyle = .popover
+        if let popoverController = soundViewController.popoverPresentationController {
+            popoverController.permittedArrowDirections = [.up, .down, .left, .right]
+            popoverController.sourceView = soundControlButton
+            popoverController.sourceRect = soundControlButton.bounds
+            popoverController.delegate = self
+        }
+        present(soundViewController, animated: true, completion: nil)
     }
     
-    private func flipBoard() {
-        controller.playerSideColor = controller.playerSideColor.other // TODO: should only be possible with local pvp mode
+    private func setPlayerSide(color: Color) {
         boardView.setPlayerSide(color: controller.playerSideColor)
         updateGameInfo()
     }
     
-    private func endGame(openMenu: Bool) {
+    private func endGame() {
         controller.endGame()
-        if openMenu {
-            dismiss(animated: false)
-        } else {
-            updateGameInfo()
-            restartBoardForTest()
-        }
+        dismissBoardViewController()
+    }
+    
+    private func dismissBoardViewController() {
+        dismiss(animated: false)
+        Audio.shared.setMusic(on: false)
     }
     
     // MARK: - updates
     
-    private func updateSoundButton(isSoundEnabled: Bool) {
-        soundControlButton.configuration?.image = isSoundEnabled ? Images.soundEnabled : Images.soundDisabled
+    func showMessageAndDismiss(message: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
+            self?.dismissBoardViewController()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
     
     private func updateMovesView(_ stackView: UIStackView, moves: [AvailableMoveKind: Int]) {
@@ -269,13 +281,13 @@ class GameViewController: UIViewController, GameView {
         let opponentScore: Int
         switch controller.playerSideColor {
         case .white:
-            playerImageView.image = controller.whiteEmoji
-            opponentImageView.image = controller.blackEmoji
+            playerImageView.image = Images.emoji(controller.whiteEmojiId)
+            opponentImageView.image = Images.emoji(controller.blackEmojiId)
             myScore = controller.whiteScore
             opponentScore = controller.blackScore
         case .black:
-            playerImageView.image = controller.blackEmoji
-            opponentImageView.image = controller.whiteEmoji
+            playerImageView.image = Images.emoji(controller.blackEmojiId)
+            opponentImageView.image = Images.emoji(controller.whiteEmojiId)
             myScore = controller.blackScore
             opponentScore = controller.whiteScore
         }
@@ -290,227 +302,103 @@ class GameViewController: UIViewController, GameView {
         playerScoreLabel.text = String(myScore)
     }
     
+    func setGameInfoHidden(_ hidden: Bool) {
+        opponentImageView.isHidden = hidden
+        playerScoreLabel.isHidden = hidden
+        opponentScoreLabel.isHidden = hidden
+        playerMovesStackView.isHidden = hidden
+        opponentMovesStackView.isHidden = hidden
+    }
+    
+    func updateEmoji(color: Color) {
+        let imageViewToUpdate = color == controller.playerSideColor ? playerImageView : opponentImageView
+        switch color {
+        case .white:
+            imageViewToUpdate?.image = Images.emoji(controller.whiteEmojiId)
+        case .black:
+            imageViewToUpdate?.image = Images.emoji(controller.blackEmojiId)
+        }
+    }
+    
+    func updateOpponentEmoji() {
+        switch controller.playerSideColor {
+        case .white:
+            opponentImageView.image = Images.emoji(controller.blackEmojiId)
+        case .black:
+            opponentImageView.image = Images.emoji(controller.whiteEmojiId)
+        }
+    }
+    
+    func didConnect() {
+        boardView.reloadItems()
+        setGameInfoHidden(false)
+        setPlayerSide(color: controller.playerSideColor)
+        showOverlay(.none)
+        updateOpponentEmoji()
+    }
+    
     func didWin(color: Color) {
         let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
-            // TODO: do not restart the game if the opponent has done so already
-            // or i guess in these case there should be a new game id exchage
-            self?.endGame(openMenu: true)
+            self?.endGame()
         }
         alert.addAction(okAction)
         present(alert, animated: true)
     }
     
-    // TODO: remove this one, this is for development only
-    // TODO: separate board setup from items reloading
-    func restartBoardForTest() {
-        monsOnBoard.forEach { $0.value.removeFromSuperview() }
-        monsOnBoard.removeAll()
-        reloadItems()
-    }
-    
-    private func reloadItems() {
-        for i in 0..<11 { // TODO: DRY
-            for j in 0..<11 {
-                let location = Location(i, j)
-                updateCell(location)
-            }
+    private func updateForNextTurn(color: Color) {
+        let myTurn = controller.activeColor == controller.playerSideColor
+        if myTurn || controller.isWatchOnly {
+            animateAvatar(opponents: myTurn, isUserInteraction: false)
         }
     }
     
-    // TODO: remake
-    private func updateCell(_ location: Location) {
-        let previouslySetImageView = monsOnBoard[location]
-        // TODO: refactor, make reloading cells strict and clear
-        // rn views are removed here and there. should be able to simply reload a cell
+    func applyEffects(_ effects: [ViewEffect]) {
+        boardView.removeHighlights()
         
-        let item = controller.board.item(at: location)
-        switch item {
-        case let .consumable(consumable):
-            guard let square = squares[location] else { break }
-            
-            let sparklingView = SparklingView(frame: square.bounds, style: controller.boardStyle)
-            square.addSubviewConstrainedToFrame(sparklingView)
-            
-            let imageView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
-            imageView.contentMode = .scaleAspectFit
-            sparklingView.addSubviewConstrainedToFrame(imageView)
-            
-            monsOnBoard[location] = sparklingView
-        case let .mon(mon: mon):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            if mon.isFainted {
-                imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-            }
-            
-            imageView.contentMode = .scaleAspectFit
-            
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            monsOnBoard[location] = imageView
-            
-        case let .monWithMana(mon: mon, mana: mana):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            imageView.contentMode = .scaleAspectFit
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            
-            let manaView = UIImageView(image: Images.mana(mana, picked: true, style: controller.boardStyle))
-            manaView.contentMode = .scaleAspectFit
-            
-            imageView.addSubview(manaView)
-            manaView.translatesAutoresizingMaskIntoConstraints = false
-            
-            switch mana {
-            case .regular:
-                NSLayoutConstraint.activate([
-                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.93),
-                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.93),
-                    NSLayoutConstraint(item: manaView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.61, constant: 0),
-                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.45, constant: 0)
-                ])
-            case .supermana:
-                NSLayoutConstraint.activate([
-                    manaView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.74),
-                    manaView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.74),
-                    manaView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                    NSLayoutConstraint(item: manaView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 0.5, constant: 0)
-                ])
-            }
-            
-            
-            monsOnBoard[location] = imageView
-            
-        case let .mana(mana: mana):
-            switch mana {
-            case .regular:
-                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                squares[location]?.addSubviewConstrainedToFrame(imageView)
-                monsOnBoard[location] = imageView
-            case .supermana:
-                let imageView = UIImageView(image: Images.mana(mana, style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                squares[location]?.addSubviewConstrainedToFrame(imageView)
-                monsOnBoard[location] = imageView
-            }
-        case .none:
-            // TODO: refactor
-            if case let .monBase(kind: kind, color: color) = controller.board.square(at: location), let square = squares[location] {
-                let imageView = UIImageView(image: Images.mon(Mon(kind: kind, color: color), style: controller.boardStyle))
-                imageView.contentMode = .scaleAspectFit
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                
-                squares[location]?.addSubview(imageView)
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.6),
-                    imageView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.6),
-                    imageView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-                    imageView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
-                ])
-                
-                imageView.alpha = 0.4
-                monsOnBoard[location] = imageView // TODO: do not add to mons on board, this is smth different
-            }
-            
-        case .monWithConsumable(mon: let mon, consumable: let consumable):
-            let imageView = UIImageView(image: Images.mon(mon, style: controller.boardStyle))
-            
-            imageView.contentMode = .scaleAspectFit
-            squares[location]?.addSubviewConstrainedToFrame(imageView)
-            
-            let consumableView = UIImageView(image: Images.consumable(consumable, style: controller.boardStyle))
-            consumableView.contentMode = .scaleAspectFit
-            
-            imageView.addSubview(consumableView)
-            consumableView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                consumableView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.54),
-                consumableView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.54),
-                NSLayoutConstraint(item: consumableView, attribute: .centerX, relatedBy: .equal, toItem: imageView, attribute: .centerX, multiplier: 1.60, constant: 0),
-                NSLayoutConstraint(item: consumableView, attribute: .centerY, relatedBy: .equal, toItem: imageView, attribute: .centerY, multiplier: 1.50, constant: 0)
-            ])
-            
-            monsOnBoard[location] = imageView
-        }
-        
-        previouslySetImageView?.removeFromSuperview()
-    }
-    
-    private func applyEffects(_ effects: [ViewEffect]) {
-        for effectView in effectsViews {
-            effectView.removeFromSuperview()
-        }
-        effectsViews = []
-        
-        var blinkingViews = [UIView]()
-        let style = controller.boardStyle
-        
-        // TODO: refactor
         for effect in effects {
             switch effect {
-            case .updateCell(let location):
-                monsOnBoard[location]?.removeFromSuperview()
-                monsOnBoard[location] = nil
-                updateCell(location)
-                
-            case let .highlight(highlight):
-                guard let square = squares[highlight.location] else { continue }
-                let color = highlight.color
-                switch highlight.kind {
-                case .selected:
-                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: true)
-                    square.addSubviewConstrainedToFrame(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                case .emptySquare:
-                    let effectView = CircleView()
-                    effectView.backgroundColor = Colors.highlight(color, style: style)
-                    effectView.translatesAutoresizingMaskIntoConstraints = false
-                    
-                    square.addSubview(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                    NSLayoutConstraint.activate([
-                        effectView.widthAnchor.constraint(equalTo: square.widthAnchor, multiplier: 0.3),
-                        effectView.heightAnchor.constraint(equalTo: square.heightAnchor, multiplier: 0.3),
-                        effectView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-                        effectView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
-                    ])
-                case .targetSuggestion:
-                    let effectView = CircleCutoutView(color: Colors.highlight(color, style: style), inverted: false)
-                    square.addSubviewConstrainedToFrame(effectView)
-                    square.sendSubviewToBack(effectView)
-                    effectsViews.append(effectView)
-                    
-                    if highlight.isBlink {
-                        blinkingViews.append(effectView)
-                    }
-                }
             case .updateGameStatus:
                 updateGameInfo()
-                controller.shareGameState()
-                
                 if let winner = controller.winnerColor {
                     didWin(color: winner)
                 }
+            case .nextTurn:
+                if case .localGame = controller.mode {
+                    // TODO: should not be possible when playing vs computer
+                   controller.playerSideColor = controller.playerSideColor.other
+                   setPlayerSide(color: controller.playerSideColor)
+                }
+                if controller.winnerColor == nil {
+                    updateForNextTurn(color: controller.activeColor)
+                }
             case .selectBombOrPotion:
                 showOverlay(.pickupSelection)
-                Audio.play(.choosePickup)
+                Audio.shared.play(.choosePickup)
+            case let .updateCells(locations):
+                boardView.updateCells(locations)
+            case let .addHighlights(highlights):
+                boardView.addHighlights(highlights)
+            case let .showTraces(traces):
+                boardView.showTraces(traces)
             }
         }
-        
-        if !blinkingViews.isEmpty {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                for blinkingView in blinkingViews {
-                    blinkingView.removeFromSuperview()
-                }
-                blinkingViews = []
-            }
-        }
+    }
+    
+}
+
+extension GameViewController: BoardViewDelegate {
+    
+    func didTapSquare(location: Location) {
+        processInput(.location(location))
+    }
+    
+}
+
+extension GameViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
     
 }
