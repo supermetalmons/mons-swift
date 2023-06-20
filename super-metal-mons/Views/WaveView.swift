@@ -75,11 +75,6 @@ class WaveView: UIImageView {
                 let waveWidth = Int(rectangleWidth / rectangleHeight)
                 for j in 0..<waveWidth {
                     let x = waveX + CGFloat(j) * rectangleHeight
-//                    let isUp = (phase + j).isMultiple(of: 2)
-
-                    // max 3 is up
-                    // starting index can be calculated if we know phase
-//                    let upIndex = phase
 
                     let isUp = upupup[phase].contains(6-waveWidth+j)
                     let y = waveY + (isUp ? -rectangleHeight : 0)

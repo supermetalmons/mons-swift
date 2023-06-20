@@ -607,7 +607,7 @@
                                                 <rect key="frame" x="124.99999999999999" y="0.0" width="62.333333333333329" height="62.333333333333336"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXj-Cg-DcC">
-                                                        <rect key="frame" x="14" y="14" width="34.666666666666671" height="34.333333333333336"/>
+                                                        <rect key="frame" x="14" y="14" width="34.666666666666664" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="8"/>
                                                         <connections>
@@ -892,7 +892,7 @@
                                                 <rect key="frame" x="62.333333333333343" y="0.0" width="62.666666666666657" height="62.666666666666664"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cis-Tu-59v">
-                                                        <rect key="frame" x="9.6666666666666572" y="14" width="43.666666666666671" height="34.333333333333336"/>
+                                                        <rect key="frame" x="9.6666666666666572" y="14" width="43.666666666666664" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="22"/>
                                                         <connections>
@@ -928,7 +928,7 @@
                                                 <rect key="frame" x="187.33333333333331" y="0.0" width="62.666666666666657" height="62.666666666666664"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tf9-vc-Uze">
-                                                        <rect key="frame" x="9.3333333333333428" y="14" width="44.333333333333329" height="34.333333333333336"/>
+                                                        <rect key="frame" x="9.3333333333333428" y="14" width="44.333333333333336" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="24"/>
                                                         <connections>
@@ -1029,7 +1029,7 @@
                                                 <rect key="frame" x="187.33333333333331" y="0.0" width="62.666666666666657" height="62.333333333333336"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbS-fb-KdE">
-                                                        <rect key="frame" x="9.3333333333333428" y="14" width="44.333333333333329" height="34.333333333333336"/>
+                                                        <rect key="frame" x="9.3333333333333428" y="14" width="44.333333333333336" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="29"/>
                                                         <connections>
@@ -1047,7 +1047,7 @@
                                                 <rect key="frame" x="249.99999999999997" y="0.0" width="62.333333333333343" height="62.333333333333336"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SU6-Wb-yZl">
-                                                        <rect key="frame" x="9" y="14" width="44.666666666666671" height="34.333333333333336"/>
+                                                        <rect key="frame" x="9" y="14" width="44.666666666666664" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="30"/>
                                                         <connections>
