@@ -302,7 +302,7 @@ class GameController {
         
         switch mode {
         case .localGame:
-            break
+            guard !versusComputer || activeColor == playerSideColor else { return [] }
         case .createInvite, .joinGameId:
             guard remoteInput || activeColor == playerSideColor else { return [] }
         }
