@@ -15,6 +15,7 @@
 		2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C02552C2A0ECB6400CB1808 /* didConnect.wav */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
+		2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C261C5C2A4366DB0014F9AC /* Scoring.swift */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
 		2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
 		2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */; };
@@ -125,6 +126,7 @@
 		2C02552C2A0ECB6400CB1808 /* didConnect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = didConnect.wav; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
+		2C261C5C2A4366DB0014F9AC /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		2C266FD02A0B00280016C1C5 /* endTurn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = endTurn.wav; sourceTree = "<group>"; };
 		2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupPotion.wav; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				2CC39E8329CA48B200EDF779 /* GameViewController.swift */,
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2CCF87222A42EAFE0060410C /* Computer.swift */,
+				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
 				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C0255232A0EA1CB00CB1808 /* Models */,
@@ -663,6 +666,7 @@
 				2C02552B2A0EA71A00CB1808 /* Connection.swift in Sources */,
 				2C7E80C429FC372C00114943 /* Board.swift in Sources */,
 				2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */,
+				2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
 				2CC157262A351C7B009C2BF1 /* SoundViewController.swift in Sources */,

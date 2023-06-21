@@ -104,15 +104,7 @@ extension MonsGame: GKGameModel {
     
     func score(for player: GKGameModelPlayer) -> Int {
         guard let color = (player as? ComputerPlayer)?.color else { return 0 }
-        let gameScore: Int
-        switch color {
-        case .white:
-            gameScore = whiteScore - blackScore
-        case .black:
-            gameScore = blackScore - whiteScore
-        }
-                
-        return gameScore
+        return evaluateFor(color: color)
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
