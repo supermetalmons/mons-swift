@@ -5,6 +5,7 @@ import GameplayKit
 class Computer {
     
     private let strategist: GKStrategist
+    private let queue = DispatchQueue.global(qos: .userInitiated)
     
     init(gameModel: MonsGame) {
         computerPlayers = [ComputerPlayer(color: .black), ComputerPlayer(color: .white)]
@@ -15,8 +16,11 @@ class Computer {
         strategist = minMaxStrategist
     }
     
-    func bestMoveForActivePlayer() -> [MonsGame.Input]? {
-        return (strategist.bestMoveForActivePlayer() as? ComputerMove)?.resultingInputs
+    func bestMoveForActivePlayer(completion: @escaping (([MonsGame.Input]) -> Void)) {
+        queue.async { [weak self] in
+            let inputs = (self?.strategist.bestMoveForActivePlayer() as? ComputerMove)?.resultingInputs ?? []
+            completion(inputs)
+        }
     }
     
 }
