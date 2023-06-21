@@ -4,7 +4,6 @@ import Foundation
 
 class Board {
  
-    // TODO: MAKE IT PRIVATE
     private (set) var items: [Location: Item]
     
     init(items: [Location: Item] = Config.initialItems) {
