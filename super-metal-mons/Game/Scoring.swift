@@ -8,8 +8,8 @@ extension MonsGame {
         static let confirmedScore = 1000
         
         static let faintedMon = -250
-        static let faintedDrainer = -500
-        static let drainerAtRisk = -250 // TODO: implement – the most comlex one - also might check angel
+        static let faintedDrainer = -600
+        static let drainerAtRisk = -350
         
         static let manaCloseToSamePool = 400
         static let monWithManaCloseToAnyPool = 700
@@ -18,8 +18,8 @@ extension MonsGame {
         static let drainerCloseToMana = 300
         static let drainerHoldingMana = 350
         
-        static let monCloseToCenter = 80
-        static let hasConsumable = 125
+        static let monCloseToCenter = 40
+        static let hasConsumable = 110
     }
     
     func evaluateFor(color: Color) -> Int {
@@ -45,7 +45,11 @@ extension MonsGame {
                 if mon.isFainted {
                     score += myMonMultiplier * (isDrainer ? Multiplier.faintedDrainer : Multiplier.faintedMon)
                 } else if isDrainer {
-                    score += myMonMultiplier * Multiplier.drainerCloseToMana / distance(from: location, to: .nearestMana)
+                    let (danger, minMana, angelNearby) = drainerDistances(color: mon.color, from: location)
+                    score += myMonMultiplier * Multiplier.drainerCloseToMana / minMana
+                    if !angelNearby {
+                        score += myMonMultiplier * Multiplier.drainerAtRisk / danger
+                    }
                 } else {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
                 }
@@ -54,7 +58,11 @@ extension MonsGame {
                 let isDrainer = mon.kind == .drainer
                 score += myMonMultiplier * Multiplier.hasConsumable
                 if isDrainer {
-                    score += myMonMultiplier * Multiplier.drainerCloseToMana / distance(from: location, to: .nearestMana)
+                    let (danger, minMana, angelNearby) = drainerDistances(color: mon.color, from: location)
+                    score += myMonMultiplier * Multiplier.drainerCloseToMana / minMana
+                    if !angelNearby {
+                        score += myMonMultiplier * Multiplier.drainerAtRisk / danger
+                    }
                 } else {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
                 }
@@ -84,7 +92,35 @@ extension MonsGame {
         case center
         case anyClosestPool
         case closestPool(color: Color)
-        case nearestMana
+    }
+    
+    private func drainerDistances(color: Color, from location: Location) -> (danger: Int, mana: Int, angelNearby: Bool) {
+        var minMana = Config.boardSize
+        var minDanger = Config.boardSize
+        var angelNearby = false
+        
+        for (itemLocation, item) in board.items {
+            switch item {
+            case .mana:
+                let delta = itemLocation.distance(to: location)
+                if delta < minMana {
+                    minMana = delta
+                }
+            case .mon(mon: let mon), .monWithConsumable(mon: let mon, consumable: _):
+                if mon.color == color.other, !mon.isFainted, mon.kind == .mystic || mon.kind == .demon || item.consumable != nil {
+                    let delta = itemLocation.distance(to: location)
+                    if delta < minDanger {
+                        minDanger = delta
+                    }
+                } else if mon.color == color, !mon.isFainted, mon.kind == .angel, itemLocation.distance(to: location) == 1 {
+                    angelNearby = true
+                }
+            case .consumable, .monWithMana:
+                continue
+            }
+        }
+        
+        return (minDanger, minMana, angelNearby)
     }
     
     private func distance(from location: Location, to destination: Destination) -> Int {
@@ -97,15 +133,6 @@ extension MonsGame {
         case .closestPool(let color):
             let poolRow = color == .white ? Config.maxLocationIndex : 0
             distance = max(abs(poolRow - location.i), min(location.j, abs(Config.maxLocationIndex - location.j)))
-        case .nearestMana:
-            var min = Config.boardSize
-            for (manaLocation, item) in board.items where item.mana != nil {
-                let delta = max(abs(manaLocation.i - location.i), abs(manaLocation.j - location.j))
-                if delta < min {
-                    min = delta
-                }
-            }
-            distance = min
         }
         return distance + 1
     }

@@ -76,5 +76,9 @@ struct Location: Equatable, Hashable, Codable {
         }
         return locations
     }
+    
+    func distance(to: Location) -> Int {
+        return max(abs(to.i - i), abs(to.j - j))
+    }
             
 }
