@@ -320,6 +320,8 @@ class GameController {
         }
     }
     
+    private var computer: Computer?
+    
     // TODO: refactor
     func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteOrComputerInput: Bool = false) -> [ViewEffect] {
         guard !isWatchOnly || remoteOrComputerInput else { return [] }
@@ -340,36 +342,17 @@ class GameController {
         }
         
         var output: MonsGame.Output
-        if inputs.isEmpty, let cachedOutput = cachedOutput {
-            output = cachedOutput
-        } else {
-            output = game.processInput(inputs)
-        }
         
         if case .localGame = mode, remoteOrComputerInput {
-            switch output {
-            case let .locationsToStartFrom(locations):
-                guard let start = locations.randomElement() else { return [] }
-                inputs.append(.location(start))
-                var didMakeMove = false
-                while !didMakeMove {
-                    output = game.processInput(inputs)
-                    switch output {
-                    case .invalidInput, .locationsToStartFrom:
-                        return []
-                    case let .nextInputOptions(nextInputOptions):
-                        guard let nextInput = nextInputOptions.randomElement()?.input else { return [] }
-                        inputs.append(nextInput)
-                    case .events:
-                        didMakeMove = true
-                    }
-                }
-                
-            default:
-                return []
-            }
+            if computer == nil { computer = Computer(gameModel: game) }
+            guard let bestMoveInput = computer?.bestMoveForActivePlayer() else { return [] }
+            output = game.processInput(bestMoveInput, doNotApply: false)
+        } else if inputs.isEmpty, let cachedOutput = cachedOutput {
+            output = cachedOutput
+        } else {
+            output = game.processInput(inputs, doNotApply: false)
         }
-        
+                
         switch output {
         case let .events(events):
             if !remoteOrComputerInput {
