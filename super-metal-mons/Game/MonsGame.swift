@@ -129,13 +129,15 @@ extension MonsGame {
         case gameOver(winner: Color)
     }
     
-    func processInput(_ input: [Input], doNotLookForAllOptions: Bool = false) -> Output {
+    func processInput(_ input: [Input], doNotApply: Bool, doNotLookForAllOptions: Bool = false) -> Output {
+        guard winnerColor == nil else { return .invalidInput }
+        
         guard !input.isEmpty else {
             var suggestedLocations = [Location]()
             
             func findValidLocations(in locations: [Location]) {
                 for location in locations {
-                    let output = processInput([.location(location)], doNotLookForAllOptions: true)
+                    let output = processInput([.location(location)], doNotApply: doNotApply, doNotLookForAllOptions: true)
                     if case let .nextInputOptions(options) = output, !options.isEmpty {
                         suggestedLocations.append(location)
                     }
@@ -663,7 +665,7 @@ extension MonsGame {
             if !nextInputOptions.isEmpty {
                 return .nextInputOptions(nextInputOptions)
             } else if !events.isEmpty {
-                return .events(apply(events: events))
+                return .events(apply(events: events, doNot: doNotApply))
             } else {
                 return .invalidInput
             }
@@ -795,7 +797,7 @@ extension MonsGame {
             if !nextInputOptions.isEmpty {
                 return .nextInputOptions(nextInputOptions)
             } else if !events.isEmpty {
-                return .events(apply(events: events))
+                return .events(apply(events: events, doNot: doNotApply))
             } else {
                 return .invalidInput
             }
@@ -817,10 +819,11 @@ extension MonsGame {
             return .invalidInput
         }
         
-        return .events(apply(events: events))
+        return .events(apply(events: events, doNot: doNotApply))
     }
     
-    private func apply(events: [Event]) -> [Event] {
+    private func apply(events: [Event], doNot: Bool) -> [Event] {
+        guard !doNot else { return [] }
         
         func didUseAction() {
             if actionsUsedCount >= Config.actionsPerTurn {
@@ -933,10 +936,10 @@ extension MonsGame {
     
 }
 
-class MonsGame {
+class MonsGame: NSObject {
     
-    let board: Board
-        
+    private(set) var board: Board
+
     private(set) var whiteScore: Int
     private(set) var blackScore: Int
     private(set) var activeColor: Color
@@ -950,7 +953,7 @@ class MonsGame {
     
     private(set) var turnNumber: Int
     
-    init() {
+    override init() {
         self.board = Board()
         self.whiteScore = 0
         self.blackScore = 0
@@ -961,6 +964,7 @@ class MonsGame {
         self.whitePotionsCount = 0
         self.blackPotionsCount = 0
         self.turnNumber = 1
+        super.init()
     }
     
     init(board: Board,
@@ -983,6 +987,23 @@ class MonsGame {
         self.whitePotionsCount = whitePotionsCount
         self.blackPotionsCount = blackPotionsCount
         self.turnNumber = turnNumber
+    }
+    
+    func updateWith(otherGame: MonsGame) {
+        board = Board(items: otherGame.board.items)
+            
+        whiteScore = otherGame.whiteScore
+        blackScore = otherGame.blackScore
+        activeColor = otherGame.activeColor
+        
+        actionsUsedCount = otherGame.actionsUsedCount
+        manaMovesCount = otherGame.manaMovesCount
+        monsMovesCount = otherGame.monsMovesCount
+        
+        whitePotionsCount = otherGame.whitePotionsCount
+        blackPotionsCount = otherGame.blackPotionsCount
+        
+        turnNumber = otherGame.turnNumber
     }
    
 }
