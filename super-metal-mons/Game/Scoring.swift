@@ -6,18 +6,15 @@ extension MonsGame {
     
     private struct Multiplier {
         static let confirmedScore = 1000
-        
         static let faintedMon = -250
         static let faintedDrainer = -600
         static let drainerAtRisk = -350
-        
         static let manaCloseToSamePool = 400
         static let monWithManaCloseToAnyPool = 700
         static let extraForSupermana = 90
         static let extraForOpponentsMana = 90
         static let drainerCloseToMana = 300
         static let drainerHoldingMana = 350
-        
         static let monCloseToCenter = 40
         static let hasConsumable = 110
     }
@@ -115,7 +112,12 @@ extension MonsGame {
                 } else if mon.color == color, !mon.isFainted, mon.kind == .angel, itemLocation.distance(to: location) == 1 {
                     angelNearby = true
                 }
-            case .consumable, .monWithMana:
+            case .consumable:
+                let delta = itemLocation.distance(to: location)
+                if delta < minDanger {
+                    minDanger = delta
+                }
+            case .monWithMana:
                 continue
             }
         }
