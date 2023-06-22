@@ -308,7 +308,17 @@ class GameController {
         gameView.applyEffects(viewEffects)
     }
     
+    var lastComputerMoveDate = Date()
     private func makeComputerMove() {
+        let sinceLast = Date().timeIntervalSince(lastComputerMoveDate)
+        let delta: Double = 1
+        guard sinceLast > delta else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(delta) * 1000 - Int(1000 * sinceLast))) { [weak self] in
+                self?.makeComputerMove()
+            }
+            return
+        }
+        lastComputerMoveDate = Date()
         guard winnerColor == nil else { return }
         _ = processInput(nil, remoteOrComputerInput: true)
     }
