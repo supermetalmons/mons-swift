@@ -6,7 +6,7 @@ extension MonsGame {
     
     private struct Multiplier {
         static let confirmedScore = 1000
-        static let faintedMon = -250
+        static let faintedMon = -500
         static let faintedDrainer = -800
         static let drainerAtRisk = -350
         static let manaCloseToSamePool = 400
@@ -47,7 +47,7 @@ extension MonsGame {
                     if !angelNearby {
                         score += myMonMultiplier * Multiplier.drainerAtRisk / danger
                     }
-                } else {
+                } else if mon.kind != .angel {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
                 }
             case .monWithConsumable(let mon, _):
@@ -60,7 +60,7 @@ extension MonsGame {
                     if !angelNearby {
                         score += myMonMultiplier * Multiplier.drainerAtRisk / danger
                     }
-                } else {
+                } else if mon.kind != .angel {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
                 }
             case .mana:
