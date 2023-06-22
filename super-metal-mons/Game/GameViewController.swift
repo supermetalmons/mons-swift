@@ -162,8 +162,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func watchButtonTapped(_ sender: Any) {
-        // TODO: implement
-        controller.didSelectGameVersusComputer()
+        controller.didSelectGameVersusComputer(.computer)
         didConnect()
     }
     
@@ -189,7 +188,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func computerButtonTapped(_ sender: Any) {
-        controller.didSelectGameVersusComputer()
+        controller.didSelectGameVersusComputer(.person)
         didConnect()
     }
     
