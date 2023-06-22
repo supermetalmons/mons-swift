@@ -42,10 +42,10 @@ struct Images {
         return newRandom
     }
     
-    static let computerEmojiId = 157
+    static let computerEmojiId = 156
     
     static var randomEmojiId: Int {
-        let index = Int.random(in: 1...156)
+        let index = Int.random(in: 1...155)
         return index
     }
     
