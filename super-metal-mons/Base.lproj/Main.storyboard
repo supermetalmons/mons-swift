@@ -165,18 +165,19 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ka8-uC-9Ma">
-                                                    <rect key="frame" x="186.66666666666666" y="136.33333333333331" width="20" height="20"/>
+                                                    <rect key="frame" x="186.66666666666666" y="230.66666666666669" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="24" id="1QF-9Q-b3T"/>
-                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="top" secondItem="Ka8-uC-9Ma" secondAttribute="bottom" constant="30" id="3K9-Bg-7Ya"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ywo-wm-gH6" secondAttribute="bottom" constant="20" id="7yc-0C-vDh"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
-                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" id="ftS-nx-Zz4"/>
+                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" priority="750" id="ftS-nx-Zz4"/>
                                                 <constraint firstAttribute="bottom" secondItem="ICp-7R-3J3" secondAttribute="bottom" id="gdu-i7-U6q"/>
                                                 <constraint firstItem="ICp-7R-3J3" firstAttribute="leading" secondItem="cal-Iq-5y1" secondAttribute="leading" id="hEs-Ig-7W1"/>
+                                                <constraint firstItem="Ka8-uC-9Ma" firstAttribute="top" secondItem="Ywo-wm-gH6" secondAttribute="top" id="i2F-8h-6Pm"/>
                                                 <constraint firstItem="Ka8-uC-9Ma" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="mVe-99-mIR"/>
                                             </constraints>
                                         </view>
