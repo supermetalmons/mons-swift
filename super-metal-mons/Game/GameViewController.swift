@@ -68,7 +68,6 @@ class GameViewController: UIViewController, GameView {
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
         controller.setGameView(self)
-        Audio.shared.setMusic(on: true)
         
         switch controller.mode {
         case .createInvite:
