@@ -50,6 +50,9 @@ struct Config {
 
 extension Config {
     
+    static let boardCenterIndex = boardSize / 2
+    static let maxLocationIndex = boardSize - 1
+    
     static let initialItems: [Location: Item] = {
         let items = squares.compactMapValues { square -> Item? in
             switch square {
