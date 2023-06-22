@@ -327,6 +327,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     func setGameInfoHidden(_ hidden: Bool) {
+        playerImageView.isHidden = hidden
         opponentImageView.isHidden = hidden
         playerScoreLabel.isHidden = hidden
         opponentScoreLabel.isHidden = hidden
