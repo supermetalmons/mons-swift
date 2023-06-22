@@ -42,14 +42,16 @@ struct Images {
         return newRandom
     }
     
-    static let computerEmojiId = 156
+    static let computerEmojiId = totalEmojiCount + 1
+    static let totalEmojiCount = 155
     
     static var randomEmojiId: Int {
-        let index = Int.random(in: 1...155)
+        let index = Int.random(in: 1...totalEmojiCount)
         return index
     }
     
     static func emoji(_ index: Int) -> UIImage {
+        guard index <= computerEmojiId else { return emoji(randomEmojiId) }
         return named("emoji-\(index)")
     }
     
