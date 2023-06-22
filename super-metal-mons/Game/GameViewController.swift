@@ -221,6 +221,11 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
+        guard currentOverlay == .none || currentOverlay == .pickupSelection else {
+            endGame()
+            return
+        }
+        
         let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
             self?.endGame()
