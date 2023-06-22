@@ -10,9 +10,9 @@ extension MonsGame {
         static let faintedDrainer = -800
         static let drainerAtRisk = -350
         static let manaCloseToSamePool = 500
-        static let monWithManaCloseToAnyPool = 700
-        static let extraForSupermana = 90
-        static let extraForOpponentsMana = 90
+        static let monWithManaCloseToAnyPool = 800
+        static let extraForSupermana = 120
+        static let extraForOpponentsMana = 100
         static let drainerCloseToMana = 300
         static let drainerHoldingMana = 350
         static let monCloseToCenter = 210
