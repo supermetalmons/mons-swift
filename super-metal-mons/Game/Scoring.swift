@@ -17,6 +17,7 @@ extension MonsGame {
         static let drainerHoldingMana = 350
         static let monCloseToCenter = 210
         static let hasConsumable = 110
+        static let activeMon = 50
     }
     
     func evaluateFor(color: Color) -> Int {
@@ -49,6 +50,10 @@ extension MonsGame {
                     }
                 } else if mon.kind != .angel {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
+                }
+                
+                if !Config.monsBases.contains(location) {
+                    score += myMonMultiplier * Multiplier.activeMon
                 }
             case .monWithConsumable(let mon, _):
                 let myMonMultiplier = mon.color == color ? 1 : -1
