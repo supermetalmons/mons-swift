@@ -161,6 +161,12 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
+    @IBAction func watchButtonTapped(_ sender: Any) {
+        // TODO: implement
+        controller.didSelectGameVersusComputer()
+        didConnect()
+    }
+    
     @IBAction func shareLinkButtonTapped(_ sender: Any) {
         let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink], applicationActivities: nil)
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
