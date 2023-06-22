@@ -122,7 +122,11 @@ class GameController {
     private var whiteProcessedMovesCount = 0
     private var blackProcessedMovesCount = 0
     
-    private var versusComputer = false
+    enum VersusComputer {
+        case person, computer
+    }
+    
+    private var versusComputer: VersusComputer?
     
     private func updateEmoji(color: Color, id: Int) {
         switch color {
@@ -160,7 +164,7 @@ class GameController {
     var blackEmojiId: Int
     
     var shouldAutoFlipBoard: Bool {
-        if case .localGame = mode, !versusComputer {
+        if case .localGame = mode, versusComputer == nil {
             return true
         } else {
             return false
@@ -202,6 +206,8 @@ class GameController {
         return game.board
     }
 
+    private var game = MonsGame()
+    
     let mode: Mode
     private let gameId: String
     private var connection: Connection?
@@ -242,19 +248,20 @@ class GameController {
         connection?.setDelegate(self)
     }
     
-    // idk about this one
-    // TODO: this one can be created immediatelly for local & invite mode
-    // TODO: this one might be different when joining
-    
-    private var game = MonsGame()
-    
-    func didSelectGameVersusComputer() {
-        versusComputer = true
+    func didSelectGameVersusComputer(_ versusComputer: VersusComputer) {
+        self.versusComputer = versusComputer
         playerSideColor = .random
         updateOpponentEmoji(id: Images.computerEmojiId)
         
-        if activeColor != playerSideColor {
+        switch versusComputer {
+        case .computer:
+            isWatchOnly = true
+            updateEmoji(color: playerSideColor, id: Images.computerEmojiId)
             makeComputerMove()
+        case .person:
+            if activeColor != playerSideColor {
+                makeComputerMove()
+            }
         }
     }
     
@@ -301,7 +308,17 @@ class GameController {
         gameView.applyEffects(viewEffects)
     }
     
+    var lastComputerMoveDate = Date()
     private func makeComputerMove() {
+        let sinceLast = Date().timeIntervalSince(lastComputerMoveDate)
+        let delta: Double = 1
+        guard sinceLast > delta else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(delta) * 1000 - Int(1000 * sinceLast))) { [weak self] in
+                self?.makeComputerMove()
+            }
+            return
+        }
+        lastComputerMoveDate = Date()
         guard winnerColor == nil else { return }
         _ = processInput(nil, remoteOrComputerInput: true)
     }
@@ -314,7 +331,7 @@ class GameController {
         
         switch mode {
         case .localGame:
-            guard !versusComputer || activeColor == playerSideColor || remoteOrComputerInput else { return [] }
+            guard versusComputer == nil || activeColor == playerSideColor || remoteOrComputerInput else { return [] }
         case .createInvite, .joinGameId:
             guard remoteOrComputerInput || activeColor == playerSideColor else { return [] }
         }
@@ -359,7 +376,7 @@ class GameController {
             var locationsToUpdate = Set<Location>()
             
             var mightKeepHighlightOnLocation: Location?
-            var mustReleaseHighlight = false
+            var mustReleaseHighlight = remoteOrComputerInput
             
             var sounds = [Sound]()
             
@@ -435,8 +452,13 @@ class GameController {
                 case .nextTurn(_):
                     sounds.append(.endTurn)
                     viewEffects.append(.nextTurn)
-                    if case .localGame = mode, versusComputer && !remoteOrComputerInput {
-                        makeComputerMove()
+                    if case .localGame = mode, let versusComputer = versusComputer {
+                        switch versusComputer {
+                        case .computer:
+                            makeComputerMove()
+                        case .person:
+                            if !remoteOrComputerInput { makeComputerMove() }
+                        }
                     }
                 case let .gameOver(winner):
                     if winner == playerSideColor {

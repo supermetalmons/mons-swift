@@ -29,6 +29,10 @@ class Audio: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
+    var isPlayingMusic: Bool {
+        return musicPlayer?.isPlaying == true && musicVolume > 0
+    }
+    
     func prepare() {
         queue.async { [weak self] in
             for sound in Sound.allCases {

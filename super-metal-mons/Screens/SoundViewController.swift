@@ -17,7 +17,11 @@ class SoundViewController: UIViewController {
         super.viewDidLoad()
         soundsVolumeSlider.value = audio.soundsVolume
         musicVolumeSlider.value = audio.musicVolume
-        setSongButtonSelected(number: audio.songNumber, isSelected: true)
+        
+        if audio.isPlayingMusic {
+            setSongButtonSelected(number: audio.songNumber, isSelected: true)
+        }
+        
         playbackModeControl.selectedSegmentIndex = audio.playbackMode.rawValue
         NotificationCenter.default.addObserver(self, selector: #selector(didPlayNextTrack), name: Notification.Name.nextTrack, object: nil)
     }

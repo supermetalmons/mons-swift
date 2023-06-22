@@ -68,7 +68,6 @@ class GameViewController: UIViewController, GameView {
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         
         controller.setGameView(self)
-        Audio.shared.setMusic(on: true)
         
         switch controller.mode {
         case .createInvite:
@@ -126,7 +125,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
-        guard !isAnimatingAvatar else { return }
+        guard !isAnimatingAvatar && isUserInteraction || !controller.isWatchOnly else { return }
         isAnimatingAvatar = true
         
         let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
@@ -161,6 +160,11 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
+    @IBAction func watchButtonTapped(_ sender: Any) {
+        controller.didSelectGameVersusComputer(.computer)
+        didConnect()
+    }
+    
     @IBAction func shareLinkButtonTapped(_ sender: Any) {
         let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink], applicationActivities: nil)
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
@@ -183,7 +187,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func computerButtonTapped(_ sender: Any) {
-        controller.didSelectGameVersusComputer()
+        controller.didSelectGameVersusComputer(.person)
         didConnect()
     }
     
@@ -216,6 +220,11 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func escapeButtonTapped(_ sender: Any) {
+        guard currentOverlay == .none || currentOverlay == .pickupSelection else {
+            endGame()
+            return
+        }
+        
         let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
             self?.endGame()
@@ -321,6 +330,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     func setGameInfoHidden(_ hidden: Bool) {
+        playerImageView.isHidden = hidden
         opponentImageView.isHidden = hidden
         playerScoreLabel.isHidden = hidden
         opponentScoreLabel.isHidden = hidden

@@ -70,6 +70,16 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nv0-Zk-Gcm">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2g-BS-TuN">
+                                                    <rect key="frame" x="140.33333333333334" y="343" width="112.66666666666666" height="38"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system" title="watch" imagePadding="2">
+                                                        <fontDescription key="titleFontDescription" type="italicSystem" pointSize="20"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="watchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FvJ-WA-HCB"/>
+                                                    </connections>
+                                                </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Txp-Vx-dYz">
                                                     <rect key="frame" x="94" y="150.33333333333331" width="205" height="92.333333333333314"/>
                                                     <subviews>
@@ -99,8 +109,10 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Txp-Vx-dYz" firstAttribute="width" secondItem="Nv0-Zk-Gcm" secondAttribute="width" multiplier="0.521628" priority="750" id="FVe-ju-6ya"/>
+                                                <constraint firstItem="p2g-BS-TuN" firstAttribute="centerX" secondItem="Txp-Vx-dYz" secondAttribute="centerX" id="OAA-Wf-zRu"/>
                                                 <constraint firstItem="Txp-Vx-dYz" firstAttribute="centerX" secondItem="Nv0-Zk-Gcm" secondAttribute="centerX" id="ODw-gT-976"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Txp-Vx-dYz" secondAttribute="trailing" constant="20" id="gIW-vC-XLr"/>
+                                                <constraint firstAttribute="bottom" secondItem="p2g-BS-TuN" secondAttribute="bottom" constant="12" id="hVK-wh-4fi"/>
                                                 <constraint firstItem="Txp-Vx-dYz" firstAttribute="centerY" secondItem="Nv0-Zk-Gcm" secondAttribute="centerY" id="ofC-B0-tyZ"/>
                                             </constraints>
                                         </view>
@@ -153,18 +165,19 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ka8-uC-9Ma">
-                                                    <rect key="frame" x="186.66666666666666" y="136.33333333333331" width="20" height="20"/>
+                                                    <rect key="frame" x="186.66666666666666" y="230.66666666666669" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="top" secondItem="MdX-Dg-5cJ" secondAttribute="bottom" constant="24" id="1QF-9Q-b3T"/>
-                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="top" secondItem="Ka8-uC-9Ma" secondAttribute="bottom" constant="30" id="3K9-Bg-7Ya"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ywo-wm-gH6" secondAttribute="bottom" constant="20" id="7yc-0C-vDh"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
-                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" id="ftS-nx-Zz4"/>
+                                                <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" priority="750" id="ftS-nx-Zz4"/>
                                                 <constraint firstAttribute="bottom" secondItem="ICp-7R-3J3" secondAttribute="bottom" id="gdu-i7-U6q"/>
                                                 <constraint firstItem="ICp-7R-3J3" firstAttribute="leading" secondItem="cal-Iq-5y1" secondAttribute="leading" id="hEs-Ig-7W1"/>
+                                                <constraint firstItem="Ka8-uC-9Ma" firstAttribute="top" secondItem="Ywo-wm-gH6" secondAttribute="top" id="i2F-8h-6Pm"/>
                                                 <constraint firstItem="Ka8-uC-9Ma" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="mVe-99-mIR"/>
                                             </constraints>
                                         </view>
@@ -1251,6 +1264,7 @@
         <image name="emoji-52" width="420" height="420"/>
         <image name="emoji-53" width="420" height="420"/>
         <image name="escape" catalog="system" width="128" height="123"/>
+        <image name="eye" catalog="system" width="128" height="79"/>
         <image name="figure.walk" catalog="system" width="95" height="128"/>
         <image name="logo" width="1310" height="817"/>
         <image name="mon-1" width="1024" height="1024"/>

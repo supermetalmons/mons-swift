@@ -6,17 +6,18 @@ extension MonsGame {
     
     private struct Multiplier {
         static let confirmedScore = 1000
-        static let faintedMon = -250
-        static let faintedDrainer = -600
+        static let faintedMon = -500
+        static let faintedDrainer = -800
         static let drainerAtRisk = -350
-        static let manaCloseToSamePool = 400
-        static let monWithManaCloseToAnyPool = 700
-        static let extraForSupermana = 90
-        static let extraForOpponentsMana = 90
+        static let manaCloseToSamePool = 500
+        static let monWithManaCloseToAnyPool = 800
+        static let extraForSupermana = 120
+        static let extraForOpponentsMana = 100
         static let drainerCloseToMana = 300
         static let drainerHoldingMana = 350
-        static let monCloseToCenter = 40
+        static let monCloseToCenter = 210
         static let hasConsumable = 110
+        static let activeMon = 50
     }
     
     func evaluateFor(color: Color) -> Int {
@@ -47,8 +48,12 @@ extension MonsGame {
                     if !angelNearby {
                         score += myMonMultiplier * Multiplier.drainerAtRisk / danger
                     }
-                } else {
+                } else if mon.kind != .angel {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
+                }
+                
+                if !Config.monsBases.contains(location) {
+                    score += myMonMultiplier * Multiplier.activeMon
                 }
             case .monWithConsumable(let mon, _):
                 let myMonMultiplier = mon.color == color ? 1 : -1
@@ -60,7 +65,7 @@ extension MonsGame {
                     if !angelNearby {
                         score += myMonMultiplier * Multiplier.drainerAtRisk / danger
                     }
-                } else {
+                } else if mon.kind != .angel {
                     score += myMonMultiplier * Multiplier.monCloseToCenter / distance(from: location, to: .center)
                 }
             case .mana:
