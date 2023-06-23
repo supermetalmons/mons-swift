@@ -249,6 +249,7 @@ class GameController {
     }
     
     func didSelectGameVersusComputer(_ versusComputer: VersusComputer) {
+        lastComputerMoveDate = Date()
         self.versusComputer = versusComputer
         playerSideColor = .random
         updateOpponentEmoji(id: Images.computerEmojiId)
