@@ -46,6 +46,7 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var musicButton: UIButton!
     
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
@@ -158,6 +159,10 @@ class GameViewController: UIViewController, GameView {
                 self?.isAnimatingAvatar = false
             }
         }
+    }
+    
+    @IBAction func didTapMusicButton(_ sender: Any) {
+        // TODO: implement
     }
     
     @IBAction func watchButtonTapped(_ sender: Any) {
