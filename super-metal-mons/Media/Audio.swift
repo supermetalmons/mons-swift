@@ -11,7 +11,6 @@ class Audio: NSObject {
         case shuffle = 2
     }
     
-    private (set) var soundsVolume = Defaults.soundsVolume
     private (set) var musicVolume = Defaults.musicVolume
     private (set) var songNumber = Defaults.songNumber
     private (set) var playbackMode = PlaybackMode(rawValue: Defaults.playbackMode) ?? .regular
@@ -38,7 +37,7 @@ class Audio: NSObject {
             for sound in Sound.allCases {
                 guard let soundFileURL = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav"),
                       let player = try? AVAudioPlayer(contentsOf: soundFileURL) else { continue }
-                player.volume = self?.soundsVolume ?? 0
+                player.volume = 1
                 self?.players[sound] = player
             }
             
@@ -92,24 +91,12 @@ class Audio: NSObject {
         }
     }
     
-    func setSoundsVolume(_ volume: Float) {
-        Defaults.soundsVolume = volume
-        
-        queue.async { [weak self] in
-            self?.soundsVolume = volume
-            guard let players = self?.players.values else { return }
-            for player in players {
-                player.volume = volume
-            }
-        }
-    }
-    
     func play(_ sound: Sound) {
         play(sounds: [sound])
     }
     
     func play(sounds: [Sound]) {
-        guard !soundsVolume.isZero else { return }
+        // TODO: check for sounds being muted instead
         
         queue.async { [weak self] in
             for sound in sounds {
