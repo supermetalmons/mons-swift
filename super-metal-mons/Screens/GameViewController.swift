@@ -162,7 +162,15 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapMusicButton(_ sender: Any) {
-        // TODO: implement
+        let musicViewController = instantiate(MusicViewController.self)
+        musicViewController.modalPresentationStyle = .popover
+        if let popoverController = musicViewController.popoverPresentationController {
+            popoverController.permittedArrowDirections = [.up, .down, .left, .right]
+            popoverController.sourceView = musicButton
+            popoverController.sourceRect = musicButton.bounds
+            popoverController.delegate = self
+        }
+        present(musicViewController, animated: true, completion: nil)
     }
     
     @IBAction func watchButtonTapped(_ sender: Any) {
@@ -247,15 +255,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapSoundButton(_ sender: Any) {
-        let soundViewController = instantiate(SoundViewController.self)
-        soundViewController.modalPresentationStyle = .popover
-        if let popoverController = soundViewController.popoverPresentationController {
-            popoverController.permittedArrowDirections = [.up, .down, .left, .right]
-            popoverController.sourceView = soundControlButton
-            popoverController.sourceRect = soundControlButton.bounds
-            popoverController.delegate = self
-        }
-        present(soundViewController, animated: true, completion: nil)
+        // TOOD: simply mute and unmute
     }
     
     private func setPlayerSide(color: Color) {

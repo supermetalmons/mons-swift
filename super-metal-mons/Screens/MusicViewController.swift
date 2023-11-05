@@ -2,7 +2,7 @@
 
 import UIKit
 
-class SoundViewController: UIViewController {
+class MusicViewController: UIViewController {
     
     @IBOutlet weak var songsStackView: UIStackView!
     
