@@ -47,6 +47,7 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var voiceChatButton: UIButton!
     
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
@@ -161,6 +162,10 @@ class GameViewController: UIViewController, GameView {
                 self?.isAnimatingAvatar = false
             }
         }
+    }
+    
+    @IBAction func voiceChatButtonTapped(_ sender: Any) {
+        // TODO: voice chat
     }
     
     @IBAction func didTapMusicButton(_ sender: Any) {
@@ -352,6 +357,7 @@ class GameViewController: UIViewController, GameView {
         opponentScoreLabel.isHidden = hidden
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
+        voiceChatButton.isHidden = hidden
     }
     
     func updateEmoji(color: Color) {
