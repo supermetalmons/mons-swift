@@ -549,60 +549,60 @@
             <objects>
                 <viewController storyboardIdentifier="MusicViewController" id="khw-7r-FqP" customClass="MusicViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hfk-wC-PBn">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="g9i-JA-kdP">
-                                <rect key="frame" x="18" y="79" width="357" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="g9i-JA-kdP">
+                                <rect key="frame" x="22" y="79" width="349" height="31"/>
                                 <connections>
                                     <action selector="didChangeMusicVolumeSlider:" destination="khw-7r-FqP" eventType="valueChanged" id="wDj-Ri-LJW"/>
                                 </connections>
                             </slider>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yny-gv-Z57">
-                                <rect key="frame" x="20" y="558" width="353" height="32"/>
-                                <segments>
-                                    <segment title="" image="repeat" catalog="system"/>
-                                    <segment title="" image="repeat.1" catalog="system"/>
-                                    <segment title="" image="shuffle" catalog="system"/>
-                                </segments>
-                                <connections>
-                                    <action selector="didChangePlaybackMode:" destination="khw-7r-FqP" eventType="valueChanged" id="fDq-qg-JD1"/>
-                                </connections>
-                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8FT-4n-XGg">
-                                <rect key="frame" x="174.66666666666666" y="318.66666666666669" width="44" height="35"/>
+                                <rect key="frame" x="144" y="159" width="105" height="100"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="72"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="playButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="WPp-ip-wn2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liw-QJ-GBj">
+                                <rect key="frame" x="300" y="287" width="73" height="52"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="opticaldisc" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="32"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="discButtonTapped:" destination="khw-7r-FqP" eventType="touchUpInside" id="Hlm-ww-peR"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XEM-mu-VIE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerX" secondItem="XEM-mu-VIE" secondAttribute="centerX" id="3A7-ko-AhM"/>
-                            <constraint firstItem="yny-gv-Z57" firstAttribute="leading" secondItem="g9i-JA-kdP" secondAttribute="leading" id="9lL-gN-FuC"/>
-                            <constraint firstItem="yny-gv-Z57" firstAttribute="trailing" secondItem="g9i-JA-kdP" secondAttribute="trailing" id="Jwb-CU-BJG"/>
-                            <constraint firstItem="g9i-JA-kdP" firstAttribute="leading" secondItem="XEM-mu-VIE" secondAttribute="leading" constant="20" id="bT9-Zl-kwc"/>
+                            <constraint firstItem="XEM-mu-VIE" firstAttribute="bottom" secondItem="liw-QJ-GBj" secondAttribute="bottom" constant="20" id="50P-pj-zCI"/>
+                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" id="YeT-3N-94P"/>
+                            <constraint firstItem="g9i-JA-kdP" firstAttribute="leading" secondItem="XEM-mu-VIE" secondAttribute="leading" constant="24" id="bT9-Zl-kwc"/>
                             <constraint firstItem="g9i-JA-kdP" firstAttribute="top" secondItem="XEM-mu-VIE" secondAttribute="top" constant="20" id="dhn-v4-VPs"/>
-                            <constraint firstItem="XEM-mu-VIE" firstAttribute="trailing" secondItem="g9i-JA-kdP" secondAttribute="trailing" constant="20" id="gVR-c5-Fva"/>
-                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" id="mY9-Mh-KIh"/>
-                            <constraint firstItem="yny-gv-Z57" firstAttribute="bottom" secondItem="XEM-mu-VIE" secondAttribute="bottom" constant="-24" id="tbS-yt-dD8"/>
+                            <constraint firstItem="XEM-mu-VIE" firstAttribute="trailing" secondItem="g9i-JA-kdP" secondAttribute="trailing" constant="24" id="gVR-c5-Fva"/>
+                            <constraint firstItem="XEM-mu-VIE" firstAttribute="trailing" secondItem="liw-QJ-GBj" secondAttribute="trailing" constant="20" id="qGZ-8d-4JY"/>
+                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerX" secondItem="XEM-mu-VIE" secondAttribute="centerX" id="t63-LE-dgY"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="393" height="647"/>
+                    <size key="freeformSize" width="393" height="393"/>
                     <connections>
+                        <outlet property="discButton" destination="liw-QJ-GBj" id="lMO-CE-TNu"/>
                         <outlet property="musicVolumeSlider" destination="g9i-JA-kdP" id="CfO-Ig-WbL"/>
                         <outlet property="playButton" destination="8FT-4n-XGg" id="UPI-Tc-K5H"/>
-                        <outlet property="playbackModeControl" destination="yny-gv-Z57" id="lqa-Yc-SK1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Iv-uv-xaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2307.6335877862593" y="-20.070422535211268"/>
+            <point key="canvasLocation" x="2307.6335877862593" y="-69.366197183098592"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="M46-w3-48Z">
@@ -704,13 +704,10 @@
         <image name="move-manaMove" width="32" height="32"/>
         <image name="move-monMove" width="32" height="32"/>
         <image name="move-potion" width="32.333332061767578" height="32"/>
-        <image name="music.note" catalog="system" width="96" height="128"/>
+        <image name="opticaldisc" catalog="system" width="128" height="123"/>
         <image name="pixel/bomb" width="64" height="64"/>
         <image name="pixel/potion" width="64" height="64"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
-        <image name="repeat" catalog="system" width="128" height="98"/>
-        <image name="repeat.1" catalog="system" width="128" height="100"/>
-        <image name="shuffle" catalog="system" width="128" height="95"/>
         <image name="speaker" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <systemColor name="secondaryLabelColor">

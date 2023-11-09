@@ -5,15 +5,8 @@ import MediaPlayer
 
 class Audio: NSObject {
     
-    enum PlaybackMode: Int {
-        case regular = 0
-        case repeatOne = 1
-        case shuffle = 2
-    }
-    
     private (set) var musicVolume = Defaults.musicVolume
     private (set) var songNumber = Defaults.songNumber
-    private (set) var playbackMode = PlaybackMode(rawValue: Defaults.playbackMode) ?? .regular
     
     static let shared = Audio()
     
@@ -44,11 +37,6 @@ class Audio: NSObject {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
         }
-    }
-    
-    func selectPlaybackMode(rawValue: Int) {
-        Defaults.playbackMode = rawValue
-        playbackMode = PlaybackMode(rawValue: rawValue) ?? .regular
     }
     
     @discardableResult func selectSong(number: Int, force: Bool) -> Bool {
@@ -178,19 +166,8 @@ extension Audio: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard flag && songNumber != 0 else { return }
-        
-        let nextSongNumber: Int
-        switch playbackMode {
-        case .regular:
-            nextSongNumber = (songNumber % 30) + 1
-        case .repeatOne:
-            nextSongNumber = songNumber
-        case .shuffle:
-            nextSongNumber = Int.random(in: 1...30)
-        }
-        
+        let nextSongNumber = Int.random(in: 1...30)
         selectSong(number: nextSongNumber, force: true)
-        NotificationCenter.default.post(name: Notification.Name.nextTrack, object: nil)
     }
 
 }
