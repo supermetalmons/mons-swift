@@ -96,10 +96,10 @@ class Audio: NSObject {
     
     private func didInterruptMusic() {
         if isPlayingMusic {
+            NotificationCenter.default.post(name: .didInterruptMusic, object: nil)
             queue.async { [weak self] in
                 self?.musicPlayer?.pause()
             }
-            // TODO: notify music controller to update UI
         }
     }
     

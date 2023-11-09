@@ -15,6 +15,12 @@ class MusicViewController: UIViewController {
         super.viewDidLoad()
         musicVolumeSlider.value = audio.musicVolume
         updatePlayPauseButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(didInterruptMusic), name: .didInterruptMusic, object: nil)
+    }
+    
+    @objc private func didInterruptMusic() {
+        isPlaying = false
+        updatePlayPauseButton()
     }
     
     @IBAction func discButtonTapped(_ sender: Any) {
@@ -43,6 +49,10 @@ class MusicViewController: UIViewController {
         } else {
             playButton.configuration?.image = Images.play
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
