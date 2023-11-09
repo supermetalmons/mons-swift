@@ -72,6 +72,7 @@ class GameViewController: UIViewController, GameView {
         NotificationCenter.default.addObserver(self, selector: #selector(updateSoundControlButton), name: .didEnableSounds, object: nil)
         
         controller.setGameView(self)
+        setupVoiceChatButton()
         
         switch controller.mode {
         case .createInvite:
@@ -84,6 +85,24 @@ class GameViewController: UIViewController, GameView {
             setGameInfoHidden(true)
             showOverlay(.personOrComputer)
         }
+    }
+    
+    private func setupVoiceChatButton() {
+        let items: [UIAction] = [
+            UIAction(title: "yo", handler: { _ in print("yo") }),
+            UIAction(title: "gm", handler: { _ in print("gm") }),
+            UIAction(title: "gg", handler: { _ in print("gg") })
+        ]
+        
+        #if targetEnvironment(macCatalyst)
+        let children: [UIAction] = items
+        #else
+        let children: [UIAction] = items.reversed()
+        #endif
+        
+        let menu = UIMenu(title: "say", children: children)
+        voiceChatButton.menu = menu
+        voiceChatButton.showsMenuAsPrimaryAction = true
     }
     
     // MARK: - actions
@@ -162,21 +181,6 @@ class GameViewController: UIViewController, GameView {
                 self?.isAnimatingAvatar = false
             }
         }
-    }
-    
-    @IBAction func voiceChatButtonTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "say", message: nil, preferredStyle: .actionSheet)
-        let yoAction = UIAlertAction(title: "yo", style: .default)
-        let gmAction = UIAlertAction(title: "gm", style: .default)
-        let ggAction = UIAlertAction(title: "gg", style: .default)
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
-        actionSheet.addAction(yoAction)
-        actionSheet.addAction(gmAction)
-        actionSheet.addAction(ggAction)
-        actionSheet.addAction(cancelAction)
-        actionSheet.popoverPresentationController?.sourceView = voiceChatButton
-        actionSheet.popoverPresentationController?.permittedArrowDirections = .down
-        present(actionSheet, animated: true)
     }
     
     @IBAction func didTapMusicButton(_ sender: Any) {
