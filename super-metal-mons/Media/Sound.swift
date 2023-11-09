@@ -31,4 +31,6 @@ enum Sound: String, CaseIterable {
         }
     }
     
+    var url: URL? { return Bundle.main.url(forResource: rawValue, withExtension: "wav") }
+    
 }

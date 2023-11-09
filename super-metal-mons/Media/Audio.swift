@@ -26,8 +26,7 @@ class Audio: NSObject {
     func prepare() {
         queue.async { [weak self] in
             for sound in Sound.allCases {
-                guard let soundFileURL = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav"),
-                      let player = try? AVAudioPlayer(contentsOf: soundFileURL) else { continue }
+                guard let url = sound.url, let player = try? AVAudioPlayer(contentsOf: url) else { continue }
                 player.volume = 1
                 self?.players[sound] = player
             }
@@ -74,10 +73,7 @@ class Audio: NSObject {
     }
     
     private func playMusic() {
-        guard let name = songNames[Int.random(in: 1...30)] else { return }
-        
-        guard let musicFileURL = Bundle.main.url(forResource: name, withExtension: "aac"),
-              let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }
+        guard let url = Music.randomTrack(), let player = try? AVAudioPlayer(contentsOf: url) else { return }
         
         musicPlayer = player
         musicPlayer?.volume = musicVolume
@@ -145,37 +141,3 @@ extension Audio: AVAudioPlayerDelegate {
     }
 
 }
-
-// TODO: move to a separate file
-private let songNames: [Int: String] = [
-    1: "cloud propeller",
-    2: "bell glide",
-    3: "bell dance",
-    4: "organwhawha",
-    5: "chimes photography_going home",
-    6: "ping",
-    7: "clock tower",
-    8: "melodine",
-    9: "cloud propeller 2",
-    10: "jelly jam",
-    11: "bubble jam",
-    12: "spirit track",
-    13: "bounce",
-    14: "gilded",
-    15: "mana pool",
-    16: "honkshoooo memememeee zzzZZZ",
-    17: "arploop",
-    18: "whale2",
-    19: "gustofwind",
-    20: "ewejam",
-    21: "change",
-    22: "melodine",
-    23: "driver",
-    24: "object",
-    25: "runner",
-    26: "band",
-    27: "crumbs",
-    28: "buzz",
-    29: "drreams",
-    30: "super"
-]
