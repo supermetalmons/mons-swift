@@ -44,6 +44,12 @@ class Audio: NSObject {
     }
     
     func playRandomMusic(doNotResume: Bool) {
+        if isSoundDisabled {
+            isSoundDisabled = false
+            Defaults.isSoundDisabled = isSoundDisabled
+            NotificationCenter.default.post(name: .didEnableSounds, object: nil)
+        }
+        
         queue.async { [weak self] in
             self?.playMusic(doNotResume: doNotResume)
         }

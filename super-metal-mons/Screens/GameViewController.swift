@@ -68,6 +68,7 @@ class GameViewController: UIViewController, GameView {
         playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         updateSoundControlButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSoundControlButton), name: .didEnableSounds, object: nil)
         
         controller.setGameView(self)
         
@@ -255,7 +256,7 @@ class GameViewController: UIViewController, GameView {
         setPlayerSide(color: controller.playerSideColor)
     }
     
-    func updateSoundControlButton() {
+    @objc private func updateSoundControlButton() {
         soundControlButton.configuration?.image = Audio.shared.isSoundDisabled ? Images.unmuteSounds : Images.muteSounds
     }
     
@@ -277,6 +278,10 @@ class GameViewController: UIViewController, GameView {
     private func dismissBoardViewController() {
         dismiss(animated: false)
         Audio.shared.stopMusic()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - updates
