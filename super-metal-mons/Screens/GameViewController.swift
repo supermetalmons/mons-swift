@@ -165,7 +165,18 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func voiceChatButtonTapped(_ sender: Any) {
-        // TODO: voice chat
+        let actionSheet = UIAlertController(title: "say", message: nil, preferredStyle: .actionSheet)
+        let yoAction = UIAlertAction(title: "yo", style: .default)
+        let gmAction = UIAlertAction(title: "gm", style: .default)
+        let ggAction = UIAlertAction(title: "gg", style: .default)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        actionSheet.addAction(yoAction)
+        actionSheet.addAction(gmAction)
+        actionSheet.addAction(ggAction)
+        actionSheet.addAction(cancelAction)
+        actionSheet.popoverPresentationController?.sourceView = voiceChatButton
+        actionSheet.popoverPresentationController?.permittedArrowDirections = .down
+        present(actionSheet, animated: true)
     }
     
     @IBAction func didTapMusicButton(_ sender: Any) {
