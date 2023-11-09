@@ -67,6 +67,7 @@ class GameViewController: UIViewController, GameView {
         moreButton.isHidden = true
         playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
+        updateSoundControlButton()
         
         controller.setGameView(self)
         
@@ -254,8 +255,13 @@ class GameViewController: UIViewController, GameView {
         setPlayerSide(color: controller.playerSideColor)
     }
     
+    func updateSoundControlButton() {
+        soundControlButton.configuration?.image = Audio.shared.isSoundDisabled ? Images.unmuteSounds : Images.muteSounds
+    }
+    
     @IBAction func didTapSoundButton(_ sender: Any) {
-        // TOOD: simply mute and unmute
+        Audio.shared.toggleIsSoundDisabled()
+        updateSoundControlButton()
     }
     
     private func setPlayerSide(color: Color) {

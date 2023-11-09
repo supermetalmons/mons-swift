@@ -6,6 +6,8 @@ struct Images {
     
     static var play: UIImage { systemName("play.fill") }
     static var pause: UIImage { systemName("pause.fill") }
+    static var muteSounds: UIImage { systemName("speaker") }
+    static var unmuteSounds: UIImage { systemName("speaker.slash") }
     
     static func monsBase(mon: Mon, style: BoardStyle) -> UIImage {
         return named(style.namespace + "base-" + mon.kind.rawValue)

@@ -6,6 +6,7 @@ import MediaPlayer
 class Audio: NSObject {
     
     private (set) var musicVolume = Defaults.musicVolume
+    private (set) var isSoundDisabled = Defaults.isSoundDisabled
     
     static let shared = Audio()
     
@@ -31,6 +32,14 @@ class Audio: NSObject {
             
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
+        }
+    }
+    
+    func toggleIsSoundDisabled() {
+        isSoundDisabled.toggle()
+        Defaults.isSoundDisabled = isSoundDisabled
+        if isSoundDisabled {
+            didInterruptMusic()
         }
     }
     
@@ -66,8 +75,7 @@ class Audio: NSObject {
     }
     
     func play(sounds: [Sound]) {
-        // TODO: check for sounds being muted instead
-        
+        guard !isSoundDisabled else { return }
         queue.async { [weak self] in
             for sound in sounds {
                 let player = self?.players[sound]
