@@ -441,15 +441,15 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76Q-K9-7MO" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
-                                        <rect key="frame" x="224.33333333333334" y="4" width="49.666666666666657" height="34.333333333333336"/>
+                                        <rect key="frame" x="228.33333333333334" y="4" width="45.666666666666657" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="opticaldisc" catalog="system"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="hifispeaker" catalog="system"/>
                                         <connections>
                                             <action selector="didTapMusicButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Jj-Am-BfV"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvG-iw-1OQ" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
-                                        <rect key="frame" x="164.33333333333334" y="4" width="52" height="34.333333333333336"/>
+                                        <rect key="frame" x="168.33333333333334" y="4" width="52" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="ellipsis.rectangle" catalog="system"/>
                                         <connections>
@@ -697,6 +697,7 @@
         <image name="emoji-53" width="420" height="420"/>
         <image name="escape" catalog="system" width="128" height="123"/>
         <image name="eye" catalog="system" width="128" height="79"/>
+        <image name="hifispeaker" catalog="system" width="112" height="128"/>
         <image name="logo" width="1310" height="817"/>
         <image name="mon-1" width="1024" height="1024"/>
         <image name="move-action" width="32" height="32"/>
@@ -704,7 +705,6 @@
         <image name="move-monMove" width="32" height="32"/>
         <image name="move-potion" width="32.333332061767578" height="32"/>
         <image name="music.note" catalog="system" width="96" height="128"/>
-        <image name="opticaldisc" catalog="system" width="128" height="123"/>
         <image name="pixel/bomb" width="64" height="64"/>
         <image name="pixel/potion" width="64" height="64"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
@@ -714,16 +714,16 @@
         <image name="speaker" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
