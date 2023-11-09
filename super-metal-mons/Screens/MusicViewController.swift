@@ -25,7 +25,7 @@ class MusicViewController: UIViewController {
     
     @IBAction func playButtonTapped(_ sender: Any) {
         if isPlaying {
-            audio.stopMusic()
+            audio.pauseMusic()
         } else {
             audio.playRandomMusic()
         }

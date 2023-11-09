@@ -6,7 +6,6 @@ import MediaPlayer
 class Audio: NSObject {
     
     private (set) var musicVolume = Defaults.musicVolume
-    private (set) var songNumber = 1
     
     static let shared = Audio()
     
@@ -18,7 +17,6 @@ class Audio: NSObject {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     var isPlayingMusic: Bool { return musicPlayer?.isPlaying == true }
@@ -39,6 +37,12 @@ class Audio: NSObject {
     func playRandomMusic() {
         queue.async { [weak self] in
             self?.playMusic()
+        }
+    }
+    
+    func pauseMusic() {
+        queue.async { [weak self] in
+            self?.musicPlayer?.pause()
         }
     }
     
@@ -73,6 +77,12 @@ class Audio: NSObject {
     }
     
     private func playMusic() {
+        if let player = musicPlayer, !player.isPlaying {
+            if player.play() {
+                return
+            }
+        }
+        
         guard let url = Music.randomTrack(), let player = try? AVAudioPlayer(contentsOf: url) else { return }
         
         musicPlayer = player
@@ -84,6 +94,15 @@ class Audio: NSObject {
     
     // MARK: - Interruptions
     
+    private func didInterruptMusic() {
+        if isPlayingMusic {
+            queue.async { [weak self] in
+                self?.musicPlayer?.pause()
+            }
+            // TODO: notify music controller to update UI
+        }
+    }
+    
     @objc func handleInterruption(notification: Notification) {
         guard let userInfo = notification.userInfo,
               let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
@@ -92,38 +111,13 @@ class Audio: NSObject {
         }
         
         #if !targetEnvironment(macCatalyst)
-        queue.async { [weak self] in
-            switch type {
-            case .began:
-                self?.musicPlayer?.pause()
-            case .ended:
-                if let shouldResume = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt,
-                   AVAudioSession.InterruptionOptions(rawValue: shouldResume).contains(.shouldResume),
-                    self?.songNumber != 0 {
-                    self?.musicPlayer?.play()
-                }
-            default:
-                break
-            }
-        }
+        if case .began = type { didInterruptMusic() }
         #endif
     }
     
     @objc func handleApplicationWillResignActive(notification: Notification) {
         #if !targetEnvironment(macCatalyst)
-        queue.async { [weak self] in
-            self?.musicPlayer?.pause()
-        }
-        #endif
-    }
-
-    @objc func handleApplicationDidBecomeActive(notification: Notification) {
-        #if !targetEnvironment(macCatalyst)
-        queue.async { [weak self] in
-            if self?.songNumber != 0 {
-                self?.musicPlayer?.play()
-            }
-        }
+        didInterruptMusic()
         #endif
     }
 
