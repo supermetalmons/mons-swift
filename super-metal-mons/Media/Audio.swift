@@ -6,7 +6,7 @@ import MediaPlayer
 class Audio: NSObject {
     
     private (set) var musicVolume = Defaults.musicVolume
-    private (set) var songNumber = Defaults.songNumber
+    private (set) var songNumber = 1
     
     static let shared = Audio()
     
@@ -21,9 +21,7 @@ class Audio: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    var isPlayingMusic: Bool {
-        return musicPlayer?.isPlaying == true && musicVolume > 0
-    }
+    var isPlayingMusic: Bool { return musicPlayer?.isPlaying == true }
     
     func prepare() {
         queue.async { [weak self] in
@@ -39,43 +37,24 @@ class Audio: NSObject {
         }
     }
     
-    @discardableResult func selectSong(number: Int, force: Bool) -> Bool {
-        if songNumber == number && !force {
-            setMusic(on: false)
-            songNumber = 0
-            Defaults.songNumber = 0
-            return false
-        } else {
-            songNumber = number
-            Defaults.songNumber = number
-            setMusic(on: true)
-            return true
+    func playRandomMusic() {
+        queue.async { [weak self] in
+            self?.playMusic()
         }
     }
     
-    func setMusic(on: Bool) {
+    func stopMusic() {
         queue.async { [weak self] in
-            if on {
-                self?.playMusic()
-            } else {
-                self?.musicPlayer?.pause()
-            }
+            self?.musicPlayer?.stop()
+            self?.musicPlayer = nil
         }
     }
     
     func setMusicVolume(_ volume: Float) {
         Defaults.musicVolume = volume
+        musicVolume = volume
         queue.async { [weak self] in
             self?.musicPlayer?.volume = volume
-            
-            if self?.musicVolume.isZero == true && !volume.isZero {
-                self?.musicVolume = volume
-                self?.playMusic()
-            } else if volume.isZero && self?.musicVolume.isZero == false {
-                self?.musicPlayer?.pause()
-            }
-            
-            self?.musicVolume = volume
         }
     }
     
@@ -92,6 +71,19 @@ class Audio: NSObject {
                 player?.play()
             }
         }
+    }
+    
+    private func playMusic() {
+        guard let name = songNames[Int.random(in: 1...30)] else { return }
+        
+        guard let musicFileURL = Bundle.main.url(forResource: name, withExtension: "aac"),
+              let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }
+        
+        musicPlayer = player
+        musicPlayer?.volume = musicVolume
+        
+        player.delegate = self
+        player.play()
     }
     
     // MARK: - Interruptions
@@ -142,36 +134,19 @@ class Audio: NSObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    // MARK: - Private
-    
-    private func playMusic() {
-        guard !musicVolume.isZero, songNumber != 0 else { return }
-        
-        let name = songNames[songNumber] ?? ""
-        
-        guard let musicFileURL = Bundle.main.url(forResource: name, withExtension: "aac"),
-              let player = try? AVAudioPlayer(contentsOf: musicFileURL) else { return }
-        
-        musicPlayer = player
-        musicPlayer?.volume = musicVolume
-        
-        player.delegate = self
-        player.play()
-    }
 
 }
 
 extension Audio: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        guard flag && songNumber != 0 else { return }
-        let nextSongNumber = Int.random(in: 1...30)
-        selectSong(number: nextSongNumber, force: true)
+        guard flag else { return }
+        playMusic()
     }
 
 }
 
+// TODO: move to a separate file
 private let songNames: [Int: String] = [
     1: "cloud propeller",
     2: "bell glide",

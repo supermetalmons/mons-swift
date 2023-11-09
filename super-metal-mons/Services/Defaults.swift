@@ -15,15 +15,6 @@ struct Defaults {
         }
     }
     
-    static var songNumber: Int {
-        get {
-            return defaults.integer(forKey: #function)
-        }
-        set {
-            defaults.set(newValue, forKey: #function)
-        }
-    }
-    
     static var musicVolume: Float {
         get {
             return 1 - defaults.float(forKey: #function)

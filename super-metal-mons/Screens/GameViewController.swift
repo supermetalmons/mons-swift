@@ -270,7 +270,7 @@ class GameViewController: UIViewController, GameView {
     
     private func dismissBoardViewController() {
         dismiss(animated: false)
-        Audio.shared.setMusic(on: false)
+        Audio.shared.stopMusic()
     }
     
     // MARK: - updates

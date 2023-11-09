@@ -4,6 +4,9 @@ import UIKit
 
 struct Images {
     
+    static var play: UIImage { systemName("play.fill") }
+    static var pause: UIImage { systemName("pause.fill") }
+    
     static func monsBase(mon: Mon, style: BoardStyle) -> UIImage {
         return named(style.namespace + "base-" + mon.kind.rawValue)
     }

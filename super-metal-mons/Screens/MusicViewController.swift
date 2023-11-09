@@ -5,6 +5,7 @@ import UIKit
 class MusicViewController: UIViewController {
     
     private let audio = Audio.shared
+    private lazy var isPlaying = audio.isPlayingMusic
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var discButton: UIButton!
@@ -13,23 +14,35 @@ class MusicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         musicVolumeSlider.value = audio.musicVolume
-        
-        if audio.isPlayingMusic {
-            // TODO: display what's being played
-        }
+        updatePlayPauseButton()
     }
     
     @IBAction func discButtonTapped(_ sender: Any) {
-        audio.selectSong(number: Int.random(in: 1...30), force: true)
+        isPlaying = true
+        audio.playRandomMusic()
+        updatePlayPauseButton()
     }
     
     @IBAction func playButtonTapped(_ sender: Any) {
-        // TODO: play / pause
-        audio.selectSong(number: Int.random(in: 1...30), force: true)
+        if isPlaying {
+            audio.stopMusic()
+        } else {
+            audio.playRandomMusic()
+        }
+        isPlaying.toggle()
+        updatePlayPauseButton()
     }
     
     @IBAction func didChangeMusicVolumeSlider(_ sender: Any) {
         audio.setMusicVolume(musicVolumeSlider.value)
+    }
+    
+    private func updatePlayPauseButton() {
+        if isPlaying {
+            playButton.configuration?.image = Images.pause
+        } else {
+            playButton.configuration?.image = Images.play
+        }
     }
     
 }
