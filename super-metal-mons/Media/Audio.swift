@@ -34,9 +34,9 @@ class Audio: NSObject {
         }
     }
     
-    func playRandomMusic() {
+    func playRandomMusic(doNotResume: Bool) {
         queue.async { [weak self] in
-            self?.playMusic()
+            self?.playMusic(doNotResume: doNotResume)
         }
     }
     
@@ -76,8 +76,8 @@ class Audio: NSObject {
         }
     }
     
-    private func playMusic() {
-        if let player = musicPlayer, !player.isPlaying {
+    private func playMusic(doNotResume: Bool) {
+        if !doNotResume, let player = musicPlayer, !player.isPlaying {
             if player.play() {
                 return
             }
@@ -131,7 +131,7 @@ extension Audio: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard flag else { return }
-        playMusic()
+        playMusic(doNotResume: true)
     }
 
 }

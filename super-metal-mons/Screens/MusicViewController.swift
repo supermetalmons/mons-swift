@@ -25,7 +25,7 @@ class MusicViewController: UIViewController {
     
     @IBAction func discButtonTapped(_ sender: Any) {
         isPlaying = true
-        audio.playRandomMusic()
+        audio.playRandomMusic(doNotResume: true)
         updatePlayPauseButton()
     }
     
@@ -33,7 +33,7 @@ class MusicViewController: UIViewController {
         if isPlaying {
             audio.pauseMusic()
         } else {
-            audio.playRandomMusic()
+            audio.playRandomMusic(doNotResume: false)
         }
         isPlaying.toggle()
         updatePlayPauseButton()
