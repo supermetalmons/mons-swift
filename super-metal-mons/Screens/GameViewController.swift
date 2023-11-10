@@ -50,10 +50,7 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var voiceChatButton: UIButton!
     @IBOutlet weak var escapeButton: UIButton! {
         didSet {
-            let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in self?.endGame() })]
-            let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
-            escapeButton.menu = menu
-            escapeButton.showsMenuAsPrimaryAction = true
+            escapeButton.addTarget(self, action: #selector(endGame), for: .touchUpInside)
         }
     }
     
@@ -113,6 +110,14 @@ class GameViewController: UIViewController, GameView {
         voiceChatButton.showsMenuAsPrimaryAction = true
     }
     
+    private func setupEscapeButtonToRequireConfirmation() {
+        guard escapeButton.menu == nil else { return }
+        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in self?.endGame() })]
+        let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
+        escapeButton.menu = menu
+        escapeButton.showsMenuAsPrimaryAction = true
+    }
+    
     // MARK: - actions
     
     private func showOverlay(_ overlay: Overlay) {
@@ -120,6 +125,7 @@ class GameViewController: UIViewController, GameView {
         switch overlay {
         case .none:
             boardOverlayView.isHidden = true
+            setupEscapeButtonToRequireConfirmation()
         case .personOrComputer:
             personOrComputerOverlay.isHidden = false
             boardOverlayView.isHidden = false
@@ -282,7 +288,7 @@ class GameViewController: UIViewController, GameView {
         updateGameInfo()
     }
     
-    private func endGame() {
+    @objc private func endGame() {
         controller.endGame()
         dismissBoardViewController()
     }
