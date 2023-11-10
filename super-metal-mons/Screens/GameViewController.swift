@@ -154,6 +154,7 @@ class GameViewController: UIViewController, GameView {
             joinActivityIndicator.startAnimating()
             linkButtonsStackView.isHidden = true
             inviteLinkLabel.text = controller.inviteLink
+            inviteLinkLabel.font = UIFont.systemFont(ofSize: 17)
         }
     }
     
@@ -218,14 +219,14 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func shareLinkButtonTapped(_ sender: Any) {
-        let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink], applicationActivities: nil)
+        let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink.withHttpsSchema], applicationActivities: nil)
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
         shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
         present(shareViewController, animated: true)
     }
     
     @IBAction func copyLinkButtonTapped(_ sender: Any) {
-        UIPasteboard.general.string = controller.inviteLink
+        UIPasteboard.general.string = controller.inviteLink.withHttpsSchema
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {

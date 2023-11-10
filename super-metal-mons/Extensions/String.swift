@@ -10,4 +10,10 @@ extension String {
         return id
     }
     
+    var withHttpsSchema: String {
+        let prefix = "https://"
+        guard !hasPrefix(prefix) else { return self }
+        return prefix + self
+    }
+    
 }
