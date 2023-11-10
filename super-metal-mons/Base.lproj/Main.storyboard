@@ -322,7 +322,7 @@
                                 <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx">
-                                        <rect key="frame" x="62" y="6" width="53.333333333333343" height="34.333333333333336"/>
+                                        <rect key="frame" x="56" y="6" width="53.333333333333343" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
                                             <imageReference key="image" image="character.bubble.ja" catalog="system" variableValue="0.80000000000000004"/>
@@ -330,7 +330,7 @@
                                         </buttonConfiguration>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-AV-kZ9">
-                                        <rect key="frame" x="46" y="11.666666666666629" width="12" height="23"/>
+                                        <rect key="frame" x="46" y="11.666666666666629" width="12.666666666666664" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
@@ -424,13 +424,12 @@
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iya-X5-Mzx" secondAttribute="trailing" constant="8" id="6oP-lP-hxY"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
-                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="leading" secondItem="QPa-AV-kZ9" secondAttribute="trailing" constant="4" id="VKM-br-cgC"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerY" secondItem="6H7-6P-ClF" secondAttribute="centerY" id="XPo-dB-UQK"/>
                                     <constraint firstItem="QPa-AV-kZ9" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="8" id="jIL-iV-h7V"/>
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" constant="-1" id="m3k-FW-4YG"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerX" secondItem="6H7-6P-ClF" secondAttribute="centerX" id="mDc-lJ-49G"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="top" secondItem="VZQ-Gn-G9j" secondAttribute="top" constant="8" id="t5D-WF-0Y7"/>
-                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="24" id="wAE-3f-GI4"/>
+                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="18" id="wAE-3f-GI4"/>
                                     <constraint firstItem="iya-X5-Mzx" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="wMP-He-Xhd"/>
                                 </constraints>
                             </view>
