@@ -48,6 +48,14 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var musicButton: UIButton!
     @IBOutlet weak var voiceChatButton: UIButton!
+    @IBOutlet weak var escapeButton: UIButton! {
+        didSet {
+            let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in self?.endGame() })]
+            let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
+            escapeButton.menu = menu
+            escapeButton.showsMenuAsPrimaryAction = true
+        }
+    }
     
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
@@ -252,22 +260,6 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
         guard !isAnimatingAvatar else { return }
         animateAvatar(opponents: true, isUserInteraction: true)
-    }
-    
-    @IBAction func escapeButtonTapped(_ sender: Any) {
-        guard currentOverlay == .none || currentOverlay == .pickupSelection else {
-            endGame()
-            return
-        }
-        
-        let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
-            self?.endGame()
-        }
-        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
     }
     
     @IBAction func moreButtonTapped(_ sender: Any) {
