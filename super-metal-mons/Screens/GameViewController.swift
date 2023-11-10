@@ -43,6 +43,7 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
+    @IBOutlet weak var opponentReactionLabel: UILabel!
     
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
@@ -371,6 +372,7 @@ class GameViewController: UIViewController, GameView {
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
         voiceChatButton.isHidden = hidden
+        opponentReactionLabel.isHidden = hidden // TODO: it's actually hidden more often
     }
     
     func updateEmoji(color: Color) {
