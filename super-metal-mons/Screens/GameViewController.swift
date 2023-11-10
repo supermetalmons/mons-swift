@@ -201,7 +201,7 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapMusicButton(_ sender: Any) {
         let musicViewController = instantiate(MusicViewController.self)
         musicViewController.modalPresentationStyle = .popover
-        musicViewController.preferredContentSize = CGSize(width: 230, height: 296)
+        musicViewController.preferredContentSize = CGSize(width: 230, height: 302)
 
         if let popoverController = musicViewController.popoverPresentationController {
             popoverController.permittedArrowDirections = [.up, .down, .left, .right]
@@ -374,7 +374,8 @@ class GameViewController: UIViewController, GameView {
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
         voiceChatButton.isHidden = hidden
-        opponentReactionLabel.isHidden = hidden // TODO: it's actually hidden more often
+        opponentReactionLabel.isHidden = true
+        // TODO: display when needed
     }
     
     func updateEmoji(color: Color) {
