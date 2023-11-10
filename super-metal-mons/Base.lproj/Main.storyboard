@@ -578,7 +578,7 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8FT-4n-XGg">
-                                <rect key="frame" x="144" y="159" width="105" height="100"/>
+                                <rect key="frame" x="144" y="156" width="105" height="100"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="72"/>
@@ -602,7 +602,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XEM-mu-VIE" firstAttribute="bottom" secondItem="liw-QJ-GBj" secondAttribute="bottom" constant="20" id="50P-pj-zCI"/>
-                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" id="YeT-3N-94P"/>
+                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" constant="-3" id="YeT-3N-94P"/>
                             <constraint firstItem="g9i-JA-kdP" firstAttribute="leading" secondItem="XEM-mu-VIE" secondAttribute="leading" constant="24" id="bT9-Zl-kwc"/>
                             <constraint firstItem="g9i-JA-kdP" firstAttribute="top" secondItem="XEM-mu-VIE" secondAttribute="top" constant="20" id="dhn-v4-VPs"/>
                             <constraint firstItem="XEM-mu-VIE" firstAttribute="trailing" secondItem="g9i-JA-kdP" secondAttribute="trailing" constant="24" id="gVR-c5-Fva"/>

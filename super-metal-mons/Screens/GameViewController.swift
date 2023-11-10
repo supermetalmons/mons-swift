@@ -201,6 +201,8 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapMusicButton(_ sender: Any) {
         let musicViewController = instantiate(MusicViewController.self)
         musicViewController.modalPresentationStyle = .popover
+        musicViewController.preferredContentSize = CGSize(width: 230, height: 296)
+
         if let popoverController = musicViewController.popoverPresentationController {
             popoverController.permittedArrowDirections = [.up, .down, .left, .right]
             popoverController.sourceView = musicButton
