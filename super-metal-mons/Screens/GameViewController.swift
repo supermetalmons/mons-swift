@@ -43,10 +43,17 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var playerImageView: UIImageView!
     @IBOutlet weak var opponentImageView: UIImageView!
+    @IBOutlet weak var opponentReactionLabel: UILabel!
     
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var voiceChatButton: UIButton!
+    @IBOutlet weak var escapeButton: UIButton! {
+        didSet {
+            escapeButton.addTarget(self, action: #selector(endGame), for: .touchUpInside)
+        }
+    }
     
     @IBOutlet weak var opponentScoreLabel: UILabel!
     @IBOutlet weak var playerScoreLabel: UILabel!
@@ -71,6 +78,7 @@ class GameViewController: UIViewController, GameView {
         NotificationCenter.default.addObserver(self, selector: #selector(updateSoundControlButton), name: .didEnableSounds, object: nil)
         
         controller.setGameView(self)
+        setupVoiceChatButton()
         
         switch controller.mode {
         case .createInvite:
@@ -85,6 +93,32 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
+    private func setupVoiceChatButton() {
+        let items: [UIAction] = [
+            UIAction(title: "yo", handler: { _ in print("yo") }),
+            UIAction(title: "gm", handler: { _ in print("gm") }),
+            UIAction(title: "gg", handler: { _ in print("gg") })
+        ]
+        
+        #if targetEnvironment(macCatalyst)
+        let children: [UIAction] = items
+        #else
+        let children: [UIAction] = items.reversed()
+        #endif
+        
+        let menu = UIMenu(title: "say", children: children)
+        voiceChatButton.menu = menu
+        voiceChatButton.showsMenuAsPrimaryAction = true
+    }
+    
+    private func setupEscapeButtonToRequireConfirmation() {
+        guard escapeButton.menu == nil else { return }
+        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in self?.endGame() })]
+        let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
+        escapeButton.menu = menu
+        escapeButton.showsMenuAsPrimaryAction = true
+    }
+    
     // MARK: - actions
     
     private func showOverlay(_ overlay: Overlay) {
@@ -92,6 +126,7 @@ class GameViewController: UIViewController, GameView {
         switch overlay {
         case .none:
             boardOverlayView.isHidden = true
+            setupEscapeButtonToRequireConfirmation()
         case .personOrComputer:
             personOrComputerOverlay.isHidden = false
             boardOverlayView.isHidden = false
@@ -166,6 +201,8 @@ class GameViewController: UIViewController, GameView {
     @IBAction func didTapMusicButton(_ sender: Any) {
         let musicViewController = instantiate(MusicViewController.self)
         musicViewController.modalPresentationStyle = .popover
+        musicViewController.preferredContentSize = CGSize(width: 230, height: 302)
+
         if let popoverController = musicViewController.popoverPresentationController {
             popoverController.permittedArrowDirections = [.up, .down, .left, .right]
             popoverController.sourceView = musicButton
@@ -234,22 +271,6 @@ class GameViewController: UIViewController, GameView {
         animateAvatar(opponents: true, isUserInteraction: true)
     }
     
-    @IBAction func escapeButtonTapped(_ sender: Any) {
-        guard currentOverlay == .none || currentOverlay == .pickupSelection else {
-            endGame()
-            return
-        }
-        
-        let alert = UIAlertController(title: Strings.endTheGameConfirmation, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Strings.ok, style: .destructive) { [weak self] _ in
-            self?.endGame()
-        }
-        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
-    }
-    
     @IBAction func moreButtonTapped(_ sender: Any) {
         guard case .localGame = controller.mode else { return } // TODO: should not be possible when playing vs computer
         controller.playerSideColor = controller.playerSideColor.other
@@ -270,7 +291,7 @@ class GameViewController: UIViewController, GameView {
         updateGameInfo()
     }
     
-    private func endGame() {
+    @objc private func endGame() {
         controller.endGame()
         dismissBoardViewController()
     }
@@ -352,6 +373,9 @@ class GameViewController: UIViewController, GameView {
         opponentScoreLabel.isHidden = hidden
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
+        voiceChatButton.isHidden = hidden
+        opponentReactionLabel.isHidden = true
+        // TODO: display when needed
     }
     
     func updateEmoji(color: Color) {

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -295,8 +296,15 @@
                                             <action selector="didTapOpponentAvatar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QE3-jl-H2o"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="— yo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXg-i8-ZJ3">
+                                        <rect key="frame" x="7.9999999999999982" y="9.6666666666666572" width="25.333333333333329" height="13.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="cH0-Tg-7PM" firstAttribute="top" secondItem="EXg-i8-ZJ3" secondAttribute="bottom" constant="4" id="AoJ-Hf-ZA9"/>
                                     <constraint firstItem="p1T-kR-zQa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fvM-Mc-0Jq" secondAttribute="trailing" constant="12" id="Cfn-z4-eIg"/>
                                     <constraint firstItem="p1T-kR-zQa" firstAttribute="centerY" secondItem="fvM-Mc-0Jq" secondAttribute="centerY" constant="2" id="CvX-SJ-heT"/>
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="centerY" secondItem="fvM-Mc-0Jq" secondAttribute="centerY" id="Ezl-m3-J2l"/>
@@ -307,11 +315,20 @@
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" secondItem="ONt-Hy-v98" secondAttribute="leading" priority="500" id="SjJ-ha-NjK"/>
                                     <constraint firstItem="fvM-Mc-0Jq" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="trailing" constant="8" id="Srl-ue-7Ty"/>
                                     <constraint firstAttribute="trailing" secondItem="p1T-kR-zQa" secondAttribute="trailing" priority="749" id="cN8-og-VYM"/>
+                                    <constraint firstItem="EXg-i8-ZJ3" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="leading" id="uEi-ON-XcG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j" userLabel="Player View">
                                 <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx">
+                                        <rect key="frame" x="56" y="6" width="53.333333333333343" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
+                                            <imageReference key="image" image="character.bubble.ja" catalog="system" variableValue="0.80000000000000004"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="medium"/>
+                                        </buttonConfiguration>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-AV-kZ9">
                                         <rect key="frame" x="46" y="11.666666666666629" width="12.666666666666664" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
@@ -403,8 +420,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" secondItem="VZQ-Gn-G9j" secondAttribute="leading" priority="750" id="0Iw-EF-07h"/>
-                                    <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QPa-AV-kZ9" secondAttribute="trailing" constant="12" id="4Mr-G4-lcH"/>
                                     <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" priority="749" id="4q9-Zs-oyg"/>
+                                    <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iya-X5-Mzx" secondAttribute="trailing" constant="8" id="6oP-lP-hxY"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerY" secondItem="6H7-6P-ClF" secondAttribute="centerY" id="XPo-dB-UQK"/>
@@ -412,6 +429,8 @@
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" constant="-1" id="m3k-FW-4YG"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerX" secondItem="6H7-6P-ClF" secondAttribute="centerX" id="mDc-lJ-49G"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="top" secondItem="VZQ-Gn-G9j" secondAttribute="top" constant="8" id="t5D-WF-0Y7"/>
+                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="18" id="wAE-3f-GI4"/>
+                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="wMP-He-Xhd"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P29-PV-UEw" userLabel="Navigation View">
@@ -421,9 +440,6 @@
                                         <rect key="frame" x="335.33333333333331" y="4" width="49.666666666666686" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="escape" catalog="system"/>
-                                        <connections>
-                                            <action selector="escapeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PAG-zD-lrC"/>
-                                        </connections>
                                     </button>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-OM-HDU" customClass="SeparatorView" customModule="mons" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="53" width="393" height="1"/>
@@ -512,6 +528,7 @@
                         <outlet property="boardOverlayView" destination="Fb1-vQ-MZv" id="Vol-VX-XY5"/>
                         <outlet property="boardView" destination="tTh-AV-1yS" id="WGz-q9-3U9"/>
                         <outlet property="bombButton" destination="E3G-UU-XeJ" id="8pf-xt-1ep"/>
+                        <outlet property="escapeButton" destination="EPq-W8-eG0" id="DMj-lL-zXy"/>
                         <outlet property="hostWaitingOverlay" destination="cal-Iq-5y1" id="iAH-Ng-hMq"/>
                         <outlet property="inviteLinkLabel" destination="MdX-Dg-5cJ" id="qsm-ba-z2d"/>
                         <outlet property="joinActivityIndicator" destination="Ka8-uC-9Ma" id="q6K-CI-iLV"/>
@@ -522,6 +539,7 @@
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
                         <outlet property="opponentMovesStackView" destination="p1T-kR-zQa" id="raU-GA-0Oh"/>
                         <outlet property="opponentMovesTrailingConstraint" destination="lpL-xC-gYv" id="jjk-Y8-g7q"/>
+                        <outlet property="opponentReactionLabel" destination="EXg-i8-ZJ3" id="sTh-gU-AaF"/>
                         <outlet property="opponentScoreLabel" destination="fvM-Mc-0Jq" id="CIe-nE-c2F"/>
                         <outlet property="personOrComputerOverlay" destination="Nv0-Zk-Gcm" id="9zk-zb-HmL"/>
                         <outlet property="pickupSelectionOverlay" destination="PYN-xU-mJ2" id="5XU-N8-Deg"/>
@@ -533,6 +551,7 @@
                         <outlet property="shareLinkButton" destination="fP4-th-Eg1" id="LnA-mn-kuF"/>
                         <outlet property="soundControlButton" destination="haM-vj-jVh" id="f4e-4l-yNg"/>
                         <outlet property="topButtonTopConstraint" destination="0eZ-wc-v35" id="ZrP-Ck-Mjq"/>
+                        <outlet property="voiceChatButton" destination="iya-X5-Mzx" id="HKL-w0-emZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -559,7 +578,7 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8FT-4n-XGg">
-                                <rect key="frame" x="144" y="159" width="105" height="100"/>
+                                <rect key="frame" x="144" y="155" width="105" height="100"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="72"/>
@@ -583,7 +602,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XEM-mu-VIE" firstAttribute="bottom" secondItem="liw-QJ-GBj" secondAttribute="bottom" constant="20" id="50P-pj-zCI"/>
-                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" id="YeT-3N-94P"/>
+                            <constraint firstItem="8FT-4n-XGg" firstAttribute="centerY" secondItem="XEM-mu-VIE" secondAttribute="centerY" constant="-4" id="YeT-3N-94P"/>
                             <constraint firstItem="g9i-JA-kdP" firstAttribute="leading" secondItem="XEM-mu-VIE" secondAttribute="leading" constant="24" id="bT9-Zl-kwc"/>
                             <constraint firstItem="g9i-JA-kdP" firstAttribute="top" secondItem="XEM-mu-VIE" secondAttribute="top" constant="20" id="dhn-v4-VPs"/>
                             <constraint firstItem="XEM-mu-VIE" firstAttribute="trailing" secondItem="g9i-JA-kdP" secondAttribute="trailing" constant="24" id="gVR-c5-Fva"/>
@@ -691,6 +710,7 @@
         <image name="button-new-game" width="36.333332061767578" height="32"/>
         <image name="button-pc" width="64" height="64"/>
         <image name="button-person" width="64" height="64"/>
+        <image name="character.bubble.ja" catalog="system" width="128" height="110"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="ellipsis.rectangle" catalog="system" width="128" height="79"/>
         <image name="emoji-52" width="420" height="420"/>
