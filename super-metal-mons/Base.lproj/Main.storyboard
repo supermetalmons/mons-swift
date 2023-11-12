@@ -418,13 +418,21 @@
                                             <action selector="didTapPlayerAvatar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ycw-1U-pns"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNt-Mg-ZQL">
+                                        <rect key="frame" x="188.33333333333334" y="42" width="16.666666666666657" height="13.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="HNt-Mg-ZQL" firstAttribute="top" secondItem="6H7-6P-ClF" secondAttribute="bottom" constant="4" id="04R-aa-1YI"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" secondItem="VZQ-Gn-G9j" secondAttribute="leading" priority="750" id="0Iw-EF-07h"/>
                                     <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" priority="749" id="4q9-Zs-oyg"/>
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iya-X5-Mzx" secondAttribute="trailing" constant="8" id="6oP-lP-hxY"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
+                                    <constraint firstItem="HNt-Mg-ZQL" firstAttribute="centerX" secondItem="VZQ-Gn-G9j" secondAttribute="centerX" id="PZP-gb-W4P"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerY" secondItem="6H7-6P-ClF" secondAttribute="centerY" id="XPo-dB-UQK"/>
                                     <constraint firstItem="QPa-AV-kZ9" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="8" id="jIL-iV-h7V"/>
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" constant="-1" id="m3k-FW-4YG"/>
@@ -547,6 +555,7 @@
                         <outlet property="playerImageView" destination="6H7-6P-ClF" id="UQu-Uj-Cy3"/>
                         <outlet property="playerMovesStackView" destination="IbZ-z9-By4" id="Br5-7r-egJ"/>
                         <outlet property="playerMovesTrailingConstraint" destination="02g-id-1w9" id="hNQ-FX-RWX"/>
+                        <outlet property="playerReactionLabel" destination="HNt-Mg-ZQL" id="YeF-fO-8rN"/>
                         <outlet property="playerScoreLabel" destination="QPa-AV-kZ9" id="PlX-lP-4wH"/>
                         <outlet property="potionButton" destination="YNp-5u-Pcp" id="bCb-xN-eCB"/>
                         <outlet property="shareLinkButton" destination="fP4-th-Eg1" id="LnA-mn-kuF"/>
