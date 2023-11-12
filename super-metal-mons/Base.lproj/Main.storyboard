@@ -322,11 +322,12 @@
                                 <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx">
-                                        <rect key="frame" x="56" y="6" width="53.333333333333343" height="34.333333333333336"/>
+                                        <rect key="frame" x="56" y="10" width="41.333333333333343" height="26"/>
+                                        <color key="tintColor" systemColor="secondaryLabelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
-                                            <imageReference key="image" image="character.bubble.ja" catalog="system" variableValue="0.80000000000000004"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="medium"/>
+                                            <imageReference key="image" image="bubble.middle.bottom" catalog="system"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="10" weight="semibold"/>
                                         </buttonConfiguration>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-AV-kZ9">
@@ -705,12 +706,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bubble.middle.bottom" catalog="system" width="128" height="110"/>
         <image name="button-link" width="32" height="32"/>
         <image name="button-local" width="37.333332061767578" height="32"/>
         <image name="button-new-game" width="36.333332061767578" height="32"/>
         <image name="button-pc" width="64" height="64"/>
         <image name="button-person" width="64" height="64"/>
-        <image name="character.bubble.ja" catalog="system" width="128" height="110"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="ellipsis.rectangle" catalog="system" width="128" height="79"/>
         <image name="emoji-52" width="420" height="420"/>
@@ -731,16 +732,16 @@
         <image name="speaker" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
