@@ -93,11 +93,15 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
+    private func voiceReact(text: String) {
+        Audio.shared.playReaction(text: text)
+    }
+    
     private func setupVoiceChatButton() {
         let items: [UIAction] = [
-            UIAction(title: "yo", handler: { _ in print("yo") }),
-            UIAction(title: "gm", handler: { _ in print("gm") }),
-            UIAction(title: "gg", handler: { _ in print("gg") })
+            UIAction(title: "yo", handler: { [weak self] _ in self?.voiceReact(text: "yo") }),
+            UIAction(title: "gm", handler: { [weak self] _ in self?.voiceReact(text: "gm") }),
+            UIAction(title: "gg", handler: { [weak self] _ in self?.voiceReact(text: "gg") })
         ]
         
         #if targetEnvironment(macCatalyst)

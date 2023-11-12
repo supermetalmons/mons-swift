@@ -13,6 +13,7 @@ class Audio: NSObject {
     private let queue = DispatchQueue.global(qos: .userInitiated)
     private var players = [Sound: AVAudioPlayer]()
     private var musicPlayer: AVAudioPlayer?
+    private var reactionPlayer: AVAudioPlayer?
     
     private override init() {
         super.init()
@@ -26,7 +27,7 @@ class Audio: NSObject {
         queue.async { [weak self] in
             for sound in Sound.allCases {
                 guard let url = sound.url, let player = try? AVAudioPlayer(contentsOf: url) else { continue }
-                player.volume = 1
+                player.volume = 0.81
                 self?.players[sound] = player
             }
             
@@ -88,6 +89,15 @@ class Audio: NSObject {
                 player?.play()
             }
         }
+    }
+    
+    func playReaction(text: String) {
+        guard !isSoundDisabled else { return }
+        
+        guard let url = Bundle.main.url(forResource: text, withExtension: "m4a"), let player = try? AVAudioPlayer(contentsOf: url) else { return }
+        player.volume = 0.81
+        reactionPlayer = player
+        player.play()
     }
     
     private func playMusic(doNotResume: Bool) {
