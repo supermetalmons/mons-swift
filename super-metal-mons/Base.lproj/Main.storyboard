@@ -296,8 +296,8 @@
                                             <action selector="didTapOpponentAvatar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QE3-jl-H2o"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="— yo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXg-i8-ZJ3">
-                                        <rect key="frame" x="7.9999999999999982" y="9.6666666666666572" width="25.333333333333329" height="13.333333333333336"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXg-i8-ZJ3">
+                                        <rect key="frame" x="190.33333333333334" y="9.6666666666666572" width="12.666666666666657" height="13.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
@@ -311,11 +311,11 @@
                                     <constraint firstAttribute="height" constant="65" id="FNk-cN-G9X"/>
                                     <constraint firstItem="KMm-VV-J06" firstAttribute="centerX" secondItem="cH0-Tg-7PM" secondAttribute="centerX" id="IZH-Oh-PAa"/>
                                     <constraint firstItem="KMm-VV-J06" firstAttribute="centerY" secondItem="cH0-Tg-7PM" secondAttribute="centerY" id="JWf-oV-y0o"/>
+                                    <constraint firstItem="EXg-i8-ZJ3" firstAttribute="centerX" secondItem="ONt-Hy-v98" secondAttribute="centerX" id="LEI-al-Bxy"/>
                                     <constraint firstAttribute="bottom" secondItem="cH0-Tg-7PM" secondAttribute="bottom" constant="8" id="PXq-dw-DpI"/>
                                     <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" secondItem="ONt-Hy-v98" secondAttribute="leading" priority="500" id="SjJ-ha-NjK"/>
                                     <constraint firstItem="fvM-Mc-0Jq" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="trailing" constant="8" id="Srl-ue-7Ty"/>
                                     <constraint firstAttribute="trailing" secondItem="p1T-kR-zQa" secondAttribute="trailing" priority="749" id="cN8-og-VYM"/>
-                                    <constraint firstItem="EXg-i8-ZJ3" firstAttribute="leading" secondItem="cH0-Tg-7PM" secondAttribute="leading" id="uEi-ON-XcG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j" userLabel="Player View">
