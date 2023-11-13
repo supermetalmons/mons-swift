@@ -142,6 +142,12 @@ class GameViewController: UIViewController, GameView {
             label?.isHidden = true
             label?.alpha = 1
         }
+        
+        if controller.personVersusComputer && !byOpponent {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+                self?.react(Reaction.random(of: [.yo, .slurp]), byOpponent: true)
+            }
+        }
     }
     
     private func showOverlay(_ overlay: Overlay) {

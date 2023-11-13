@@ -94,10 +94,12 @@ class Audio: NSObject {
     func play(reaction: Reaction) {
         guard !isSoundDisabled else { return }
         
-        guard let url = reaction.url, let player = try? AVAudioPlayer(contentsOf: url) else { return }
-        player.volume = 0.81
-        reactionPlayer = player
-        player.play()
+        queue.async { [weak self] in
+            guard let url = reaction.url, let player = try? AVAudioPlayer(contentsOf: url) else { return }
+            player.volume = 0.81
+            self?.reactionPlayer = player
+            player.play()
+        }
     }
     
     private func playMusic(doNotResume: Bool) {

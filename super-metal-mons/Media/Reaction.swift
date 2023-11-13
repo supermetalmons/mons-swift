@@ -5,7 +5,7 @@ import Foundation
 struct Reaction: Codable {
     
     enum Kind: String, CaseIterable, Codable {
-        case yo, wahoo, gg, slurp
+        case yo, wahoo, slurp, gg
         
         var text: String {
             switch self {
@@ -34,6 +34,11 @@ struct Reaction: Codable {
     let uuid: String
     let kind: Kind
     let variation: Int
+    
+    static func random(of kinds: [Kind]) -> Reaction {
+        let kind = kinds.randomElement() ?? .gg
+        return random(of: kind)
+    }
     
     static func random(of kind: Kind) -> Reaction {
         let variation = Int.random(in: 1...kind.variationsCount)
