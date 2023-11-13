@@ -322,7 +322,10 @@
                                 <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx">
-                                        <rect key="frame" x="56" y="10" width="41.333333333333343" height="26"/>
+                                        <rect key="frame" x="56" y="3" width="41.333333333333343" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="sCa-RS-zeu"/>
+                                        </constraints>
                                         <color key="tintColor" systemColor="secondaryLabelColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
