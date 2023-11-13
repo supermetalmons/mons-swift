@@ -93,20 +93,6 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
-    func react(_ reaction: Reaction, byOpponent: Bool) {
-        if !byOpponent { controller.react(reaction) }
-        
-        Audio.shared.play(reaction: reaction)
-        let label = byOpponent ? opponentReactionLabel : playerReactionLabel
-        label?.text = reaction.kind.text
-        label?.isHidden = false
-        UIView.animate(withDuration: 3, animations: { [weak label] in label?.alpha = 0 }) { [weak label] completed in
-            guard completed else { return }
-            label?.isHidden = true
-            label?.alpha = 1
-        }
-    }
-    
     private func setupVoiceChatButton() {
         let items: [UIAction] = Reaction.Kind.allCases.map { kind in
             return UIAction(title: kind.text, handler: { [weak self] _ in self?.react(Reaction.random(of: kind), byOpponent: false) })
@@ -132,6 +118,26 @@ class GameViewController: UIViewController, GameView {
     }
     
     // MARK: - actions
+    
+    func react(_ reaction: Reaction, byOpponent: Bool) {
+        if !byOpponent, !controller.isWatchOnly {
+            voiceChatButton.isEnabled = false
+            controller.react(reaction)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
+                voiceChatButton?.isEnabled = true
+            }
+        }
+        
+        Audio.shared.play(reaction: reaction)
+        let label = byOpponent ? opponentReactionLabel : playerReactionLabel
+        label?.text = reaction.kind.text
+        label?.isHidden = false
+        UIView.animate(withDuration: 3, animations: { [weak label] in label?.alpha = 0 }) { [weak label] completed in
+            guard completed else { return }
+            label?.isHidden = true
+            label?.alpha = 1
+        }
+    }
     
     private func showOverlay(_ overlay: Overlay) {
         self.currentOverlay = overlay
