@@ -93,14 +93,24 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
-    private func voiceReact(kind: Reaction.Kind) {
-        let reaction = Reaction.random(of: kind)
+    // TODO: receive opponent's reactions
+    
+    private func react(_ reaction: Reaction, byOpponent: Bool) {
+        // TODO: send player's reaction if online
         Audio.shared.play(reaction: reaction)
+        let label = byOpponent ? opponentReactionLabel : playerReactionLabel
+        label?.text = reaction.kind.text
+        label?.isHidden = false
+        UIView.animate(withDuration: 3, animations: { [weak label] in label?.alpha = 0 }) { [weak label] completed in
+            guard completed else { return }
+            label?.isHidden = true
+            label?.alpha = 1
+        }
     }
     
     private func setupVoiceChatButton() {
         let items: [UIAction] = Reaction.Kind.allCases.map { kind in
-            return UIAction(title: kind.text, handler: { [weak self] _ in self?.voiceReact(kind: kind) })
+            return UIAction(title: kind.text, handler: { [weak self] _ in self?.react(Reaction.random(of: kind), byOpponent: false) })
         }
         
         #if targetEnvironment(macCatalyst)
@@ -378,8 +388,6 @@ class GameViewController: UIViewController, GameView {
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
         voiceChatButton.isHidden = hidden
-        opponentReactionLabel.isHidden = hidden // TODO: display when needed
-        playerReactionLabel.isHidden = hidden // TODO: display when needed
     }
     
     func updateEmoji(color: Color) {
