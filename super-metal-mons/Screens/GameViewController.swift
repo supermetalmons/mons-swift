@@ -18,6 +18,7 @@ class GameViewController: UIViewController, GameView {
     private var controller: GameController!
     private var isAnimatingAvatar = false
     private var currentOverlay = Overlay.none
+    private var latestOpponentReactionDate = Date.distantPast
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -120,12 +121,16 @@ class GameViewController: UIViewController, GameView {
     // MARK: - actions
     
     func react(_ reaction: Reaction, byOpponent: Bool) {
-        if !byOpponent, !controller.isWatchOnly {
+        if !byOpponent {
             voiceChatButton.isEnabled = false
             controller.react(reaction)
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
                 voiceChatButton?.isEnabled = true
             }
+        } else {
+            let delta = Date().timeIntervalSince(latestOpponentReactionDate)
+            latestOpponentReactionDate = Date()
+            guard delta > 5 else { return }
         }
         
         Audio.shared.play(reaction: reaction)
