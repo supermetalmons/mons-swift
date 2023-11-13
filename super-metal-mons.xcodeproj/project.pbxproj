@@ -123,7 +123,6 @@
 		2CFA889F2B029F5800F99723 /* yo1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88962B029F5800F99723 /* yo1.wav */; };
 		2CFA88A02B029F5800F99723 /* gg1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88972B029F5800F99723 /* gg1.wav */; };
 		2CFA88A12B029F5800F99723 /* slurp1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88982B029F5800F99723 /* slurp1.wav */; };
-		2CFA88A22B029F5800F99723 /* drop1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88992B029F5800F99723 /* drop1.wav */; };
 		2CFA88A32B029F5800F99723 /* yo4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA889A2B029F5800F99723 /* yo4.wav */; };
 		2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC6E4E29F9BE6100EF34FA /* UIView.swift */; };
 /* End PBXBuildFile section */
@@ -246,7 +245,6 @@
 		2CFA88962B029F5800F99723 /* yo1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = yo1.wav; sourceTree = "<group>"; };
 		2CFA88972B029F5800F99723 /* gg1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gg1.wav; sourceTree = "<group>"; };
 		2CFA88982B029F5800F99723 /* slurp1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slurp1.wav; sourceTree = "<group>"; };
-		2CFA88992B029F5800F99723 /* drop1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop1.wav; sourceTree = "<group>"; };
 		2CFA889A2B029F5800F99723 /* yo4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = yo4.wav; sourceTree = "<group>"; };
 		2CFC6E4E29F9BE6100EF34FA /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -485,7 +483,6 @@
 		2CE420972B01649A00100BED /* Reactions */ = {
 			isa = PBXGroup;
 			children = (
-				2CFA88992B029F5800F99723 /* drop1.wav */,
 				2CFA88972B029F5800F99723 /* gg1.wav */,
 				2CFA88952B029F5800F99723 /* gg2.wav */,
 				2CFA88982B029F5800F99723 /* slurp1.wav */,
@@ -655,7 +652,6 @@
 				2CFA889E2B029F5800F99723 /* gg2.wav in Resources */,
 				2CC39E8729CA48B200EDF779 /* Main.storyboard in Resources */,
 				2CEB9B0B2A34C05300B3CD54 /* jelly jam.aac in Resources */,
-				2CFA88A22B029F5800F99723 /* drop1.wav in Resources */,
 				2CEB9B072A34C05300B3CD54 /* change.aac in Resources */,
 				2CDB1AE729EEF48E00C51230 /* manaPickUp.wav in Resources */,
 				2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */,

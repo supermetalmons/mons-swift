@@ -5,10 +5,15 @@ import Foundation
 struct Reaction: Codable {
     
     enum Kind: String, CaseIterable, Codable {
-        case yo, drop, slurp, wahoo, gg
+        case yo, wahoo, gg, slurp
         
         var text: String {
-            return rawValue
+            switch self {
+            case .yo, .wahoo, .gg:
+                return rawValue
+            case .slurp:
+                return "*\(rawValue)*"
+            }
         }
         
         var variationsCount: Int {
@@ -20,8 +25,6 @@ struct Reaction: Codable {
             case .wahoo:
                 return 1
             case .slurp:
-                return 1
-            case .drop:
                 return 1
             }
         }

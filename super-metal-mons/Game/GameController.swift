@@ -150,6 +150,13 @@ class GameController {
     }
     
     var isWatchOnly = false
+    var personVersusComputer: Bool {
+        if case .person = versusComputer {
+            return true
+        } else {
+            return false
+        }
+    }
     
     enum Mode {
         case localGame
