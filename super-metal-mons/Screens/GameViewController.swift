@@ -397,7 +397,7 @@ class GameViewController: UIViewController, GameView {
         opponentScoreLabel.isHidden = hidden
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
-        voiceChatButton.isHidden = hidden
+        voiceChatButton.isHidden = hidden || !controller.mode.isRemoteGame || controller.isWatchOnly
     }
     
     func updateEmoji(color: Color) {
