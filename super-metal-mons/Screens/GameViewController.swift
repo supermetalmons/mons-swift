@@ -122,31 +122,33 @@ class GameViewController: UIViewController, GameView {
     
     func react(_ reaction: Reaction, byOpponent: Bool) {
         if !byOpponent {
-            voiceChatButton.isEnabled = false
-            controller.react(reaction)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
-                voiceChatButton?.isEnabled = true
+            if controller.personVersusComputer {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+                    self?.react(Reaction.random(of: [.yo, .slurp]), byOpponent: true)
+                }
+            } else {
+                voiceChatButton.isEnabled = false
+                controller.react(reaction)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
+                    voiceChatButton?.isEnabled = true
+                }
             }
         } else {
             let delta = Date().timeIntervalSince(latestOpponentReactionDate)
-            latestOpponentReactionDate = Date()
             guard delta > 5 else { return }
+            latestOpponentReactionDate = Date()
         }
         
         Audio.shared.play(reaction: reaction)
         let label = byOpponent ? opponentReactionLabel : playerReactionLabel
         label?.text = reaction.kind.text
         label?.isHidden = false
+        label?.alpha = 1
+        label?.layer.removeAllAnimations()
         UIView.animate(withDuration: 3, animations: { [weak label] in label?.alpha = 0 }) { [weak label] completed in
             guard completed else { return }
             label?.isHidden = true
             label?.alpha = 1
-        }
-        
-        if controller.personVersusComputer && !byOpponent {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
-                self?.react(Reaction.random(of: [.yo, .slurp]), byOpponent: true)
-            }
         }
     }
     
