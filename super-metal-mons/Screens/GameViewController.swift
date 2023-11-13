@@ -133,7 +133,7 @@ class GameViewController: UIViewController, GameView {
                     voiceChatButton?.isEnabled = true
                 }
             }
-        } else {
+        } else if !controller.personVersusComputer {
             let delta = Date().timeIntervalSince(latestOpponentReactionDate)
             guard delta > 5 else { return }
             latestOpponentReactionDate = Date()
