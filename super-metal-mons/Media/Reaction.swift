@@ -5,10 +5,25 @@ import Foundation
 struct Reaction: Codable {
     
     enum Kind: String, CaseIterable, Codable {
-        case yo, gm, gg
+        case yo, drop, slurp, wahoo, gg
         
         var text: String {
             return rawValue
+        }
+        
+        var variationsCount: Int {
+            switch self {
+            case .yo:
+                return 4
+            case .gg:
+                return 2
+            case .wahoo:
+                return 1
+            case .slurp:
+                return 1
+            case .drop:
+                return 1
+            }
         }
         
     }
@@ -18,10 +33,10 @@ struct Reaction: Codable {
     let variation: Int
     
     static func random(of kind: Kind) -> Reaction {
-        let variation = 0
+        let variation = Int.random(in: 1...kind.variationsCount)
         return Reaction(uuid: UUID().uuidString, kind: kind, variation: variation)
     }
     
-    var url: URL? { return Bundle.main.url(forResource: "\(kind.rawValue)-\(variation)", withExtension: "m4a") }
+    var url: URL? { return Bundle.main.url(forResource: "\(kind.rawValue)\(variation)", withExtension: "wav") }
     
 }
