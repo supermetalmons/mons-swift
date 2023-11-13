@@ -30,5 +30,6 @@ struct PlayerMatch: Codable {
     var fen: String
     var moves: [[MonsGame.Input]]?
     var status: Status
+    var reaction: Reaction?
     
 }
