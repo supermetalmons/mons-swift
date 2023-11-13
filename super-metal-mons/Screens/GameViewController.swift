@@ -139,7 +139,7 @@ class GameViewController: UIViewController, GameView {
             latestOpponentReactionDate = Date()
         }
         
-        Audio.shared.play(reaction: reaction)
+        Audio.shared.play(reaction: reaction, byOpponent: byOpponent)
         let label = byOpponent ? opponentReactionLabel : playerReactionLabel
         label?.text = reaction.kind.text
         label?.isHidden = false

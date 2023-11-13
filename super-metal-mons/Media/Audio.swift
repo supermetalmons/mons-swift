@@ -14,6 +14,7 @@ class Audio: NSObject {
     private var players = [Sound: AVAudioPlayer]()
     private var musicPlayer: AVAudioPlayer?
     private var reactionPlayer: AVAudioPlayer?
+    private var reactionByOpponentPlayer: AVAudioPlayer?
     
     private override init() {
         super.init()
@@ -91,13 +92,19 @@ class Audio: NSObject {
         }
     }
     
-    func play(reaction: Reaction) {
+    func play(reaction: Reaction, byOpponent: Bool) {
         guard !isSoundDisabled else { return }
         
         queue.async { [weak self] in
             guard let url = reaction.url, let player = try? AVAudioPlayer(contentsOf: url) else { return }
+            
+            if byOpponent {
+                self?.reactionByOpponentPlayer = player
+            } else {
+                self?.reactionPlayer = player
+            }
+            
             player.volume = 0.81
-            self?.reactionPlayer = player
             player.play()
         }
     }
