@@ -93,10 +93,9 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
-    // TODO: receive opponent's reactions
-    
-    private func react(_ reaction: Reaction, byOpponent: Bool) {
-        // TODO: send player's reaction if online
+    func react(_ reaction: Reaction, byOpponent: Bool) {
+        if !byOpponent { controller.react(reaction) }
+        
         Audio.shared.play(reaction: reaction)
         let label = byOpponent ? opponentReactionLabel : playerReactionLabel
         label?.text = reaction.kind.text

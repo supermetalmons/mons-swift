@@ -2,9 +2,9 @@
 
 import Foundation
 
-struct Reaction {
+struct Reaction: Codable {
     
-    enum Kind: String, CaseIterable {
+    enum Kind: String, CaseIterable, Codable {
         case yo, gm, gg
         
         var text: String {
@@ -13,12 +13,13 @@ struct Reaction {
         
     }
     
+    let uuid: String
     let kind: Kind
     let variation: Int
     
     static func random(of kind: Kind) -> Reaction {
         let variation = 0
-        return Reaction(kind: kind, variation: variation)
+        return Reaction(uuid: UUID().uuidString, kind: kind, variation: variation)
     }
     
     var url: URL? { return Bundle.main.url(forResource: "\(kind.rawValue)-\(variation)", withExtension: "m4a") }

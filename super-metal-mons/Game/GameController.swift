@@ -9,6 +9,7 @@ protocol GameView: AnyObject {
     func applyEffects(_ effects: [ViewEffect])
     func showMessageAndDismiss(message: String)
     func setNewBoard()
+    func react(_ reaction: Reaction, byOpponent: Bool)
 }
 
 extension GameController: ConnectionDelegate {
@@ -72,6 +73,11 @@ extension GameController: ConnectionDelegate {
         } else {
             updateOpponentEmoji(id: match.emojiId)
             gameView.updateOpponentEmoji()
+            
+            if let reaction = match.reaction, !processedReactions.contains(reaction.uuid) {
+                processedReactions.insert(reaction.uuid)
+                gameView.react(reaction, byOpponent: true)
+            }
         }
         
         let processedMoves = processedMovesCount(color: match.color)
@@ -101,6 +107,8 @@ extension GameController: ConnectionDelegate {
 
 // TODO: refactor
 class GameController {
+    
+    private var processedReactions = Set<String>()
     
     func setProcessedMovesCount(color: Color, count: Int) {
         switch color {
@@ -268,6 +276,11 @@ class GameController {
     
     func setGameView(_ gameView: GameView) {
         self.gameView = gameView
+    }
+    
+    func react(_ reaction: Reaction) {
+        guard !isWatchOnly else { return }
+        connection?.react(reaction)
     }
     
     func useDifferentEmoji() -> UIImage {

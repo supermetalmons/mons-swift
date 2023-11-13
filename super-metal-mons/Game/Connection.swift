@@ -74,6 +74,12 @@ class Connection {
         database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
     }
     
+    func react(_ reaction: Reaction) {
+        myMatch?.reaction = reaction
+        guard let userId = userId, let myMatch = myMatch else { return }
+        database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
+    }
+    
     func updateEmoji(id: Int) {
         myMatch?.emojiId = id
         guard let userId = userId, let myMatch = myMatch else { return }
