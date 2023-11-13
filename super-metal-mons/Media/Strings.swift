@@ -13,5 +13,6 @@ struct Strings {
     static let allDone = "all done"
     static let opponentLeft = "opponent left the game"
     static let somethingIsBroken = "sorry, something is broken"
+    static let say = "say"
     
 }

@@ -93,16 +93,15 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
-    private func voiceReact(text: String) {
-        Audio.shared.playReaction(text: text)
+    private func voiceReact(kind: Reaction.Kind) {
+        let reaction = Reaction.random(of: kind)
+        Audio.shared.play(reaction: reaction)
     }
     
     private func setupVoiceChatButton() {
-        let items: [UIAction] = [
-            UIAction(title: "yo", handler: { [weak self] _ in self?.voiceReact(text: "yo") }),
-            UIAction(title: "gm", handler: { [weak self] _ in self?.voiceReact(text: "gm") }),
-            UIAction(title: "gg", handler: { [weak self] _ in self?.voiceReact(text: "gg") })
-        ]
+        let items: [UIAction] = Reaction.Kind.allCases.map { kind in
+            return UIAction(title: kind.text, handler: { [weak self] _ in self?.voiceReact(kind: kind) })
+        }
         
         #if targetEnvironment(macCatalyst)
         let children: [UIAction] = items
@@ -110,7 +109,7 @@ class GameViewController: UIViewController, GameView {
         let children: [UIAction] = items.reversed()
         #endif
         
-        let menu = UIMenu(title: "say", children: children)
+        let menu = UIMenu(title: Strings.say, children: children)
         voiceChatButton.menu = menu
         voiceChatButton.showsMenuAsPrimaryAction = true
     }
