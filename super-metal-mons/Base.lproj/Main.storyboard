@@ -321,18 +321,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gn-G9j" userLabel="Player View">
                                 <rect key="frame" x="0.0" y="635" width="393" height="74"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx">
-                                        <rect key="frame" x="56" y="3" width="41.333333333333343" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="sCa-RS-zeu"/>
-                                        </constraints>
-                                        <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
-                                            <imageReference key="image" image="bubble.middle.bottom" catalog="system"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="10" weight="semibold"/>
-                                        </buttonConfiguration>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPa-AV-kZ9">
                                         <rect key="frame" x="46" y="11.666666666666629" width="12.666666666666664" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
@@ -432,7 +420,6 @@
                                     <constraint firstItem="HNt-Mg-ZQL" firstAttribute="top" secondItem="6H7-6P-ClF" secondAttribute="bottom" constant="4" id="04R-aa-1YI"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" secondItem="VZQ-Gn-G9j" secondAttribute="leading" priority="750" id="0Iw-EF-07h"/>
                                     <constraint firstAttribute="trailing" secondItem="IbZ-z9-By4" secondAttribute="trailing" priority="749" id="4q9-Zs-oyg"/>
-                                    <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iya-X5-Mzx" secondAttribute="trailing" constant="8" id="6oP-lP-hxY"/>
                                     <constraint firstAttribute="height" constant="74" id="8Le-bH-4B5"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="NM0-hM-dWP"/>
                                     <constraint firstItem="HNt-Mg-ZQL" firstAttribute="centerX" secondItem="VZQ-Gn-G9j" secondAttribute="centerX" id="PZP-gb-W4P"/>
@@ -441,8 +428,7 @@
                                     <constraint firstItem="IbZ-z9-By4" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" constant="-1" id="m3k-FW-4YG"/>
                                     <constraint firstItem="bWa-sd-JdS" firstAttribute="centerX" secondItem="6H7-6P-ClF" secondAttribute="centerX" id="mDc-lJ-49G"/>
                                     <constraint firstItem="6H7-6P-ClF" firstAttribute="top" secondItem="VZQ-Gn-G9j" secondAttribute="top" constant="8" id="t5D-WF-0Y7"/>
-                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="leading" secondItem="6H7-6P-ClF" secondAttribute="trailing" constant="18" id="wAE-3f-GI4"/>
-                                    <constraint firstItem="iya-X5-Mzx" firstAttribute="centerY" secondItem="QPa-AV-kZ9" secondAttribute="centerY" id="wMP-He-Xhd"/>
+                                    <constraint firstItem="IbZ-z9-By4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QPa-AV-kZ9" secondAttribute="trailing" constant="12" id="xcU-b3-4cU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P29-PV-UEw" userLabel="Navigation View">
@@ -503,6 +489,18 @@
                                     <constraint firstAttribute="trailing" secondItem="KPn-OM-HDU" secondAttribute="trailing" id="qvF-Ca-NEe"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                                <rect key="frame" x="343.66666666666669" y="778" width="41.333333333333314" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="sCa-RS-zeu"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="tertiaryLabelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" imagePadding="0.0">
+                                    <imageReference key="image" image="bubble.middle.bottom" catalog="system"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="10" weight="medium"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -513,6 +511,7 @@
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2zD-i8-USp"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3mn-bb-Jgb"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="top" secondItem="ONt-Hy-v98" secondAttribute="bottom" constant="-2.8421709430404007e-14" id="Beh-uK-fYK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iya-X5-Mzx" secondAttribute="bottom" id="Ewb-3h-W3L"/>
                             <constraint firstItem="Fb1-vQ-MZv" firstAttribute="centerX" secondItem="tTh-AV-1yS" secondAttribute="centerX" id="G8g-Rh-XRA"/>
                             <constraint firstItem="cH0-Tg-7PM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="leading" id="JvX-Jr-NEA"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="Ndc-Be-f6K"/>
@@ -529,6 +528,7 @@
                             <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="fIL-Lq-JBU"/>
                             <constraint firstItem="Fb1-vQ-MZv" firstAttribute="width" secondItem="tTh-AV-1yS" secondAttribute="width" id="fjM-AJ-y9N"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="leading" secondItem="tTh-AV-1yS" secondAttribute="leading" id="hpK-b5-oB1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iya-X5-Mzx" secondAttribute="trailing" constant="8" id="kAP-Hy-5Ek"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p1T-kR-zQa" secondAttribute="trailing" constant="6" id="lpL-xC-gYv"/>
                             <constraint firstItem="ONt-Hy-v98" firstAttribute="trailing" secondItem="tTh-AV-1yS" secondAttribute="trailing" id="qMy-Xj-gYr"/>
                             <constraint firstItem="P29-PV-UEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vXC-AT-FaN"/>
@@ -754,6 +754,9 @@
         </systemColor>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
