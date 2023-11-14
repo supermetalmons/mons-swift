@@ -16,7 +16,8 @@ class GameViewController: UIViewController, GameView {
     }
     
     private var controller: GameController!
-    private var isAnimatingAvatar = false
+    private var isAnimatingPlayersAvatar = false
+    private var isAnimatingOpponentsAvatar = false
     private var currentOverlay = Overlay.none
     private var latestOpponentReactionDate = Date.distantPast
     
@@ -121,6 +122,18 @@ class GameViewController: UIViewController, GameView {
         escapeButton.showsMenuAsPrimaryAction = true
     }
     
+    func isAnimatingAvatar(opponents: Bool) -> Bool {
+        return opponents ? isAnimatingOpponentsAvatar : isAnimatingPlayersAvatar
+    }
+    
+    func setIsAnimatingAvatar(_ isAnimatingAvatar: Bool, opponents: Bool) {
+        if opponents {
+            isAnimatingOpponentsAvatar = isAnimatingAvatar
+        } else {
+            isAnimatingPlayersAvatar = isAnimatingAvatar
+        }
+    }
+    
     // MARK: - actions
     
     @objc private func didTapSomewhere() {
@@ -210,8 +223,8 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func animateAvatar(opponents: Bool, isUserInteraction: Bool) {
-        guard !isAnimatingAvatar && isUserInteraction || !controller.isWatchOnly else { return }
-        isAnimatingAvatar = true
+        guard !isAnimatingAvatar(opponents: opponents) && (isUserInteraction || !controller.isWatchOnly) else { return }
+        setIsAnimatingAvatar(true, opponents: opponents)
         
         let animatedImageView: UIImageView! = opponents ? opponentImageView : playerImageView
         
@@ -240,7 +253,7 @@ class GameViewController: UIViewController, GameView {
             UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
                 animatedImageView?.transform = originalTransform
             }) { _ in
-                self?.isAnimatingAvatar = false
+                self?.setIsAnimatingAvatar(false, opponents: opponents)
             }
         }
     }
@@ -305,7 +318,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
-        guard !isAnimatingAvatar else { return }
+        guard !isAnimatingPlayersAvatar else { return }
         if !controller.isWatchOnly {
             Audio.shared.play(.click)
         }
@@ -314,7 +327,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
-        guard !isAnimatingAvatar else { return }
+        guard !isAnimatingOpponentsAvatar else { return }
         animateAvatar(opponents: true, isUserInteraction: true)
     }
     
