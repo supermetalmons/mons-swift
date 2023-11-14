@@ -92,6 +92,9 @@ class GameViewController: UIViewController, GameView {
             setGameInfoHidden(true)
             showOverlay(.personOrComputer)
         }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSomewhere))
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupVoiceChatButton() {
@@ -119,6 +122,18 @@ class GameViewController: UIViewController, GameView {
     }
     
     // MARK: - actions
+    
+    @objc private func didTapSomewhere() {
+        switch currentOverlay {
+        case .none:
+            processInput(.modifier(.cancel))
+        case .pickupSelection:
+            processInput(.modifier(.cancel))
+            showOverlay(.none)
+        case .hostWaiting, .guestWaiting, .personOrComputer:
+            return
+        }
+    }
     
     func react(_ reaction: Reaction, byOpponent: Bool) {
         if !byOpponent {
