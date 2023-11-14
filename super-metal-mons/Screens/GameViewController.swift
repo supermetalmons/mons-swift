@@ -156,9 +156,11 @@ class GameViewController: UIViewController, GameView {
                 }
             } else {
                 voiceChatButton.isEnabled = false
+                voiceChatButton.alpha = 0
                 controller.react(reaction)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
                     voiceChatButton?.isEnabled = true
+                    voiceChatButton?.alpha = 1
                 }
             }
         } else if !controller.personVersusComputer {
