@@ -781,7 +781,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6x-q3-LdO">
                                         <rect key="frame" x="0.0" y="162" width="353" height="146.66666666666663"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" image="button-local" title="local game" imagePadding="8">
+                                        <buttonConfiguration key="configuration" style="gray" image="button-local" title="play here" imagePadding="8">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
                                         </buttonConfiguration>
                                         <connections>
