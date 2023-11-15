@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "person.png",
+      "filename" : "1.heic",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "person@2x.png",
+      "filename" : "2.heic",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "person@3x.png",
+      "filename" : "3.heic",
       "idiom" : "universal",
       "scale" : "3x"
     }
