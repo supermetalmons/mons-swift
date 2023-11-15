@@ -452,7 +452,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waI-qf-OQa">
                                 <rect key="frame" x="0.0" y="113" width="393" height="705"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1aN-2w-yBB">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1aN-2w-yBB">
                                         <rect key="frame" x="20" y="152.66666666666669" width="353" height="400.00000000000006"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJ3-ot-FEk">
@@ -469,24 +469,24 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jsR-9L-Byj">
-                                                        <rect key="frame" x="95.666666666666671" y="28" width="161.66666666666663" height="64"/>
+                                                        <rect key="frame" x="78.666666666666671" y="28" width="195.66666666666663" height="64"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-person" translatesAutoresizingMaskIntoConstraints="NO" id="L7c-0U-cvP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="aUS-V8-fH1"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="aUS-V8-fH1"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0K-qC-BaI">
-                                                                <rect key="frame" x="69.999999999999986" y="0.0" width="21.666666666666671" height="64"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                <rect key="frame" x="83.999999999999986" y="0.0" width="27.666666666666671" height="64"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-person" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-dC-PPL">
-                                                                <rect key="frame" x="111.66666666666669" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="131.66666666666669" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="G6X-Of-GtU"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="G6X-Of-GtU"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -516,24 +516,24 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="TAv-Uu-YQY">
-                                                        <rect key="frame" x="95.666666666666671" y="28" width="161.66666666666663" height="64"/>
+                                                        <rect key="frame" x="78.666666666666671" y="28" width="195.66666666666663" height="64"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-person" translatesAutoresizingMaskIntoConstraints="NO" id="3FY-0M-DGp">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="zzx-8z-Rhg"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="zzx-8z-Rhg"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94O-1t-xa2">
-                                                                <rect key="frame" x="69.999999999999986" y="0.0" width="21.666666666666671" height="64"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                <rect key="frame" x="83.999999999999986" y="0.0" width="27.666666666666671" height="64"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-pc" translatesAutoresizingMaskIntoConstraints="NO" id="bGd-yl-1rz">
-                                                                <rect key="frame" x="111.66666666666669" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="131.66666666666669" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="hgX-vd-u24"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="hgX-vd-u24"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -563,24 +563,24 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ixd-jj-BvZ">
-                                                        <rect key="frame" x="95.666666666666671" y="28" width="161.66666666666663" height="64"/>
+                                                        <rect key="frame" x="78.666666666666671" y="28" width="195.66666666666663" height="64"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-pc" translatesAutoresizingMaskIntoConstraints="NO" id="rl3-wc-Kbr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="JCL-vs-P15"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="JCL-vs-P15"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8q-Mr-8mJ">
-                                                                <rect key="frame" x="69.999999999999986" y="0.0" width="21.666666666666671" height="64"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                <rect key="frame" x="83.999999999999986" y="0.0" width="27.666666666666671" height="64"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button-pc" translatesAutoresizingMaskIntoConstraints="NO" id="QPX-Mi-d2Y">
-                                                                <rect key="frame" x="111.66666666666669" y="0.0" width="50" height="64"/>
+                                                                <rect key="frame" x="131.66666666666669" y="0.0" width="64" height="64"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="50" id="aNG-dH-EQH"/>
+                                                                    <constraint firstAttribute="width" constant="64" id="aNG-dH-EQH"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -630,6 +630,7 @@
                             <constraint firstItem="P29-PV-UEw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QFa-iI-DYC"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p1T-kR-zQa" secondAttribute="trailing" priority="750" id="T0O-bl-Df4"/>
                             <constraint firstItem="tTh-AV-1yS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TFo-ZL-ece"/>
+                            <constraint firstItem="1aN-2w-yBB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="P29-PV-UEw" secondAttribute="bottom" constant="12" id="TSB-wr-aIe"/>
                             <constraint firstItem="6H7-6P-ClF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tTh-AV-1yS" secondAttribute="leading" id="U81-rG-MGu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="waI-qf-OQa" secondAttribute="leading" id="UGo-wJ-kQJ"/>
                             <constraint firstItem="VZQ-Gn-G9j" firstAttribute="top" secondItem="tTh-AV-1yS" secondAttribute="bottom" id="Ub9-W6-zCV"/>
