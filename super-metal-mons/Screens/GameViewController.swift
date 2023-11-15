@@ -460,6 +460,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     func didConnect() {
+        Audio.shared.play(.didConnect)
         boardView.reloadItems()
         setGameInfoHidden(false)
         setPlayerSide(color: controller.playerSideColor)

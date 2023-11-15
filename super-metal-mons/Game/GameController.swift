@@ -52,8 +52,6 @@ extension GameController: ConnectionDelegate {
             }
             
             gameView.didConnect()
-            Audio.shared.play(.didConnect)
-            
             return
         }
         
