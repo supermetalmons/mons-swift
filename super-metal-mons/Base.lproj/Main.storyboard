@@ -771,7 +771,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="kqT-yG-QkS"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" image="button-new-game" title="new game link" imagePadding="6">
+                                        <buttonConfiguration key="configuration" style="tinted" image="button-new-game" title="new link" imagePadding="8">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -791,7 +791,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFl-js-bfN">
                                         <rect key="frame" x="0.0" y="323.66666666666669" width="353" height="147"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" image="button-link" title="join with a link" imagePadding="6">
+                                        <buttonConfiguration key="configuration" style="gray" image="button-link" title="enter link" imagePadding="8">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="32"/>
                                         </buttonConfiguration>
                                         <connections>

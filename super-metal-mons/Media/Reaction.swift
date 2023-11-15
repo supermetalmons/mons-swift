@@ -9,10 +9,8 @@ struct Reaction: Codable {
         
         var text: String {
             switch self {
-            case .yo, .wahoo, .gg:
+            case .yo, .wahoo, .gg, .drop, .slurp:
                 return rawValue
-            case .drop, .slurp:
-                return "*\(rawValue)*"
             }
         }
         
