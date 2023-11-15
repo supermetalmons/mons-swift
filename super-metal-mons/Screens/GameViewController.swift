@@ -187,10 +187,11 @@ class GameViewController: UIViewController, GameView {
         switch overlay {
         case .none:
             boardOverlayView.isHidden = true
+            personOrComputerOverlay.isHidden = true
             setupEscapeButtonToRequireConfirmation()
         case .personOrComputer:
             personOrComputerOverlay.isHidden = false
-            boardOverlayView.isHidden = false
+            boardOverlayView.isHidden = true
             pickupSelectionOverlay.isHidden = true
             hostWaitingOverlay.isHidden = true
         case .pickupSelection:
