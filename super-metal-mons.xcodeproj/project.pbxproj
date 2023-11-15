@@ -15,6 +15,7 @@
 		2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C02552C2A0ECB6400CB1808 /* didConnect.wav */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
+		2C22C8462B05073100E558C5 /* drop1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C22C8452B05073100E558C5 /* drop1.wav */; };
 		2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C261C5C2A4366DB0014F9AC /* Scoring.swift */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
 		2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
@@ -136,6 +137,7 @@
 		2C02552C2A0ECB6400CB1808 /* didConnect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = didConnect.wav; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
+		2C22C8452B05073100E558C5 /* drop1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop1.wav; sourceTree = "<group>"; };
 		2C261C5C2A4366DB0014F9AC /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		2C266FD02A0B00280016C1C5 /* endTurn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = endTurn.wav; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				2CFA88932B029F5800F99723 /* wahoo1.wav */,
 				2CFA88962B029F5800F99723 /* yo1.wav */,
 				2CFA88942B029F5800F99723 /* yo2.wav */,
+				2C22C8452B05073100E558C5 /* drop1.wav */,
 				2CFA88922B029F5800F99723 /* yo3.wav */,
 				2CFA889A2B029F5800F99723 /* yo4.wav */,
 			);
@@ -621,6 +624,7 @@
 				2CFA889D2B029F5800F99723 /* yo2.wav in Resources */,
 				2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */,
 				2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */,
+				2C22C8462B05073100E558C5 /* drop1.wav in Resources */,
 				2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */,
 				2CEB9B092A34C05300B3CD54 /* band.aac in Resources */,
 				2CFA88A12B029F5800F99723 /* slurp1.wav in Resources */,

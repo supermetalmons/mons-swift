@@ -152,7 +152,7 @@ class GameViewController: UIViewController, GameView {
         if !byOpponent {
             if controller.personVersusComputer {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
-                    self?.react(Reaction.random(of: [.yo, .slurp]), byOpponent: true)
+                    self?.react(Reaction.random(of: [.yo, .drop, .slurp]), byOpponent: true)
                 }
             } else {
                 voiceChatButton.isEnabled = false
