@@ -32,16 +32,15 @@ class MainMenuViewController: UIViewController {
         }
     }
     
-    private func connectToURL(_ url: URL) {
-        if let id = url.gameId {
-            let controller = GameController(mode: .joinGameId(id))
-            presentGameViewController(gameController: controller)
-        } else {
-            // TODO: communicate failed connection
-        }
+    @discardableResult private func connectToURL(_ url: URL) -> Bool {
+        guard let id = url.gameId else { return false }
+        let controller = GameController(mode: .joinGameId(id))
+        presentGameViewController(gameController: controller)
+        return true
     }
     
     private func presentGameViewController(gameController: GameController) {
+        Haptic.generate(.selectionChanged)
         let gameViewController = GameViewController.with(gameController: gameController)
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
@@ -58,13 +57,13 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func joinButtonTapped(_ sender: Any) {
-        if let input = UIPasteboard.general.string, let url = URL(string: input) {
-            connectToURL(url)
-        } else {
+        guard let input = UIPasteboard.general.string, let url = URL(string: input), connectToURL(url) else {
             let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
             alert.addAction(okAction)
             present(alert, animated: true)
+            Haptic.generate(.error)
+            return
         }
     }
     

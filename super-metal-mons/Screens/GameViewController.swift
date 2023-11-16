@@ -285,10 +285,12 @@ class GameViewController: UIViewController, GameView {
         shareViewController.popoverPresentationController?.sourceView = shareLinkButton
         shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
         present(shareViewController, animated: true)
+        Haptic.generate(.selectionChanged)
     }
     
     @IBAction func copyLinkButtonTapped(_ sender: Any) {
         UIPasteboard.general.string = controller.inviteLink.withHttpsSchema
+        Haptic.generate(.selectionChanged)
     }
     
     @IBAction func bombButtonTapped(_ sender: Any) {
