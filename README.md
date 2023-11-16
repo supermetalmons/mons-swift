@@ -39,7 +39,7 @@ each player starts with **5 mons** and **5 mana pieces**
 
 
 ✅ also
-* no _action ability_ and mana move on the first turn of the game
+* no _action ability_ and no mana move on the first turn of the game
 * one space = max one mon
 * mon spawn spaces can only be visited by the mons assigned to them
 * mons cannot perform _action abilities_ from their spawn space
