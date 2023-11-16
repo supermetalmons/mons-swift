@@ -460,6 +460,7 @@ class GameViewController: UIViewController, GameView {
     }
     
     func didConnect() {
+        Haptic.generate(.success)        
         Audio.shared.play(.didConnect)
         boardView.reloadItems()
         setGameInfoHidden(false)
