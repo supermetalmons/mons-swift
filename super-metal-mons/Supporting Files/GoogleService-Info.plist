@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string></string>
+	<string>1:1:ios:a</string>
 	<key>DATABASE_URL</key>
 	<string></string>
 </dict>
