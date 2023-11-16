@@ -48,4 +48,4 @@ each player starts with **5 mons** and **5 mana pieces**
 * if a drainer carrying a super mana faints, the super mana is then returned to the central space
 
 
-### // based on the [game guide](https://supermetalmons.notion.site/supermetalmons/Super-Metal-Mons-game-guide-479a3aa53c14462487a486201d927383)
+### [based on the [game guide](https://supermetalmons.notion.site/supermetalmons/Super-Metal-Mons-game-guide-479a3aa53c14462487a486201d927383)]
