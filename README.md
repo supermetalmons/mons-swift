@@ -46,3 +46,6 @@ each player starts with **5 mons** and **5 mana pieces**
 * drainer can carry only one item at a time
 * the central space of the board is reserved for the super mana
 * if a drainer carrying a super mana faints, the super mana is then returned to the central space
+
+
+### // based on [game guide](https://supermetalmons.notion.site/supermetalmons/Super-Metal-Mons-game-guide-479a3aa53c14462487a486201d927383)
