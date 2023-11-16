@@ -24,7 +24,6 @@ class MusicViewController: UIViewController {
     }
     
     @IBAction func discButtonTapped(_ sender: Any) {
-        Haptic.generate(.selectionChanged)
         audio.play(.click)
         isPlaying = true
         audio.playRandomMusic(doNotResume: true)

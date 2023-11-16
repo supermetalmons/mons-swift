@@ -418,6 +418,7 @@ class GameController {
                     case .supermana:
                         sounds.append(.scoreSupermana)
                     }
+                    if !remoteOrComputerInput && !isWatchOnly { Haptic.generate(.success) }
                     locationsToUpdate.insert(at)
                     mustReleaseHighlight = true
                 case .mysticAction(_, let from, let to):
@@ -471,6 +472,7 @@ class GameController {
                 case .nextTurn(_):
                     sounds.append(.endTurn)
                     viewEffects.append(.nextTurn)
+                    if !isWatchOnly { Haptic.generate(.selectionChanged) }
                     if case .localGame = mode, let versusComputer = versusComputer {
                         switch versusComputer {
                         case .computer:
