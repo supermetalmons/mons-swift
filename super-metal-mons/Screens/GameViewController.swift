@@ -116,7 +116,10 @@ class GameViewController: UIViewController, GameView {
     
     private func setupEscapeButtonToRequireConfirmation() {
         guard escapeButton.menu == nil else { return }
-        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in self?.endGame() })]
+        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in
+            self?.endGame()
+            Haptic.generate(.error)
+        })]
         let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
         escapeButton.menu = menu
         escapeButton.showsMenuAsPrimaryAction = true
