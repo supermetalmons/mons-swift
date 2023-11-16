@@ -1,4 +1,6 @@
 # super-metal-mons-swift
+ios / macos
+
 testflight @ [mons.link](https://mons.link)
 
 
