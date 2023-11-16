@@ -5,7 +5,7 @@ ios / macos
 
 testflight @ [mons.link](https://mons.link)
 
-![board](https://github.com/grachyov/super-metal-mons-swift/assets/7680193/b20f5150-8ae0-4364-b5a9-237d141ce529)
+![w](https://github.com/grachyov/super-metal-mons-swift/assets/7680193/dcf2e412-7acd-4355-bab5-306fbff61349)
 
 
 ## rules
