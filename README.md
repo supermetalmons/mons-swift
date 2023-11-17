@@ -34,7 +34,7 @@ each player starts with **5 mons** and **5 mana pieces**
 
 
 🤚 pickups
-* **bomb** throw up to three spaces away in any direction to faint a mon
+* **bomb** throw three spaces away in any direction to faint a mon
 * **potion** one-time extra _action ability_ on your turn
 
 
