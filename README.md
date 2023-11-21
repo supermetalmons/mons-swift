@@ -50,3 +50,7 @@ each player starts with **5 mons** and **5 mana pieces**
 
 
 ### [based on the [game guide](https://supermetalmons.notion.site/supermetalmons/Super-Metal-Mons-game-guide-479a3aa53c14462487a486201d927383)]
+
+## development
+
+* run the xcode project
