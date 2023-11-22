@@ -14,5 +14,6 @@ struct Strings {
     static let opponentLeft = "opponent left the game"
     static let somethingIsBroken = "sorry, something is broken"
     static let say = "say"
+    static let rematch = "rematch"
     
 }

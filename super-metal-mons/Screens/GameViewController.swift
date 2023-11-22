@@ -116,10 +116,16 @@ class GameViewController: UIViewController, GameView {
     
     private func setupEscapeButtonToRequireConfirmation() {
         guard escapeButton.menu == nil else { return }
-        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in
-            self?.endGame()
-            Haptic.generate(.error)
-        })]
+        let items: [UIAction] = [
+            UIAction(title: Strings.ok, image: UIImage(systemName: "xmark"), handler: { [weak self] _ in
+                self?.endGame()
+                Haptic.generate(.error)
+            }),
+            UIAction(title: Strings.rematch, image: UIImage(systemName: "arrow.clockwise"), handler: { [weak self] _ in
+                // TODO: implement
+            })
+        ]
+        // TODO: is rematch option always applicable?
         let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
         escapeButton.menu = menu
         escapeButton.showsMenuAsPrimaryAction = true
