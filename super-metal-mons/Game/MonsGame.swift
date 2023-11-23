@@ -2,73 +2,78 @@
 
 import Foundation
 
-// TODO: do not play audio from the game logic code
+class MonsGame: NSObject {
+    
+    private(set) var board: Board
 
-// TODO: refactor. do not add computed / helpers stuff to the base MonsGame implementaion — to keep it clean
-extension MonsGame {
-    // TODO: хочется понятную терминологию. и тут moves и там moves
-    // TODO: вот непонятно, почему слева monStep, а справа monsMovesPerTurn
-    var availableMoveKinds: [AvailableMoveKind: Int] {
-        var moves: [AvailableMoveKind: Int] = [
-            .monMove: Config.monsMovesPerTurn - monsMovesCount,
-            .action: 0,
-            .potion: 0,
-            .manaMove: 0
-        ]
-
-        if turnNumber == 1 {
-            return moves
-        }
+    private(set) var whiteScore: Int
+    private(set) var blackScore: Int
+    private(set) var activeColor: Color
+    
+    private(set) var actionsUsedCount: Int
+    private(set) var manaMovesCount: Int
+    private(set) var monsMovesCount: Int
+    
+    private(set) var whitePotionsCount: Int
+    private(set) var blackPotionsCount: Int
+    
+    private(set) var turnNumber: Int
+    
+    override init() {
+        self.board = Board()
+        self.whiteScore = 0
+        self.blackScore = 0
+        self.activeColor = .white
+        self.actionsUsedCount = 0
+        self.manaMovesCount = 0
+        self.monsMovesCount = 0
+        self.whitePotionsCount = 0
+        self.blackPotionsCount = 0
+        self.turnNumber = 1
+        super.init()
+    }
+    
+    init(board: Board,
+         whiteScore: Int,
+         blackScore: Int,
+         activeColor: Color,
+         actionsUsedCount: Int,
+         manaMovesCount: Int,
+         monsMovesCount: Int,
+         whitePotionsCount: Int,
+         blackPotionsCount: Int,
+         turnNumber: Int) {
+        self.board = board
+        self.whiteScore = whiteScore
+        self.blackScore = blackScore
+        self.activeColor = activeColor
+        self.actionsUsedCount = actionsUsedCount
+        self.manaMovesCount = manaMovesCount
+        self.monsMovesCount = monsMovesCount
+        self.whitePotionsCount = whitePotionsCount
+        self.blackPotionsCount = blackPotionsCount
+        self.turnNumber = turnNumber
+    }
+    
+    func updateWith(otherGame: MonsGame) {
+        board = Board(items: otherGame.board.items)
+            
+        whiteScore = otherGame.whiteScore
+        blackScore = otherGame.blackScore
+        activeColor = otherGame.activeColor
         
-        moves[.action] = (Config.actionsPerTurn - actionsUsedCount)
-        moves[.potion] = playerPotionsCount
-        moves[.manaMove] = Config.manaMovesPerTurn - manaMovesCount
+        actionsUsedCount = otherGame.actionsUsedCount
+        manaMovesCount = otherGame.manaMovesCount
+        monsMovesCount = otherGame.monsMovesCount
         
-        return moves
+        whitePotionsCount = otherGame.whitePotionsCount
+        blackPotionsCount = otherGame.blackPotionsCount
+        
+        turnNumber = otherGame.turnNumber
     }
-    
-    var winnerColor: Color? {
-        if whiteScore >= Config.targetScore {
-            return .white
-        } else if blackScore >= Config.targetScore {
-            return .black
-        } else {
-            return nil
-        }
-    }
-    
-    func isLaterThan(game: MonsGame) -> Bool {
-        if turnNumber > game.turnNumber {
-            return true
-        } else if turnNumber == game.turnNumber {
-            return playerPotionsCount < game.playerPotionsCount ||
-            actionsUsedCount > game.actionsUsedCount ||
-            manaMovesCount > game.manaMovesCount ||
-            monsMovesCount > game.monsMovesCount ||
-            board.faintedMonsLocations(color: activeColor.other).count > game.board.faintedMonsLocations(color: activeColor.other).count
-        } else {
-            return false
-        }
-    }
-    
+   
 }
 
-extension MonsGame {
-    var isFirstTurn: Bool { turnNumber == 1 }
-    var playerPotionsCount: Int { activeColor == .white ? whitePotionsCount : blackPotionsCount }
-    var playerCanMoveMon: Bool { monsMovesCount < Config.monsMovesPerTurn }
-    var playerCanMoveMana: Bool { !isFirstTurn && manaMovesCount < Config.manaMovesPerTurn }
-    var playerCanUseAction: Bool { !isFirstTurn && (playerPotionsCount > 0 || actionsUsedCount < Config.actionsPerTurn) }
-    
-    var protectedByOpponentsAngel: Set<Location> {
-        if let location = board.findAwakeAngel(color: activeColor.other) {
-            let protected = location.nearbyLocations
-            return Set(protected)
-        } else {
-            return Set()
-        }
-    }
-}
 
 extension MonsGame {
     
@@ -934,76 +939,4 @@ extension MonsGame {
         return events + extraEvents
     }
     
-}
-
-class MonsGame: NSObject {
-    
-    private(set) var board: Board
-
-    private(set) var whiteScore: Int
-    private(set) var blackScore: Int
-    private(set) var activeColor: Color
-    
-    private(set) var actionsUsedCount: Int
-    private(set) var manaMovesCount: Int
-    private(set) var monsMovesCount: Int
-    
-    private(set) var whitePotionsCount: Int
-    private(set) var blackPotionsCount: Int
-    
-    private(set) var turnNumber: Int
-    
-    override init() {
-        self.board = Board()
-        self.whiteScore = 0
-        self.blackScore = 0
-        self.activeColor = .white
-        self.actionsUsedCount = 0
-        self.manaMovesCount = 0
-        self.monsMovesCount = 0
-        self.whitePotionsCount = 0
-        self.blackPotionsCount = 0
-        self.turnNumber = 1
-        super.init()
-    }
-    
-    init(board: Board,
-         whiteScore: Int,
-         blackScore: Int,
-         activeColor: Color,
-         actionsUsedCount: Int,
-         manaMovesCount: Int,
-         monsMovesCount: Int,
-         whitePotionsCount: Int,
-         blackPotionsCount: Int,
-         turnNumber: Int) {
-        self.board = board
-        self.whiteScore = whiteScore
-        self.blackScore = blackScore
-        self.activeColor = activeColor
-        self.actionsUsedCount = actionsUsedCount
-        self.manaMovesCount = manaMovesCount
-        self.monsMovesCount = monsMovesCount
-        self.whitePotionsCount = whitePotionsCount
-        self.blackPotionsCount = blackPotionsCount
-        self.turnNumber = turnNumber
-    }
-    
-    func updateWith(otherGame: MonsGame) {
-        board = Board(items: otherGame.board.items)
-            
-        whiteScore = otherGame.whiteScore
-        blackScore = otherGame.blackScore
-        activeColor = otherGame.activeColor
-        
-        actionsUsedCount = otherGame.actionsUsedCount
-        manaMovesCount = otherGame.manaMovesCount
-        monsMovesCount = otherGame.monsMovesCount
-        
-        whitePotionsCount = otherGame.whitePotionsCount
-        blackPotionsCount = otherGame.blackPotionsCount
-        
-        turnNumber = otherGame.turnNumber
-    }
-   
 }

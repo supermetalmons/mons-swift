@@ -34,6 +34,7 @@
 		2C38121E2B0620AD000FDE18 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C38121D2B0620AD000FDE18 /* Haptic.swift */; };
 		2C3812222B064CAC000FDE18 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812212B064CAC000FDE18 /* README.md */; };
 		2C3812272B065F71000FDE18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */; };
+		2C3AD5922B0FA4F600538897 /* MonsGame+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */; };
 		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -156,6 +157,7 @@
 		2C38121D2B0620AD000FDE18 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		2C3812212B064CAC000FDE18 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MonsGame+Helpers.swift"; sourceTree = "<group>"; };
 		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
 				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
+				2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */,
 				2C0255232A0EA1CB00CB1808 /* Models */,
 				2C7E80C729FC3B3900114943 /* View Models */,
 				2CB6D3AC29F730A300605255 /* Game Models */,
@@ -699,6 +702,7 @@
 				2CB6D3B229F730F600605255 /* Mon.swift in Sources */,
 				2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */,
 				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
+				2C3AD5922B0FA4F600538897 /* MonsGame+Helpers.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */,
