@@ -47,18 +47,18 @@ extension GameController: ConnectionDelegate {
             
             if isWatchOnly, let game = MonsGame(fen: match.fen) {
                 self.game = game
-                gameView.setNewBoard()
+                gameView?.setNewBoard()
                 setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
             }
             
-            gameView.didConnect()
+            gameView?.didConnect()
             return
         }
         
         if isWatchOnly, !didSetBlackProcessedMovesCount || !didSetWhiteProcessedMovesCount {
             if let newGame = MonsGame(fen: match.fen), newGame.isLaterThan(game: game) {
                 self.game = newGame
-                gameView.setNewBoard()
+                gameView?.setNewBoard()
             }
             setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
         }
@@ -67,14 +67,14 @@ extension GameController: ConnectionDelegate {
         
         if isWatchOnly {
             updateEmoji(color: match.color, id: match.emojiId)
-            gameView.updateEmoji(color: match.color)
+            gameView?.updateEmoji(color: match.color)
         } else {
             updateOpponentEmoji(id: match.emojiId)
-            gameView.updateOpponentEmoji()
+            gameView?.updateOpponentEmoji()
             
             if let reaction = match.reaction, !processedReactions.contains(reaction.uuid) {
                 processedReactions.insert(reaction.uuid)
-                gameView.react(reaction, byOpponent: true)
+                gameView?.react(reaction, byOpponent: true)
             }
         }
         
@@ -87,14 +87,14 @@ extension GameController: ConnectionDelegate {
             setProcessedMovesCount(color: match.color, count: moves.count)
             
             if game.fen != match.fen {
-                gameView.showMessageAndDismiss(message: Strings.somethingIsBroken)
+                gameView?.showMessageAndDismiss(message: Strings.somethingIsBroken)
                 connection = nil
                 return
             }
         }
         
         if match.status == .surrendered {
-            gameView.showMessageAndDismiss(message: Strings.opponentLeft)
+            gameView?.showMessageAndDismiss(message: Strings.opponentLeft)
             connection = nil
         }
         
@@ -132,7 +132,7 @@ class GameController {
         case person, computer
     }
     
-    private var versusComputer: VersusComputer?
+    var versusComputer: VersusComputer?
     
     private func updateEmoji(color: Color, id: Int) {
         switch color {
@@ -226,7 +226,7 @@ class GameController {
     private var connection: Connection?
     private let version = 1
     
-    private unowned var gameView: GameView!
+    private weak var gameView: GameView?
 
     var inviteLink: String {
         return URL.forGame(id: gameId)
@@ -324,7 +324,7 @@ class GameController {
         self.inputs = inputs
         self.inputs.removeLast()
         let viewEffects = processInput(inputs.last, remoteOrComputerInput: true)
-        gameView.applyEffects(viewEffects)
+        gameView?.applyEffects(viewEffects)
     }
     
     var lastComputerMoveDate = Date()

@@ -114,12 +114,37 @@ class GameViewController: UIViewController, GameView {
         voiceChatButton.showsMenuAsPrimaryAction = true
     }
     
+    private func rematch() {
+        // TODO: will be different for remote games
+        let versusComputer = controller.versusComputer
+        let newController = GameController(mode: .localGame)
+        self.controller = newController
+        controller.setGameView(self)
+        if let versusComputer = versusComputer {
+            controller.didSelectGameVersusComputer(versusComputer)
+        }
+        boardView.removeHighlights()
+        setNewBoard()
+        didConnect()        
+    }
+    
     private func setupEscapeButtonToRequireConfirmation() {
         guard escapeButton.menu == nil else { return }
-        let items: [UIAction] = [UIAction(title: Strings.ok, handler: { [weak self] _ in
-            self?.endGame()
-            Haptic.generate(.error)
-        })]
+        var items: [UIAction] = [
+            UIAction(title: Strings.ok, handler: { [weak self] _ in
+                self?.endGame()
+                Haptic.generate(.error)
+            })
+        ]
+        
+        if !controller.mode.isRemoteGame {
+            items.append(
+                UIAction(title: Strings.rematch, image: Images.rematch, handler: { [weak self] _ in
+                    self?.rematch()
+                })
+            )
+        }
+        
         let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
         escapeButton.menu = menu
         escapeButton.showsMenuAsPrimaryAction = true
