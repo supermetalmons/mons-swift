@@ -270,13 +270,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C0255232A0EA1CB00CB1808 /* Models */ = {
+		2C3AD5932B0FA61900538897 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2C09E3D729F6D0630082B774 /* GameController.swift */,
+				2C3AD5952B0FA6F100538897 /* Computer */,
+				2C3AD5942B0FA6E200538897 /* Connection */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2C3AD5942B0FA6E200538897 /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C0255242A0EA1E600CB1808 /* GameInvite.swift */,
 				2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */,
 			);
-			path = Models;
+			path = Connection;
+			sourceTree = "<group>";
+		};
+		2C3AD5952B0FA6F100538897 /* Computer */ = {
+			isa = PBXGroup;
+			children = (
+				2CCF87222A42EAFE0060410C /* Computer.swift */,
+				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
+			);
+			path = Computer;
 			sourceTree = "<group>";
 		};
 		2C7E80C729FC3B3900114943 /* View Models */ = {
@@ -290,29 +310,21 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
-		2C7E80C829FC3B7900114943 /* Shared Models */ = {
+		2CB6D3AC29F730A300605255 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				2CB6D3BB29F7320800605255 /* Location.swift */,
 				2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */,
 				2CB6D3AF29F730E500605255 /* Color.swift */,
-				2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */,
-			);
-			path = "Shared Models";
-			sourceTree = "<group>";
-		};
-		2CB6D3AC29F730A300605255 /* Game Models */ = {
-			isa = PBXGroup;
-			children = (
-				2C7E80CD29FC54B300114943 /* Config.swift */,
 				2C7E80C329FC372C00114943 /* Board.swift */,
 				2C7E80CB29FC3F3900114943 /* Square.swift */,
 				2CB6D3AD29F730B200605255 /* Item.swift */,
 				2CB6D3B129F730F600605255 /* Mon.swift */,
 				2CB6D3B329F7310800605255 /* Mana.swift */,
 				2CB6D3B529F7311500605255 /* Consumable.swift */,
+				2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */,
 			);
-			path = "Game Models";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		2CC39E7329CA48B200EDF779 = {
@@ -337,7 +349,8 @@
 				2CC39E8529CA48B200EDF779 /* Main.storyboard */,
 				2CC4FBE629F6C7D300A90CDD /* App */,
 				2CC4FBE729F6C7E700A90CDD /* Screens */,
-				2CC4FBE429F6C77F00A90CDD /* Game */,
+				2C3AD5932B0FA61900538897 /* Controller */,
+				2CC4FBE429F6C77F00A90CDD /* Game Logic */,
 				2CC770BD29FA9CCE00A59BEF /* Views */,
 				2CC4FBE529F6C7B900A90CDD /* Services */,
 				2CC4FBE329F6C72E00A90CDD /* Utilities */,
@@ -396,21 +409,16 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		2CC4FBE429F6C77F00A90CDD /* Game */ = {
+		2CC4FBE429F6C77F00A90CDD /* Game Logic */ = {
 			isa = PBXGroup;
 			children = (
-				2C09E3D729F6D0630082B774 /* GameController.swift */,
-				2CCF87222A42EAFE0060410C /* Computer.swift */,
-				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
-				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */,
-				2C0255232A0EA1CB00CB1808 /* Models */,
+				2C7E80CD29FC54B300114943 /* Config.swift */,
+				2CB6D3AC29F730A300605255 /* Models */,
 				2C7E80C729FC3B3900114943 /* View Models */,
-				2CB6D3AC29F730A300605255 /* Game Models */,
-				2C7E80C829FC3B7900114943 /* Shared Models */,
 			);
-			path = Game;
+			path = "Game Logic";
 			sourceTree = "<group>";
 		};
 		2CC4FBE529F6C7B900A90CDD /* Services */ = {
