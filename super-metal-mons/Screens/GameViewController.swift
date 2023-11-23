@@ -114,18 +114,27 @@ class GameViewController: UIViewController, GameView {
         voiceChatButton.showsMenuAsPrimaryAction = true
     }
     
+    private func rematch() {
+        // TODO: implement
+    }
+    
     private func setupEscapeButtonToRequireConfirmation() {
         guard escapeButton.menu == nil else { return }
-        let items: [UIAction] = [
-            UIAction(title: Strings.ok, image: UIImage(systemName: "xmark"), handler: { [weak self] _ in
+        var items: [UIAction] = [
+            UIAction(title: Strings.ok, handler: { [weak self] _ in
                 self?.endGame()
                 Haptic.generate(.error)
-            }),
-            UIAction(title: Strings.rematch, image: UIImage(systemName: "arrow.clockwise"), handler: { [weak self] _ in
-                // TODO: implement
             })
         ]
-        // TODO: is rematch option always applicable?
+        
+        if !controller.mode.isRemoteGame {
+            items.append(
+                UIAction(title: Strings.rematch, image: Images.rematch, handler: { [weak self] _ in
+                    self?.rematch()
+                })
+            )
+        }
+        
         let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
         escapeButton.menu = menu
         escapeButton.showsMenuAsPrimaryAction = true
