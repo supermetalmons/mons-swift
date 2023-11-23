@@ -115,7 +115,17 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func rematch() {
-        // TODO: implement
+        // TODO: will be different for remote games
+        let versusComputer = controller.versusComputer
+        let newController = GameController(mode: .localGame)
+        self.controller = newController
+        controller.setGameView(self)
+        if let versusComputer = versusComputer {
+            controller.didSelectGameVersusComputer(versusComputer)
+        }
+        boardView.removeHighlights()
+        setNewBoard()
+        didConnect()        
     }
     
     private func setupEscapeButtonToRequireConfirmation() {
