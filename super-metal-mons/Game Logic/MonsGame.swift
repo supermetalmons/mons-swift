@@ -77,63 +77,6 @@ class MonsGame: NSObject {
 
 extension MonsGame {
     
-    enum Modifier: String, Codable {
-        case selectPotion, selectBomb, cancel
-    }
-    
-    enum Input: Equatable, Codable {
-        case location(Location)
-        case modifier(Modifier)
-    }
-    
-    enum Output {
-        case invalidInput
-        case locationsToStartFrom([Location])
-        case nextInputOptions([NextInput])
-        case events([Event])
-    }
-    
-    struct NextInput {
-        
-        enum Kind {
-            case monMove, manaMove
-            case mysticAction, demonAction, demonAdditionalStep, spiritTargetCapture, spiritTargetMove
-            case selectConsumable, bombAttack
-        }
-        
-        let input: Input
-        let kind: Kind
-        let actorMonItem: Item?
-        
-        init(input: Input, kind: Kind, actorMonItem: Item? = nil) {
-            self.input = input
-            self.kind = kind
-            self.actorMonItem = actorMonItem
-        }
-        
-    }
-    
-    enum Event {
-        case monMove(item: Item, from: Location, to: Location)
-        case manaMove(mana: Mana, from: Location, to: Location)
-        case manaScored(mana: Mana, at: Location)
-        case mysticAction(mystic: Mon, from: Location, to: Location)
-        case demonAction(demon: Mon, from: Location, to: Location)
-        case demonAdditionalStep(demon: Mon, from: Location, to: Location)
-        case spiritTargetMove(item: Item, from: Location, to: Location)
-        case pickupBomb(by: Mon, at: Location)
-        case pickupPotion(by: Item, at: Location)
-        case pickupMana(mana: Mana, by: Mon, at: Location)
-        case monFainted(mon: Mon, from: Location, to: Location)
-        case manaDropped(mana: Mana, at: Location)
-        case supermanaBackToBase(from: Location, to: Location)
-        case bombAttack(by: Mon, from: Location, to: Location)
-        case monAwake(mon: Mon, at: Location)
-        case bombExplosion(at: Location)
-        case nextTurn(color: Color)
-        case gameOver(winner: Color)
-    }
-    
     func processInput(_ input: [Input], doNotApply: Bool, doNotLookForAllOptions: Bool = false) -> Output {
         guard winnerColor == nil else { return .invalidInput }
         

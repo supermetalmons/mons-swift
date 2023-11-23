@@ -35,6 +35,10 @@
 		2C3812222B064CAC000FDE18 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812212B064CAC000FDE18 /* README.md */; };
 		2C3812272B065F71000FDE18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */; };
 		2C3AD5922B0FA4F600538897 /* MonsGame+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */; };
+		2C3AD5972B0FAAF500538897 /* MonsGameInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5962B0FAAF500538897 /* MonsGameInput.swift */; };
+		2C3AD5992B0FAB0300538897 /* MonsGameOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5982B0FAB0300538897 /* MonsGameOutput.swift */; };
+		2C3AD59B2B0FAB6300538897 /* MonsGameNextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59A2B0FAB6300538897 /* MonsGameNextInput.swift */; };
+		2C3AD59D2B0FAB7200538897 /* MonsGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59C2B0FAB7200538897 /* MonsGameEvent.swift */; };
 		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
@@ -158,6 +162,10 @@
 		2C3812212B064CAC000FDE18 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MonsGame+Helpers.swift"; sourceTree = "<group>"; };
+		2C3AD5962B0FAAF500538897 /* MonsGameInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGameInput.swift; sourceTree = "<group>"; };
+		2C3AD5982B0FAB0300538897 /* MonsGameOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGameOutput.swift; sourceTree = "<group>"; };
+		2C3AD59A2B0FAB6300538897 /* MonsGameNextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGameNextInput.swift; sourceTree = "<group>"; };
+		2C3AD59C2B0FAB7200538897 /* MonsGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsGameEvent.swift; sourceTree = "<group>"; };
 		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
@@ -276,6 +284,7 @@
 				2C09E3D729F6D0630082B774 /* GameController.swift */,
 				2C3AD5952B0FA6F100538897 /* Computer */,
 				2C3AD5942B0FA6E200538897 /* Connection */,
+				2C7E80C729FC3B3900114943 /* View Models */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -297,6 +306,17 @@
 				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
 			);
 			path = Computer;
+			sourceTree = "<group>";
+		};
+		2C3AD59E2B0FABD300538897 /* Game Input */ = {
+			isa = PBXGroup;
+			children = (
+				2C3AD5962B0FAAF500538897 /* MonsGameInput.swift */,
+				2C3AD5982B0FAB0300538897 /* MonsGameOutput.swift */,
+				2C3AD59C2B0FAB7200538897 /* MonsGameEvent.swift */,
+				2C3AD59A2B0FAB6300538897 /* MonsGameNextInput.swift */,
+			);
+			path = "Game Input";
 			sourceTree = "<group>";
 		};
 		2C7E80C729FC3B3900114943 /* View Models */ = {
@@ -415,8 +435,8 @@
 				2C01C6A029CAF4D500A25465 /* MonsGame.swift */,
 				2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */,
 				2C7E80CD29FC54B300114943 /* Config.swift */,
+				2C3AD59E2B0FABD300538897 /* Game Input */,
 				2CB6D3AC29F730A300605255 /* Models */,
-				2C7E80C729FC3B3900114943 /* View Models */,
 			);
 			path = "Game Logic";
 			sourceTree = "<group>";
@@ -691,11 +711,13 @@
 			files = (
 				2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */,
 				2CB6D3AE29F730B200605255 /* Item.swift in Sources */,
+				2C3AD59D2B0FAB7200538897 /* MonsGameEvent.swift in Sources */,
 				2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */,
 				2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */,
 				2CC4FBE029F6C69200A90CDD /* String.swift in Sources */,
 				2C27AFD92A115B77003C959D /* Trace.swift in Sources */,
 				2C0255272A0EA1EF00CB1808 /* PlayerMatch.swift in Sources */,
+				2C3AD5992B0FAB0300538897 /* MonsGameOutput.swift in Sources */,
 				2C0255292A0EA27700CB1808 /* Codable.swift in Sources */,
 				2CB6D3B029F730E500605255 /* Color.swift in Sources */,
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
@@ -712,6 +734,7 @@
 				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
 				2C3AD5922B0FA4F600538897 /* MonsGame+Helpers.swift in Sources */,
 				2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */,
+				2C3AD59B2B0FAB6300538897 /* MonsGameNextInput.swift in Sources */,
 				2C01C6A629CB4AB700A25465 /* MonsGame.swift in Sources */,
 				2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */,
 				2C27AFDF2A12DEBB003C959D /* WaveView.swift in Sources */,
@@ -722,6 +745,7 @@
 				2CD3027A2A099124009DFCC2 /* CircleCutoutView.swift in Sources */,
 				2CB6D3B629F7311500605255 /* Consumable.swift in Sources */,
 				2CC39E8029CA48B200EDF779 /* AppDelegate.swift in Sources */,
+				2C3AD5972B0FAAF500538897 /* MonsGameInput.swift in Sources */,
 				2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */,
 				2C27AFDD2A11949D003C959D /* BoardItemView.swift in Sources */,
 				2CC770BF29FA9CEE00A59BEF /* BoardView.swift in Sources */,
