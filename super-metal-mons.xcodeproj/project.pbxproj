@@ -33,7 +33,6 @@
 		2C27AFDF2A12DEBB003C959D /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDE2A12DEBB003C959D /* WaveView.swift */; };
 		2C38121E2B0620AD000FDE18 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C38121D2B0620AD000FDE18 /* Haptic.swift */; };
 		2C3812222B064CAC000FDE18 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812212B064CAC000FDE18 /* README.md */; };
-		2C3812272B065F71000FDE18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */; };
 		2C3AD5922B0FA4F600538897 /* MonsGame+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5912B0FA4F600538897 /* MonsGame+Helpers.swift */; };
 		2C3AD5972B0FAAF500538897 /* MonsGameInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5962B0FAAF500538897 /* MonsGameInput.swift */; };
 		2C3AD5992B0FAB0300538897 /* MonsGameOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5982B0FAB0300538897 /* MonsGameOutput.swift */; };
@@ -580,6 +579,7 @@
 			buildPhases = (
 				2CC39E7829CA48B200EDF779 /* Sources */,
 				2CC39E7929CA48B200EDF779 /* Frameworks */,
+				2C9888702B136ABD00AE045C /* ShellScript */,
 				2CC39E7A29CA48B200EDF779 /* Resources */,
 			);
 			buildRules = (
@@ -656,7 +656,6 @@
 				2CC39E8C29CA48B300EDF779 /* LaunchScreen.storyboard in Resources */,
 				2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */,
 				2CD302762A097286009DFCC2 /* click.wav in Resources */,
-				2C3812272B065F71000FDE18 /* GoogleService-Info.plist in Resources */,
 				2CDB1AE929EEF48E00C51230 /* scoreSupermana.wav in Resources */,
 				2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */,
 				2CFA889D2B029F5800F99723 /* yo2.wav in Resources */,
@@ -703,6 +702,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2C9888702B136ABD00AE045C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$SRCROOT/super-metal-mons/Supporting Files/GoogleService-Info.plist",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${HOME}/Developer/secrets/mons/GoogleService-Info.plist\" ]; then\n    cp -f \"${HOME}/Developer/secrets/mons/GoogleService-Info.plist\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist\"\nelse\n    echo \"warning: 🟢🔴 YO BUNDLING EMPTY SECRETS\"\n    cp -f \"$SRCROOT/super-metal-mons/Supporting Files/GoogleService-Info.plist\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2CC39E7829CA48B200EDF779 /* Sources */ = {
