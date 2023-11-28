@@ -500,11 +500,20 @@ class GameViewController: UIViewController, GameView {
     }
     
     func didWin(color: Color) {
-        let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
+        let alert = UIAlertController(title: (color == .white ? "⚪️" : "⚫️") + "🏅", message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             self?.endGame()
         }
+        let rematchAction = UIAlertAction(title: "🔄 " + Strings.rematch, style: .default) { [weak self] _ in
+            self?.rematch()
+        }
+#if targetEnvironment(macCatalyst)
+        alert.addAction(rematchAction)
         alert.addAction(okAction)
+#else
+        alert.addAction(okAction)
+        alert.addAction(rematchAction)
+#endif
         present(alert, animated: true)
     }
     
