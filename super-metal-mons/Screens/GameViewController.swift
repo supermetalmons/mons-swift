@@ -115,7 +115,10 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func rematch() {
-        // TODO: will be different for remote games
+        // TODO: implement for remote game
+
+        // ok yeah this might be different when it-s mid-game rematch and when it's after game rematch
+        
         let versusComputer = controller.versusComputer
         let newController = GameController(mode: .localGame)
         self.controller = newController
@@ -508,11 +511,11 @@ class GameViewController: UIViewController, GameView {
             self?.rematch()
         }
 #if targetEnvironment(macCatalyst)
-        alert.addAction(rematchAction)
+        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
         alert.addAction(okAction)
 #else
         alert.addAction(okAction)
-        alert.addAction(rematchAction)
+        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
 #endif
         present(alert, animated: true)
     }
