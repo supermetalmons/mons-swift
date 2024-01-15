@@ -5,7 +5,7 @@ import Foundation
 struct PlayerMatch: Codable {
     
     enum Status: String, Codable {
-        case waiting, playing, surrendered, victory, defeat
+        case waiting, playing, surrendered, victory, defeat, suggestedRematch, acceptedRematch, canceledRematch
     }
     
     let color: Color

@@ -115,7 +115,10 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func rematch() {
-        // TODO: will be different for remote games
+        // TODO: implement for remote game
+
+        // ok yeah this might be different when it-s mid-game rematch and when it's after game rematch
+        
         let versusComputer = controller.versusComputer
         let newController = GameController(mode: .localGame)
         self.controller = newController
@@ -500,11 +503,20 @@ class GameViewController: UIViewController, GameView {
     }
     
     func didWin(color: Color) {
-        let alert = UIAlertController(title: color == .white ? "⚪️" : "⚫️", message: Strings.allDone, preferredStyle: .alert)
+        let alert = UIAlertController(title: (color == .white ? "⚪️" : "⚫️") + "🏅", message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Strings.ok, style: .default) { [weak self] _ in
             self?.endGame()
         }
+        let rematchAction = UIAlertAction(title: "🔄 " + Strings.rematch, style: .default) { [weak self] _ in
+            self?.rematch()
+        }
+#if targetEnvironment(macCatalyst)
+        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
         alert.addAction(okAction)
+#else
+        alert.addAction(okAction)
+        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
+#endif
         present(alert, animated: true)
     }
     
