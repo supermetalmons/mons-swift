@@ -1,4 +1,4 @@
-// Copyright © 2023 super metal mons. All rights reserved.
+// ∅ 2024 super-metal-mons
 
 import FirebaseCore
 import FirebaseAuth
