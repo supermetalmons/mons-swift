@@ -1,9 +1,4 @@
-# [👉 moved repo here 👈](https://github.com/supermetalmons/super-metal-mons-swift)
-# 🛑🛑🛑
-# 🛑🛑🛑
-# 🛑🛑🛑
-
-## super-metal-mons-swift
+# super-metal-mons-swift
 [super metal mons base game 1](https://x.com/supermetalx/status/1637955176035241984)
 
 ios / macos
