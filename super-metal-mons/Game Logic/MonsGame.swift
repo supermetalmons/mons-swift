@@ -83,7 +83,7 @@ extension MonsGame {
         guard !input.isEmpty else {
             var suggestedLocations = [Location]()
             
-            func findValidLocations(in locations: [Location]) {
+            func findValidStartLocations(in locations: [Location]) {
                 for location in locations {
                     let output = processInput([.location(location)], doNotApply: doNotApply, doNotLookForAllOptions: true)
                     if case let .nextInputOptions(options) = output, !options.isEmpty {
@@ -92,10 +92,10 @@ extension MonsGame {
                 }
             }
             
-            findValidLocations(in: board.allMonsLocations(color: activeColor))
+            findValidStartLocations(in: board.allMonsLocations(color: activeColor))
             
             if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
-                findValidLocations(in: board.allFreeRegularManaLocations(color: activeColor))
+                findValidStartLocations(in: board.allFreeRegularManaLocations(color: activeColor))
             }
             
             if suggestedLocations.isEmpty {
