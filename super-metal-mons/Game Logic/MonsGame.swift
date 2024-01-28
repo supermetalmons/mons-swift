@@ -83,7 +83,7 @@ class MonsGame: NSObject {
         }
         
         for location in locations {
-            let output = processInput([.location(location)], doNotApplyEvents: true, doNotLookForAllOptions: true)
+            let output = processInput([.location(location)], doNotApplyEvents: true)
             if case let .nextInputOptions(options) = output, !options.isEmpty {
                 suggestedLocations.append(location)
             }
@@ -96,42 +96,15 @@ class MonsGame: NSObject {
         }
     }
     
-    // MARK: - process input and apply events
-    
-    func processInput(_ input: [Input], doNotApplyEvents: Bool, doNotLookForAllOptions: Bool = false) -> Output {
-        guard winnerColor == nil else { return .invalidInput }
-        guard !input.isEmpty else { return suggestedInputToStartWith() }
-        
-        guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else {
-            return .invalidInput
-        }
-        
+    func secondInputOptions(startLocation: Location, startItem: Item) -> [NextInput] {
         let startSquare = board.square(at: startLocation)
-        var nextInputOptions = [NextInput]()
-        
-        func findValidLocations(_ locations: [Location], kind: NextInput.Kind, filter: ((Location) -> Bool)) {
-            if doNotLookForAllOptions && !nextInputOptions.isEmpty { return }
-            
-            let filtered: [Location]
-            if doNotLookForAllOptions {
-                if let first = locations.first(where: filter) {
-                    filtered = [first]
-                } else {
-                    filtered = []
-                }
-            } else {
-                filtered = locations.filter(filter)
-            }
-            
-            nextInputOptions.append(contentsOf: filtered.map { NextInput(input: .location($0), kind: kind) })
-        }
-        
+        var secondInputOptions = [NextInput]()
         switch startItem {
         case .mon(let mon):
-            guard mon.color == activeColor, !mon.isFainted else { return .invalidInput }
-            
+            guard mon.color == activeColor, !mon.isFainted else { return [] }
+
             if playerCanMoveMon {
-                findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
+                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -168,7 +141,7 @@ class MonsGame: NSObject {
                 case .angel, .drainer:
                     break
                 case .mystic:
-                    findValidLocations(startLocation.reachableByMysticAction, kind: .mysticAction) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableByMysticAction, kind: .mysticAction) { location -> Bool in
                         guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         
                         switch item {
@@ -183,7 +156,7 @@ class MonsGame: NSObject {
                         return true
                     }
                 case .demon:
-                    findValidLocations(startLocation.reachableByDemonAction, kind: .demonAction) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableByDemonAction, kind: .demonAction) { location -> Bool in
                         guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         let locationBetween = startLocation.locationBetween(another: location)
                         guard board.item(at: locationBetween) == nil else { return false }
@@ -200,7 +173,7 @@ class MonsGame: NSObject {
                         return true
                     }
                 case .spirit:
-                    findValidLocations(startLocation.reachableBySpiritAction, kind: .spiritTargetCapture) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableBySpiritAction, kind: .spiritTargetCapture) { location -> Bool in
                         guard let item = board.item(at: location) else { return false }
                         
                         switch item {
@@ -216,9 +189,9 @@ class MonsGame: NSObject {
             }
             
         case .mana(let mana):
-            guard case let .regular(color) = mana, color == activeColor, playerCanMoveMana else { return .invalidInput }
+            guard case let .regular(color) = mana, color == activeColor, playerCanMoveMana else { return [] }
             
-            findValidLocations(startLocation.nearbyLocations, kind: .manaMove) { location in
+            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .manaMove) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -244,9 +217,9 @@ class MonsGame: NSObject {
             }
             
         case .monWithMana(let mon, let mana):
-            guard mon.color == activeColor, playerCanMoveMon else { return .invalidInput }
+            guard mon.color == activeColor, playerCanMoveMon else { return [] }
             
-            findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
+            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -270,10 +243,10 @@ class MonsGame: NSObject {
             }
                         
         case .monWithConsumable(let mon, let consumable):
-            guard mon.color == activeColor else { return .invalidInput }
+            guard mon.color == activeColor else { return [] }
             
             if playerCanMoveMon {
-                findValidLocations(startLocation.nearbyLocations, kind: .monMove) { location in
+                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -296,7 +269,7 @@ class MonsGame: NSObject {
             }
             
             if case .bomb = consumable {
-                findValidLocations(startLocation.reachableByBomb, kind: .bombAttack) { location -> Bool in
+                secondInputOptions += nextInputs(startLocation.reachableByBomb, kind: .bombAttack) { location -> Bool in
                     guard let item = board.item(at: location) else { return false }
                     
                     switch item {
@@ -312,35 +285,27 @@ class MonsGame: NSObject {
                 }
             }
         case .consumable:
-            return .invalidInput
-        }
-                
-        guard input.count > 1 else {
-            if nextInputOptions.isEmpty {
-                return .invalidInput
-            } else {
-                return .nextInputOptions(nextInputOptions)
-            }
+            return []
         }
         
-        let secondInput = input[1]
-        guard case let .location(targetLocation) = secondInput else { return .invalidInput }
-        guard let option = nextInputOptions.first(where: { $0.input == secondInput }) else { return .invalidInput }
-        
-        nextInputOptions = []
+        return secondInputOptions
+    }
+    
+    func processSecondInput(kind: NextInput.Kind, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+        var thirdInputOptions = [NextInput]()
         var events = [Event]()
         let targetSquare = board.square(at: targetLocation)
         let targetItem = board.item(at: targetLocation)
         
-        switch option.kind {
+        switch kind {
         case .monMove:
-            guard let startMon = startItem.mon else { return .invalidInput }
+            guard let startMon = startItem.mon else { return nil }
             events.append(.monMove(item: startItem, from: startLocation, to: targetLocation))
             
             if let targetItem = targetItem {
                 switch targetItem {
                 case .mon, .monWithMana, .monWithConsumable:
-                    return .invalidInput
+                    return nil
                 case .mana(let mana):
                     if let startMana = startItem.mana {
                         if case .supermana = startMana {
@@ -353,12 +318,12 @@ class MonsGame: NSObject {
                 case .consumable(let consumable):
                     switch consumable {
                     case .potion, .bomb:
-                        return .invalidInput
+                        return nil
                     case .bombOrPotion:
                         if startItem.consumable != nil || startItem.mana != nil {
                             events.append(.pickupPotion(by: startItem, at: targetLocation))
                         } else {
-                            nextInputOptions = [
+                            thirdInputOptions = [
                                 NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: startItem),
                                 NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: startItem)
                             ]
@@ -377,7 +342,7 @@ class MonsGame: NSObject {
             }
             
         case .manaMove:
-            guard case let .mana(mana) = startItem else { return .invalidInput }
+            guard case let .mana(mana) = startItem else { return nil }
             events.append(.manaMove(mana: mana, from: startLocation, to: targetLocation))
             
             if let targetItem = targetItem {
@@ -385,7 +350,7 @@ class MonsGame: NSObject {
                 case .mon(let mon):
                     events.append(.pickupMana(mana: mana, by: mon, at: targetLocation))
                 case .mana, .consumable, .monWithMana, .monWithConsumable:
-                    return .invalidInput
+                    return nil
                 }
             }
             
@@ -395,10 +360,10 @@ class MonsGame: NSObject {
             case .manaPool:
                 events.append(.manaScored(mana: mana, at: targetLocation))
             case .monBase, .supermanaBase:
-                return .invalidInput
+                return nil
             }
         case .mysticAction:
-            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return nil }
             events.append(.mysticAction(mystic: startMon, from: startLocation, to: targetLocation))
             
             switch targetItem {
@@ -417,22 +382,22 @@ class MonsGame: NSObject {
                 events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
                 switch consumable {
                 case .potion, .bombOrPotion:
-                    return .invalidInput
+                    return nil
                 case .bomb:
                     events.append(.bombExplosion(at: targetLocation))
                 }
             case .consumable, .mana:
-                return .invalidInput
+                return nil
             }
             
         case .demonAction:
-            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return nil }
             events.append(.demonAction(demon: startMon, from: startLocation, to: targetLocation))
             var requiresAdditionalStep = false
       
             switch targetItem {
             case .mana, .consumable:
-                return .invalidInput
+                return nil
             case .mon(let targetMon):
                 events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
             case .monWithMana(let targetMon, let mana):
@@ -448,7 +413,7 @@ class MonsGame: NSObject {
                 events.append(.monFainted(mon: targetMon, from: targetLocation, to: board.base(mon: targetMon)))
                 switch consumable {
                 case .potion, .bombOrPotion:
-                    return .invalidInput
+                    return nil
                 case .bomb:
                     events.append(.bombExplosion(at: targetLocation))
                     events.append(.monFainted(mon: startMon, from: targetLocation, to: board.base(mon: startMon)))
@@ -463,7 +428,7 @@ class MonsGame: NSObject {
             }
             
             if requiresAdditionalStep {
-                findValidLocations(targetLocation.nearbyLocations, kind: .demonAdditionalStep) { location in
+                thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .demonAdditionalStep) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -488,11 +453,10 @@ class MonsGame: NSObject {
             }
             
         case .spiritTargetCapture:
-            guard let targetItem = targetItem else { return .invalidInput }
+            guard let targetItem = targetItem else { return nil }
             let targetMon = targetItem.mon
             let targetMana = targetItem.mana
-            
-            findValidLocations(targetLocation.nearbyLocations, kind: .spiritTargetMove) { location in
+            thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .spiritTargetMove) { location in
                 let destinationItem = board.item(at: location)
                 let destinationSquare = board.square(at: location)
                 
@@ -576,7 +540,7 @@ class MonsGame: NSObject {
             }
             
         case .bombAttack:
-            guard let startMon = startItem.mon, let targetItem = targetItem else { return .invalidInput }
+            guard let startMon = startItem.mon, let targetItem = targetItem else { return nil }
             events.append(.bombAttack(by: startMon, from: startLocation, to: targetLocation))
             
             switch targetItem {
@@ -594,37 +558,31 @@ class MonsGame: NSObject {
                 events.append(.monFainted(mon: mon, from: targetLocation, to: board.base(mon: mon)))
                 switch consumable {
                 case .potion, .bombOrPotion:
-                    return .invalidInput
+                    return nil
                 case .bomb:
                     events.append(.bombExplosion(at: targetLocation))
                 }
             case .mana, .consumable:
-                return .invalidInput
+                return nil
             }
 
         case .spiritTargetMove, .demonAdditionalStep, .selectConsumable:
-            return .invalidInput
+            return nil
         }
         
-        guard input.count > 2 else {
-            if !nextInputOptions.isEmpty {
-                return .nextInputOptions(nextInputOptions)
-            } else if !events.isEmpty {
-                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
-            } else {
-                return .invalidInput
-            }
-        }
+        return (events, thirdInputOptions)
+    }
+    
+    func processThirdInput(_ thirdInput: NextInput, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+        let targetItem = board.item(at: targetLocation)
+        var forthInputOptions = [NextInput]()
+        var events = [Event]()
         
-        let thirdInput = input[2]
-        guard let option = nextInputOptions.first(where: { $0.input == thirdInput }) else { return .invalidInput }
-        nextInputOptions = []
-                
-        switch option.kind {
+        switch thirdInput.kind {
         case .monMove, .manaMove, .mysticAction, .demonAction, .spiritTargetCapture, .bombAttack:
-            return .invalidInput
+            return nil
         case .spiritTargetMove:
-            guard case let .location(destinationLocation) = thirdInput, let targetItem = targetItem else { return .invalidInput }
+            guard case let .location(destinationLocation) = thirdInput.input, let targetItem = targetItem else { return nil }
             let destinationItem = board.item(at: destinationLocation)
             let destinationSquare = board.square(at: destinationLocation)
             
@@ -636,15 +594,15 @@ class MonsGame: NSObject {
                 case .mon(let travellingMon):
                     switch destinationItem {
                     case .mon, .monWithMana, .monWithConsumable:
-                        return .invalidInput
+                        return nil
                     case .mana(let destinationMana):
                         events.append(.pickupMana(mana: destinationMana, by: travellingMon, at: destinationLocation))
                     case .consumable(let destinationConsumable):
                         switch destinationConsumable {
                         case .potion, .bomb:
-                            return .invalidInput
+                            return nil
                         case .bombOrPotion:
-                            nextInputOptions = [
+                            forthInputOptions = [
                                 NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: targetItem),
                                 NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: targetItem)
                             ]
@@ -654,7 +612,7 @@ class MonsGame: NSObject {
                 case .mana(let travellingMana):
                     switch destinationItem {
                     case .mana, .monWithMana, .monWithConsumable, .consumable:
-                        return .invalidInput
+                        return nil
                     case .mon(let destinationMon):
                         events.append(.pickupMana(mana: travellingMana, by: destinationMon, at: destinationLocation))
                     }
@@ -662,11 +620,11 @@ class MonsGame: NSObject {
                 case .monWithMana:
                     switch destinationItem {
                     case .mon, .mana, .monWithMana, .monWithConsumable:
-                        return .invalidInput
+                        return nil
                     case .consumable(let destinationConsumable):
                         switch destinationConsumable {
                         case .potion, .bomb:
-                            return .invalidInput
+                            return nil
                         case .bombOrPotion:
                             events.append(.pickupPotion(by: targetItem, at: destinationLocation))
                         }
@@ -675,11 +633,11 @@ class MonsGame: NSObject {
                 case .monWithConsumable:
                     switch destinationItem {
                     case .mon, .mana, .monWithMana, .monWithConsumable:
-                        return .invalidInput
+                        return nil
                     case .consumable(let destinationConsumable):
                         switch destinationConsumable {
                         case .potion, .bomb:
-                            return .invalidInput
+                            return nil
                         case .bombOrPotion:
                             events.append(.pickupPotion(by: targetItem, at: destinationLocation))
                         }
@@ -688,16 +646,16 @@ class MonsGame: NSObject {
                 case .consumable(let travellingConsumable):
                     switch destinationItem {
                     case .mana, .consumable:
-                        return .invalidInput
+                        return nil
                     case .mon:
-                        nextInputOptions = [
+                        forthInputOptions = [
                             NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: destinationItem),
                             NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: destinationItem)
                         ]
                     case .monWithMana, .monWithConsumable:
                         switch travellingConsumable {
                         case .potion, .bomb:
-                            return .invalidInput
+                            return nil
                         case .bombOrPotion:
                             events.append(.pickupPotion(by: destinationItem, at: destinationLocation))
                         }
@@ -711,15 +669,15 @@ class MonsGame: NSObject {
             }
             
         case .demonAdditionalStep:
-            guard case let .location(destinationLocation) = thirdInput, let demon = startItem.mon else { return .invalidInput }
+            guard case let .location(destinationLocation) = thirdInput.input, let demon = startItem.mon else { return nil }
             events.append(.demonAdditionalStep(demon: demon, from: targetLocation, to: destinationLocation))
             
             if let item = board.item(at: destinationLocation), case .consumable(let consumable) = item {
                 switch consumable {
                 case .potion, .bomb:
-                    return .invalidInput
+                    return nil
                 case .bombOrPotion:
-                    nextInputOptions = [
+                    forthInputOptions = [
                         NextInput(input: Input.modifier(.selectBomb), kind: .selectConsumable, actorMonItem: startItem),
                         NextInput(input: Input.modifier(.selectPotion), kind: .selectConsumable, actorMonItem: startItem)
                     ]
@@ -727,20 +685,47 @@ class MonsGame: NSObject {
             }
             
         case .selectConsumable:
-            guard case let .modifier(modifier) = thirdInput, let mon = startItem.mon else { return .invalidInput }
+            guard case let .modifier(modifier) = thirdInput.input, let mon = startItem.mon else { return nil }
             switch modifier {
             case .selectBomb:
                 events.append(.pickupBomb(by: mon, at: targetLocation))
             case .selectPotion:
                 events.append(.pickupPotion(by: startItem, at: targetLocation))
             case .cancel:
-                return .invalidInput
+                return nil
             }
         }
         
-        guard input.count > 3 else {
-            if !nextInputOptions.isEmpty {
-                return .nextInputOptions(nextInputOptions)
+        return (events, forthInputOptions)
+    }
+    
+    // MARK: - process input and apply events
+    
+    func processInput(_ input: [Input], doNotApplyEvents: Bool) -> Output {
+        guard winnerColor == nil else { return .invalidInput }
+        guard !input.isEmpty else { return suggestedInputToStartWith() }
+        guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
+        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem)
+        
+        guard input.count > 1 else {
+            if secondInputOptions.isEmpty {
+                return .invalidInput
+            } else {
+                return .nextInputOptions(secondInputOptions)
+            }
+        }
+        
+        let secondInput = input[1]
+        guard case let .location(targetLocation) = secondInput else { return .invalidInput }
+        guard let secondInputKind = secondInputOptions.first(where: { $0.input == secondInput })?.kind else { return .invalidInput }
+        
+        let outputForSecondInput = processSecondInput(kind: secondInputKind, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        let thirdInputOptions = outputForSecondInput?.1 ?? []
+        var events = outputForSecondInput?.0 ?? []
+        
+        guard input.count > 2 else {
+            if !thirdInputOptions.isEmpty {
+                return .nextInputOptions(thirdInputOptions)
             } else if !events.isEmpty {
                 return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
             } else {
@@ -748,12 +733,31 @@ class MonsGame: NSObject {
             }
         }
         
-        let forthInput = input[3]
+        guard let thirdInput = thirdInputOptions.first(where: { $0.input == input[2] }) else { return .invalidInput }
+         
+        let outputForThirdInput = processThirdInput(thirdInput, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        let forthInputOptions = outputForThirdInput?.1 ?? []
+        events += (outputForThirdInput?.0 ?? [])
         
-        guard case let .modifier(modifier) = forthInput else { return .invalidInput }
-        guard nextInputOptions.contains(where: { $0.input == forthInput }),
-              case let .location(destinationLocation) = thirdInput,
-              let actorMonItem = nextInputOptions.last?.actorMonItem, let actorMon = actorMonItem.mon else { return .invalidInput }
+        guard input.count > 3 else {
+            guard outputForThirdInput != nil else { return .invalidInput }
+            if !forthInputOptions.isEmpty {
+                return .nextInputOptions(forthInputOptions)
+            } else if !events.isEmpty {
+                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
+            } else {
+                return .invalidInput
+            }
+        }
+        
+        guard case let .modifier(modifier) = input[3] else { return .invalidInput }
+        guard let forthInput = forthInputOptions.first(where: { $0.input == input[3] }),
+              case let .location(destinationLocation) = thirdInput.input,
+              let actorMonItem = forthInput.actorMonItem,
+              let actorMon = actorMonItem.mon
+        else {
+            return .invalidInput
+        }
         
         switch modifier {
         case .selectBomb:
@@ -763,7 +767,6 @@ class MonsGame: NSObject {
         case .cancel:
             return .invalidInput
         }
-        
         return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
     }
     
@@ -878,6 +881,10 @@ class MonsGame: NSObject {
     }
     
     // MARK: - helpers
+    
+    func nextInputs(_ locations: [Location], kind: NextInput.Kind, filter: ((Location) -> Bool)) -> [NextInput] {
+        return locations.compactMap { filter($0) ? NextInput(input: .location($0), kind: kind) : nil }
+    }
     
     var availableMoveKinds: [AvailableMoveKind: Int] {
         var moves: [AvailableMoveKind: Int] = [
