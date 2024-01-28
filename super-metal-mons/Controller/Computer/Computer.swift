@@ -16,7 +16,7 @@ class Computer {
         strategist = minMaxStrategist
     }
     
-    func bestMoveForActivePlayer(completion: @escaping (([MonsGame.Input]) -> Void)) {
+    func bestMoveForActivePlayer(completion: @escaping (([Input]) -> Void)) {
         queue.async { [weak self] in
             let inputs = (self?.strategist.bestMoveForActivePlayer() as? ComputerMove)?.resultingInputs ?? []
             completion(inputs)
@@ -43,9 +43,9 @@ fileprivate class ComputerMove: NSObject, GKGameModelUpdate {
     
     var value: Int = 0
     
-    let resultingInputs: [MonsGame.Input]
+    let resultingInputs: [Input]
     
-    init(resultingInputs: [MonsGame.Input]) {
+    init(resultingInputs: [Input]) {
         self.resultingInputs = resultingInputs
     }
     
@@ -66,9 +66,9 @@ extension MonsGame: GKGameModel {
         updateWith(otherGame: otherGame)
     }
         
-    private func allNextMoves(inputs: [MonsGame.Input]) -> [ComputerMove] {
+    private func allNextMoves(inputs: [Input]) -> [ComputerMove] {
         var moves = [ComputerMove]()
-        let output = processInput(inputs, doNotApply: true)
+        let output = processInput(inputs, doNotApplyEvents: true)
         switch output {
         case .invalidInput:
             break
@@ -94,7 +94,7 @@ extension MonsGame: GKGameModel {
     
     func apply(_ gameModelUpdate: GKGameModelUpdate) {
         guard let resultingInputs = (gameModelUpdate as? ComputerMove)?.resultingInputs else { return }
-        _ = processInput(resultingInputs, doNotApply: false)
+        _ = processInput(resultingInputs, doNotApplyEvents: false)
     }
     
     func isWin(for player: GKGameModelPlayer) -> Bool {

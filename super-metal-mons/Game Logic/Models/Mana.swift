@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Mana: Equatable {
+enum Mana: Equatable, Codable, Hashable {
     case regular(color: Color), supermana
     
     func score(for player: Color) -> Int {

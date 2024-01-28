@@ -46,9 +46,7 @@ struct Config {
         Location(5, 5): .supermanaBase,
     ]
     
-}
-
-extension Config {
+    // MARK: - helpers
     
     static let boardCenterIndex = boardSize / 2
     static let maxLocationIndex = boardSize - 1

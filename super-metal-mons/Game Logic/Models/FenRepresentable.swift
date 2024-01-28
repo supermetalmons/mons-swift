@@ -104,12 +104,11 @@ extension Item: FenRepresentable {
     
 }
 
-// TODO: remake / refactor board fen
 extension Board: FenRepresentable {
     
     var fen: String {
         var lines = [String]()
-        var squares: [[Item?]] = Array(repeating: Array(repeating: nil, count: Config.boardSize), count: Config.boardSize) // TODO: remake for sure
+        var squares: [[Item?]] = Array(repeating: Array(repeating: nil, count: Config.boardSize), count: Config.boardSize)
         
         for location in items.keys {
             squares[location.i][location.j] = item(at: location)
@@ -140,11 +139,6 @@ extension Board: FenRepresentable {
         return lines.joined(separator: "/")
     }
     
-    // а откуда вот тут возьмутся виды ячеек?
-    // как-то и так должны из знать по дефолту, потому что пока играем только на одинаковых досках
-    // так что можно завести GameConfig файл, там будут ячейки описаны, но сама игра пусть через доску их аксесит получается
-    // го вообще без суеты про доски других размеров, это максимально не своевремено
-    // делаем для одной доски, не отвлекаемся, константы храним в отдельном файле
     convenience init?(fen: String) {
         let lines = fen.split(separator: "/")
         guard lines.count == Config.boardSize else { return nil }

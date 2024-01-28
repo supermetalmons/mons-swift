@@ -26,10 +26,8 @@ class Board {
         return Config.squares[location] ?? .regular
     }
     
-}
-
-extension Board {
-    
+    // MARK: - helpers
+ 
     var allMonsBases: [Location] {
         return Config.squares.compactMap { location, square -> (Location?) in
             if case .monBase = square {
