@@ -78,7 +78,8 @@ class MonsGame: NSObject {
         guard winnerColor == nil else { return .invalidInput }
         guard !input.isEmpty else { return suggestedInputToStartWith() }
         guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
-        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem)
+        let oneSecondOptionIsEnough = input.count == 1 && doNotApplyEvents
+        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem, onlyOne: oneSecondOptionIsEnough)
         
         guard input.count > 1 else {
             if secondInputOptions.isEmpty {
@@ -167,7 +168,8 @@ class MonsGame: NSObject {
         }
     }
     
-    private func secondInputOptions(startLocation: Location, startItem: Item) -> [NextInput] {
+    private func secondInputOptions(startLocation: Location, startItem: Item, onlyOne: Bool) -> [NextInput] {
+        // TODO: use allOptions — stop searching right away when there is a result
         let startSquare = board.square(at: startLocation)
         var secondInputOptions = [NextInput]()
         switch startItem {
@@ -175,7 +177,7 @@ class MonsGame: NSObject {
             guard mon.color == activeColor, !mon.isFainted else { return [] }
 
             if playerCanMoveMon {
-                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
+                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove, onlyOne: onlyOne) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -212,7 +214,7 @@ class MonsGame: NSObject {
                 case .angel, .drainer:
                     break
                 case .mystic:
-                    secondInputOptions += nextInputs(startLocation.reachableByMysticAction, kind: .mysticAction) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableByMysticAction, kind: .mysticAction, onlyOne: onlyOne) { location -> Bool in
                         guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         
                         switch item {
@@ -227,7 +229,7 @@ class MonsGame: NSObject {
                         return true
                     }
                 case .demon:
-                    secondInputOptions += nextInputs(startLocation.reachableByDemonAction, kind: .demonAction) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableByDemonAction, kind: .demonAction, onlyOne: onlyOne) { location -> Bool in
                         guard let item = board.item(at: location), !protectedByOpponentsAngel.contains(location) else { return false }
                         let locationBetween = startLocation.locationBetween(another: location)
                         guard board.item(at: locationBetween) == nil else { return false }
@@ -244,7 +246,7 @@ class MonsGame: NSObject {
                         return true
                     }
                 case .spirit:
-                    secondInputOptions += nextInputs(startLocation.reachableBySpiritAction, kind: .spiritTargetCapture) { location -> Bool in
+                    secondInputOptions += nextInputs(startLocation.reachableBySpiritAction, kind: .spiritTargetCapture, onlyOne: onlyOne) { location -> Bool in
                         guard let item = board.item(at: location) else { return false }
                         
                         switch item {
@@ -262,7 +264,7 @@ class MonsGame: NSObject {
         case .mana(let mana):
             guard case let .regular(color) = mana, color == activeColor, playerCanMoveMana else { return [] }
             
-            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .manaMove) { location in
+            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .manaMove, onlyOne: onlyOne) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -290,7 +292,7 @@ class MonsGame: NSObject {
         case .monWithMana(let mon, let mana):
             guard mon.color == activeColor, playerCanMoveMon else { return [] }
             
-            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
+            secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove, onlyOne: onlyOne) { location in
                 let item = board.item(at: location)
                 let square = board.square(at: location)
                 
@@ -317,7 +319,7 @@ class MonsGame: NSObject {
             guard mon.color == activeColor else { return [] }
             
             if playerCanMoveMon {
-                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove) { location in
+                secondInputOptions += nextInputs(startLocation.nearbyLocations, kind: .monMove, onlyOne: onlyOne) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -340,7 +342,7 @@ class MonsGame: NSObject {
             }
             
             if case .bomb = consumable {
-                secondInputOptions += nextInputs(startLocation.reachableByBomb, kind: .bombAttack) { location -> Bool in
+                secondInputOptions += nextInputs(startLocation.reachableByBomb, kind: .bombAttack, onlyOne: onlyOne) { location -> Bool in
                     guard let item = board.item(at: location) else { return false }
                     
                     switch item {
@@ -499,7 +501,7 @@ class MonsGame: NSObject {
             }
             
             if requiresAdditionalStep {
-                thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .demonAdditionalStep) { location in
+                thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .demonAdditionalStep, onlyOne: false) { location in
                     let item = board.item(at: location)
                     let square = board.square(at: location)
                     
@@ -527,7 +529,7 @@ class MonsGame: NSObject {
             guard let targetItem = targetItem else { return nil }
             let targetMon = targetItem.mon
             let targetMana = targetItem.mana
-            thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .spiritTargetMove) { location in
+            thirdInputOptions += nextInputs(targetLocation.nearbyLocations, kind: .spiritTargetMove, onlyOne: false) { location in
                 let destinationItem = board.item(at: location)
                 let destinationSquare = board.square(at: location)
                 
@@ -884,8 +886,16 @@ class MonsGame: NSObject {
     
     // MARK: - helpers
     
-    func nextInputs(_ locations: [Location], kind: NextInput.Kind, filter: ((Location) -> Bool)) -> [NextInput] {
-        return locations.compactMap { filter($0) ? NextInput(input: .location($0), kind: kind) : nil }
+    func nextInputs(_ locations: [Location], kind: NextInput.Kind, onlyOne: Bool, filter: ((Location) -> Bool)) -> [NextInput] {
+        if onlyOne {
+            if let one = locations.first(where: filter) {
+                return [NextInput(input: .location(one), kind: kind) ]
+            } else {
+                return []
+            }
+        } else {
+            return locations.compactMap { filter($0) ? NextInput(input: .location($0), kind: kind) : nil }
+        }
     }
     
     var availableMoveKinds: [AvailableMoveKind: Int] {
