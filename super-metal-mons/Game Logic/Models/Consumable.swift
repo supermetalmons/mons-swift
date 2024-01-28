@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Consumable: String {
+enum Consumable: String, Codable, Hashable {
     case potion
     case bomb
     case bombOrPotion

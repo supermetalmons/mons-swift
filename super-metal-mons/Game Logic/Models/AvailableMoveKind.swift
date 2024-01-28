@@ -2,6 +2,6 @@
 
 import Foundation
 
-enum AvailableMoveKind: String {
+enum AvailableMoveKind: String, Codable {
     case monMove, manaMove, action, potion
 }
