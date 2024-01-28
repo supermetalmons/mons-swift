@@ -71,13 +71,10 @@ class MonsGame: NSObject {
         
         turnNumber = otherGame.turnNumber
     }
-   
-}
 
-
-extension MonsGame {
+    // MARK: - process input and apply events
     
-    func processInput(_ input: [Input], doNotApply: Bool, doNotLookForAllOptions: Bool = false) -> Output {
+    func processInput(_ input: [Input], doNotApplyEvents: Bool, doNotLookForAllOptions: Bool = false) -> Output {
         guard winnerColor == nil else { return .invalidInput }
         
         guard !input.isEmpty else {
@@ -85,7 +82,7 @@ extension MonsGame {
             
             func findValidStartLocations(in locations: [Location]) {
                 for location in locations {
-                    let output = processInput([.location(location)], doNotApply: doNotApply, doNotLookForAllOptions: true)
+                    let output = processInput([.location(location)], doNotApplyEvents: doNotApplyEvents, doNotLookForAllOptions: true)
                     if case let .nextInputOptions(options) = output, !options.isEmpty {
                         suggestedLocations.append(location)
                     }
@@ -613,7 +610,7 @@ extension MonsGame {
             if !nextInputOptions.isEmpty {
                 return .nextInputOptions(nextInputOptions)
             } else if !events.isEmpty {
-                return .events(apply(events: events, doNot: doNotApply))
+                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
             } else {
                 return .invalidInput
             }
@@ -745,7 +742,7 @@ extension MonsGame {
             if !nextInputOptions.isEmpty {
                 return .nextInputOptions(nextInputOptions)
             } else if !events.isEmpty {
-                return .events(apply(events: events, doNot: doNotApply))
+                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
             } else {
                 return .invalidInput
             }
@@ -767,12 +764,10 @@ extension MonsGame {
             return .invalidInput
         }
         
-        return .events(apply(events: events, doNot: doNotApply))
+        return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
     }
     
-    private func apply(events: [Event], doNot: Bool) -> [Event] {
-        guard !doNot else { return [] }
-        
+    private func applyAndAddResultingEvents(to events: [Event]) -> [Event] {
         func didUseAction() {
             if actionsUsedCount >= Config.actionsPerTurn {
                 switch activeColor {
