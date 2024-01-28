@@ -251,7 +251,7 @@ class GameViewController: UIViewController, GameView {
         }
     }
     
-    private func processInput(_ input: MonsGame.Input) {
+    private func processInput(_ input: Input) {
         let effects = controller.processInput(input)
         applyEffects(effects)
     }

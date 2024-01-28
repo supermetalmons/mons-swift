@@ -65,7 +65,7 @@ class Connection {
         addObserver(id: invitesObserverId, path: invitePath)
     }
     
-    func makeMove(inputs: [MonsGame.Input], newFen: String) {
+    func makeMove(inputs: [Input], newFen: String) {
         myMatch?.fen = newFen
         var moves = myMatch?.moves ?? []
         moves.append(inputs)

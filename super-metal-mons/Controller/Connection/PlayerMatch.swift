@@ -11,7 +11,7 @@ struct PlayerMatch: Codable {
     let color: Color
     var emojiId: Int
     var fen: String
-    var moves: [[MonsGame.Input]]?
+    var moves: [[Input]]?
     var status: Status
     var reaction: Reaction?
     

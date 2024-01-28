@@ -316,11 +316,11 @@ class GameController {
         }
     }
     
-    private var inputs = [MonsGame.Input]()
-    private var cachedOutput: MonsGame.Output?
+    private var inputs = [Input]()
+    private var cachedOutput: Output?
     
     // TODO: refactor
-    private func processRemoteInputs(_ inputs: [MonsGame.Input]) {
+    private func processRemoteInputs(_ inputs: [Input]) {
         self.inputs = inputs
         self.inputs.removeLast()
         let viewEffects = processInput(inputs.last, remoteOrComputerInput: true)
@@ -345,7 +345,7 @@ class GameController {
     private var computer: Computer?
     
     // TODO: refactor
-    func processInput(_ input: MonsGame.Input?, assistedInputKind: AssistedInputKind? = nil, remoteOrComputerInput: Bool = false) -> [ViewEffect] {
+    func processInput(_ input: Input?, assistedInputKind: AssistedInputKind? = nil, remoteOrComputerInput: Bool = false) -> [ViewEffect] {
         guard !isWatchOnly || remoteOrComputerInput else { return [] }
         
         switch mode {
@@ -363,7 +363,7 @@ class GameController {
             inputs.append(input)
         }
         
-        var output: MonsGame.Output
+        var output: Output
         
         if case .localGame = mode, remoteOrComputerInput, inputs.isEmpty {
             if computer == nil { computer = Computer(gameModel: game) }
