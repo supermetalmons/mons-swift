@@ -75,18 +75,18 @@ class MonsGame: NSObject {
     // MARK: - process step by step
     
     func suggestedInputToStartWith() -> Output {
-        var suggestedLocations = [Location]()
-        var locations = board.allMonsLocations(color: activeColor)
-        
-        if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
-            locations.append(contentsOf: board.allFreeRegularManaLocations(color: activeColor))
+        let locationsFilter: ((Location) -> Location?) = { [weak self] location in
+            let output = self?.processInput([.location(location)], doNotApplyEvents: true)
+            if case let .nextInputOptions(options) = output, !options.isEmpty {
+                return location
+            } else {
+                return nil
+            }
         }
         
-        for location in locations {
-            let output = processInput([.location(location)], doNotApplyEvents: true)
-            if case let .nextInputOptions(options) = output, !options.isEmpty {
-                suggestedLocations.append(location)
-            }
+        var suggestedLocations = board.allMonsLocations(color: activeColor).compactMap(locationsFilter)
+        if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
+            suggestedLocations.append(contentsOf: board.allFreeRegularManaLocations(color: activeColor).compactMap(locationsFilter))
         }
         
         if suggestedLocations.isEmpty {
