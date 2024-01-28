@@ -169,7 +169,6 @@ class MonsGame: NSObject {
     }
     
     private func secondInputOptions(startLocation: Location, startItem: Item, onlyOne: Bool) -> [NextInput] {
-        // TODO: use allOptions — stop searching right away when there is a result
         let startSquare = board.square(at: startLocation)
         var secondInputOptions = [NextInput]()
         switch startItem {
@@ -205,6 +204,8 @@ class MonsGame: NSObject {
                         return mon.kind == kind && mon.color == color
                     }
                 }
+                
+                if onlyOne && !secondInputOptions.isEmpty { return secondInputOptions }
             }
             
             if case .monBase = startSquare {
@@ -339,6 +340,8 @@ class MonsGame: NSObject {
                         return false
                     }
                 }
+                
+                if onlyOne && !secondInputOptions.isEmpty { return secondInputOptions }
             }
             
             if case .bomb = consumable {
