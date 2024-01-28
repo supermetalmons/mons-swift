@@ -72,35 +72,35 @@ class MonsGame: NSObject {
         turnNumber = otherGame.turnNumber
     }
 
+    // MARK: - process step by step
+    
+    func suggestedInputToStartWith() -> Output {
+        var suggestedLocations = [Location]()
+        var locations = board.allMonsLocations(color: activeColor)
+        
+        if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
+            locations.append(contentsOf: board.allFreeRegularManaLocations(color: activeColor))
+        }
+        
+        for location in locations {
+            let output = processInput([.location(location)], doNotApplyEvents: true, doNotLookForAllOptions: true)
+            if case let .nextInputOptions(options) = output, !options.isEmpty {
+                suggestedLocations.append(location)
+            }
+        }
+        
+        if suggestedLocations.isEmpty {
+            return .invalidInput
+        } else {
+            return .locationsToStartFrom(suggestedLocations)
+        }
+    }
+    
     // MARK: - process input and apply events
     
     func processInput(_ input: [Input], doNotApplyEvents: Bool, doNotLookForAllOptions: Bool = false) -> Output {
         guard winnerColor == nil else { return .invalidInput }
-        
-        guard !input.isEmpty else {
-            var suggestedLocations = [Location]()
-            
-            func findValidStartLocations(in locations: [Location]) {
-                for location in locations {
-                    let output = processInput([.location(location)], doNotApplyEvents: doNotApplyEvents, doNotLookForAllOptions: true)
-                    if case let .nextInputOptions(options) = output, !options.isEmpty {
-                        suggestedLocations.append(location)
-                    }
-                }
-            }
-            
-            findValidStartLocations(in: board.allMonsLocations(color: activeColor))
-            
-            if (!playerCanMoveMon && !playerCanUseAction || suggestedLocations.isEmpty) && playerCanMoveMana {
-                findValidStartLocations(in: board.allFreeRegularManaLocations(color: activeColor))
-            }
-            
-            if suggestedLocations.isEmpty {
-                return .invalidInput
-            } else {
-                return .locationsToStartFrom(suggestedLocations)
-            }
-        }
+        guard !input.isEmpty else { return suggestedInputToStartWith() }
         
         guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else {
             return .invalidInput
