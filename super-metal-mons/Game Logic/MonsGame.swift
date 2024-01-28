@@ -72,9 +72,80 @@ class MonsGame: NSObject {
         turnNumber = otherGame.turnNumber
     }
 
+    // MARK: - process input
+    
+    func processInput(_ input: [Input], doNotApplyEvents: Bool) -> Output {
+        guard winnerColor == nil else { return .invalidInput }
+        guard !input.isEmpty else { return suggestedInputToStartWith() }
+        guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
+        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem)
+        
+        guard input.count > 1 else {
+            if secondInputOptions.isEmpty {
+                return .invalidInput
+            } else {
+                return .nextInputOptions(secondInputOptions)
+            }
+        }
+        
+        let secondInput = input[1]
+        guard case let .location(targetLocation) = secondInput else { return .invalidInput }
+        guard let secondInputKind = secondInputOptions.first(where: { $0.input == secondInput })?.kind else { return .invalidInput }
+        
+        let outputForSecondInput = processSecondInput(kind: secondInputKind, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        let thirdInputOptions = outputForSecondInput?.1 ?? []
+        var events = outputForSecondInput?.0 ?? []
+        
+        guard input.count > 2 else {
+            if !thirdInputOptions.isEmpty {
+                return .nextInputOptions(thirdInputOptions)
+            } else if !events.isEmpty {
+                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
+            } else {
+                return .invalidInput
+            }
+        }
+        
+        guard let thirdInput = thirdInputOptions.first(where: { $0.input == input[2] }) else { return .invalidInput }
+         
+        let outputForThirdInput = processThirdInput(thirdInput, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        let forthInputOptions = outputForThirdInput?.1 ?? []
+        events += (outputForThirdInput?.0 ?? [])
+        
+        guard input.count > 3 else {
+            guard outputForThirdInput != nil else { return .invalidInput }
+            if !forthInputOptions.isEmpty {
+                return .nextInputOptions(forthInputOptions)
+            } else if !events.isEmpty {
+                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
+            } else {
+                return .invalidInput
+            }
+        }
+        
+        guard case let .modifier(modifier) = input[3] else { return .invalidInput }
+        guard let forthInput = forthInputOptions.first(where: { $0.input == input[3] }),
+              case let .location(destinationLocation) = thirdInput.input,
+              let actorMonItem = forthInput.actorMonItem,
+              let actorMon = actorMonItem.mon
+        else {
+            return .invalidInput
+        }
+        
+        switch modifier {
+        case .selectBomb:
+            events.append(.pickupBomb(by: actorMon, at: destinationLocation))
+        case .selectPotion:
+            events.append(.pickupPotion(by: actorMonItem, at: destinationLocation))
+        case .cancel:
+            return .invalidInput
+        }
+        return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
+    }
+    
     // MARK: - process step by step
     
-    func suggestedInputToStartWith() -> Output {
+    private func suggestedInputToStartWith() -> Output {
         let locationsFilter: ((Location) -> Location?) = { [weak self] location in
             let output = self?.processInput([.location(location)], doNotApplyEvents: true)
             if case let .nextInputOptions(options) = output, !options.isEmpty {
@@ -96,7 +167,7 @@ class MonsGame: NSObject {
         }
     }
     
-    func secondInputOptions(startLocation: Location, startItem: Item) -> [NextInput] {
+    private func secondInputOptions(startLocation: Location, startItem: Item) -> [NextInput] {
         let startSquare = board.square(at: startLocation)
         var secondInputOptions = [NextInput]()
         switch startItem {
@@ -291,7 +362,7 @@ class MonsGame: NSObject {
         return secondInputOptions
     }
     
-    func processSecondInput(kind: NextInput.Kind, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+    private func processSecondInput(kind: NextInput.Kind, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
         var thirdInputOptions = [NextInput]()
         var events = [Event]()
         let targetSquare = board.square(at: targetLocation)
@@ -573,7 +644,7 @@ class MonsGame: NSObject {
         return (events, thirdInputOptions)
     }
     
-    func processThirdInput(_ thirdInput: NextInput, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+    private func processThirdInput(_ thirdInput: NextInput, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
         let targetItem = board.item(at: targetLocation)
         var forthInputOptions = [NextInput]()
         var events = [Event]()
@@ -699,76 +770,7 @@ class MonsGame: NSObject {
         return (events, forthInputOptions)
     }
     
-    // MARK: - process input and apply events
-    
-    func processInput(_ input: [Input], doNotApplyEvents: Bool) -> Output {
-        guard winnerColor == nil else { return .invalidInput }
-        guard !input.isEmpty else { return suggestedInputToStartWith() }
-        guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
-        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem)
-        
-        guard input.count > 1 else {
-            if secondInputOptions.isEmpty {
-                return .invalidInput
-            } else {
-                return .nextInputOptions(secondInputOptions)
-            }
-        }
-        
-        let secondInput = input[1]
-        guard case let .location(targetLocation) = secondInput else { return .invalidInput }
-        guard let secondInputKind = secondInputOptions.first(where: { $0.input == secondInput })?.kind else { return .invalidInput }
-        
-        let outputForSecondInput = processSecondInput(kind: secondInputKind, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
-        let thirdInputOptions = outputForSecondInput?.1 ?? []
-        var events = outputForSecondInput?.0 ?? []
-        
-        guard input.count > 2 else {
-            if !thirdInputOptions.isEmpty {
-                return .nextInputOptions(thirdInputOptions)
-            } else if !events.isEmpty {
-                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
-            } else {
-                return .invalidInput
-            }
-        }
-        
-        guard let thirdInput = thirdInputOptions.first(where: { $0.input == input[2] }) else { return .invalidInput }
-         
-        let outputForThirdInput = processThirdInput(thirdInput, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
-        let forthInputOptions = outputForThirdInput?.1 ?? []
-        events += (outputForThirdInput?.0 ?? [])
-        
-        guard input.count > 3 else {
-            guard outputForThirdInput != nil else { return .invalidInput }
-            if !forthInputOptions.isEmpty {
-                return .nextInputOptions(forthInputOptions)
-            } else if !events.isEmpty {
-                return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
-            } else {
-                return .invalidInput
-            }
-        }
-        
-        guard case let .modifier(modifier) = input[3] else { return .invalidInput }
-        guard let forthInput = forthInputOptions.first(where: { $0.input == input[3] }),
-              case let .location(destinationLocation) = thirdInput.input,
-              let actorMonItem = forthInput.actorMonItem,
-              let actorMon = actorMonItem.mon
-        else {
-            return .invalidInput
-        }
-        
-        switch modifier {
-        case .selectBomb:
-            events.append(.pickupBomb(by: actorMon, at: destinationLocation))
-        case .selectPotion:
-            events.append(.pickupPotion(by: actorMonItem, at: destinationLocation))
-        case .cancel:
-            return .invalidInput
-        }
-        return .events(doNotApplyEvents ? events : applyAndAddResultingEvents(to: events))
-    }
+    // MARK: - apply events
     
     private func applyAndAddResultingEvents(to events: [Event]) -> [Event] {
         func didUseAction() {
