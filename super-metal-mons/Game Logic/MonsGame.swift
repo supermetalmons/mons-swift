@@ -74,12 +74,11 @@ class MonsGame: NSObject {
 
     // MARK: - process input
     
-    func processInput(_ input: [Input], doNotApplyEvents: Bool) -> Output {
+    func processInput(_ input: [Input], doNotApplyEvents: Bool, oneOptionEnough: Bool) -> Output {
         guard winnerColor == nil else { return .invalidInput }
         guard !input.isEmpty else { return suggestedInputToStartWith() }
         guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
-        let oneSecondOptionIsEnough = input.count == 1 && doNotApplyEvents
-        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem, onlyOne: oneSecondOptionIsEnough)
+        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem, onlyOne: oneOptionEnough)
         
         guard input.count > 1 else {
             if secondInputOptions.isEmpty {
@@ -148,7 +147,7 @@ class MonsGame: NSObject {
     
     private func suggestedInputToStartWith() -> Output {
         let locationsFilter: ((Location) -> Location?) = { [weak self] location in
-            let output = self?.processInput([.location(location)], doNotApplyEvents: true)
+            let output = self?.processInput([.location(location)], doNotApplyEvents: true, oneOptionEnough: true)
             if case let .nextInputOptions(options) = output, !options.isEmpty {
                 return location
             } else {
