@@ -104,12 +104,11 @@ extension Item: FenRepresentable {
     
 }
 
-// TODO: remake / refactor board fen
 extension Board: FenRepresentable {
     
     var fen: String {
         var lines = [String]()
-        var squares: [[Item?]] = Array(repeating: Array(repeating: nil, count: Config.boardSize), count: Config.boardSize) // TODO: remake for sure
+        var squares: [[Item?]] = Array(repeating: Array(repeating: nil, count: Config.boardSize), count: Config.boardSize)
         
         for location in items.keys {
             squares[location.i][location.j] = item(at: location)
