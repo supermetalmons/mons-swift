@@ -905,9 +905,13 @@ class MonsGame: NSObject {
     // MARK: - helpers
     
     func nextInputs(_ locations: [Location], kind: NextInput.Kind, onlyOne: Bool, specific: Location?, filter: ((Location) -> Bool)) -> [NextInput] {
-        // TODO: use specific location when there is one
-        
-        if onlyOne {
+        if let specific = specific {
+            if locations.contains(specific), filter(specific) {
+                return [NextInput(input: .location(specific), kind: kind)]
+            } else {
+                return []
+            }
+        } else if onlyOne {
             if let one = locations.first(where: filter) {
                 return [NextInput(input: .location(one), kind: kind) ]
             } else {
