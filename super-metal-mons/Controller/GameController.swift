@@ -381,7 +381,7 @@ class GameController {
         } else if inputs.isEmpty, let cachedOutput = cachedOutput {
             output = cachedOutput
         } else {
-            output = game.processInput(inputs, doNotApplyEvents: false)
+            output = game.processInput(inputs, doNotApplyEvents: false, oneOptionEnough: false)
         }
                 
         switch output {

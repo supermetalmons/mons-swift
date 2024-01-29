@@ -14,7 +14,7 @@ var count = 0
 func validate(data: Data) {
     let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
     let game = MonsGame(fen: testCase.fenBefore)!
-    let result = game.processInput(testCase.input, doNotApplyEvents: false)
+    let result = game.processInput(testCase.input, doNotApplyEvents: false, oneOptionEnough: false)
     let outputSame = result == testCase.output
     let fenSame = game.fen == testCase.fenAfter
     if outputSame && fenSame {

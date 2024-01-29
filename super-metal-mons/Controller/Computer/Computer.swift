@@ -68,7 +68,7 @@ extension MonsGame: GKGameModel {
         
     private func allNextMoves(inputs: [Input]) -> [ComputerMove] {
         var moves = [ComputerMove]()
-        let output = processInput(inputs, doNotApplyEvents: true)
+        let output = processInput(inputs, doNotApplyEvents: true, oneOptionEnough: false)
         switch output {
         case .invalidInput:
             break
@@ -94,7 +94,7 @@ extension MonsGame: GKGameModel {
     
     func apply(_ gameModelUpdate: GKGameModelUpdate) {
         guard let resultingInputs = (gameModelUpdate as? ComputerMove)?.resultingInputs else { return }
-        _ = processInput(resultingInputs, doNotApplyEvents: false)
+        _ = processInput(resultingInputs, doNotApplyEvents: false, oneOptionEnough: false)
     }
     
     func isWin(for player: GKGameModelPlayer) -> Bool {
