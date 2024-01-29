@@ -78,9 +78,10 @@ class MonsGame: NSObject {
         guard winnerColor == nil else { return .invalidInput }
         guard !input.isEmpty else { return suggestedInputToStartWith() }
         guard case let .location(startLocation) = input[0], let startItem = board.item(at: startLocation) else { return .invalidInput }
-        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem, onlyOne: oneOptionEnough)
+        let specificSecondInput = input.count > 1 ? input[1] : nil
+        let secondInputOptions = secondInputOptions(startLocation: startLocation, startItem: startItem, onlyOne: oneOptionEnough, specificNext: specificSecondInput)
         
-        guard input.count > 1 else {
+        guard let secondInput = specificSecondInput else {
             if secondInputOptions.isEmpty {
                 return .invalidInput
             } else {
@@ -88,15 +89,15 @@ class MonsGame: NSObject {
             }
         }
         
-        let secondInput = input[1]
         guard case let .location(targetLocation) = secondInput else { return .invalidInput }
         guard let secondInputKind = secondInputOptions.first(where: { $0.input == secondInput })?.kind else { return .invalidInput }
         
-        let outputForSecondInput = processSecondInput(kind: secondInputKind, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        let specificThirdInput = input.count > 2 ? input[2] : nil
+        let outputForSecondInput = processSecondInput(kind: secondInputKind, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation, specificNext: specificThirdInput)
         let thirdInputOptions = outputForSecondInput?.1 ?? []
         var events = outputForSecondInput?.0 ?? []
         
-        guard input.count > 2 else {
+        guard let specificThirdInput = specificThirdInput else {
             if !thirdInputOptions.isEmpty {
                 return .nextInputOptions(thirdInputOptions)
             } else if !events.isEmpty {
@@ -106,13 +107,14 @@ class MonsGame: NSObject {
             }
         }
         
-        guard let thirdInput = thirdInputOptions.first(where: { $0.input == input[2] }) else { return .invalidInput }
-         
-        let outputForThirdInput = processThirdInput(thirdInput, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation)
+        guard let thirdInput = thirdInputOptions.first(where: { $0.input == specificThirdInput }) else { return .invalidInput }
+        
+        let specificForthInput = input.count > 3 ? input[3] : nil
+        let outputForThirdInput = processThirdInput(thirdInput, startItem: startItem, startLocation: startLocation, targetLocation: targetLocation, specificNext: specificForthInput)
         let forthInputOptions = outputForThirdInput?.1 ?? []
         events += (outputForThirdInput?.0 ?? [])
         
-        guard input.count > 3 else {
+        guard let specificForthInput = specificForthInput else {
             guard outputForThirdInput != nil else { return .invalidInput }
             if !forthInputOptions.isEmpty {
                 return .nextInputOptions(forthInputOptions)
@@ -123,8 +125,8 @@ class MonsGame: NSObject {
             }
         }
         
-        guard case let .modifier(modifier) = input[3] else { return .invalidInput }
-        guard let forthInput = forthInputOptions.first(where: { $0.input == input[3] }),
+        guard case let .modifier(modifier) = specificForthInput else { return .invalidInput }
+        guard let forthInput = forthInputOptions.first(where: { $0.input == specificForthInput }),
               case let .location(destinationLocation) = thirdInput.input,
               let actorMonItem = forthInput.actorMonItem,
               let actorMon = actorMonItem.mon
@@ -167,7 +169,9 @@ class MonsGame: NSObject {
         }
     }
     
-    private func secondInputOptions(startLocation: Location, startItem: Item, onlyOne: Bool) -> [NextInput] {
+    private func secondInputOptions(startLocation: Location, startItem: Item, onlyOne: Bool, specificNext: Input?) -> [NextInput] {
+        // TODO: use specificNext to improve performance
+        
         let startSquare = board.square(at: startLocation)
         var secondInputOptions = [NextInput]()
         switch startItem {
@@ -366,7 +370,9 @@ class MonsGame: NSObject {
         return secondInputOptions
     }
     
-    private func processSecondInput(kind: NextInput.Kind, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+    private func processSecondInput(kind: NextInput.Kind, startItem: Item, startLocation: Location, targetLocation: Location, specificNext: Input?) -> ([Event], [NextInput])? {
+        // TODO: use specificNext to improve performance
+        
         var thirdInputOptions = [NextInput]()
         var events = [Event]()
         let targetSquare = board.square(at: targetLocation)
@@ -648,7 +654,9 @@ class MonsGame: NSObject {
         return (events, thirdInputOptions)
     }
     
-    private func processThirdInput(_ thirdInput: NextInput, startItem: Item, startLocation: Location, targetLocation: Location) -> ([Event], [NextInput])? {
+    private func processThirdInput(_ thirdInput: NextInput, startItem: Item, startLocation: Location, targetLocation: Location, specificNext: Input?) -> ([Event], [NextInput])? {
+        // TODO: use specificNext to improve performance
+        
         let targetItem = board.item(at: targetLocation)
         var forthInputOptions = [NextInput]()
         var events = [Event]()
