@@ -2,13 +2,6 @@
 
 import Foundation
 
-struct TestCase: Codable {
-    let fenBefore: String
-    let input: [Input]
-    let output: Output
-    let fenAfter: String
-}
-
 var count = 0
 
 func validate(data: Data) {

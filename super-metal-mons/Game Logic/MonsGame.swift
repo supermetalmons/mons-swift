@@ -980,4 +980,26 @@ class MonsGame: NSObject {
         }
     }
     
+    // MARK: - testing helpers
+    
+    private var testCases = Set<TestCase>()
+
+    private func saveToFile(testCase: TestCase) {
+        guard !testCases.contains(testCase) else { return }
+        testCases.insert(testCase)
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileURL = documentsDirectory.appendingPathComponent(UUID().uuidString)
+        let data = try! JSONEncoder().encode(testCase.self)
+        try! data.write(to: fileURL)
+    }
+
+    private func processInputWithLogging(_ input: [Input], doNotApplyEvents: Bool, oneOptionEnough: Bool) -> Output {
+        let fenBefore = fen
+        let output = processInput(input, doNotApplyEvents: doNotApplyEvents, oneOptionEnough: oneOptionEnough)
+        if !doNotApplyEvents, !oneOptionEnough {
+            saveToFile(testCase: TestCase(fenBefore: fenBefore, input: input, output: output, fenAfter: fen))
+        }
+        return output
+    }
+    
 }
