@@ -1,8 +1,9 @@
 // ∅ 2024 super-metal-mons
 
-import FirebaseAppCheck
 import FirebaseCore
 import FirebaseAuth
+import FirebaseAppCheck
+import FirebaseFirestore
 
 class Firebase {
     
@@ -12,6 +13,22 @@ class Firebase {
         AppCheck.setAppCheckProviderFactory(MonsAppCheckProviderFactory())
         FirebaseApp.configure()
         auth()
+        
+        Task {
+            await checkFirestore()
+        }
+    }
+    
+    static func checkFirestore() async {
+        let db = Firestore.firestore()
+        do {
+            let snapshot = try await db.collection("test").getDocuments()
+            for document in snapshot.documents {
+                NSLog("\(document.documentID) => \(document.data())")
+            }
+        } catch {
+            NSLog("Error getting documents: \(error)")
+        }
     }
     
     static func auth(competion: ((Bool) -> Void)? = nil) {

@@ -66,6 +66,7 @@
 		2C7E80CE29FC54B300114943 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CD29FC54B300114943 /* Config.swift */; };
 		2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */; };
 		2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */; };
+		2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */; };
 		2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB656F72AFD0DD200000760 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB656F62AFD0DD200000760 /* Music.swift */; };
@@ -314,6 +315,7 @@
 				2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */,
 				2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */,
 				2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */,
+				2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +657,7 @@
 				2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */,
 				2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */,
 				2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */,
+				2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */,
 			);
 			productName = "super-metal-mons";
 			productReference = 2CC39E7C29CA48B200EDF779 /* mons.app */;
@@ -1190,6 +1193,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
+		};
+		2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */ = {
 			isa = XCSwiftPackageProductDependency;
