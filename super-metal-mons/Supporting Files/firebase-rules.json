@@ -1,12 +1,25 @@
 {
   "rules": {
-    ".read": true,
-    ".write": "auth != null",
+    ".read": false,
+    ".write": false,
     "invites": {
+      ".read": true,
       "$inviteId": {
+        ".write": "auth != null && !data.exists()",
         "guestId": {
           ".write": "auth != null && !data.exists()",
-          ".validate": "newData.isString() && !data.exists()"
+          ".validate": "newData.isString() && auth.uid === newData.val()"
+        }
+      }
+    },
+    "players": {
+      ".read": true,
+      "$userId": {
+        ".write": "auth != null && auth.uid === $userId",
+        "matches": {
+          "$matchId": {
+            ".write": "auth != null && auth.uid === $userId"
+          }
         }
       }
     }
