@@ -9,7 +9,7 @@ class Firebase {
     static var userId: String?
     
     static func setup() {
-        // TODO: perform app check
+        AppCheck.setAppCheckProviderFactory(MonsAppCheckProviderFactory())
         FirebaseApp.configure()
         auth()
     }
@@ -20,6 +20,14 @@ class Firebase {
                 self.userId = user.uid
             }
         }
+    }
+    
+}
+
+private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    
+    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+        return AppAttestProvider(app: app)
     }
     
 }
