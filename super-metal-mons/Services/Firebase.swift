@@ -1,5 +1,6 @@
 // ∅ 2024 super-metal-mons
 
+import FirebaseAppCheck
 import FirebaseCore
 import FirebaseAuth
 
@@ -8,6 +9,7 @@ class Firebase {
     static var userId: String?
     
     static func setup() {
+        // TODO: perform app check
         FirebaseApp.configure()
         auth()
     }
