@@ -208,6 +208,7 @@
 		2C7E80CD29FC54B300114943 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenRepresentable.swift; sourceTree = "<group>"; };
 		2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableMoveKind.swift; sourceTree = "<group>"; };
+		2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "firebase-rules.json"; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CB656F62AFD0DD200000760 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStyle.swift; sourceTree = "<group>"; };
@@ -516,6 +517,7 @@
 			children = (
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
 				2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */,
+				2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */,
 				2CC39E8D29CA48B300EDF779 /* Info.plist */,
 				2C3812212B064CAC000FDE18 /* README.md */,
 				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,

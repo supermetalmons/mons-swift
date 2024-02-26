@@ -1,0 +1,14 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null",
+    "invites": {
+      "$inviteId": {
+        "guestId": {
+          ".write": "auth != null && !data.exists()",
+          ".validate": "newData.isString() && !data.exists()"
+        }
+      }
+    }
+  }
+}
