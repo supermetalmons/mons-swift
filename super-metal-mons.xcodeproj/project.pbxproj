@@ -54,6 +54,131 @@
 		2C3AD5992B0FAB0300538897 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5982B0FAB0300538897 /* Output.swift */; };
 		2C3AD59B2B0FAB6300538897 /* NextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59A2B0FAB6300538897 /* NextInput.swift */; };
 		2C3AD59D2B0FAB7200538897 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59C2B0FAB7200538897 /* Event.swift */; };
+		2C3EA16E2B8E6FD3001F5B3B /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FDE2A0C26930016C1C5 /* Firebase.swift */; };
+		2C3EA16F2B8E6FD3001F5B3B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AD29F730B200605255 /* Item.swift */; };
+		2C3EA1702B8E6FD3001F5B3B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59C2B0FAB7200538897 /* Event.swift */; };
+		2C3EA1712B8E6FD3001F5B3B /* FenRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */; };
+		2C3EA1722B8E6FD3001F5B3B /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
+		2C3EA1732B8E6FD3001F5B3B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBDF29F6C69200A90CDD /* String.swift */; };
+		2C3EA1742B8E6FD3001F5B3B /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD82A115B77003C959D /* Trace.swift */; };
+		2C3EA1752B8E6FD3001F5B3B /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */; };
+		2C3EA1762B8E6FD3001F5B3B /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5982B0FAB0300538897 /* Output.swift */; };
+		2C3EA1772B8E6FD3001F5B3B /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255282A0EA27700CB1808 /* Codable.swift */; };
+		2C3EA1782B8E6FD3001F5B3B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AF29F730E500605255 /* Color.swift */; };
+		2C3EA1792B8E6FD3001F5B3B /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */; };
+		2C3EA17A2B8E6FD3001F5B3B /* BoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC770C029FA9D0500A59BEF /* BoardSquareView.swift */; };
+		2C3EA17B2B8E6FD3001F5B3B /* GameInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0255242A0EA1E600CB1808 /* GameInvite.swift */; };
+		2C3EA17C2B8E6FD3001F5B3B /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CB29FC3F3900114943 /* Square.swift */; };
+		2C3EA17D2B8E6FD3001F5B3B /* Mana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B329F7310800605255 /* Mana.swift */; };
+		2C3EA17E2B8E6FD3001F5B3B /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
+		2C3EA17F2B8E6FD3001F5B3B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
+		2C3EA1802B8E6FD3001F5B3B /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA88902B02434600F99723 /* Reaction.swift */; };
+		2C3EA1812B8E6FD3001F5B3B /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
+		2C3EA1822B8E6FD3001F5B3B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBD829F69A3300A90CDD /* Notification.swift */; };
+		2C3EA1832B8E6FD3001F5B3B /* Mon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B129F730F600605255 /* Mon.swift */; };
+		2C3EA1842B8E6FD3001F5B3B /* BoardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */; };
+		2C3EA1852B8E6FD3001F5B3B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC6E4E29F9BE6100EF34FA /* UIView.swift */; };
+		2C3EA1862B8E6FD3001F5B3B /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
+		2C3EA1872B8E6FD3001F5B3B /* NextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD59A2B0FAB6300538897 /* NextInput.swift */; };
+		2C3EA1882B8E6FD3001F5B3B /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
+		2C3EA1892B8E6FD3001F5B3B /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
+		2C3EA18A2B8E6FD3001F5B3B /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDE2A12DEBB003C959D /* WaveView.swift */; };
+		2C3EA18B2B8E6FD3001F5B3B /* SquareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C929FC3BAA00114943 /* SquareColor.swift */; };
+		2C3EA18C2B8E6FD3001F5B3B /* ViewEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B929F731E100605255 /* ViewEffect.swift */; };
+		2C3EA18D2B8E6FD3001F5B3B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21729E9B047002F3AC9 /* Colors.swift */; };
+		2C3EA18E2B8E6FD3001F5B3B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8329CA48B200EDF779 /* GameViewController.swift */; };
+		2C3EA18F2B8E6FD3001F5B3B /* CircleCutoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302792A099124009DFCC2 /* CircleCutoutView.swift */; };
+		2C3EA1902B8E6FD3001F5B3B /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B529F7311500605255 /* Consumable.swift */; };
+		2C3EA1912B8E6FD3001F5B3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E7F29CA48B200EDF779 /* AppDelegate.swift */; };
+		2C3EA1922B8E6FD3001F5B3B /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AD5962B0FAAF500538897 /* Input.swift */; };
+		2C3EA1932B8E6FD3001F5B3B /* ButtonWithExtendedArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */; };
+		2C3EA1942B8E6FD3001F5B3B /* BoardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDC2A11949D003C959D /* BoardItemView.swift */; };
+		2C3EA1952B8E6FD3001F5B3B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC770BE29FA9CEE00A59BEF /* BoardView.swift */; };
+		2C3EA1962B8E6FD3001F5B3B /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462529F18DC700ACC855 /* Images.swift */; };
+		2C3EA1972B8E6FD3001F5B3B /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3027B2A099834009DFCC2 /* Highlight.swift */; };
+		2C3EA1982B8E6FD3001F5B3B /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
+		2C3EA1992B8E6FD3001F5B3B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
+		2C3EA19A2B8E6FD3001F5B3B /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */; };
+		2C3EA19B2B8E6FD3001F5B3B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3026F2A0883D3009DFCC2 /* CircleView.swift */; };
+		2C3EA19C2B8E6FD3001F5B3B /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCF87222A42EAFE0060410C /* Computer.swift */; };
+		2C3EA19D2B8E6FD3001F5B3B /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB656F62AFD0DD200000760 /* Music.swift */; };
+		2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CD29FC54B300114943 /* Config.swift */; };
+		2C3EA19F2B8E6FD3001F5B3B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C02552A2A0EA71A00CB1808 /* Connection.swift */; };
+		2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C329FC372C00114943 /* Board.swift */; };
+		2C3EA1A12B8E6FD3001F5B3B /* SparklingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302712A092905009DFCC2 /* SparklingView.swift */; };
+		2C3EA1A22B8E6FD3001F5B3B /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C261C5C2A4366DB0014F9AC /* Scoring.swift */; };
+		2C3EA1A32B8E6FD3001F5B3B /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C38121D2B0620AD000FDE18 /* Haptic.swift */; };
+		2C3EA1A42B8E6FD3001F5B3B /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBE129F6C69900A90CDD /* URL.swift */; };
+		2C3EA1A52B8E6FD3001F5B3B /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
+		2C3EA1A62B8E6FD3001F5B3B /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC157252A351C7B009C2BF1 /* MusicViewController.swift */; };
+		2C3EA1A72B8E6FD3001F5B3B /* AvailableMoveKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */; };
+		2C3EA1A82B8E6FD3001F5B3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC39E8129CA48B200EDF779 /* SceneDelegate.swift */; };
+		2C3EA1A92B8E6FD3001F5B3B /* AnimationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD62A113DE8003C959D /* AnimationKey.swift */; };
+		2C3EA1AA2B8E6FD3001F5B3B /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
+		2C3EA1AC2B8E6FD3001F5B3B /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C3EA16A2B8E6FD3001F5B3B /* FirebaseDatabaseSwift */; };
+		2C3EA1AE2B8E6FD3001F5B3B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C3EA1682B8E6FD3001F5B3B /* FirebaseAuth */; };
+		2C3EA1B22B8E6FD3001F5B3B /* cloud propeller.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF02A34C05300B3CD54 /* cloud propeller.aac */; };
+		2C3EA1B32B8E6FD3001F5B3B /* demonAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD629EEF48E00C51230 /* demonAbility.wav */; };
+		2C3EA1B42B8E6FD3001F5B3B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */; };
+		2C3EA1B52B8E6FD3001F5B3B /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
+		2C3EA1B62B8E6FD3001F5B3B /* defeat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD42A0B024E0016C1C5 /* defeat.wav */; };
+		2C3EA1B72B8E6FD3001F5B3B /* driver.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE92A34C05200B3CD54 /* driver.aac */; };
+		2C3EA1B82B8E6FD3001F5B3B /* bell glide.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE42A34C05200B3CD54 /* bell glide.aac */; };
+		2C3EA1B92B8E6FD3001F5B3B /* chimes photography_going home.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADE2A34C05100B3CD54 /* chimes photography_going home.aac */; };
+		2C3EA1BA2B8E6FD3001F5B3B /* arploop.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE52A34C05200B3CD54 /* arploop.aac */; };
+		2C3EA1BB2B8E6FD3001F5B3B /* bubble jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF32A34C05300B3CD54 /* bubble jam.aac */; };
+		2C3EA1BC2B8E6FD3001F5B3B /* runner.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEF2A34C05300B3CD54 /* runner.aac */; };
+		2C3EA1BD2B8E6FD3001F5B3B /* organwhawha.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */; };
+		2C3EA1BE2B8E6FD3001F5B3B /* victory.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD32A0B024E0016C1C5 /* victory.wav */; };
+		2C3EA1BF2B8E6FD3001F5B3B /* honkshoooo memememeee zzzZZZ.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF42A34C05300B3CD54 /* honkshoooo memememeee zzzZZZ.aac */; };
+		2C3EA1C02B8E6FD3001F5B3B /* spirit track.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF22A34C05300B3CD54 /* spirit track.aac */; };
+		2C3EA1C12B8E6FD3001F5B3B /* didConnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C02552C2A0ECB6400CB1808 /* didConnect.wav */; };
+		2C3EA1C22B8E6FD3001F5B3B /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
+		2C3EA1C32B8E6FD3001F5B3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */; };
+		2C3EA1C42B8E6FD3001F5B3B /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
+		2C3EA1C52B8E6FD3001F5B3B /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CD302752A097286009DFCC2 /* click.wav */; };
+		2C3EA1C62B8E6FD3001F5B3B /* scoreSupermana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADB29EEF48E00C51230 /* scoreSupermana.wav */; };
+		2C3EA1C72B8E6FD3001F5B3B /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
+		2C3EA1C82B8E6FD3001F5B3B /* yo2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88942B029F5800F99723 /* yo2.wav */; };
+		2C3EA1C92B8E6FD3001F5B3B /* cloud propeller 2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE62A34C05200B3CD54 /* cloud propeller 2.aac */; };
+		2C3EA1CA2B8E6FD3001F5B3B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C3812212B064CAC000FDE18 /* README.md */; };
+		2C3EA1CB2B8E6FD3001F5B3B /* ewejam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE22A34C05200B3CD54 /* ewejam.aac */; };
+		2C3EA1CC2B8E6FD3001F5B3B /* drop1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C22C8452B05073100E558C5 /* drop1.wav */; };
+		2C3EA1CD2B8E6FD3001F5B3B /* drreams.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD92A34C05100B3CD54 /* drreams.aac */; };
+		2C3EA1CE2B8E6FD3001F5B3B /* band.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEC2A34C05300B3CD54 /* band.aac */; };
+		2C3EA1CF2B8E6FD3001F5B3B /* slurp1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88982B029F5800F99723 /* slurp1.wav */; };
+		2C3EA1D02B8E6FD3001F5B3B /* bell dance.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE32A34C05200B3CD54 /* bell dance.aac */; };
+		2C3EA1D12B8E6FD3001F5B3B /* pickupPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */; };
+		2C3EA1D22B8E6FD3001F5B3B /* mana pool.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE12A34C05200B3CD54 /* mana pool.aac */; };
+		2C3EA1D32B8E6FD3001F5B3B /* gilded.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE72A34C05200B3CD54 /* gilded.aac */; };
+		2C3EA1D42B8E6FD3001F5B3B /* crumbs.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */; };
+		2C3EA1D52B8E6FD3001F5B3B /* yo3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88922B029F5800F99723 /* yo3.wav */; };
+		2C3EA1D62B8E6FD3001F5B3B /* yo4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA889A2B029F5800F99723 /* yo4.wav */; };
+		2C3EA1D72B8E6FD3001F5B3B /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
+		2C3EA1D82B8E6FD3001F5B3B /* bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD729EEF48E00C51230 /* bomb.wav */; };
+		2C3EA1D92B8E6FD3001F5B3B /* ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* ping.aac */; };
+		2C3EA1DA2B8E6FD3001F5B3B /* whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* whale2.aac */; };
+		2C3EA1DB2B8E6FD3001F5B3B /* yo1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88962B029F5800F99723 /* yo1.wav */; };
+		2C3EA1DC2B8E6FD3001F5B3B /* pickupBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickupBomb.wav */; };
+		2C3EA1DD2B8E6FD3001F5B3B /* buzz.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE02A34C05100B3CD54 /* buzz.aac */; };
+		2C3EA1DE2B8E6FD3001F5B3B /* super.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AE82A34C05200B3CD54 /* super.aac */; };
+		2C3EA1DF2B8E6FD3001F5B3B /* choosePickup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD52A0B024E0016C1C5 /* choosePickup.wav */; };
+		2C3EA1E02B8E6FD3001F5B3B /* spiritAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADA29EEF48E00C51230 /* spiritAbility.wav */; };
+		2C3EA1E12B8E6FD3001F5B3B /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8829CA48B300EDF779 /* App.xcassets */; };
+		2C3EA1E22B8E6FD3001F5B3B /* object.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AED2A34C05300B3CD54 /* object.aac */; };
+		2C3EA1E32B8E6FD3001F5B3B /* gg1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88972B029F5800F99723 /* gg1.wav */; };
+		2C3EA1E42B8E6FD3001F5B3B /* bounce.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADA2A34C05100B3CD54 /* bounce.aac */; };
+		2C3EA1E52B8E6FD3001F5B3B /* gustofwind.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEB2A34C05200B3CD54 /* gustofwind.aac */; };
+		2C3EA1E62B8E6FD3001F5B3B /* clock tower.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AF12A34C05300B3CD54 /* clock tower.aac */; };
+		2C3EA1E72B8E6FD3001F5B3B /* melodine.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADB2A34C05100B3CD54 /* melodine.aac */; };
+		2C3EA1E82B8E6FD3001F5B3B /* gg2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88952B029F5800F99723 /* gg2.wav */; };
+		2C3EA1E92B8E6FD3001F5B3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC39E8529CA48B200EDF779 /* Main.storyboard */; };
+		2C3EA1EA2B8E6FD3001F5B3B /* jelly jam.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEE2A34C05300B3CD54 /* jelly jam.aac */; };
+		2C3EA1EB2B8E6FD3001F5B3B /* change.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AEA2A34C05200B3CD54 /* change.aac */; };
+		2C3EA1EC2B8E6FD3001F5B3B /* manaPickUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD929EEF48E00C51230 /* manaPickUp.wav */; };
+		2C3EA1ED2B8E6FD3001F5B3B /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
+		2C3EA1EE2B8E6FD3001F5B3B /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
+		2C3EA1EF2B8E6FD3001F5B3B /* wahoo1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88932B029F5800F99723 /* wahoo1.wav */; };
 		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C779FF32B6CFA0400900EFE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
@@ -199,6 +324,9 @@
 		2C3AD5982B0FAB0300538897 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		2C3AD59A2B0FAB6300538897 /* NextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextInput.swift; sourceTree = "<group>"; };
 		2C3AD59C2B0FAB7200538897 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		2C3EA1F32B8E6FD3001F5B3B /* mons-catalyst.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mons-catalyst.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C3EA1F52B8E7046001F5B3B /* mons-catalyst.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mons-catalyst.entitlements"; sourceTree = "<group>"; };
+		2C3EA1F62B8E7046001F5B3B /* Info-catalyst.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-catalyst.plist"; sourceTree = "<group>"; };
 		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C779FF22B6CFA0400900EFE /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -308,6 +436,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2C3EA1AB2B8E6FD3001F5B3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C3EA1AC2B8E6FD3001F5B3B /* FirebaseDatabaseSwift in Frameworks */,
+				2C3EA1AE2B8E6FD3001F5B3B /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CC39E7929CA48B200EDF779 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -407,6 +544,7 @@
 			children = (
 				2CC39E7C29CA48B200EDF779 /* mons.app */,
 				2C1FD1112B66F92E00D4AC51 /* tools */,
+				2C3EA1F32B8E6FD3001F5B3B /* mons-catalyst.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,8 +661,10 @@
 				2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */,
 				2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */,
 				2CC39E8D29CA48B300EDF779 /* Info-ios.plist */,
+				2C3EA1F62B8E7046001F5B3B /* Info-catalyst.plist */,
 				2C3812212B064CAC000FDE18 /* README.md */,
 				2CC39E9329CA4EDF00EDF779 /* mons-ios.entitlements */,
+				2C3EA1F52B8E7046001F5B3B /* mons-catalyst.entitlements */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -639,6 +779,28 @@
 			productReference = 2C1FD1112B66F92E00D4AC51 /* tools */;
 			productType = "com.apple.product-type.tool";
 		};
+		2C3EA1672B8E6FD3001F5B3B /* mons-catalyst */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C3EA1F02B8E6FD3001F5B3B /* Build configuration list for PBXNativeTarget "mons-catalyst" */;
+			buildPhases = (
+				2C3EA16D2B8E6FD3001F5B3B /* Sources */,
+				2C3EA1AB2B8E6FD3001F5B3B /* Frameworks */,
+				2C3EA1B02B8E6FD3001F5B3B /* ShellScript */,
+				2C3EA1B12B8E6FD3001F5B3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "mons-catalyst";
+			packageProductDependencies = (
+				2C3EA1682B8E6FD3001F5B3B /* FirebaseAuth */,
+				2C3EA16A2B8E6FD3001F5B3B /* FirebaseDatabaseSwift */,
+			);
+			productName = "super-metal-mons";
+			productReference = 2C3EA1F32B8E6FD3001F5B3B /* mons-catalyst.app */;
+			productType = "com.apple.product-type.application";
+		};
 		2CC39E7B29CA48B200EDF779 /* mons-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CC39E9029CA48B300EDF779 /* Build configuration list for PBXNativeTarget "mons-ios" */;
@@ -698,12 +860,82 @@
 			projectRoot = "";
 			targets = (
 				2CC39E7B29CA48B200EDF779 /* mons-ios */,
+				2C3EA1672B8E6FD3001F5B3B /* mons-catalyst */,
 				2C1FD1102B66F92E00D4AC51 /* tools */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2C3EA1B12B8E6FD3001F5B3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C3EA1B22B8E6FD3001F5B3B /* cloud propeller.aac in Resources */,
+				2C3EA1B32B8E6FD3001F5B3B /* demonAbility.wav in Resources */,
+				2C3EA1B42B8E6FD3001F5B3B /* Colors.xcassets in Resources */,
+				2C3EA1B52B8E6FD3001F5B3B /* Game.xcassets in Resources */,
+				2C3EA1B62B8E6FD3001F5B3B /* defeat.wav in Resources */,
+				2C3EA1B72B8E6FD3001F5B3B /* driver.aac in Resources */,
+				2C3EA1B82B8E6FD3001F5B3B /* bell glide.aac in Resources */,
+				2C3EA1B92B8E6FD3001F5B3B /* chimes photography_going home.aac in Resources */,
+				2C3EA1BA2B8E6FD3001F5B3B /* arploop.aac in Resources */,
+				2C3EA1BB2B8E6FD3001F5B3B /* bubble jam.aac in Resources */,
+				2C3EA1BC2B8E6FD3001F5B3B /* runner.aac in Resources */,
+				2C3EA1BD2B8E6FD3001F5B3B /* organwhawha.aac in Resources */,
+				2C3EA1BE2B8E6FD3001F5B3B /* victory.wav in Resources */,
+				2C3EA1BF2B8E6FD3001F5B3B /* honkshoooo memememeee zzzZZZ.aac in Resources */,
+				2C3EA1C02B8E6FD3001F5B3B /* spirit track.aac in Resources */,
+				2C3EA1C12B8E6FD3001F5B3B /* didConnect.wav in Resources */,
+				2C3EA1C22B8E6FD3001F5B3B /* scoreMana.wav in Resources */,
+				2C3EA1C32B8E6FD3001F5B3B /* LaunchScreen.storyboard in Resources */,
+				2C3EA1C42B8E6FD3001F5B3B /* Emojis.xcassets in Resources */,
+				2C3EA1C52B8E6FD3001F5B3B /* click.wav in Resources */,
+				2C3EA1C62B8E6FD3001F5B3B /* scoreSupermana.wav in Resources */,
+				2C3EA1C72B8E6FD3001F5B3B /* move.wav in Resources */,
+				2C3EA1C82B8E6FD3001F5B3B /* yo2.wav in Resources */,
+				2C3EA1C92B8E6FD3001F5B3B /* cloud propeller 2.aac in Resources */,
+				2C3EA1CA2B8E6FD3001F5B3B /* README.md in Resources */,
+				2C3EA1CB2B8E6FD3001F5B3B /* ewejam.aac in Resources */,
+				2C3EA1CC2B8E6FD3001F5B3B /* drop1.wav in Resources */,
+				2C3EA1CD2B8E6FD3001F5B3B /* drreams.aac in Resources */,
+				2C3EA1CE2B8E6FD3001F5B3B /* band.aac in Resources */,
+				2C3EA1CF2B8E6FD3001F5B3B /* slurp1.wav in Resources */,
+				2C3EA1D02B8E6FD3001F5B3B /* bell dance.aac in Resources */,
+				2C3EA1D12B8E6FD3001F5B3B /* pickupPotion.wav in Resources */,
+				2C3EA1D22B8E6FD3001F5B3B /* mana pool.aac in Resources */,
+				2C3EA1D32B8E6FD3001F5B3B /* gilded.aac in Resources */,
+				2C3EA1D42B8E6FD3001F5B3B /* crumbs.aac in Resources */,
+				2C3EA1D52B8E6FD3001F5B3B /* yo3.wav in Resources */,
+				2C3EA1D62B8E6FD3001F5B3B /* yo4.wav in Resources */,
+				2C3EA1D72B8E6FD3001F5B3B /* Mons.xcassets in Resources */,
+				2C3EA1D82B8E6FD3001F5B3B /* bomb.wav in Resources */,
+				2C3EA1D92B8E6FD3001F5B3B /* ping.aac in Resources */,
+				2C3EA1DA2B8E6FD3001F5B3B /* whale2.aac in Resources */,
+				2C3EA1DB2B8E6FD3001F5B3B /* yo1.wav in Resources */,
+				2C3EA1DC2B8E6FD3001F5B3B /* pickupBomb.wav in Resources */,
+				2C3EA1DD2B8E6FD3001F5B3B /* buzz.aac in Resources */,
+				2C3EA1DE2B8E6FD3001F5B3B /* super.aac in Resources */,
+				2C3EA1DF2B8E6FD3001F5B3B /* choosePickup.wav in Resources */,
+				2C3EA1E02B8E6FD3001F5B3B /* spiritAbility.wav in Resources */,
+				2C3EA1E12B8E6FD3001F5B3B /* App.xcassets in Resources */,
+				2C3EA1E22B8E6FD3001F5B3B /* object.aac in Resources */,
+				2C3EA1E32B8E6FD3001F5B3B /* gg1.wav in Resources */,
+				2C3EA1E42B8E6FD3001F5B3B /* bounce.aac in Resources */,
+				2C3EA1E52B8E6FD3001F5B3B /* gustofwind.aac in Resources */,
+				2C3EA1E62B8E6FD3001F5B3B /* clock tower.aac in Resources */,
+				2C3EA1E72B8E6FD3001F5B3B /* melodine.aac in Resources */,
+				2C3EA1E82B8E6FD3001F5B3B /* gg2.wav in Resources */,
+				2C3EA1E92B8E6FD3001F5B3B /* Main.storyboard in Resources */,
+				2C3EA1EA2B8E6FD3001F5B3B /* jelly jam.aac in Resources */,
+				2C3EA1EB2B8E6FD3001F5B3B /* change.aac in Resources */,
+				2C3EA1EC2B8E6FD3001F5B3B /* manaPickUp.wav in Resources */,
+				2C3EA1ED2B8E6FD3001F5B3B /* mysticAbility.wav in Resources */,
+				2C3EA1EE2B8E6FD3001F5B3B /* endTurn.wav in Resources */,
+				2C3EA1EF2B8E6FD3001F5B3B /* wahoo1.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CC39E7A29CA48B200EDF779 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -776,6 +1008,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2C3EA1B02B8E6FD3001F5B3B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$SRCROOT/super-metal-mons/Supporting Files/GoogleService-Info.plist",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${HOME}/Developer/secrets/mons/GoogleService-Info.plist\" ]; then\n    cp -f \"${HOME}/Developer/secrets/mons/GoogleService-Info.plist\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist\"\nelse\n    echo \"warning: 🟢🔴 YO BUNDLING EMPTY SECRETS\"\n    cp -f \"$SRCROOT/super-metal-mons/Supporting Files/GoogleService-Info.plist\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		2C9888702B136ABD00AE045C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -822,6 +1075,74 @@
 				2C1FD11E2B66F94100D4AC51 /* FenRepresentable.swift in Sources */,
 				2C1FD11B2B66F94100D4AC51 /* AvailableMoveKind.swift in Sources */,
 				2C1FD1252B66F94100D4AC51 /* Mana.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C3EA16D2B8E6FD3001F5B3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C3EA16E2B8E6FD3001F5B3B /* Firebase.swift in Sources */,
+				2C3EA16F2B8E6FD3001F5B3B /* Item.swift in Sources */,
+				2C3EA1702B8E6FD3001F5B3B /* Event.swift in Sources */,
+				2C3EA1712B8E6FD3001F5B3B /* FenRepresentable.swift in Sources */,
+				2C3EA1722B8E6FD3001F5B3B /* Sound.swift in Sources */,
+				2C3EA1732B8E6FD3001F5B3B /* String.swift in Sources */,
+				2C3EA1742B8E6FD3001F5B3B /* Trace.swift in Sources */,
+				2C3EA1752B8E6FD3001F5B3B /* PlayerMatch.swift in Sources */,
+				2C3EA1762B8E6FD3001F5B3B /* Output.swift in Sources */,
+				2C3EA1772B8E6FD3001F5B3B /* Codable.swift in Sources */,
+				2C3EA1782B8E6FD3001F5B3B /* Color.swift in Sources */,
+				2C3EA1792B8E6FD3001F5B3B /* MainMenuViewController.swift in Sources */,
+				2C3EA17A2B8E6FD3001F5B3B /* BoardSquareView.swift in Sources */,
+				2C3EA17B2B8E6FD3001F5B3B /* GameInvite.swift in Sources */,
+				2C3EA17C2B8E6FD3001F5B3B /* Square.swift in Sources */,
+				2C3EA17D2B8E6FD3001F5B3B /* Mana.swift in Sources */,
+				2C3EA17E2B8E6FD3001F5B3B /* Defaults.swift in Sources */,
+				2C3EA17F2B8E6FD3001F5B3B /* Location.swift in Sources */,
+				2C3EA1802B8E6FD3001F5B3B /* Reaction.swift in Sources */,
+				2C3EA1812B8E6FD3001F5B3B /* TestCase.swift in Sources */,
+				2C3EA1822B8E6FD3001F5B3B /* Notification.swift in Sources */,
+				2C3EA1832B8E6FD3001F5B3B /* Mon.swift in Sources */,
+				2C3EA1842B8E6FD3001F5B3B /* BoardStyle.swift in Sources */,
+				2C3EA1852B8E6FD3001F5B3B /* UIView.swift in Sources */,
+				2C3EA1862B8E6FD3001F5B3B /* Strings.swift in Sources */,
+				2C3EA1872B8E6FD3001F5B3B /* NextInput.swift in Sources */,
+				2C3EA1882B8E6FD3001F5B3B /* MonsGame.swift in Sources */,
+				2C3EA1892B8E6FD3001F5B3B /* PixelBoardSquareView.swift in Sources */,
+				2C3EA18A2B8E6FD3001F5B3B /* WaveView.swift in Sources */,
+				2C3EA18B2B8E6FD3001F5B3B /* SquareColor.swift in Sources */,
+				2C3EA18C2B8E6FD3001F5B3B /* ViewEffect.swift in Sources */,
+				2C3EA18D2B8E6FD3001F5B3B /* Colors.swift in Sources */,
+				2C3EA18E2B8E6FD3001F5B3B /* GameViewController.swift in Sources */,
+				2C3EA18F2B8E6FD3001F5B3B /* CircleCutoutView.swift in Sources */,
+				2C3EA1902B8E6FD3001F5B3B /* Consumable.swift in Sources */,
+				2C3EA1912B8E6FD3001F5B3B /* AppDelegate.swift in Sources */,
+				2C3EA1922B8E6FD3001F5B3B /* Input.swift in Sources */,
+				2C3EA1932B8E6FD3001F5B3B /* ButtonWithExtendedArea.swift in Sources */,
+				2C3EA1942B8E6FD3001F5B3B /* BoardItemView.swift in Sources */,
+				2C3EA1952B8E6FD3001F5B3B /* BoardView.swift in Sources */,
+				2C3EA1962B8E6FD3001F5B3B /* Images.swift in Sources */,
+				2C3EA1972B8E6FD3001F5B3B /* Highlight.swift in Sources */,
+				2C3EA1982B8E6FD3001F5B3B /* SeparatorView.swift in Sources */,
+				2C3EA1992B8E6FD3001F5B3B /* GameController.swift in Sources */,
+				2C3EA19A2B8E6FD3001F5B3B /* Storyboard.swift in Sources */,
+				2C3EA19B2B8E6FD3001F5B3B /* CircleView.swift in Sources */,
+				2C3EA19C2B8E6FD3001F5B3B /* Computer.swift in Sources */,
+				2C3EA19D2B8E6FD3001F5B3B /* Music.swift in Sources */,
+				2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */,
+				2C3EA19F2B8E6FD3001F5B3B /* Connection.swift in Sources */,
+				2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */,
+				2C3EA1A12B8E6FD3001F5B3B /* SparklingView.swift in Sources */,
+				2C3EA1A22B8E6FD3001F5B3B /* Scoring.swift in Sources */,
+				2C3EA1A32B8E6FD3001F5B3B /* Haptic.swift in Sources */,
+				2C3EA1A42B8E6FD3001F5B3B /* URL.swift in Sources */,
+				2C3EA1A52B8E6FD3001F5B3B /* CGFloat.swift in Sources */,
+				2C3EA1A62B8E6FD3001F5B3B /* MusicViewController.swift in Sources */,
+				2C3EA1A72B8E6FD3001F5B3B /* AvailableMoveKind.swift in Sources */,
+				2C3EA1A82B8E6FD3001F5B3B /* SceneDelegate.swift in Sources */,
+				2C3EA1A92B8E6FD3001F5B3B /* AnimationKey.swift in Sources */,
+				2C3EA1AA2B8E6FD3001F5B3B /* Audio.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,6 +1266,84 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		2C3EA1F12B8E6FD3001F5B3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8DXC3N7E7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		2C3EA1F22B8E6FD3001F5B3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8DXC3N7E7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
@@ -1094,7 +1493,7 @@
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1132,7 +1531,7 @@
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1148,6 +1547,15 @@
 			buildConfigurations = (
 				2C1FD1152B66F92E00D4AC51 /* Debug */,
 				2C1FD1162B66F92E00D4AC51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C3EA1F02B8E6FD3001F5B3B /* Build configuration list for PBXNativeTarget "mons-catalyst" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C3EA1F12B8E6FD3001F5B3B /* Debug */,
+				2C3EA1F22B8E6FD3001F5B3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1181,6 +1589,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		2C3EA1692B8E6FD3001F5B3B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1192,6 +1608,16 @@
 		2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		2C3EA1682B8E6FD3001F5B3B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C3EA1692B8E6FD3001F5B3B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		2C3EA16A2B8E6FD3001F5B3B /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C3EA1692B8E6FD3001F5B3B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
 		};
 		2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */ = {
