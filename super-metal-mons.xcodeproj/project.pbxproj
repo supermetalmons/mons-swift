@@ -66,8 +66,8 @@
 		2C7E80CE29FC54B300114943 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CD29FC54B300114943 /* Config.swift */; };
 		2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */; };
 		2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */; };
-		2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */; };
-		2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */; };
+		2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */; };
+		2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB656F72AFD0DD200000760 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB656F62AFD0DD200000760 /* Music.swift */; };
 		2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */; };

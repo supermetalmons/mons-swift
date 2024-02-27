@@ -2,18 +2,35 @@
 
 import FirebaseCore
 import FirebaseAuth
-import FirebaseAppCheck
-import FirebaseFirestore
 
-class Firebase {
+class BaseFirebase {
     
     static var userId: String?
     
-    static func setup() {
-        AppCheck.setAppCheckProviderFactory(MonsAppCheckProviderFactory())
+    static func auth(competion: ((Bool) -> Void)? = nil) {
+        Auth.auth().signInAnonymously { authResult, _ in
+            if let user = authResult?.user {
+                self.userId = user.uid
+            }
+        }
+    }
+    
+    static func baseSetup() {
         FirebaseApp.configure()
         auth()
-        
+    }
+    
+}
+
+#if !targetEnvironment(macCatalyst)
+import FirebaseAppCheck
+import FirebaseFirestore
+
+class Firebase: BaseFirebase {
+    
+    static func setup() {
+        AppCheck.setAppCheckProviderFactory(MonsAppCheckProviderFactory())
+        baseSetup()
         Task {
             await checkFirestore()
         }
@@ -31,14 +48,6 @@ class Firebase {
         }
     }
     
-    static func auth(competion: ((Bool) -> Void)? = nil) {
-        Auth.auth().signInAnonymously { authResult, _ in
-            if let user = authResult?.user {
-                self.userId = user.uid
-            }
-        }
-    }
-    
 }
 
 private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
@@ -48,3 +57,15 @@ private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
     }
     
 }
+
+#else
+
+class Firebase: BaseFirebase {
+    
+    static func setup() {
+        baseSetup()
+    }
+    
+}
+
+#endif
