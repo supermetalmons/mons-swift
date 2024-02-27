@@ -231,8 +231,8 @@
 		2CC39E8629CA48B200EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CC39E8829CA48B300EDF779 /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
 		2CC39E8B29CA48B300EDF779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		2CC39E8D29CA48B300EDF779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "super-metal-mons.entitlements"; sourceTree = "<group>"; };
+		2CC39E8D29CA48B300EDF779 /* Info-ios.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ios.plist"; sourceTree = "<group>"; };
+		2CC39E9329CA4EDF00EDF779 /* mons-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mons-ios.entitlements"; sourceTree = "<group>"; };
 		2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		2CC4E21729E9B047002F3AC9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2CC4E21B29E9E60D002F3AC9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -522,9 +522,9 @@
 				2CC39E8A29CA48B300EDF779 /* LaunchScreen.storyboard */,
 				2C3812252B065F2B000FDE18 /* GoogleService-Info.plist */,
 				2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */,
-				2CC39E8D29CA48B300EDF779 /* Info.plist */,
+				2CC39E8D29CA48B300EDF779 /* Info-ios.plist */,
 				2C3812212B064CAC000FDE18 /* README.md */,
-				2CC39E9329CA4EDF00EDF779 /* super-metal-mons.entitlements */,
+				2CC39E9329CA4EDF00EDF779 /* mons-ios.entitlements */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -639,9 +639,9 @@
 			productReference = 2C1FD1112B66F92E00D4AC51 /* tools */;
 			productType = "com.apple.product-type.tool";
 		};
-		2CC39E7B29CA48B200EDF779 /* super-metal-mons */ = {
+		2CC39E7B29CA48B200EDF779 /* mons-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CC39E9029CA48B300EDF779 /* Build configuration list for PBXNativeTarget "super-metal-mons" */;
+			buildConfigurationList = 2CC39E9029CA48B300EDF779 /* Build configuration list for PBXNativeTarget "mons-ios" */;
 			buildPhases = (
 				2CC39E7829CA48B200EDF779 /* Sources */,
 				2CC39E7929CA48B200EDF779 /* Frameworks */,
@@ -652,7 +652,7 @@
 			);
 			dependencies = (
 			);
-			name = "super-metal-mons";
+			name = "mons-ios";
 			packageProductDependencies = (
 				2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */,
 				2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */,
@@ -697,7 +697,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2CC39E7B29CA48B200EDF779 /* super-metal-mons */,
+				2CC39E7B29CA48B200EDF779 /* mons-ios */,
 				2C1FD1102B66F92E00D4AC51 /* tools */,
 			);
 		};
@@ -1069,13 +1069,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1107,13 +1107,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/super-metal-mons.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1161,7 +1161,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CC39E9029CA48B300EDF779 /* Build configuration list for PBXNativeTarget "super-metal-mons" */ = {
+		2CC39E9029CA48B300EDF779 /* Build configuration list for PBXNativeTarget "mons-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CC39E9129CA48B300EDF779 /* Debug */,
