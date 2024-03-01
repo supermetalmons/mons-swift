@@ -17,7 +17,7 @@ struct Keychain {
         private static let commonPrefix = "lol.ivan.super-metal-mons."
 
         var stringValue: String {
-            return ItemKey.commonPrefix + "denverCode"
+            return ItemKey.commonPrefix + "claim.24.denver"
         }
         
     }

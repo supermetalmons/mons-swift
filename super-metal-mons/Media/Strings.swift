@@ -23,5 +23,7 @@ struct Strings {
     static let retry = "retry"
     static let couldNotClaim = "could not claim"
     static let itMightBeOver = "maybe it's over"
+    static let youGotTheRock = "you got the rock"
+    static let show = "show"
     
 }

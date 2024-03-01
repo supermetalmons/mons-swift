@@ -24,11 +24,15 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.cancel, style: .plain, target: self, action: #selector(dismissAnimated))
         setupMapView()
-        
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        if initialCode == nil {
+            locationManager = CLLocationManager()
+            locationManager?.delegate = self
+            NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        } else {
+            statusLabel.text = Strings.youGotTheRock
+            actionButton.configuration?.title = Strings.show
+        }
     }
     
     private func setupMapView() {
@@ -40,11 +44,19 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func actionButtonTapped(_ sender: Any) {
-        if isOkLocation && mapView.showsUserLocation {
+        if let code = initialCode {
+            openLinkdrop(code: code)
+        } else if isOkLocation && mapView.showsUserLocation {
             startClaiming()
         } else {
             showCurrentLocation()
         }
+    }
+    
+    private func openLinkdrop(code: String) {
+        guard let url = URL(string: "https://claim.linkdrop.io/#/redeem/\(code)?src=d") else { return }
+        UIApplication.shared.open(url)
+        dismiss(animated: false)
     }
     
     private func startClaiming() {
@@ -81,10 +93,9 @@ class MapViewController: UIViewController {
         claimInProgress = true
         Firebase.claim { [weak self] result in
             self?.claimInProgress = false
-            if let code = result, let url = URL(string: "https://claim.linkdrop.io/#/redeem/\(code)?src=d") {
+            if let code = result {
                 Keychain.shared.save(denverCode: code)
-                UIApplication.shared.open(url)
-                self?.dismissAnimated()
+                self?.openLinkdrop(code: code)
             } else {
                 if retryCount < 3 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
