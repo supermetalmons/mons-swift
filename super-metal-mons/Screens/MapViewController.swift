@@ -46,6 +46,19 @@ class MapViewController: UIViewController {
         }
     }
     
+    @IBAction func fcButtonTapped(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://warpcast.com/mons")!)
+    }
+    
+    @IBAction func xButtonTapped(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://twitter.com/supermetalx")!)
+    }
+    
+    @IBAction func githubButtonTapped(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://github.com/supermetalmons/mons-swift")!)
+    }
+    
+    
     private func showCurrentLocation() {
         if locationStatus == .authorizedWhenInUse || locationStatus == .authorizedAlways {
             locationManager?.startUpdatingLocation()

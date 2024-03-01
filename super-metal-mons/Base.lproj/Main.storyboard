@@ -729,15 +729,64 @@
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Drr-FT-KLi">
+                                <rect key="frame" x="139" y="772" width="115" height="23"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKu-e2-wNy">
+                                        <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="iA3-e0-r4h"/>
+                                            <constraint firstAttribute="width" constant="23" id="ryz-0U-mtl"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="fc"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="fcButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="0gB-GE-uEX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g80-tY-vo9">
+                                        <rect key="frame" x="46" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="gTd-rJ-b8z"/>
+                                            <constraint firstAttribute="height" constant="23" id="lxe-UH-Ucm"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="x"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="xButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="lKQ-v0-Wq1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bM-RM-4cg">
+                                        <rect key="frame" x="92" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="Ddv-AU-igZ"/>
+                                            <constraint firstAttribute="height" constant="23" id="EPL-pw-mq9"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="github"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="githubButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="2F7-0w-00g"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ojd-Ag-SnN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="gC7-t4-rJP" secondAttribute="trailing" id="24V-E7-Pbw"/>
+                            <constraint firstItem="Drr-FT-KLi" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="7TD-lV-gTr"/>
                             <constraint firstItem="Ryr-03-icz" firstAttribute="top" secondItem="gC7-t4-rJP" secondAttribute="bottom" constant="20" id="CZ5-Mo-VWQ"/>
                             <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="I8O-vp-3Tg" secondAttribute="trailing" constant="20" id="K4h-wY-BHW"/>
                             <constraint firstItem="gC7-t4-rJP" firstAttribute="top" secondItem="ojd-Ag-SnN" secondAttribute="top" id="KVD-xQ-e9Z"/>
                             <constraint firstItem="I8O-vp-3Tg" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" constant="20" id="UDY-K0-Beu"/>
+                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="bottom" secondItem="Drr-FT-KLi" secondAttribute="bottom" constant="23" id="ZbW-ba-fiQ"/>
                             <constraint firstItem="I8O-vp-3Tg" firstAttribute="top" secondItem="Ryr-03-icz" secondAttribute="bottom" constant="20" id="b7f-3S-nxL"/>
                             <constraint firstItem="Ryr-03-icz" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="cOx-l6-ntk"/>
                             <constraint firstItem="gC7-t4-rJP" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" id="kdw-EA-DVv"/>
@@ -917,6 +966,8 @@
         <image name="emoji-52" width="420" height="420"/>
         <image name="emoji-53" width="420" height="420"/>
         <image name="escape" catalog="system" width="128" height="123"/>
+        <image name="fc" width="99" height="99"/>
+        <image name="github" width="93" height="93"/>
         <image name="hifispeaker" catalog="system" width="112" height="128"/>
         <image name="logo" width="1310" height="817"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
@@ -931,6 +982,7 @@
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="speaker" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
+        <image name="x" width="103" height="103"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
