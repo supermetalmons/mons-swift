@@ -6,12 +6,16 @@ class MainMenuViewController: UIViewController {
     
     private var didAppear = false
     
+    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: Notification.Name.wasOpenedWithLink, object: nil)
+#if !targetEnvironment(macCatalyst)
+        searchButton.isHidden = false
+#endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +48,20 @@ class MainMenuViewController: UIViewController {
         let gameViewController = GameViewController.with(gameController: gameController)
         gameViewController.modalPresentationStyle = .overFullScreen
         present(gameViewController, animated: false)
+    }
+    
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        claim()
+    }
+    
+    private func claim() {
+#if !targetEnvironment(macCatalyst)
+        Firebase.claim { result in
+            if let code = result, let url = URL(string: "https://claim.linkdrop.io/#/redeem/\(code)?src=d") {
+                UIApplication.shared.open(url)
+            }
+        }
+#endif
     }
     
     @IBAction func newGameLinkButtonTapped(_ sender: Any) {

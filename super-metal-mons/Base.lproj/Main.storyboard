@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ag2-m3-I9o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ag2-m3-I9o">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -810,6 +810,14 @@
                                     <constraint firstAttribute="width" secondItem="asW-Wi-Sw3" secondAttribute="height" multiplier="784:480" id="OPP-S5-WT9"/>
                                 </constraints>
                             </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVZ-eL-UdT">
+                                <rect key="frame" x="179.33333333333334" y="59" width="34.333333333333343" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="magnifyingglass" catalog="system" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="zeB-Nb-iUY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -822,12 +830,15 @@
                             <constraint firstItem="igJ-1y-p3U" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20.000000000000114" id="NVG-Q2-6fX"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" relation="lessThanOrEqual" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="fhr-GJ-Ent"/>
+                            <constraint firstItem="DVZ-eL-UdT" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" id="jsO-Np-lMh"/>
+                            <constraint firstItem="DVZ-eL-UdT" firstAttribute="centerX" secondItem="iKp-lT-Tno" secondAttribute="centerX" id="mfU-wC-946"/>
                             <constraint firstItem="iKp-lT-Tno" firstAttribute="trailing" secondItem="igJ-1y-p3U" secondAttribute="trailing" priority="750" constant="20" id="tst-zw-tg3"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="joinButton" destination="YFl-js-bfN" id="aTQ-XL-bBt"/>
                         <outlet property="newGameButton" destination="4YE-AP-K09" id="xah-BZ-JV1"/>
+                        <outlet property="searchButton" destination="DVZ-eL-UdT" id="beM-Up-GgY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeL-MP-W3j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -849,6 +860,7 @@
         <image name="escape" catalog="system" width="128" height="123"/>
         <image name="hifispeaker" catalog="system" width="112" height="128"/>
         <image name="logo" width="1310" height="817"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="mon-1" width="1024" height="1024"/>
         <image name="move-action" width="32" height="32"/>
         <image name="move-manaMove" width="32" height="32"/>
@@ -861,19 +873,19 @@
         <image name="speaker" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
