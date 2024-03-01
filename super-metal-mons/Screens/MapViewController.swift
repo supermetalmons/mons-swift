@@ -24,7 +24,8 @@ class MapViewController: UIViewController {
         locationManager?.delegate = self
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.cancel, style: .plain, target: self, action: #selector(dismissAnimated))
         setupMapView()
-        // TODO: stop updating location when app is not active, when screen closes, when there is no need anymore
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     private func setupMapView() {
@@ -100,6 +101,19 @@ class MapViewController: UIViewController {
             actionButton.configuration?.title = Strings.search
             statusLabel.text = Strings.lookWithinTheCircle
         }
+    }
+    
+    deinit {
+        locationManager?.stopUpdatingLocation()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func appDidBecomeActive() {
+        locationManager?.startUpdatingLocation()
+    }
+    
+    @objc private func appWillResignActive() {
+        locationManager?.stopUpdatingLocation()
     }
     
 }
