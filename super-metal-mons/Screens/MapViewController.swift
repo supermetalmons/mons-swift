@@ -38,13 +38,17 @@ class MapViewController: UIViewController {
     
     @IBAction func actionButtonTapped(_ sender: Any) {
         if isOkLocation && mapView.showsUserLocation {
-            actionButton.configuration?.title = nil
-            actionButton.configuration?.showsActivityIndicator = true
-            actionButton.isUserInteractionEnabled = false
-            claim()
+            startClaiming()
         } else {
             showCurrentLocation()
         }
+    }
+    
+    private func startClaiming() {
+        actionButton.configuration?.title = nil
+        actionButton.configuration?.showsActivityIndicator = true
+        actionButton.isUserInteractionEnabled = false
+        claim()
     }
     
     @IBAction func fcButtonTapped(_ sender: Any) {
@@ -59,7 +63,6 @@ class MapViewController: UIViewController {
         UIApplication.shared.open(URL(string: "https://github.com/supermetalmons/mons-swift")!)
     }
     
-    
     private func showCurrentLocation() {
         if locationStatus == .authorizedWhenInUse || locationStatus == .authorizedAlways {
             locationManager?.startUpdatingLocation()
@@ -69,7 +72,7 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
     }
     
-    private func claim() {
+    private func claim(retryCount: Int = 0) {
 #if !targetEnvironment(macCatalyst)
         guard !claimInProgress else { return }
         claimInProgress = true
@@ -79,12 +82,38 @@ class MapViewController: UIViewController {
                 UIApplication.shared.open(url)
                 self?.dismissAnimated()
             } else {
-                // TODO: retry
-                // TODO: show error
-                // TODO: update button depending on isOkLocation
+                if retryCount < 3 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        self?.claim(retryCount: retryCount + 1)
+                    }
+                } else {
+                    self?.updateActionButtonAfterUnsuccessfulClaim()
+                    self?.showDidNotClaimAlert()
+                }
             }
         }
 #endif
+    }
+    
+    private func showDidNotClaimAlert() {
+        let alert = UIAlertController(title: Strings.couldNotClaim, message: Strings.itMightBeOver, preferredStyle: .alert)
+        let retryAction = UIAlertAction(title: Strings.retry, style: .default) { [weak self] _ in
+            self?.startClaiming()
+        }
+        let okAction = UIAlertAction(title: Strings.ok, style: .cancel)
+        alert.addAction(okAction)
+        alert.addAction(retryAction)
+        present(alert, animated: true)
+    }
+    
+    private func updateActionButtonAfterUnsuccessfulClaim() {
+        actionButton.configuration?.showsActivityIndicator = false
+        actionButton.isUserInteractionEnabled = true
+        if isOkLocation {
+            handleOkLocation()
+        } else {
+            handleFarAwayLocation()
+        }
     }
     
     private func handleOkLocation() {

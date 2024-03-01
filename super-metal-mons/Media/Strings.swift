@@ -18,7 +18,10 @@ struct Strings {
     static let claim = "claim"
     static let monsRocksGems = "mons rocks / gems"
     static let allowLocationAccess = "allow location access\nin settings"
-    static let thereIsSomethingThere = "there is something there"
+    static let thereIsSomethingThere = "there might be something there"
     static let search = "search"
+    static let retry = "retry"
+    static let couldNotClaim = "could not claim"
+    static let itMightBeOver = "maybe it's over"
     
 }

@@ -36,7 +36,10 @@ class Firebase: BaseFirebase {
     static func claim(completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         db.collection("items").whereField("claimed", isEqualTo: false).limit(to: 1).getDocuments { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents, let documentToClaim = documents.first else { return }
+            guard let documents = querySnapshot?.documents, let documentToClaim = documents.first else {
+                DispatchQueue.main.async { completion(nil) }
+                return
+            }
             db.runTransaction({ (transaction, errorPointer) -> Any? in
                 let itemRef = documentToClaim.reference
                 guard let itemDocument = try? transaction.getDocument(itemRef) else { return nil }
