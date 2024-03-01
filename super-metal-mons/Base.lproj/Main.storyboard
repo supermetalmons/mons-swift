@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -694,6 +695,49 @@
             </objects>
             <point key="canvasLocation" x="1525.9541984732823" y="24.647887323943664"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="0YK-y4-vQ3">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="HSR-aN-LDL" customClass="MapViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ngZ-b3-DT4">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-t4-rJP">
+                                <rect key="frame" x="0.0" y="59" width="393" height="393"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gC7-t4-rJP" secondAttribute="height" multiplier="1:1" id="h74-fs-klW"/>
+                                </constraints>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ryr-03-icz">
+                                <rect key="frame" x="159" y="472" width="75.333333333333314" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="search" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="actionButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="LDc-bQ-Ao9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ojd-Ag-SnN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="gC7-t4-rJP" secondAttribute="trailing" id="24V-E7-Pbw"/>
+                            <constraint firstItem="Ryr-03-icz" firstAttribute="top" secondItem="gC7-t4-rJP" secondAttribute="bottom" constant="20" id="CZ5-Mo-VWQ"/>
+                            <constraint firstItem="gC7-t4-rJP" firstAttribute="top" secondItem="ojd-Ag-SnN" secondAttribute="top" id="KVD-xQ-e9Z"/>
+                            <constraint firstItem="Ryr-03-icz" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="cOx-l6-ntk"/>
+                            <constraint firstItem="gC7-t4-rJP" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" id="kdw-EA-DVv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionButton" destination="Ryr-03-icz" id="kQW-xJ-dRs"/>
+                        <outlet property="mapView" destination="gC7-t4-rJP" id="oro-Ij-gjs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PZU-Ih-phu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2389" y="19"/>
+        </scene>
         <!--Music View Controller-->
         <scene sceneID="l6U-Ab-dyG">
             <objects>
@@ -752,7 +796,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Iv-uv-xaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2307.6335877862593" y="-69.366197183098592"/>
+            <point key="canvasLocation" x="1527" y="581"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="M46-w3-48Z">

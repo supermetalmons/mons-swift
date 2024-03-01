@@ -51,17 +51,7 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
-        claim()
-    }
-    
-    private func claim() {
-#if !targetEnvironment(macCatalyst)
-        Firebase.claim { result in
-            if let code = result, let url = URL(string: "https://claim.linkdrop.io/#/redeem/\(code)?src=d") {
-                UIApplication.shared.open(url)
-            }
-        }
-#endif
+        present(instantiate(MapViewController.self).inNavigationController, animated: true)
     }
     
     @IBAction func newGameLinkButtonTapped(_ sender: Any) {
