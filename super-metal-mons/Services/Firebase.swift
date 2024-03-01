@@ -44,7 +44,9 @@ class Firebase: BaseFirebase {
                 transaction.updateData(["claimed": true], forDocument: itemRef)
                 return itemDocument.data()?["code"] as? String
             }) { (result, _) in
-                completion(result as? String)
+                DispatchQueue.main.async {
+                    completion(result as? String)
+                }
             }
         }
     }

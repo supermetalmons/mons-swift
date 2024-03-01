@@ -14,5 +14,7 @@ struct Strings {
     static let somethingIsBroken = "sorry, something is broken"
     static let say = "say"
     static let rematch = "rematch"
+    static let tryLookingForRocksInTheCircle = "try looking for rocks in the circle"
+    static let claim = "claim"
     
 }
