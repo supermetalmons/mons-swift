@@ -54,6 +54,22 @@ class Firebase: BaseFirebase {
         }
     }
     
+    static func createCodes(_ codes: [String]) {
+        let db = Firestore.firestore()
+        for code in codes {
+            _ = db.collection("items").addDocument(data: [
+                "claimed": false,
+                "code": code
+            ]) { err in
+                if let err = err {
+                    print("🛑")
+                } else {
+                    print("✅")
+                }
+            }
+        }
+    }
+    
 }
 
 private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
