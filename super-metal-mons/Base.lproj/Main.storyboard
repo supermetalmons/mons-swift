@@ -711,20 +711,34 @@
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ryr-03-icz">
-                                <rect key="frame" x="159" y="472" width="75.333333333333314" height="35"/>
+                                <rect key="frame" x="144" y="472" width="105" height="47.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47.666666666666629" id="ZCQ-yV-4pl"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="search" cornerStyle="capsule"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="search" cornerStyle="capsule">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="actionButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="LDc-bQ-Ao9"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mons rocks / gems" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8O-vp-3Tg">
+                                <rect key="frame" x="20" y="539.66666666666663" width="353" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ojd-Ag-SnN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="gC7-t4-rJP" secondAttribute="trailing" id="24V-E7-Pbw"/>
                             <constraint firstItem="Ryr-03-icz" firstAttribute="top" secondItem="gC7-t4-rJP" secondAttribute="bottom" constant="20" id="CZ5-Mo-VWQ"/>
+                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="I8O-vp-3Tg" secondAttribute="trailing" constant="20" id="K4h-wY-BHW"/>
                             <constraint firstItem="gC7-t4-rJP" firstAttribute="top" secondItem="ojd-Ag-SnN" secondAttribute="top" id="KVD-xQ-e9Z"/>
+                            <constraint firstItem="I8O-vp-3Tg" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" constant="20" id="UDY-K0-Beu"/>
+                            <constraint firstItem="I8O-vp-3Tg" firstAttribute="top" secondItem="Ryr-03-icz" secondAttribute="bottom" constant="20" id="b7f-3S-nxL"/>
                             <constraint firstItem="Ryr-03-icz" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="cOx-l6-ntk"/>
                             <constraint firstItem="gC7-t4-rJP" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" id="kdw-EA-DVv"/>
                         </constraints>
@@ -732,6 +746,7 @@
                     <connections>
                         <outlet property="actionButton" destination="Ryr-03-icz" id="kQW-xJ-dRs"/>
                         <outlet property="mapView" destination="gC7-t4-rJP" id="oro-Ij-gjs"/>
+                        <outlet property="statusLabel" destination="I8O-vp-3Tg" id="wjl-IL-Wma"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZU-Ih-phu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

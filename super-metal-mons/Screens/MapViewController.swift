@@ -6,6 +6,7 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
@@ -76,13 +77,15 @@ class MapViewController: UIViewController {
         isOkLocation = true
         if !claimInProgress {
             actionButton.configuration?.title = Strings.claim
+            statusLabel.text = Strings.thereIsSomethingThere
         }
     }
     
     private func handleFarAwayLocation() {
         isOkLocation = false
         if !claimInProgress {
-            // TODO: show description message
+            actionButton.configuration?.title = Strings.search
+            statusLabel.text = Strings.lookWithinTheCircle
         }
     }
     
@@ -108,8 +111,10 @@ extension MapViewController: CLLocationManagerDelegate {
         self.locationStatus = status
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager?.startUpdatingLocation()
-        } else {
-            // TODO: handle other statuses
+        } else if status == .restricted || status == .denied {
+            statusLabel.text = Strings.allowLocationAccess
+        } else if status == .notDetermined {
+            statusLabel.text = Strings.monsRocksGems
         }
     }
     

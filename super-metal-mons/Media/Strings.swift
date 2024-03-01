@@ -14,7 +14,11 @@ struct Strings {
     static let somethingIsBroken = "sorry, something is broken"
     static let say = "say"
     static let rematch = "rematch"
-    static let tryLookingForRocksInTheCircle = "try looking for rocks in the circle"
+    static let lookWithinTheCircle = "look within the circle"
     static let claim = "claim"
+    static let monsRocksGems = "mons rocks / gems"
+    static let allowLocationAccess = "allow location access\nin settings"
+    static let thereIsSomethingThere = "there is something there"
+    static let search = "search"
     
 }
