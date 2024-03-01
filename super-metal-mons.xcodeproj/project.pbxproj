@@ -183,6 +183,8 @@
 		2C3F341F2B92322600F3829D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F341D2B92322600F3829D /* MapViewController.swift */; };
 		2C3F34212B92331600F3829D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34202B92331600F3829D /* UIViewController.swift */; };
 		2C3F34222B92331600F3829D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34202B92331600F3829D /* UIViewController.swift */; };
+		2C3F34242B92587900F3829D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34232B92587900F3829D /* Keychain.swift */; };
+		2C3F34252B92587900F3829D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34232B92587900F3829D /* Keychain.swift */; };
 		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
 		2C779FF32B6CFA0400900EFE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
@@ -333,6 +335,7 @@
 		2C3EA1F62B8E7046001F5B3B /* Info-catalyst.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-catalyst.plist"; sourceTree = "<group>"; };
 		2C3F341D2B92322600F3829D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2C3F34202B92331600F3829D /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		2C3F34232B92587900F3829D /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		2C779FF22B6CFA0400900EFE /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -637,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
+				2C3F34232B92587900F3829D /* Keychain.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
 			);
 			path = Services;
@@ -1111,6 +1115,7 @@
 				2C3EA1802B8E6FD3001F5B3B /* Reaction.swift in Sources */,
 				2C3EA1812B8E6FD3001F5B3B /* TestCase.swift in Sources */,
 				2C3EA1822B8E6FD3001F5B3B /* Notification.swift in Sources */,
+				2C3F34252B92587900F3829D /* Keychain.swift in Sources */,
 				2C3EA1832B8E6FD3001F5B3B /* Mon.swift in Sources */,
 				2C3EA1842B8E6FD3001F5B3B /* BoardStyle.swift in Sources */,
 				2C3EA1852B8E6FD3001F5B3B /* UIView.swift in Sources */,
@@ -1181,6 +1186,7 @@
 				2CFA88912B02434600F99723 /* Reaction.swift in Sources */,
 				2C779FF32B6CFA0400900EFE /* TestCase.swift in Sources */,
 				2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */,
+				2C3F34242B92587900F3829D /* Keychain.swift in Sources */,
 				2CB6D3B229F730F600605255 /* Mon.swift in Sources */,
 				2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */,
 				2CFC6E4F29F9BE6100EF34FA /* UIView.swift in Sources */,
