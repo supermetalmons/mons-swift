@@ -18,12 +18,15 @@ class MapViewController: UIViewController {
     private var isOkLocation = false
     private var claimInProgress = false
     
+    private let initialCode = Keychain.shared.denverCode
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.cancel, style: .plain, target: self, action: #selector(dismissAnimated))
         setupMapView()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
@@ -79,6 +82,7 @@ class MapViewController: UIViewController {
         Firebase.claim { [weak self] result in
             self?.claimInProgress = false
             if let code = result, let url = URL(string: "https://claim.linkdrop.io/#/redeem/\(code)?src=d") {
+                Keychain.shared.save(denverCode: code)
                 UIApplication.shared.open(url)
                 self?.dismissAnimated()
             } else {

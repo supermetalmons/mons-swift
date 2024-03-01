@@ -12,27 +12,27 @@ struct Keychain {
     }
     
     private enum ItemKey {
-        case denverLink
+        case denverCode
         
         private static let commonPrefix = "lol.ivan.super-metal-mons."
 
         var stringValue: String {
-            return ItemKey.commonPrefix + "denverLink"
+            return ItemKey.commonPrefix + "denverCode"
         }
         
     }
     
-    var denverLink: String? {
-        if let data = get(key: .denverLink), let denverLink = String(data: data, encoding: .utf8) {
-            return denverLink
+    var denverCode: String? {
+        if let data = get(key: .denverCode), let denverCode = String(data: data, encoding: .utf8) {
+            return denverCode
         } else {
             return nil
         }
     }
     
-    func save(denverLink: String) {
-        guard let data = denverLink.data(using: .utf8) else { return }
-        save(data: data, key: .denverLink)
+    func save(denverCode: String) {
+        guard let data = denverCode.data(using: .utf8) else { return }
+        save(data: data, key: .denverCode)
     }
 
     // MARK: - Private
