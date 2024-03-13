@@ -626,3 +626,21 @@ extension Output: FenRepresentable {
     }
     
 }
+
+extension Array where Element == Input {
+    
+    var fen: String {
+        return map { $0.fen }.joined(separator: ";")
+    }
+    
+    init?(fen: String) {
+        let fens = fen.split(separator: ";")
+        let inputs = fens.compactMap { Input(fen: String($0)) }
+        if fens.count == inputs.count {
+            self = inputs
+        } else {
+            return nil
+        }
+    }
+    
+}

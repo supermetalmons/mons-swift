@@ -9,9 +9,9 @@ func validate(data: Data) {
     let game = MonsGame(fen: testCase.fenBefore)!
     let result = game.processInput(testCase.input, doNotApplyEvents: false, oneOptionEnough: false)
     
-    let inputFen = testCase.input.map { $0.fen }
+    let inputFen = testCase.input.fen
     let outputFen = testCase.output.fen
-    let recreatedInput = inputFen.compactMap { Input(fen: $0) }
+    let recreatedInput = Array<Input>(fen: inputFen)
     let recreatedOutput = Output(fen: outputFen)
     
     if recreatedInput != testCase.input || recreatedOutput != testCase.output {
