@@ -275,6 +275,76 @@ extension Consumable: FenRepresentable {
     
 }
 
+extension Event: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
+extension NextInput: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
+extension NextInput.Kind: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
+extension Location: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
+extension Input.Modifier: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
 extension Input: FenRepresentable {
     
     init?(fen: String) {
