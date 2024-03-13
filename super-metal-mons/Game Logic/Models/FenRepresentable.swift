@@ -283,8 +283,46 @@ extension Event: FenRepresentable {
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        let components: [String]
+        switch self {
+        case .monMove(let item, let from, let to):
+            components = [] // TODO: add
+        case .manaMove(let mana, let from, let to):
+            components = [] // TODO: add
+        case .manaScored(let mana, let at):
+            components = [] // TODO: add
+        case .mysticAction(let mystic, let from, let to):
+            components = [] // TODO: add
+        case .demonAction(let demon, let from, let to):
+            components = [] // TODO: add
+        case .demonAdditionalStep(let demon, let from, let to):
+            components = [] // TODO: add
+        case .spiritTargetMove(let item, let from, let to):
+            components = [] // TODO: add
+        case .pickupBomb(let by, let at):
+            components = [] // TODO: add
+        case .pickupPotion(let by, let at):
+            components = [] // TODO: add
+        case .pickupMana(let mana, let by, let at):
+            components = [] // TODO: add
+        case .monFainted(let mon, let from, let to):
+            components = [] // TODO: add
+        case .manaDropped(let mana, let at):
+            components = [] // TODO: add
+        case .supermanaBackToBase(let from, let to):
+            components = [] // TODO: add
+        case .bombAttack(let by, let from, let to):
+            components = [] // TODO: add
+        case .monAwake(let mon, let at):
+            components = [] // TODO: add
+        case .bombExplosion(let at):
+            components = [] // TODO: add
+        case .nextTurn(let color):
+            components = [] // TODO: add
+        case .gameOver(let winner):
+            components = [] // TODO: add
+        }
+        return components.joined(separator: " ")
     }
     
 }
@@ -292,13 +330,19 @@ extension Event: FenRepresentable {
 extension NextInput: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        let components = fen.split(separator: " ")
+        guard components.count == 3 else { return nil }
+        if let input = Input(fen: String(components[0])), let kind = NextInput.Kind(fen: String(components[1])) {
+            self.input = input
+            self.kind = kind
+            self.actorMonItem = Item(fen: String(components[2]))
+        } else {
+            return nil
+        }
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        return [input.fen, kind.fen, actorMonItem?.fen ?? "o"].joined(separator: " ")
     }
     
 }
@@ -306,13 +350,51 @@ extension NextInput: FenRepresentable {
 extension NextInput.Kind: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        switch fen {
+        case "mm":
+            self = .monMove
+        case "mma":
+            self = .manaMove
+        case "ma":
+            self = .mysticAction
+        case "da":
+            self = .demonAction
+        case "das":
+            self = .demonAdditionalStep
+        case "stc":
+            self = .spiritTargetCapture
+        case "stm":
+            self = .spiritTargetMove
+        case "sc":
+            self = .selectConsumable
+        case "ba":
+            self = .bombAttack
+        default:
+            return nil
+        }
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        switch self {
+        case .monMove:
+            return "mm"
+        case .manaMove:
+            return "mma"
+        case .mysticAction:
+            return "ma"
+        case .demonAction:
+            return "da"
+        case .demonAdditionalStep:
+            return "das"
+        case .spiritTargetCapture:
+            return "stc"
+        case .spiritTargetMove:
+            return "stm"
+        case .selectConsumable:
+            return "sc"
+        case .bombAttack:
+            return "ba"
+        }
     }
     
 }
@@ -320,13 +402,18 @@ extension NextInput.Kind: FenRepresentable {
 extension Location: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        let components = fen.split(separator: ",")
+        guard components.count == 2 else { return nil }
+        if let i = Int(components[0]), let j = Int(components[1]) {
+            self.i = i
+            self.j = j
+        } else {
+            return nil
+        }
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        return "\(i),\(j)"
     }
     
 }
@@ -334,13 +421,27 @@ extension Location: FenRepresentable {
 extension Input.Modifier: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        switch fen {
+        case "p":
+            self = .selectPotion
+        case "b":
+            self = .selectBomb
+        case "c":
+            self = .cancel
+        default:
+            return nil
+        }
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        switch self {
+        case .selectPotion:
+            return "p"
+        case .selectBomb:
+            return "b"
+        case .cancel:
+            return "c"
+        }
     }
     
 }
@@ -348,13 +449,31 @@ extension Input.Modifier: FenRepresentable {
 extension Input: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        switch fen.first {
+        case "l":
+            if let location = Location(fen: String(fen.dropFirst())) {
+                self = .location(location)
+            } else {
+                return nil
+            }
+        case "m":
+            if let modifier = Modifier(fen: String(fen.dropFirst())) {
+                self = .modifier(modifier)
+            } else {
+                return nil
+            }
+        default:
+            return nil
+        }
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        switch self {
+        case .location(let location):
+            return "l" + location.fen
+        case .modifier(let modifier):
+            return "m" + modifier.fen
+        }
     }
     
 }
@@ -367,8 +486,16 @@ extension Output: FenRepresentable {
     }
     
     var fen: String {
-        // TODO: implement
-        return ""
+        switch self {
+        case .invalidInput:
+            return "i"
+        case .locationsToStartFrom(let locations):
+            return "l" // TODO: add sorted locations
+        case .nextInputOptions(let nextInputOptions):
+            return "n" // TODO: add sorted nextInputOptions
+        case .events(let events):
+            return "e" // TODO: add sorted events
+        }
     }
     
 }
