@@ -278,49 +278,148 @@ extension Consumable: FenRepresentable {
 extension Event: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        var components = fen.split(separator: " ")
+        switch components.removeFirst() {
+        case "mm":
+            guard components.count == 3,
+                  let item = Item(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .monMove(item: item, from: from, to: to)
+        case "mma":
+            guard components.count == 3,
+                  let mana = Mana(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .manaMove(mana: mana, from: from, to: to)
+        case "ms":
+            guard components.count == 2,
+                  let mana = Mana(fen: String(components[0])),
+                  let at = Location(fen: String(components[1])) else { return nil }
+            self = .manaScored(mana: mana, at: at)
+        case "ma":
+            guard components.count == 3,
+                  let item = Mon(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .mysticAction(mystic: item, from: from, to: to)
+        case "da":
+            guard components.count == 3,
+                  let item = Mon(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .demonAction(demon: item, from: from, to: to)
+        case "das":
+            guard components.count == 3,
+                  let item = Mon(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .demonAdditionalStep(demon: item, from: from, to: to)
+        case "stm":
+            guard components.count == 3,
+                  let item = Item(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .spiritTargetMove(item: item, from: from, to: to)
+        case "pb":
+            guard components.count == 2,
+                  let item = Mon(fen: String(components[0])),
+                  let at = Location(fen: String(components[1])) else { return nil }
+            self = .pickupBomb(by: item, at: at)
+        case "pp":
+            guard components.count == 2,
+                  let item = Item(fen: String(components[0])),
+                  let at = Location(fen: String(components[1])) else { return nil }
+            self = .pickupPotion(by: item, at: at)
+        case "pm":
+            guard components.count == 3,
+                  let mana = Mana(fen: String(components[0])),
+                  let by = Mon(fen: String(components[1])),
+                  let at = Location(fen: String(components[2])) else { return nil }
+            self = .pickupMana(mana: mana, by: by, at: at)
+        case "mf":
+            guard components.count == 3,
+                  let item = Mon(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .monFainted(mon: item, from: from, to: to)
+        case "md":
+            guard components.count == 2,
+                  let mana = Mana(fen: String(components[0])),
+                  let at = Location(fen: String(components[1])) else { return nil }
+            self = .manaDropped(mana: mana, at: at)
+        case "sb":
+            guard components.count == 2,
+                  let from = Location(fen: String(components[0])),
+                  let to = Location(fen: String(components[1])) else { return nil }
+            self = .supermanaBackToBase(from: from, to: to)
+        case "ba":
+            guard components.count == 3,
+                  let item = Mon(fen: String(components[0])),
+                  let from = Location(fen: String(components[1])),
+                  let to = Location(fen: String(components[2])) else { return nil }
+            self = .bombAttack(by: item, from: from, to: to)
+        case "maw":
+            guard components.count == 2,
+                  let item = Mon(fen: String(components[0])),
+                  let at = Location(fen: String(components[1])) else { return nil }
+            self = .monAwake(mon: item, at: at)
+        case "be":
+            guard components.count == 1,
+                  let at = Location(fen: String(components[0])) else { return nil }
+            self = .bombExplosion(at: at)
+        case "nt":
+            guard components.count == 1,
+                  let color = Color(fen: String(components[0])) else { return nil }
+            self = .nextTurn(color: color)
+        case "go":
+            guard components.count == 1,
+                  let color = Color(fen: String(components[0])) else { return nil }
+            self = .gameOver(winner: color)
+        default:
+            return nil
+        }
     }
     
     var fen: String {
         let components: [String]
         switch self {
         case .monMove(let item, let from, let to):
-            components = [] // TODO: add
+            components = ["mm", item.fen, from.fen, to.fen]
         case .manaMove(let mana, let from, let to):
-            components = [] // TODO: add
+            components = ["mma", mana.fen, from.fen, to.fen]
         case .manaScored(let mana, let at):
-            components = [] // TODO: add
+            components = ["ms", mana.fen, at.fen]
         case .mysticAction(let mystic, let from, let to):
-            components = [] // TODO: add
+            components = ["ma", mystic.fen, from.fen, to.fen]
         case .demonAction(let demon, let from, let to):
-            components = [] // TODO: add
+            components = ["da", demon.fen, from.fen, to.fen]
         case .demonAdditionalStep(let demon, let from, let to):
-            components = [] // TODO: add
+            components = ["das", demon.fen, from.fen, to.fen]
         case .spiritTargetMove(let item, let from, let to):
-            components = [] // TODO: add
+            components = ["stm", item.fen, from.fen, to.fen]
         case .pickupBomb(let by, let at):
-            components = [] // TODO: add
+            components = ["pb", by.fen, at.fen]
         case .pickupPotion(let by, let at):
-            components = [] // TODO: add
+            components = ["pp", by.fen, at.fen]
         case .pickupMana(let mana, let by, let at):
-            components = [] // TODO: add
+            components = ["pm", mana.fen, by.fen, at.fen]
         case .monFainted(let mon, let from, let to):
-            components = [] // TODO: add
+            components = ["mf", mon.fen, from.fen, to.fen]
         case .manaDropped(let mana, let at):
-            components = [] // TODO: add
+            components = ["md", mana.fen, at.fen]
         case .supermanaBackToBase(let from, let to):
-            components = [] // TODO: add
+            components = ["sb", from.fen, to.fen]
         case .bombAttack(let by, let from, let to):
-            components = [] // TODO: add
+            components = ["ba", by.fen, from.fen, to.fen]
         case .monAwake(let mon, let at):
-            components = [] // TODO: add
+            components = ["maw", mon.fen, at.fen]
         case .bombExplosion(let at):
-            components = [] // TODO: add
+            components = ["be", at.fen]
         case .nextTurn(let color):
-            components = [] // TODO: add
+            components = ["nt", color.fen]
         case .gameOver(let winner):
-            components = [] // TODO: add
+            components = ["go", winner.fen]
         }
         return components.joined(separator: " ")
     }
