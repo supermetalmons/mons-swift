@@ -580,8 +580,36 @@ extension Input: FenRepresentable {
 extension Output: FenRepresentable {
     
     init?(fen: String) {
-        // TODO: implement
-        return nil
+        switch fen.first {
+        case "i":
+            self = .invalidInput
+        case "l":
+            let fens = fen.dropFirst().split(separator: "/")
+            let locations = fens.compactMap { Location(fen: String($0)) }
+            if locations.count == fens.count {
+                self = .locationsToStartFrom(locations)
+            } else {
+                return nil
+            }
+        case "n":
+            let fens = fen.dropFirst().split(separator: "/")
+            let nextInputs = fens.compactMap { NextInput(fen: String($0)) }
+            if nextInputs.count == fens.count {
+                self = .nextInputOptions(nextInputs)
+            } else {
+                return nil
+            }
+        case "e":
+            let fens = fen.dropFirst().split(separator: "/")
+            let events = fens.compactMap { Event(fen: String($0)) }
+            if events.count == fens.count {
+                self = .events(events)
+            } else {
+                return nil
+            }
+        default:
+            return nil
+        }
     }
     
     var fen: String {
@@ -589,11 +617,11 @@ extension Output: FenRepresentable {
         case .invalidInput:
             return "i"
         case .locationsToStartFrom(let locations):
-            return "l" // TODO: add sorted locations
+            return "l" + locations.map { $0.fen }.sorted().joined(separator: "/")
         case .nextInputOptions(let nextInputOptions):
-            return "n" // TODO: add sorted nextInputOptions
+            return "n" + nextInputOptions.map { $0.fen }.sorted().joined(separator: "/")
         case .events(let events):
-            return "e" // TODO: add sorted events
+            return "e" + events.map { $0.fen }.sorted().joined(separator: "/")
         }
     }
     
