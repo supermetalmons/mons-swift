@@ -274,3 +274,31 @@ extension Consumable: FenRepresentable {
     }
     
 }
+
+extension Input: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
+
+extension Output: FenRepresentable {
+    
+    init?(fen: String) {
+        // TODO: implement
+        return nil
+    }
+    
+    var fen: String {
+        // TODO: implement
+        return ""
+    }
+    
+}
