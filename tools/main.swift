@@ -8,6 +8,18 @@ func validate(data: Data) {
     let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
     let game = MonsGame(fen: testCase.fenBefore)!
     let result = game.processInput(testCase.input, doNotApplyEvents: false, oneOptionEnough: false)
+    
+    let inputFen = testCase.input.map { $0.fen }
+    let outputFen = testCase.output.fen
+    let recreatedInput = inputFen.compactMap { Input(fen: $0) }
+    let recreatedOutput = Output(fen: outputFen)
+    
+    if recreatedInput != testCase.input || recreatedOutput != testCase.output {
+        print("🛑 input / output fen")
+    } else {
+        print("✅ input / output fen")
+    }
+    
     let outputSame = result == testCase.output
     let fenSame = game.fen == testCase.fenAfter
     if outputSame && fenSame {
