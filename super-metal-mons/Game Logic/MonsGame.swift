@@ -997,7 +997,7 @@ class MonsGame: NSObject {
         let fenBefore = fen
         let output = processInput(input, doNotApplyEvents: doNotApplyEvents, oneOptionEnough: oneOptionEnough)
         if !doNotApplyEvents, !oneOptionEnough {
-            saveToFile(testCase: TestCase(fenBefore: fenBefore, input: input, output: output, fenAfter: fen))
+            saveToFile(testCase: TestCase(fenBefore: fenBefore, fenAfter: fen, inputFen: input.fen, outputFen: output.fen))
         }
         return output
     }

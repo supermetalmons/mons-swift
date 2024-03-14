@@ -7,29 +7,21 @@ var count = 0
 func validate(data: Data) {
     let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
     let game = MonsGame(fen: testCase.fenBefore)!
-    let result = game.processInput(testCase.input, doNotApplyEvents: false, oneOptionEnough: false)
     
-    let inputFen = testCase.input.fen
-    let outputFen = testCase.output.fen
-    let recreatedInput = Array<Input>(fen: inputFen)
-    let recreatedOutput = Output(fen: outputFen)
+    let recreatedInput = Array<Input>(fen: testCase.inputFen)
+    let recreatedOutput = Output(fen: testCase.outputFen)
     
-    if recreatedInput != testCase.input || recreatedOutput != testCase.output {
-        print("🛑 input / output fen")
-    } else {
-        print("✅ input / output fen")
-    }
+    let result = game.processInput(recreatedInput!, doNotApplyEvents: false, oneOptionEnough: false)
     
-    let outputSame = result == testCase.output
+    let outputSame = result == recreatedOutput
     let fenSame = game.fen == testCase.fenAfter
     if outputSame && fenSame {
         count += 1
         print("✅ ok \(count)")
-        // TODO: save as fen
     } else {
         if !outputSame {
             print("🛑 output", result)
-            print("💾 output", testCase.output)
+            print("💾 output", recreatedOutput!)
         }
         if !fenSame {
             print("🛑 fen", game.fen)
