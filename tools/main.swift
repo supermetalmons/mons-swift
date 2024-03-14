@@ -25,6 +25,7 @@ func validate(data: Data) {
     if outputSame && fenSame {
         count += 1
         print("✅ ok \(count)")
+        // TODO: save as fen
     } else {
         if !outputSame {
             print("🛑 output", result)
