@@ -1299,7 +1299,7 @@
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_CFBundleDisplayName = Mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1338,7 +1338,7 @@
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_CFBundleDisplayName = Mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1493,8 +1493,9 @@
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_CFBundleDisplayName = Mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "look for rocks";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1531,8 +1532,9 @@
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = mons;
+				INFOPLIST_KEY_CFBundleDisplayName = Mons;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "look for rocks";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
