@@ -4,29 +4,33 @@ import Foundation
 
 struct Strings {
     
-    static let ok = "ok"
-    static let cancel = "cancel"
-    static let thereIsNoLink = "there is no link"
-    static let inviteWith = "invite with"
-    static let copy = "copy"
-    static let endTheGameConfirmation = "end the game?"
-    static let opponentLeft = "opponent left the game"
-    static let somethingIsBroken = "sorry, something is broken"
-    static let say = "say"
-    static let rematch = "rematch"
-    static let lookWithinTheCircle = "look within the circle"
-    static let claim = "claim"
-    static let monsRocksGems = "mons rocks / gems"
-    static let allowLocationAccess = "allow location access\nin settings"
-    static let thereIsSomethingThere = "there might be something there"
-    static let search = "search"
-    static let retry = "retry"
-    static let couldNotClaim = "could not claim"
-    static let itMightBeOver = "maybe it's over"
-    static let youGotTheRock = "you got the rock"
-    static let show = "show"
-    static let newLink = "new link"
-    static let playHere = "play here"
-    static let enterLink = "enter link"
+    static let ok = loc("ok")
+    static let cancel = loc("cancel")
+    static let thereIsNoLink = loc("there is no link")
+    static let inviteWith = loc("invite with")
+    static let copy = loc("copy")
+    static let endTheGameConfirmation = loc("end the game?")
+    static let opponentLeft = loc("opponent left the game")
+    static let somethingIsBroken = loc("sorry, something is broken")
+    static let say = loc("say")
+    static let rematch = loc("rematch")
+    static let lookWithinTheCircle = loc("look within the circle")
+    static let claim = loc("claim")
+    static let monsRocksGems = loc("mons rocks / gems")
+    static let allowLocationAccess = loc("allow location access\nin settings")
+    static let thereIsSomethingThere = loc("there might be something there")
+    static let search = loc("search")
+    static let retry = loc("retry")
+    static let couldNotClaim = loc("could not claim")
+    static let itMightBeOver = loc("maybe it's over")
+    static let youGotTheRock = loc("you got the rock")
+    static let show = loc("show")
+    static let newLink =  loc("new link")
+    static let playHere = loc("play here")
+    static let enterLink = loc("enter link")
+    
+    private static func loc(_ string: String.LocalizationValue) -> String {
+        return String(localized: string)
+    }
     
 }
