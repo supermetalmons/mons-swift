@@ -1323,7 +1323,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1362,7 +1362,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1518,7 +1518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1557,7 +1557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
