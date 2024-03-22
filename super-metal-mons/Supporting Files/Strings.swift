@@ -7,7 +7,6 @@ struct Strings {
     static let ok = loc("ok")
     static let cancel = loc("cancel")
     static let thereIsNoLink = loc("there is no link")
-    static let inviteWith = loc("invite with")
     static let copy = loc("copy")
     static let endTheGameConfirmation = loc("end the game?")
     static let opponentLeft = loc("opponent left the game")
