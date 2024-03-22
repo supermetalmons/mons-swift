@@ -244,6 +244,8 @@
 		2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
+		2CE9A77C2BADC63B00579BF7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */; };
+		2CE9A77D2BADC63B00579BF7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */; };
 		2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* ping.aac */; };
 		2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD92A34C05100B3CD54 /* drreams.aac */; };
 		2CEB9AF72A34C05300B3CD54 /* bounce.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADA2A34C05100B3CD54 /* bounce.aac */; };
@@ -396,6 +398,7 @@
 		2CDB1ADE29EEF48E00C51230 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
+		2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2CEB9AD82A34C05100B3CD54 /* ping.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = ping.aac; sourceTree = "<group>"; };
 		2CEB9AD92A34C05100B3CD54 /* drreams.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = drreams.aac; sourceTree = "<group>"; };
 		2CEB9ADA2A34C05100B3CD54 /* bounce.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = bounce.aac; sourceTree = "<group>"; };
@@ -585,7 +588,6 @@
 				2CB7462529F18DC700ACC855 /* Images.swift */,
 				2C38121D2B0620AD000FDE18 /* Haptic.swift */,
 				2CC4E21729E9B047002F3AC9 /* Colors.swift */,
-				2CAF14E429EB39CB0036C942 /* Strings.swift */,
 				2C266FCE2A0AF6B00016C1C5 /* Sound.swift */,
 				2CB656F62AFD0DD200000760 /* Music.swift */,
 				2CE420972B01649A00100BED /* Reactions */,
@@ -677,6 +679,8 @@
 				2C3812212B064CAC000FDE18 /* README.md */,
 				2CC39E9329CA4EDF00EDF779 /* mons-ios.entitlements */,
 				2C3EA1F52B8E7046001F5B3B /* mons-catalyst.entitlements */,
+				2CAF14E429EB39CB0036C942 /* Strings.swift */,
+				2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -909,6 +913,7 @@
 				2C3EA1C92B8E6FD3001F5B3B /* cloud propeller 2.aac in Resources */,
 				2C3EA1CA2B8E6FD3001F5B3B /* README.md in Resources */,
 				2C3EA1CB2B8E6FD3001F5B3B /* ewejam.aac in Resources */,
+				2CE9A77D2BADC63B00579BF7 /* Localizable.xcstrings in Resources */,
 				2C3EA1CC2B8E6FD3001F5B3B /* drop1.wav in Resources */,
 				2C3EA1CD2B8E6FD3001F5B3B /* drreams.aac in Resources */,
 				2C3EA1CE2B8E6FD3001F5B3B /* band.aac in Resources */,
@@ -978,6 +983,7 @@
 				2CEB9B032A34C05300B3CD54 /* cloud propeller 2.aac in Resources */,
 				2C3812222B064CAC000FDE18 /* README.md in Resources */,
 				2CEB9AFF2A34C05300B3CD54 /* ewejam.aac in Resources */,
+				2CE9A77C2BADC63B00579BF7 /* Localizable.xcstrings in Resources */,
 				2C22C8462B05073100E558C5 /* drop1.wav in Resources */,
 				2CEB9AF62A34C05300B3CD54 /* drreams.aac in Resources */,
 				2CEB9B092A34C05300B3CD54 /* band.aac in Resources */,

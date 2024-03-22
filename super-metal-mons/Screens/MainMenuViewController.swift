@@ -9,10 +9,15 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var localGameButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: Notification.Name.wasOpenedWithLink, object: nil)
+        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 32, weight: .bold)]
+        newGameButton.setAttributedTitle(NSAttributedString(string: Strings.newLink, attributes: attributes), for: .normal)
+        joinButton.setAttributedTitle(NSAttributedString(string: Strings.enterLink, attributes: attributes), for: .normal)
+        localGameButton.setAttributedTitle(NSAttributedString(string: Strings.playHere, attributes: attributes), for: .normal)
 #if !targetEnvironment(macCatalyst)
         searchButton.isHidden = false
 #endif

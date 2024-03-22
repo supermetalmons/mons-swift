@@ -29,6 +29,7 @@ class MapViewController: UIViewController {
             locationManager?.delegate = self
             NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+            actionButton.configuration?.title = Strings.search
         } else {
             statusLabel.text = Strings.youGotTheRock
             actionButton.configuration?.title = Strings.show

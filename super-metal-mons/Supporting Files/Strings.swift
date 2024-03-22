@@ -25,5 +25,8 @@ struct Strings {
     static let itMightBeOver = "maybe it's over"
     static let youGotTheRock = "you got the rock"
     static let show = "show"
+    static let newLink = "new link"
+    static let playHere = "play here"
+    static let enterLink = "enter link"
     
 }
