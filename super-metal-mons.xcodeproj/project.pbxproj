@@ -43,7 +43,6 @@
 		2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FDE2A0C26930016C1C5 /* Firebase.swift */; };
 		2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE12A0C2B7A0016C1C5 /* FirebaseAuth */; };
 		2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */; };
-		2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
 		2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD62A113DE8003C959D /* AnimationKey.swift */; };
 		2C27AFD92A115B77003C959D /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFD82A115B77003C959D /* Trace.swift */; };
 		2C27AFDD2A11949D003C959D /* BoardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27AFDC2A11949D003C959D /* BoardItemView.swift */; };
@@ -154,7 +153,6 @@
 		2C3EA1D42B8E6FD3001F5B3B /* crumbs.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADD2A34C05100B3CD54 /* crumbs.aac */; };
 		2C3EA1D52B8E6FD3001F5B3B /* yo3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88922B029F5800F99723 /* yo3.wav */; };
 		2C3EA1D62B8E6FD3001F5B3B /* yo4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA889A2B029F5800F99723 /* yo4.wav */; };
-		2C3EA1D72B8E6FD3001F5B3B /* Mons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */; };
 		2C3EA1D82B8E6FD3001F5B3B /* bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD729EEF48E00C51230 /* bomb.wav */; };
 		2C3EA1D92B8E6FD3001F5B3B /* ping.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9AD82A34C05100B3CD54 /* ping.aac */; };
 		2C3EA1DA2B8E6FD3001F5B3B /* whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* whale2.aac */; };
@@ -320,7 +318,6 @@
 		2C266FD42A0B024E0016C1C5 /* defeat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defeat.wav; sourceTree = "<group>"; };
 		2C266FD52A0B024E0016C1C5 /* choosePickup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = choosePickup.wav; sourceTree = "<group>"; };
 		2C266FDE2A0C26930016C1C5 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mons.xcassets; sourceTree = "<group>"; };
 		2C27AFD62A113DE8003C959D /* AnimationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationKey.swift; sourceTree = "<group>"; };
 		2C27AFD82A115B77003C959D /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		2C27AFDC2A11949D003C959D /* BoardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardItemView.swift; sourceTree = "<group>"; };
@@ -596,7 +593,6 @@
 				2C09E3D929F6D2550082B774 /* Game.xcassets */,
 				2CC4E21529E9AFE0002F3AC9 /* Colors.xcassets */,
 				2C7AE8B729F294A50052F455 /* Emojis.xcassets */,
-				2C266FE72A0D5BBA0016C1C5 /* Mons.xcassets */,
 				2CC39E8829CA48B300EDF779 /* App.xcassets */,
 			);
 			path = Media;
@@ -928,7 +924,6 @@
 				2C3EA1D42B8E6FD3001F5B3B /* crumbs.aac in Resources */,
 				2C3EA1D52B8E6FD3001F5B3B /* yo3.wav in Resources */,
 				2C3EA1D62B8E6FD3001F5B3B /* yo4.wav in Resources */,
-				2C3EA1D72B8E6FD3001F5B3B /* Mons.xcassets in Resources */,
 				2C3EA1D82B8E6FD3001F5B3B /* bomb.wav in Resources */,
 				2C3EA1D92B8E6FD3001F5B3B /* ping.aac in Resources */,
 				2C3EA1DA2B8E6FD3001F5B3B /* whale2.aac in Resources */,
@@ -998,7 +993,6 @@
 				2CEB9AFA2A34C05300B3CD54 /* crumbs.aac in Resources */,
 				2CFA889B2B029F5800F99723 /* yo3.wav in Resources */,
 				2CFA88A32B029F5800F99723 /* yo4.wav in Resources */,
-				2C266FE82A0D5BBA0016C1C5 /* Mons.xcassets in Resources */,
 				2CDB1AE529EEF48E00C51230 /* bomb.wav in Resources */,
 				2CEB9AF52A34C05300B3CD54 /* ping.aac in Resources */,
 				2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */,

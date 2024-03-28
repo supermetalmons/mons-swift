@@ -23,7 +23,6 @@ class GameViewController: UIViewController, GameView {
     
     @IBOutlet weak var boardView: BoardView!
     
-    @IBOutlet weak var monEducationImageView: UIImageView!
     @IBOutlet weak var shareLinkButton: UIButton!
     @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!

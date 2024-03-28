@@ -35,11 +35,6 @@ struct Images {
         }
     }
     
-    static var randomMon: UIImage {
-        let index = Int.random(in: 1...61)
-        return named("mon-\(index)")
-    }
-    
     static func randomEmojiId(except: Int, andExcept: Int) -> Int {
         var newRandom = randomEmojiId
         while newRandom == except || newRandom == andExcept {

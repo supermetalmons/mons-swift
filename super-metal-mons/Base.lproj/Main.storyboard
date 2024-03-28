@@ -109,18 +109,6 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
-                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mon-1" translatesAutoresizingMaskIntoConstraints="NO" id="ICp-7R-3J3">
-                                                    <rect key="frame" x="0.0" y="373" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="Eld-X0-Frb"/>
-                                                        <constraint firstAttribute="height" constant="20" id="xKn-NF-e2W"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ka8-uC-9Ma">
                                                     <rect key="frame" x="186.66666666666666" y="230.66666666666669" width="20" height="20"/>
                                                 </activityIndicatorView>
@@ -132,8 +120,6 @@
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="Db8-77-fdt"/>
                                                 <constraint firstItem="Ywo-wm-gH6" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="ex4-g3-nDh"/>
                                                 <constraint firstItem="MdX-Dg-5cJ" firstAttribute="centerY" secondItem="cal-Iq-5y1" secondAttribute="centerY" priority="750" id="ftS-nx-Zz4"/>
-                                                <constraint firstAttribute="bottom" secondItem="ICp-7R-3J3" secondAttribute="bottom" id="gdu-i7-U6q"/>
-                                                <constraint firstItem="ICp-7R-3J3" firstAttribute="leading" secondItem="cal-Iq-5y1" secondAttribute="leading" id="hEs-Ig-7W1"/>
                                                 <constraint firstItem="Ka8-uC-9Ma" firstAttribute="top" secondItem="Ywo-wm-gH6" secondAttribute="top" id="i2F-8h-6Pm"/>
                                                 <constraint firstItem="Ka8-uC-9Ma" firstAttribute="centerX" secondItem="cal-Iq-5y1" secondAttribute="centerX" id="mVe-99-mIR"/>
                                             </constraints>
@@ -664,7 +650,6 @@
                         <outlet property="inviteLinkLabel" destination="MdX-Dg-5cJ" id="qsm-ba-z2d"/>
                         <outlet property="joinActivityIndicator" destination="Ka8-uC-9Ma" id="q6K-CI-iLV"/>
                         <outlet property="linkButtonsStackView" destination="Ywo-wm-gH6" id="soY-uj-Of0"/>
-                        <outlet property="monEducationImageView" destination="ICp-7R-3J3" id="Lgu-Ri-Bml"/>
                         <outlet property="moreButton" destination="bvG-iw-1OQ" id="cAN-2B-Vk5"/>
                         <outlet property="musicButton" destination="76Q-K9-7MO" id="c3S-D3-Fkt"/>
                         <outlet property="opponentImageView" destination="cH0-Tg-7PM" id="BAD-SX-Xqc"/>
@@ -972,7 +957,6 @@
         <image name="hifispeaker" catalog="system" width="112" height="128"/>
         <image name="logo" width="1310" height="817"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="mon-1" width="1024" height="1024"/>
         <image name="move-action" width="32" height="32"/>
         <image name="move-manaMove" width="32" height="32"/>
         <image name="move-monMove" width="32" height="32"/>
