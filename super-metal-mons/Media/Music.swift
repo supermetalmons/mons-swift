@@ -14,7 +14,7 @@ struct Music {
     }
     
     private static let songNames = [
-        "cloud propeller", "bell glide", "bell dance", "organwhawha", "chimes photography_going home", "ping", "clock tower", "melodine", "cloud propeller 2", "jelly jam", "bubble jam", "spirit track", "bounce", "gilded", "mana pool", "honkshoooo memememeee zzzZZZ", "arploop", "whale2", "gustofwind", "ewejam", "change", "melodine", "driver", "object", "runner", "band", "crumbs", "buzz", "drreams", "super"
+        "organwhawha", "jelly jam", "whale2", "driver"
     ]
     
 }
