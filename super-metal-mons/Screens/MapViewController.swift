@@ -10,6 +10,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
+    // TODO: get from remote config
     private let radius: Double = 2300
     private let centerCoordinate = CLLocationCoordinate2D(latitude: 39.78196866145232, longitude: -104.97050021587202)
     private var locationManager: CLLocationManager?
@@ -18,6 +19,7 @@ class MapViewController: UIViewController {
     private var isOkLocation = false
     private var claimInProgress = false
     
+    // TODO: get current code from remote config
     private let initialCode = Keychain.shared.denverCode
     
     override func viewDidLoad() {

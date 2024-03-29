@@ -30,6 +30,8 @@ struct Keychain {
         }
     }
     
+    // TODO: separate values for separate drops
+    
     func save(denverCode: String) {
         guard let data = denverCode.data(using: .utf8) else { return }
         save(data: data, key: .denverCode)

@@ -35,6 +35,9 @@ class Firebase: BaseFirebase {
     
     static func claim(completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
+        
+        // TODO: separate collections for separate drops
+        
         db.collection("items").whereField("claimed", isEqualTo: false).limit(to: 1).getDocuments { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents, let documentToClaim = documents.first else {
                 DispatchQueue.main.async { completion(nil) }
