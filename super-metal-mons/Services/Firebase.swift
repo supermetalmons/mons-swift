@@ -34,7 +34,15 @@ class Firebase: BaseFirebase {
     }
     
     static func getCurrentDrop(completion: @escaping (CurrentDrop?) -> Void) {
-        // TODO: implement
+        let db = Firestore.firestore()
+        let docRef = db.collection("config").document("currentDrop")
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists, let currentDrop = try? document.data(as: CurrentDrop.self) {
+                DispatchQueue.main.async { completion(currentDrop) }
+            } else {
+                DispatchQueue.main.async { completion(nil) }
+            }
+        }
     }
     
     static func claim(completion: @escaping (String?) -> Void) {

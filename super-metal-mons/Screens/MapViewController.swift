@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.cancel, style: .plain, target: self, action: #selector(dismissAnimated))
+        getCurrentDrop()
         setupMapView()
         if initialCode == nil {
             locationManager = CLLocationManager()
@@ -40,9 +41,22 @@ class MapViewController: UIViewController {
     
     private func getCurrentDrop() {
         Firebase.getCurrentDrop { [weak self] currentDrop in
-            // TODO: setup based on current drop
-            // TODO: should be able to retry if got nil
+            if let drop = currentDrop {
+                self?.setupWithCurrentDrop(drop)
+            } else {
+                self?.failedToGetCurrentDrop()
+            }
         }
+    }
+    
+    private func failedToGetCurrentDrop() {
+        // TODO: should be able to retry
+        print("meh")
+    }
+    
+    private func setupWithCurrentDrop(_ currentDrop: CurrentDrop) {
+        // TODO: setup
+        print(currentDrop.id)
     }
     
     private func setupMapView() {
