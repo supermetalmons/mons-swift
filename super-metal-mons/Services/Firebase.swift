@@ -64,7 +64,7 @@ class Firebase: BaseFirebase {
                 "claimed": false,
                 "code": code
             ]) { err in
-                if let err = err {
+                if let _ = err {
                     print("🛑")
                 } else {
                     print("✅")
