@@ -7,7 +7,7 @@ import CoreLocation
 class MapViewController: UIViewController {
     
     private enum State {
-        case lookingForRocks, failedToGetCurrentDrop, didNotClaimCurrentDrop, didClaimCurrentDrop
+        case lookingForRocks, failedToGetCurrentDrop, didNotClaimCurrentDrop, didClaimCurrentDrop, claiming, okLocation, notOkLocation
     }
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -58,6 +58,20 @@ class MapViewController: UIViewController {
             actionButton.isEnabled = true
             statusLabel.text = Strings.youGotTheRock
             actionButton.configuration?.title = Strings.show
+        case .claiming:
+            actionButton.configuration?.title = nil
+            actionButton.configuration?.showsActivityIndicator = true
+            actionButton.isEnabled = false
+        case .okLocation:
+            actionButton.configuration?.showsActivityIndicator = false
+            actionButton.isEnabled = true
+            actionButton.configuration?.title = Strings.claim
+            statusLabel.text = Strings.thereIsSomethingThere
+        case .notOkLocation:
+            actionButton.configuration?.showsActivityIndicator = false
+            actionButton.isEnabled = true
+            actionButton.configuration?.title = Strings.search
+            statusLabel.text = Strings.lookWithinTheCircle
         }
     }
     
@@ -101,14 +115,17 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func actionButtonTapped(_ sender: Any) {
-        // TODO: different when there is no current drop
-        
         if let code = claimedCodeInKeychain {
             openLinkdrop(code: code)
-        } else if let dropId = currentDrop?.id, isOkLocation && mapView.showsUserLocation {
-            startClaiming(dropId: dropId)
+        } else if let dropId = currentDrop?.id {
+            if isOkLocation && mapView.showsUserLocation {
+                startClaiming(dropId: dropId)
+            } else {
+                showCurrentLocation()
+            }
         } else {
-            showCurrentLocation()
+            getCurrentDrop()
+            updateDisplayedState(.lookingForRocks)
         }
     }
     
@@ -119,9 +136,7 @@ class MapViewController: UIViewController {
     }
     
     private func startClaiming(dropId: String) {
-        actionButton.configuration?.title = nil // TODO: move to updateDisplayedState
-        actionButton.configuration?.showsActivityIndicator = true
-        actionButton.isUserInteractionEnabled = false
+        updateDisplayedState(.claiming)
         claim(dropId: dropId)
     }
     
@@ -181,8 +196,6 @@ class MapViewController: UIViewController {
     }
     
     private func updateActionButtonAfterUnsuccessfulClaim() {
-        actionButton.configuration?.showsActivityIndicator = false // TODO: move to updateDisplayedState
-        actionButton.isUserInteractionEnabled = true
         if isOkLocation {
             handleOkLocation()
         } else {
@@ -193,16 +206,14 @@ class MapViewController: UIViewController {
     private func handleOkLocation() {
         isOkLocation = true
         if !claimInProgress {
-            actionButton.configuration?.title = Strings.claim // TODO: move to updateDisplayedState
-            statusLabel.text = Strings.thereIsSomethingThere
+            updateDisplayedState(.okLocation)
         }
     }
     
     private func handleFarAwayLocation() {
         isOkLocation = false
         if !claimInProgress {
-            actionButton.configuration?.title = Strings.search // TODO: move to updateDisplayedState
-            statusLabel.text = Strings.lookWithinTheCircle
+            updateDisplayedState(.notOkLocation)
         }
     }
     
@@ -241,9 +252,9 @@ extension MapViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager?.startUpdatingLocation()
         } else if status == .restricted || status == .denied {
-            statusLabel.text = Strings.allowLocationAccess // TODO: move to updateDisplayedState
+            statusLabel.text = Strings.allowLocationAccess
         } else if status == .notDetermined {
-            statusLabel.text = Strings.monsRocksGems // TODO: move to updateDisplayedState
+            statusLabel.text = Strings.monsRocksGems
         }
     }
     
