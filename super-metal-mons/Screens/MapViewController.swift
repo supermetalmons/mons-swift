@@ -38,6 +38,13 @@ class MapViewController: UIViewController {
         }
     }
     
+    private func getCurrentDrop() {
+        Firebase.getCurrentDrop { [weak self] currentDrop in
+            // TODO: setup based on current drop
+            // TODO: should be able to retry if got nil
+        }
+    }
+    
     private func setupMapView() {
         mapView.delegate = self
         let region = MKCoordinateRegion(center: centerCoordinate, latitudinalMeters: radius * 6.9, longitudinalMeters: radius * 6.9)

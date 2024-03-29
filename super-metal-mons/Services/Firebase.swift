@@ -33,6 +33,10 @@ class Firebase: BaseFirebase {
         baseSetup()
     }
     
+    static func getCurrentDrop(completion: @escaping (CurrentDrop?) -> Void) {
+        // TODO: implement
+    }
+    
     static func claim(completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         
@@ -81,6 +85,13 @@ private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
         return AppAttestProvider(app: app)
     }
     
+}
+
+struct CurrentDrop: Codable {
+    let id: String
+    let radius: String
+    let latitude: String
+    let longitude: String
 }
 
 #else
