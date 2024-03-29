@@ -92,6 +92,7 @@ class MapViewController: UIViewController {
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         self.radius = radius
         self.centerCoordinate = centerCoordinate
+        self.claimedCodeInKeychain = claimedCodeInKeychain
         
         setupMapView(centerCoordinate: centerCoordinate, radius: radius)
 
@@ -163,11 +164,11 @@ class MapViewController: UIViewController {
     
     private func claim(dropId: String, retryCount: Int = 0) {
 #if !targetEnvironment(macCatalyst)
-        guard !claimInProgress else { return }
+        guard !claimInProgress || retryCount > 0 else { return }
         claimInProgress = true
         Firebase.claim(dropId: dropId) { [weak self] result in
-            self?.claimInProgress = false
             if let code = result {
+                self?.claimInProgress = false
                 Keychain.shared.save(code: code, dropId: dropId)
                 self?.openLinkdrop(code: code)
             } else {
@@ -176,6 +177,7 @@ class MapViewController: UIViewController {
                         self?.claim(dropId: dropId, retryCount: retryCount + 1)
                     }
                 } else {
+                    self?.claimInProgress = false
                     self?.updateActionButtonAfterUnsuccessfulClaim()
                     self?.showDidNotClaimAlert(dropId: dropId)
                 }
