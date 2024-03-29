@@ -33,14 +33,23 @@ class Firebase: BaseFirebase {
         baseSetup()
     }
     
+    private static var currentDrop: CurrentDrop?
+    
     static func getCurrentDrop(completion: @escaping (CurrentDrop?) -> Void) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("config").document("currentDrop")
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists, let currentDrop = try? document.data(as: CurrentDrop.self) {
-                DispatchQueue.main.async { completion(currentDrop) }
-            } else {
-                DispatchQueue.main.async { completion(nil) }
+        if let currentDrop = currentDrop {
+            completion(currentDrop)
+        } else {
+            let db = Firestore.firestore()
+            let docRef = db.collection("config").document("currentDrop")
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists, let currentDrop = try? document.data(as: CurrentDrop.self) {
+                    DispatchQueue.main.async {
+                        Firebase.currentDrop = currentDrop
+                        completion(currentDrop)
+                    }
+                } else {
+                    DispatchQueue.main.async { completion(nil) }
+                }
             }
         }
     }
