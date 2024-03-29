@@ -33,9 +33,31 @@ class Firebase: BaseFirebase {
         baseSetup()
     }
     
-    static func claim(completion: @escaping (String?) -> Void) {
+    private static var currentDrop: CurrentDrop?
+    
+    static func getCurrentDrop(completion: @escaping (CurrentDrop?) -> Void) {
+        if let currentDrop = currentDrop {
+            completion(currentDrop)
+        } else {
+            let db = Firestore.firestore()
+            let docRef = db.collection("config").document("currentDrop")
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists, let currentDrop = try? document.data(as: CurrentDrop.self) {
+                    DispatchQueue.main.async {
+                        Firebase.currentDrop = currentDrop
+                        completion(currentDrop)
+                    }
+                } else {
+                    DispatchQueue.main.async { completion(nil) }
+                }
+            }
+        }
+    }
+    
+    static func claim(dropId: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
-        db.collection("items").whereField("claimed", isEqualTo: false).limit(to: 1).getDocuments { (querySnapshot, error) in
+        let itemsRef = db.collection("drops").document(dropId).collection("items").whereField("claimed", isEqualTo: false).limit(to: 1)
+        itemsRef.getDocuments { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents, let documentToClaim = documents.first else {
                 DispatchQueue.main.async { completion(nil) }
                 return
@@ -61,7 +83,7 @@ class Firebase: BaseFirebase {
                 "claimed": false,
                 "code": code
             ]) { err in
-                if let err = err {
+                if let _ = err {
                     print("🛑")
                 } else {
                     print("✅")
@@ -78,6 +100,13 @@ private class MonsAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
         return AppAttestProvider(app: app)
     }
     
+}
+
+struct CurrentDrop: Codable {
+    let id: String
+    let radius: String
+    let latitude: String
+    let longitude: String
 }
 
 #else

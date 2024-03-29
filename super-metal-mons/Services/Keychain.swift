@@ -11,28 +11,29 @@ struct Keychain {
         case unknown
     }
     
-    private enum ItemKey {
-        case denverCode
+    private struct ItemKey {
+        
+        var stringValue: String
         
         private static let commonPrefix = "lol.ivan.super-metal-mons."
-
-        var stringValue: String {
-            return ItemKey.commonPrefix + "claim.24.denver"
+        
+        init(dropId: String) {
+            stringValue = ItemKey.commonPrefix + "claim." + dropId
         }
         
     }
     
-    var denverCode: String? {
-        if let data = get(key: .denverCode), let denverCode = String(data: data, encoding: .utf8) {
-            return denverCode
+    func getCode(dropId: String) -> String? {
+        if let data = get(key: ItemKey(dropId: dropId)), let code = String(data: data, encoding: .utf8) {
+            return code
         } else {
             return nil
         }
     }
     
-    func save(denverCode: String) {
-        guard let data = denverCode.data(using: .utf8) else { return }
-        save(data: data, key: .denverCode)
+    func save(code: String, dropId: String) {
+        guard let data = code.data(using: .utf8) else { return }
+        save(data: data, key: ItemKey(dropId: dropId))
     }
 
     // MARK: - Private
