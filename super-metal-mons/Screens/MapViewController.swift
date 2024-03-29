@@ -7,7 +7,7 @@ import CoreLocation
 class MapViewController: UIViewController {
     
     private enum State {
-        case lookingForRocks, failedToGetCurrentDrop
+        case lookingForRocks, failedToGetCurrentDrop, didNotClaimCurrentDrop, didClaimCurrentDrop
     }
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -45,14 +45,19 @@ class MapViewController: UIViewController {
         switch state {
         case .lookingForRocks:
             actionButton.configuration?.showsActivityIndicator = true
-            actionButton.configuration?.title = nil
             actionButton.isEnabled = false
+            actionButton.configuration?.title = nil
             statusLabel.text = Strings.monsRocksGems
-        case .failedToGetCurrentDrop:
+        case .failedToGetCurrentDrop, .didNotClaimCurrentDrop:
             actionButton.configuration?.showsActivityIndicator = false
-            actionButton.configuration?.title = Strings.search
             actionButton.isEnabled = true
+            actionButton.configuration?.title = Strings.search
             statusLabel.text = Strings.monsRocksGems
+        case .didClaimCurrentDrop:
+            actionButton.configuration?.showsActivityIndicator = false
+            actionButton.isEnabled = true
+            statusLabel.text = Strings.youGotTheRock
+            actionButton.configuration?.title = Strings.show
         }
     }
     
@@ -74,20 +79,16 @@ class MapViewController: UIViewController {
         self.radius = radius
         self.centerCoordinate = centerCoordinate
         
-        // TODO: if not claimed
         setupMapView(centerCoordinate: centerCoordinate, radius: radius)
-        
-        // TODO: setup map and controls
-        
+
         if claimedCodeInKeychain == nil {
             locationManager = CLLocationManager()
             locationManager?.delegate = self
             NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-            actionButton.configuration?.title = Strings.search // TODO: move to updateDisplayedState
+            updateDisplayedState(.didNotClaimCurrentDrop)
         } else {
-            statusLabel.text = Strings.youGotTheRock
-            actionButton.configuration?.title = Strings.show // TODO: move to updateDisplayedState
+            updateDisplayedState(.didClaimCurrentDrop)
         }
     }
     
