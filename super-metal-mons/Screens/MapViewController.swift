@@ -10,24 +10,25 @@ class MapViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
-    // TODO: get from remote config
-    private let radius: Double = 2300
-    private let centerCoordinate = CLLocationCoordinate2D(latitude: 39.78196866145232, longitude: -104.97050021587202)
     private var locationManager: CLLocationManager?
     private var locationStatus: CLAuthorizationStatus?
     
     private var isOkLocation = false
     private var claimInProgress = false
-    
-    // TODO: get current code from remote config
-    private let initialCode = Keychain.shared.denverCode
+    private var claimedCodeInKeychain: String?
+    private var currentDrop: CurrentDrop?
+    private var centerCoordinate: CLLocationCoordinate2D?
+    private var radius: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.cancel, style: .plain, target: self, action: #selector(dismissAnimated))
         getCurrentDrop()
-        setupMapView()
-        if initialCode == nil {
+        
+        // setupMapView()
+        // TODO: different setup for flow when we get current drop first
+        
+        if claimedCodeInKeychain == nil {
             locationManager = CLLocationManager()
             locationManager?.delegate = self
             NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -55,11 +56,22 @@ class MapViewController: UIViewController {
     }
     
     private func setupWithCurrentDrop(_ currentDrop: CurrentDrop) {
-        // TODO: setup
-        print(currentDrop.id)
+        guard let radius = Double(currentDrop.radius),
+              let latitude = Double(currentDrop.latitude),
+              let longitude = Double(currentDrop.longitude) else {
+            failedToGetCurrentDrop()
+            return
+        }
+        
+        self.currentDrop = currentDrop
+        let claimedCodeInKeychain = Keychain.shared.getCode(dropId: currentDrop.id)
+        self.radius = radius
+        self.centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        // TODO: setup map and controls
     }
     
-    private func setupMapView() {
+    private func setupMapView(centerCoordinate: CLLocationCoordinate2D, radius: Double) {
         mapView.delegate = self
         let region = MKCoordinateRegion(center: centerCoordinate, latitudinalMeters: radius * 6.9, longitudinalMeters: radius * 6.9)
         mapView.setRegion(region, animated: true)
@@ -68,10 +80,10 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func actionButtonTapped(_ sender: Any) {
-        if let code = initialCode {
+        if let code = claimedCodeInKeychain {
             openLinkdrop(code: code)
-        } else if isOkLocation && mapView.showsUserLocation {
-            startClaiming()
+        } else if let dropId = currentDrop?.id, isOkLocation && mapView.showsUserLocation {
+            startClaiming(dropId: dropId)
         } else {
             showCurrentLocation()
         }
@@ -83,11 +95,11 @@ class MapViewController: UIViewController {
         dismiss(animated: false)
     }
     
-    private func startClaiming() {
+    private func startClaiming(dropId: String) {
         actionButton.configuration?.title = nil
         actionButton.configuration?.showsActivityIndicator = true
         actionButton.isUserInteractionEnabled = false
-        claim()
+        claim(dropId: dropId)
     }
     
     @IBAction func fcButtonTapped(_ sender: Any) {
@@ -111,33 +123,33 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
     }
     
-    private func claim(retryCount: Int = 0) {
+    private func claim(dropId: String, retryCount: Int = 0) {
 #if !targetEnvironment(macCatalyst)
         guard !claimInProgress else { return }
         claimInProgress = true
-        Firebase.claim { [weak self] result in
+        Firebase.claim(dropId: dropId) { [weak self] result in
             self?.claimInProgress = false
             if let code = result {
-                Keychain.shared.save(denverCode: code)
+                Keychain.shared.save(code: code, dropId: dropId)
                 self?.openLinkdrop(code: code)
             } else {
                 if retryCount < 3 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                        self?.claim(retryCount: retryCount + 1)
+                        self?.claim(dropId: dropId, retryCount: retryCount + 1)
                     }
                 } else {
                     self?.updateActionButtonAfterUnsuccessfulClaim()
-                    self?.showDidNotClaimAlert()
+                    self?.showDidNotClaimAlert(dropId: dropId)
                 }
             }
         }
 #endif
     }
     
-    private func showDidNotClaimAlert() {
+    private func showDidNotClaimAlert(dropId: String) {
         let alert = UIAlertController(title: Strings.couldNotClaim, message: Strings.itMightBeOver, preferredStyle: .alert)
         let retryAction = UIAlertAction(title: Strings.retry, style: .default) { [weak self] _ in
-            self?.startClaiming()
+            self?.startClaiming(dropId: dropId)
         }
         let okAction = UIAlertAction(title: Strings.ok, style: .cancel)
         alert.addAction(okAction)
@@ -189,16 +201,15 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            let userLocation = location.coordinate
-            let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
-            let userCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-            let distance = userCLLocation.distance(from: center)
-            if distance <= radius {
-                handleOkLocation()
-            } else {
-                handleFarAwayLocation()
-            }
+        guard let location = locations.last, let radius = radius, let centerCoordinate = centerCoordinate else { return }
+        let userLocation = location.coordinate
+        let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+        let userCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        let distance = userCLLocation.distance(from: center)
+        if distance <= radius {
+            handleOkLocation()
+        } else {
+            handleFarAwayLocation()
         }
     }
     
