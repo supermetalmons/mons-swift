@@ -56,7 +56,9 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
+#if !targetEnvironment(macCatalyst)
         present(instantiate(MapViewController.self).inNavigationController, animated: true)
+#endif
     }
     
     @IBAction func newGameLinkButtonTapped(_ sender: Any) {

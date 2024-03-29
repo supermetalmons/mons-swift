@@ -153,7 +153,6 @@
 		2C3EA1EE2B8E6FD3001F5B3B /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
 		2C3EA1EF2B8E6FD3001F5B3B /* wahoo1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA88932B029F5800F99723 /* wahoo1.wav */; };
 		2C3F341E2B92322600F3829D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F341D2B92322600F3829D /* MapViewController.swift */; };
-		2C3F341F2B92322600F3829D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F341D2B92322600F3829D /* MapViewController.swift */; };
 		2C3F34212B92331600F3829D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34202B92331600F3829D /* UIViewController.swift */; };
 		2C3F34222B92331600F3829D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34202B92331600F3829D /* UIViewController.swift */; };
 		2C3F34242B92587900F3829D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34232B92587900F3829D /* Keychain.swift */; };
@@ -979,7 +978,6 @@
 				2C3EA18A2B8E6FD3001F5B3B /* WaveView.swift in Sources */,
 				2C3EA18B2B8E6FD3001F5B3B /* SquareColor.swift in Sources */,
 				2C3EA18C2B8E6FD3001F5B3B /* ViewEffect.swift in Sources */,
-				2C3F341F2B92322600F3829D /* MapViewController.swift in Sources */,
 				2C3EA18D2B8E6FD3001F5B3B /* Colors.swift in Sources */,
 				2C3EA18E2B8E6FD3001F5B3B /* GameViewController.swift in Sources */,
 				2C3EA18F2B8E6FD3001F5B3B /* CircleCutoutView.swift in Sources */,
