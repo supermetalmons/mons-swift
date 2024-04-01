@@ -171,6 +171,8 @@
 		2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */; };
 		2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */; };
 		2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */; };
+		2CAC66EF2BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */; };
+		2CAC66F02BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */; };
 		2CAF14E529EB39CB0036C942 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF14E429EB39CB0036C942 /* Strings.swift */; };
 		2CB656F72AFD0DD200000760 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB656F62AFD0DD200000760 /* Music.swift */; };
 		2CB6D3AB29F70FBF00605255 /* BoardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */; };
@@ -296,6 +298,7 @@
 		2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenRepresentable.swift; sourceTree = "<group>"; };
 		2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableMoveKind.swift; sourceTree = "<group>"; };
 		2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "firebase-rules.json"; sourceTree = "<group>"; };
+		2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompatibleVersion.swift; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2CB656F62AFD0DD200000760 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStyle.swift; sourceTree = "<group>"; };
@@ -418,6 +421,7 @@
 				2C02552A2A0EA71A00CB1808 /* Connection.swift */,
 				2C0255242A0EA1E600CB1808 /* GameInvite.swift */,
 				2C0255262A0EA1EF00CB1808 /* PlayerMatch.swift */,
+				2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */,
 			);
 			path = Connection;
 			sourceTree = "<group>";
@@ -995,6 +999,7 @@
 				2C3EA19B2B8E6FD3001F5B3B /* CircleView.swift in Sources */,
 				2C3EA19C2B8E6FD3001F5B3B /* Computer.swift in Sources */,
 				2C3EA19D2B8E6FD3001F5B3B /* Music.swift in Sources */,
+				2CAC66F02BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */,
 				2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */,
 				2C3EA19F2B8E6FD3001F5B3B /* Connection.swift in Sources */,
 				2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */,
@@ -1016,6 +1021,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CAC66EF2BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */,
 				2C266FDF2A0C26930016C1C5 /* Firebase.swift in Sources */,
 				2CB6D3AE29F730B200605255 /* Item.swift in Sources */,
 				2C3AD59D2B0FAB7200538897 /* Event.swift in Sources */,

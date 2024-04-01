@@ -29,6 +29,34 @@
         }
       }
     },
+    "ask your friend to update the app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ask your friend to update the app"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "оппоненту нужно обновить приложение"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達にアプリを更新してもらってください"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请您的朋友更新应用"
+          }
+        }
+      }
+    },
     "cancel" : {
       "localizations" : {
         "en" : {
@@ -177,16 +205,16 @@
             "value" : "enter link"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "зайти по ссылке"
-          }
-        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "リンクを入力"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "зайти по ссылке"
           }
         },
         "zh-Hans" : {
@@ -196,8 +224,7 @@
           }
         }
       }
-    }
-,
+    },
     "look within the circle" : {
       "localizations" : {
         "en" : {
@@ -390,6 +417,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在这里玩"
+          }
+        }
+      }
+    },
+    "please update the app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "please update the app"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "обновите приложение"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを更新してください"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请更新应用"
           }
         }
       }

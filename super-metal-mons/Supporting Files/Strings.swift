@@ -27,6 +27,8 @@ struct Strings {
     static let newLink =  loc("new link")
     static let playHere = loc("play here")
     static let enterLink = loc("enter link")
+    static let askFriendToUpdate = loc("ask your friend to update the app")
+    static let pleaseUpdateTheApp = loc("please update the app")
     
     private static func loc(_ string: String.LocalizationValue) -> String {
         return String(localized: string)

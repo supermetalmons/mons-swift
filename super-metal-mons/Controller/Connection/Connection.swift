@@ -6,6 +6,7 @@ protocol ConnectionDelegate: AnyObject {
     
     func didUpdate(match: PlayerMatch)
     func enterWatchOnlyMode()
+    func didSeeIncompatibleVersion(_ version: IncompatibleVersion)
     
 }
 
@@ -92,7 +93,7 @@ class Connection {
         database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
     }
 
-    func joinGame(id: String, emojiId: Int, retryCount: Int = 0) {
+    func joinGame(version: Int, id: String, emojiId: Int, retryCount: Int = 0) {
         guard let userId = userId, retryCount < 3 else {
             // TODO: retry login
             return
@@ -100,8 +101,18 @@ class Connection {
         
         database.child("invites/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let invite = try? GameInvite(dict: value) else { return }
-            // TODO: check invite version number. stop if invite version is not supported
             
+            guard invite.version == version else {
+                let incompatibleVersion: IncompatibleVersion
+                if invite.version < version {
+                    incompatibleVersion = .askOpponentToUpdate
+                } else {
+                    incompatibleVersion = .shouldUpdate
+                }
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(incompatibleVersion) }
+                return
+            }
+                        
             guard invite.hostId != userId else {
                 // TODO: if i am host, reconfigure screen as a waiting host or get back to the game
                 return
@@ -111,7 +122,7 @@ class Connection {
                 self?.database.child("invites/\(id)/guestId").setValue(userId) { error, _ in
                     if error != nil {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                            self?.joinGame(id: id, emojiId: emojiId, retryCount: retryCount + 1)
+                            self?.joinGame(version: version, id: id, emojiId: emojiId, retryCount: retryCount + 1)
                         }
                     } else {
                         self?.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
