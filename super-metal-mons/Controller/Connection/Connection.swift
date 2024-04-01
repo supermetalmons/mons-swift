@@ -177,9 +177,13 @@ class Connection {
                 DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
                 return
             }
-            let match = PlayerMatch(version: invite.version, color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
-            self?.myMatch = match
-            self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
+            
+            if createOwnMatch {
+                let match = PlayerMatch(version: invite.version, color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
+                self?.myMatch = match
+                self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
+            }
+            
             self?.observe(gameId: id, playerId: invite.hostId)
         }
     }
