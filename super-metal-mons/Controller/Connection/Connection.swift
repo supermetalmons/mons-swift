@@ -13,6 +13,8 @@ protocol ConnectionDelegate: AnyObject {
 
 class Connection {
     
+    var didReconnect = false
+    
     private let gameId: String
     private lazy var database = Database.database().reference()
     private var observers = [UInt: String]()
@@ -152,6 +154,7 @@ class Connection {
                 return
             }
             self?.myMatch = myMatch
+            self?.didReconnect = true
             DispatchQueue.main.async {
                 self?.connectionDelegate?.didRecover(myMatch: myMatch)
             }
