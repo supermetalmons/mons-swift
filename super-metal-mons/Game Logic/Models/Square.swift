@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Square: Equatable {
+enum Square {
     case regular
     case consumableBase
     case supermanaBase

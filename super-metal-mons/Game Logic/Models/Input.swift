@@ -2,12 +2,12 @@
 
 import Foundation
 
-enum Input: Equatable, Codable, Hashable {
+enum Input: Equatable {
     
     case location(Location)
     case modifier(Modifier)
     
-    enum Modifier: String, Codable, Hashable {
+    enum Modifier: String {
         case selectPotion, selectBomb, cancel
     }
     

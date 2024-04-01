@@ -14,6 +14,20 @@ protocol GameView: AnyObject {
 
 extension GameController: ConnectionDelegate {
     
+    func didSeeIncompatibleVersion(_ version: IncompatibleVersion) {
+        let message: String
+        
+        switch version {
+        case .unknown, .shouldUpdate:
+            message = Strings.pleaseUpdateTheApp
+        case .askOpponentToUpdate:
+            message = Strings.askFriendToUpdate
+        }
+        
+        gameView?.showMessageAndDismiss(message: message)
+        connection = nil
+    }
+    
     func enterWatchOnlyMode() {
         isWatchOnly = true
     }
@@ -48,7 +62,7 @@ extension GameController: ConnectionDelegate {
             if isWatchOnly, let game = MonsGame(fen: match.fen) {
                 self.game = game
                 gameView?.setNewBoard()
-                setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+                setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
             }
             
             gameView?.didConnect()
@@ -60,7 +74,7 @@ extension GameController: ConnectionDelegate {
                 self.game = newGame
                 gameView?.setNewBoard()
             }
-            setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+            setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
         }
         
         // TODO: do not update stuff that did not actually change
@@ -79,7 +93,8 @@ extension GameController: ConnectionDelegate {
         }
         
         let processedMoves = processedMovesCount(color: match.color)
-        if let moves = match.moves, moves.count > processedMoves {
+        let moves = match.moves
+        if moves.count > processedMoves {
             for i in processedMoves..<moves.count {
                 processRemoteInputs(moves[i])
             }
@@ -224,7 +239,8 @@ class GameController {
     let mode: Mode
     private let gameId: String
     private var connection: Connection?
-    private let version = 1
+    
+    private let version = 2
     
     private weak var gameView: GameView?
 
@@ -255,7 +271,7 @@ class GameController {
             self.gameId = gameId
             self.connection = Connection(gameId: gameId)
             playerSideColor = .random
-            connection?.joinGame(id: gameId, emojiId: emojiId)
+            connection?.joinGame(version: version, id: gameId, emojiId: emojiId)
         }
         
         connection?.setDelegate(self)

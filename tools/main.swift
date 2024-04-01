@@ -13,7 +13,7 @@ func validate(data: Data) {
     
     let result = game.processInput(recreatedInput!, doNotApplyEvents: false, oneOptionEnough: false)
     
-    let outputSame = result == recreatedOutput
+    let outputSame = result.fen == testCase.outputFen
     let fenSame = game.fen == testCase.fenAfter
     if outputSame && fenSame {
         count += 1
