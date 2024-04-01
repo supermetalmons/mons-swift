@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Location: Equatable, Hashable, Decodable {
+struct Location: Hashable {
     
     private static let validRange = 0..<Config.boardSize
     

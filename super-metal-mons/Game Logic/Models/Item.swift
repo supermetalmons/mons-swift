@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Item: Equatable, Hashable {
+enum Item: Equatable {
     case mon(mon: Mon)
     case mana(mana: Mana)
     case monWithMana(mon: Mon, mana: Mana)
