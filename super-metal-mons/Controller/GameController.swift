@@ -47,7 +47,13 @@ extension GameController: ConnectionDelegate {
         }
     }
     
-    func didUpdate(match: PlayerMatch) {
+    func didRecover(myMatch: PlayerMatch) {
+        // TODO: implement
+    }
+    
+    func didUpdate(opponentMatch: PlayerMatch) {
+        let match = opponentMatch
+        
         guard didConnect else {
             didConnect = true
             

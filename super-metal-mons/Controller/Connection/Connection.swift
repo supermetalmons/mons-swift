@@ -4,7 +4,8 @@ import FirebaseDatabase
 
 protocol ConnectionDelegate: AnyObject {
     
-    func didUpdate(match: PlayerMatch)
+    func didUpdate(opponentMatch: PlayerMatch)
+    func didRecover(myMatch: PlayerMatch)
     func enterWatchOnlyMode()
     func didSeeIncompatibleVersion(_ version: IncompatibleVersion)
     
@@ -125,7 +126,7 @@ class Connection {
                             self?.joinGame(version: version, id: id, emojiId: emojiId, retryCount: retryCount + 1)
                         }
                     } else {
-                        self?.getOpponentsMatchAndCreateOwnMatch(id: id, emojiId: emojiId, invite: invite)
+                        self?.getOpponentsMatch(id: id, emojiId: emojiId, invite: invite, createOwnMatch: true)
                     }
                 }
             } else if invite.guestId == userId {
@@ -137,11 +138,25 @@ class Connection {
     }
     
     private func reenterAsHost(invite: GameInvite, id: String) {
+        guard let userId = userId else { return }
         // TODO: reconfigure screen as a waiting host or get back to the game
     }
     
     private func rejoinAsGuest(invite: GameInvite, id: String) {
-        // TODO: get game info and proceed from there
+        guard let userId = userId else { return }
+        let matchPath = "players/\(userId)/matches/\(id)"
+        database.child(matchPath).getData { [weak self] _, snapshot in
+            guard let value = snapshot?.value, let myMatch = try? PlayerMatch(dict: value) else { return }
+            guard !myMatch.isIncompatibleFormat else {
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.unknown) }
+                return
+            }
+            self?.myMatch = myMatch
+            DispatchQueue.main.async {
+                self?.connectionDelegate?.didRecover(myMatch: myMatch)
+            }
+            self?.getOpponentsMatch(id: id, emojiId: myMatch.emojiId, invite: invite, createOwnMatch: false)
+        }
     }
     
     private func watchMatch(id: String, hostId: String, guestId: String) {
@@ -152,7 +167,7 @@ class Connection {
         observe(gameId: id, playerId: guestId)
     }
     
-    private func getOpponentsMatchAndCreateOwnMatch(id: String, emojiId: Int, invite: GameInvite) {
+    private func getOpponentsMatch(id: String, emojiId: Int, invite: GameInvite, createOwnMatch: Bool) {
         guard let userId = userId else { return }
         
         // TODO: validate opponent's match. make sure my match is not created yet.
@@ -179,7 +194,7 @@ class Connection {
             }
             
             DispatchQueue.main.async {
-                self?.connectionDelegate?.didUpdate(match: match)
+                self?.connectionDelegate?.didUpdate(opponentMatch: match)
             }
         }
         addObserver(id: observerId, path: matchPath)
