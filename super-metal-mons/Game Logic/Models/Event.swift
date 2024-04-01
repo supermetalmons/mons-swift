@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Event: Codable, Equatable, Hashable {
+enum Event: Equatable, Hashable {
     
     case monMove(item: Item, from: Location, to: Location)
     case manaMove(mana: Mana, from: Location, to: Location)

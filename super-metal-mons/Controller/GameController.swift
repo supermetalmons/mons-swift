@@ -48,7 +48,7 @@ extension GameController: ConnectionDelegate {
             if isWatchOnly, let game = MonsGame(fen: match.fen) {
                 self.game = game
                 gameView?.setNewBoard()
-                setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+                setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
             }
             
             gameView?.didConnect()
@@ -60,7 +60,7 @@ extension GameController: ConnectionDelegate {
                 self.game = newGame
                 gameView?.setNewBoard()
             }
-            setInitiallyProcessedMovesCount(color: match.color, count: match.moves?.count ?? 0)
+            setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
         }
         
         // TODO: do not update stuff that did not actually change
@@ -79,7 +79,8 @@ extension GameController: ConnectionDelegate {
         }
         
         let processedMoves = processedMovesCount(color: match.color)
-        if let moves = match.moves, moves.count > processedMoves {
+        let moves = match.moves
+        if moves.count > processedMoves {
             for i in processedMoves..<moves.count {
                 processRemoteInputs(moves[i])
             }

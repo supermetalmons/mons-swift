@@ -2,9 +2,9 @@
 
 import Foundation
 
-struct NextInput: Codable, Equatable, Hashable {
+struct NextInput: Equatable, Hashable {
     
-    enum Kind: Codable, Hashable {
+    enum Kind: Hashable {
         case monMove, manaMove
         case mysticAction, demonAction, demonAdditionalStep, spiritTargetCapture, spiritTargetMove
         case selectConsumable, bombAttack

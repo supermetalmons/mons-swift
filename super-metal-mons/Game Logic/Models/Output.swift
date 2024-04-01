@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum Output: Codable, Hashable {
+enum Output: Hashable {
     case invalidInput
     case locationsToStartFrom([Location])
     case nextInputOptions([NextInput])

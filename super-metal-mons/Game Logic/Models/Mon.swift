@@ -2,9 +2,9 @@
 
 import Foundation
 
-struct Mon: Equatable, Codable, Hashable {
+struct Mon: Equatable, Hashable {
     
-    enum Kind: String, Codable, Hashable {
+    enum Kind: String, Hashable {
         case demon, drainer, angel, spirit, mystic
     }
     

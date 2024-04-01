@@ -48,7 +48,7 @@ class Connection {
         let invite = GameInvite(version: version, hostId: userId, hostColor: hostColor, guestId: nil)
         database.child("invites/\(id)").setValue(invite.dict) // TODO: validate it was actually set, retry if not
         
-        let match = PlayerMatch(color: hostColor, emojiId: emojiId, fen: fen, moves: [], status: .waiting)
+        let match = PlayerMatch(color: hostColor, emojiId: emojiId, fen: fen, status: .waiting)
         myMatch = match
         database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: validate it was actually set, retry if not
         
@@ -100,6 +100,7 @@ class Connection {
         
         database.child("invites/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let invite = try? GameInvite(dict: value) else { return }
+            // TODO: check invite version number. stop if invite version is not supported
             
             guard invite.hostId != userId else {
                 // TODO: if i am host, reconfigure screen as a waiting host or get back to the game
@@ -135,8 +136,9 @@ class Connection {
     private func getOpponentsMatchAndCreateOwnMatch(id: String, userId: String, emojiId: Int, invite: GameInvite) {
         // TODO: validate opponent's match. make sure my match is not created yet.
         database.child("players/\(invite.hostId)/matches/\(id)").getData { [weak self] _, snapshot in
+            // TODO: detect incompatible PlayerMatch model here
             guard let value = snapshot?.value, let opponentsMatch = try? PlayerMatch(dict: value) else { return }
-            let match = PlayerMatch(color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, moves: nil, status: .playing)
+            let match = PlayerMatch(color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
             self?.myMatch = match
             self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
             self?.observe(gameId: id, playerId: invite.hostId)
@@ -146,6 +148,7 @@ class Connection {
     private func observe(gameId: String, playerId: String) {
         let matchPath = "players/\(playerId)/matches/\(gameId)"
         let observerId = database.child(matchPath).observe(.value) { [weak self] (snapshot, _) in
+            // TODO: detect incompatible PlayerMatch model here
             guard let dict = snapshot.value as? [String: AnyObject], let match = try? PlayerMatch(dict: dict) else { return }
             DispatchQueue.main.async {
                 self?.connectionDelegate?.didUpdate(match: match)
