@@ -147,8 +147,11 @@ class Connection {
     private func getOpponentsMatchAndCreateOwnMatch(id: String, userId: String, emojiId: Int, invite: GameInvite) {
         // TODO: validate opponent's match. make sure my match is not created yet.
         database.child("players/\(invite.hostId)/matches/\(id)").getData { [weak self] _, snapshot in
-            // TODO: detect incompatible PlayerMatch model here
             guard let value = snapshot?.value, let opponentsMatch = try? PlayerMatch(dict: value) else { return }
+            guard !opponentsMatch.isIncompatibleFormat else {
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
+                return
+            }
             let match = PlayerMatch(color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
             self?.myMatch = match
             self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
@@ -159,8 +162,13 @@ class Connection {
     private func observe(gameId: String, playerId: String) {
         let matchPath = "players/\(playerId)/matches/\(gameId)"
         let observerId = database.child(matchPath).observe(.value) { [weak self] (snapshot, _) in
-            // TODO: detect incompatible PlayerMatch model here
             guard let dict = snapshot.value as? [String: AnyObject], let match = try? PlayerMatch(dict: dict) else { return }
+            
+            guard !match.isIncompatibleFormat else {
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
+                return
+            }
+            
             DispatchQueue.main.async {
                 self?.connectionDelegate?.didUpdate(match: match)
             }
