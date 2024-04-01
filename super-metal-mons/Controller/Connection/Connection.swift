@@ -49,7 +49,7 @@ class Connection {
         let invite = GameInvite(version: version, hostId: userId, hostColor: hostColor, guestId: nil)
         database.child("invites/\(id)").setValue(invite.dict) // TODO: validate it was actually set, retry if not
         
-        let match = PlayerMatch(color: hostColor, emojiId: emojiId, fen: fen, status: .waiting)
+        let match = PlayerMatch(version: version, color: hostColor, emojiId: emojiId, fen: fen, status: .waiting)
         myMatch = match
         database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: validate it was actually set, retry if not
         
@@ -125,7 +125,7 @@ class Connection {
                             self?.joinGame(version: version, id: id, emojiId: emojiId, retryCount: retryCount + 1)
                         }
                     } else {
-                        self?.getOpponentsMatchAndCreateOwnMatch(id: id, userId: userId, emojiId: emojiId, invite: invite)
+                        self?.getOpponentsMatchAndCreateOwnMatch(version: version, id: id, userId: userId, emojiId: emojiId, invite: invite)
                     }
                 }
             } else if invite.guestId == userId {
@@ -144,7 +144,7 @@ class Connection {
         observe(gameId: id, playerId: guestId)
     }
     
-    private func getOpponentsMatchAndCreateOwnMatch(id: String, userId: String, emojiId: Int, invite: GameInvite) {
+    private func getOpponentsMatchAndCreateOwnMatch(version: Int, id: String, userId: String, emojiId: Int, invite: GameInvite) {
         // TODO: validate opponent's match. make sure my match is not created yet.
         database.child("players/\(invite.hostId)/matches/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let opponentsMatch = try? PlayerMatch(dict: value) else { return }
@@ -152,7 +152,7 @@ class Connection {
                 DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
                 return
             }
-            let match = PlayerMatch(color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
+            let match = PlayerMatch(version: version, color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
             self?.myMatch = match
             self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
             self?.observe(gameId: id, playerId: invite.hostId)
@@ -163,7 +163,6 @@ class Connection {
         let matchPath = "players/\(playerId)/matches/\(gameId)"
         let observerId = database.child(matchPath).observe(.value) { [weak self] (snapshot, _) in
             guard let dict = snapshot.value as? [String: AnyObject], let match = try? PlayerMatch(dict: dict) else { return }
-            
             guard !match.isIncompatibleFormat else {
                 DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
                 return

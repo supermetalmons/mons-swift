@@ -9,7 +9,7 @@ struct PlayerMatch: Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case color, emojiId, fen, moves, status, reaction
+        case color, emojiId, fen, movesFens, status, reaction, version
     }
     
     let color: Color
@@ -18,6 +18,7 @@ struct PlayerMatch: Codable {
     var moves: [[Input]]
     var status: Status
     var reaction: Reaction?
+    var version: Int
     
     var isIncompatibleFormat = false
     
@@ -29,8 +30,13 @@ struct PlayerMatch: Codable {
         status = try container.decode(Status.self, forKey: .status)
         reaction = try container.decodeIfPresent(Reaction.self, forKey: .reaction)
         
-        do {
-            let movesFens = try container.decode(Array<String>.self, forKey: .moves)
+        if !container.contains(.version) {
+            isIncompatibleFormat = true
+            self.moves = []
+            self.version = 0
+        } else {
+            version = try container.decode(Int.self, forKey: .version)
+            let movesFens = try container.decodeIfPresent(Array<String>.self, forKey: .movesFens) ?? []
             let moves = movesFens.compactMap { Array<Input>(fen: $0) }
             if movesFens.count != moves.count {
                 isIncompatibleFormat = true
@@ -38,9 +44,6 @@ struct PlayerMatch: Codable {
             } else {
                 self.moves = moves
             }
-        } catch {
-            self.moves = []
-            isIncompatibleFormat = true
         }
     }
 
@@ -50,15 +53,17 @@ struct PlayerMatch: Codable {
         try container.encode(emojiId, forKey: .emojiId)
         try container.encode(fen, forKey: .fen)
         try container.encode(status, forKey: .status)
+        try container.encode(version, forKey: .version)
         if let reaction = reaction {
             try container.encode(reaction, forKey: .reaction)
         }
         
         let movesFens = moves.map { $0.fen }
-        try container.encode(movesFens, forKey: .moves)
+        try container.encode(movesFens, forKey: .movesFens)
     }
 
-    init(color: Color, emojiId: Int, fen: String, status: Status) {
+    init(version: Int, color: Color, emojiId: Int, fen: String, status: Status) {
+        self.version = version
         self.color = color
         self.emojiId = emojiId
         self.fen = fen
