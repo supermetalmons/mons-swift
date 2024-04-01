@@ -114,7 +114,7 @@ class Connection {
             }
                         
             guard invite.hostId != userId else {
-                // TODO: if i am host, reconfigure screen as a waiting host or get back to the game
+                self?.reenterAsHost(userId: userId, version: version, id: userId, emojiId: emojiId)
                 return
             }
             
@@ -129,11 +129,19 @@ class Connection {
                     }
                 }
             } else if invite.guestId == userId {
-                // TODO: did join already, get game info and proceed from there
+                self?.rejoinAsGuest(userId: userId, version: version, id: id, emojiId: emojiId)
             } else if let guestId = invite.guestId {
                 self?.watchMatch(id: id, hostId: invite.hostId, guestId: guestId)
             }
         }
+    }
+    
+    private func reenterAsHost(userId: String, version: Int, id: String, emojiId: Int) {
+        // TODO: reconfigure screen as a waiting host or get back to the game
+    }
+    
+    private func rejoinAsGuest(userId: String, version: Int, id: String, emojiId: Int) {
+        // TODO: get game info and proceed from there
     }
     
     private func watchMatch(id: String, hostId: String, guestId: String) {
