@@ -114,7 +114,7 @@ class Connection {
             }
                         
             guard invite.hostId != userId else {
-                self?.reenterAsHost(userId: userId, version: version, id: userId, emojiId: emojiId)
+                self?.reenterAsHost(invite: invite, id: id)
                 return
             }
             
@@ -125,22 +125,22 @@ class Connection {
                             self?.joinGame(version: version, id: id, emojiId: emojiId, retryCount: retryCount + 1)
                         }
                     } else {
-                        self?.getOpponentsMatchAndCreateOwnMatch(version: version, id: id, userId: userId, emojiId: emojiId, invite: invite)
+                        self?.getOpponentsMatchAndCreateOwnMatch(id: id, emojiId: emojiId, invite: invite)
                     }
                 }
             } else if invite.guestId == userId {
-                self?.rejoinAsGuest(userId: userId, version: version, id: id, emojiId: emojiId)
+                self?.rejoinAsGuest(invite: invite, id: id)
             } else if let guestId = invite.guestId {
                 self?.watchMatch(id: id, hostId: invite.hostId, guestId: guestId)
             }
         }
     }
     
-    private func reenterAsHost(userId: String, version: Int, id: String, emojiId: Int) {
+    private func reenterAsHost(invite: GameInvite, id: String) {
         // TODO: reconfigure screen as a waiting host or get back to the game
     }
     
-    private func rejoinAsGuest(userId: String, version: Int, id: String, emojiId: Int) {
+    private func rejoinAsGuest(invite: GameInvite, id: String) {
         // TODO: get game info and proceed from there
     }
     
@@ -152,7 +152,9 @@ class Connection {
         observe(gameId: id, playerId: guestId)
     }
     
-    private func getOpponentsMatchAndCreateOwnMatch(version: Int, id: String, userId: String, emojiId: Int, invite: GameInvite) {
+    private func getOpponentsMatchAndCreateOwnMatch(id: String, emojiId: Int, invite: GameInvite) {
+        guard let userId = userId else { return }
+        
         // TODO: validate opponent's match. make sure my match is not created yet.
         database.child("players/\(invite.hostId)/matches/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let opponentsMatch = try? PlayerMatch(dict: value) else { return }
@@ -160,7 +162,7 @@ class Connection {
                 DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.askOpponentToUpdate) }
                 return
             }
-            let match = PlayerMatch(version: version, color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
+            let match = PlayerMatch(version: invite.version, color: invite.hostColor.other, emojiId: emojiId, fen: opponentsMatch.fen, status: .playing)
             self?.myMatch = match
             self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: make sure it was set. retry if it was not
             self?.observe(gameId: id, playerId: invite.hostId)
