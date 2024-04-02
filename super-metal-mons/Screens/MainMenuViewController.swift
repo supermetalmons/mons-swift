@@ -42,6 +42,7 @@ class MainMenuViewController: UIViewController {
     }
     
     @discardableResult private func connectToURL(_ url: URL) -> Bool {
+        // TODO: process all kinds of urls here
         guard let id = url.gameId else { return false }
         let controller = GameController(mode: .joinGameId(id))
         presentGameViewController(gameController: controller)
