@@ -13,6 +13,8 @@ protocol ConnectionDelegate: AnyObject {
 
 class Connection {
     
+    var didReconnect = false
+    
     private let gameId: String
     private lazy var database = Database.database().reference()
     private var observers = [UInt: String]()
@@ -57,9 +59,7 @@ class Connection {
         let invitePath = "invites/\(id)"
         let invitesObserverId = database.child(invitePath).observe(.value) { [weak self] (snapshot, error) in
             guard let dict = snapshot.value as? [String: AnyObject], let invite = try? GameInvite(dict: dict) else { return }
-            
             // TODO: stop observing invite after gettin all necessary data from there
-            
             guard let guestId = invite.guestId, !guestId.isEmpty else { return }
             self?.observe(gameId: id, playerId: guestId)
         }
@@ -130,7 +130,7 @@ class Connection {
                     }
                 }
             } else if invite.guestId == userId {
-                self?.rejoinAsGuest(invite: invite, id: id)
+                self?.rejoinAsGuest(invite: invite, id: id, lowPriorityEmojiId: emojiId)
             } else if let guestId = invite.guestId {
                 self?.watchMatch(id: id, hostId: invite.hostId, guestId: guestId)
             }
@@ -138,11 +138,6 @@ class Connection {
     }
     
     private func reenterAsHost(invite: GameInvite, id: String) {
-        guard let userId = userId else { return }
-        // TODO: reconfigure screen as a waiting host or get back to the game
-    }
-    
-    private func rejoinAsGuest(invite: GameInvite, id: String) {
         guard let userId = userId else { return }
         let matchPath = "players/\(userId)/matches/\(id)"
         database.child(matchPath).getData { [weak self] _, snapshot in
@@ -152,6 +147,44 @@ class Connection {
                 return
             }
             self?.myMatch = myMatch
+            self?.didReconnect = true
+            DispatchQueue.main.async {
+                self?.connectionDelegate?.didRecover(myMatch: myMatch)
+            }
+            
+            if let guestId = invite.guestId, !guestId.isEmpty {
+                self?.observe(gameId: id, playerId: guestId)
+            } else {
+                let invitePath = "invites/\(id)"
+                let invitesObserverId = self?.database.child(invitePath).observe(.value) { (snapshot, error) in
+                    guard let dict = snapshot.value as? [String: AnyObject], let invite = try? GameInvite(dict: dict) else { return }
+                    // TODO: stop observing invite after gettin all necessary data from there
+                    guard let guestId = invite.guestId, !guestId.isEmpty else { return }
+                    self?.observe(gameId: id, playerId: guestId)
+                }
+                if let invitesObserverId = invitesObserverId {
+                    self?.addObserver(id: invitesObserverId, path: invitePath)
+                }
+            }
+        }
+    }
+    
+    private func rejoinAsGuest(invite: GameInvite, id: String, lowPriorityEmojiId: Int) {
+        guard let userId = userId else { return }
+        let matchPath = "players/\(userId)/matches/\(id)"
+        database.child(matchPath).getData { [weak self] error, snapshot in
+            guard let value = snapshot?.value, let myMatch = try? PlayerMatch(dict: value) else {
+                if error == nil {
+                    self?.getOpponentsMatch(id: id, emojiId: lowPriorityEmojiId, invite: invite, createOwnMatch: true)
+                }
+                return
+            }
+            guard !myMatch.isIncompatibleFormat else {
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.unknown) }
+                return
+            }
+            self?.myMatch = myMatch
+            self?.didReconnect = true
             DispatchQueue.main.async {
                 self?.connectionDelegate?.didRecover(myMatch: myMatch)
             }

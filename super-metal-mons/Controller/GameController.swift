@@ -48,7 +48,14 @@ extension GameController: ConnectionDelegate {
     }
     
     func didRecover(myMatch: PlayerMatch) {
-        // TODO: implement
+        playerSideColor = myMatch.color
+        updateEmoji(color: myMatch.color, id: myMatch.emojiId)
+        
+        if let recoveredGame = MonsGame(fen: myMatch.fen) {
+            self.game = recoveredGame
+        }
+        
+        setInitiallyProcessedMovesCount(color: myMatch.color, count: myMatch.moves.count)
     }
     
     func didUpdate(opponentMatch: PlayerMatch) {
@@ -56,6 +63,7 @@ extension GameController: ConnectionDelegate {
         
         guard didConnect else {
             didConnect = true
+            let isReconnect = connection?.didReconnect ?? false
             
             if isWatchOnly {
                 self.playerSideColor = .white
@@ -65,10 +73,16 @@ extension GameController: ConnectionDelegate {
                 updateOpponentEmoji(id: match.emojiId)
             }
             
-            if isWatchOnly, let game = MonsGame(fen: match.fen) {
-                self.game = game
+            if isWatchOnly || isReconnect, let game = MonsGame(fen: match.fen) {
+                if isWatchOnly || (isReconnect && game.isLaterThan(game: self.game)) {
+                    self.game = game
+                }
                 gameView?.setNewBoard()
                 setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
+            }
+            
+            if isReconnect, let reaction = match.reaction {
+                processedReactions.insert(reaction.uuid)
             }
             
             gameView?.didConnect()
