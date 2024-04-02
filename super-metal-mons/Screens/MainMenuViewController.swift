@@ -42,11 +42,21 @@ class MainMenuViewController: UIViewController {
     }
     
     private func processUrl(_ url: URL) {
-        // TODO: process all kinds of urls here
-        
         if let gameId = url.gameId, presentedViewController == nil {
             connectToGame(id: gameId)
+        } else {
+            // TODO: process all kinds of urls here
+            showProcessingAlert()
         }
+    }
+    
+    private func showProcessingAlert() {
+        let alert = UIAlertController(title: Strings.loading, message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in
+            
+        }
+        alert.addAction(cancelAction)
+        topmost.present(alert, animated: true)
     }
     
     private func connectToGame(id: String) {

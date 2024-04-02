@@ -10,6 +10,14 @@ extension UIViewController {
         return navigationController
     }
     
+    var topmost: UIViewController {
+        var current = self
+        while let next = current.presentedViewController {
+            current = next
+        }
+        return current
+    }
+    
     @objc func dismissAnimated() {
         dismiss(animated: true)
     }
