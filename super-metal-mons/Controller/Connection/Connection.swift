@@ -59,9 +59,7 @@ class Connection {
         let invitePath = "invites/\(id)"
         let invitesObserverId = database.child(invitePath).observe(.value) { [weak self] (snapshot, error) in
             guard let dict = snapshot.value as? [String: AnyObject], let invite = try? GameInvite(dict: dict) else { return }
-            
             // TODO: stop observing invite after gettin all necessary data from there
-            
             guard let guestId = invite.guestId, !guestId.isEmpty else { return }
             self?.observe(gameId: id, playerId: guestId)
         }
@@ -141,7 +139,34 @@ class Connection {
     
     private func reenterAsHost(invite: GameInvite, id: String) {
         guard let userId = userId else { return }
-        // TODO: reconfigure screen as a waiting host or get back to the game
+        let matchPath = "players/\(userId)/matches/\(id)"
+        database.child(matchPath).getData { [weak self] _, snapshot in
+            guard let value = snapshot?.value, let myMatch = try? PlayerMatch(dict: value) else { return }
+            guard !myMatch.isIncompatibleFormat else {
+                DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.unknown) }
+                return
+            }
+            self?.myMatch = myMatch
+            self?.didReconnect = true
+            DispatchQueue.main.async {
+                self?.connectionDelegate?.didRecover(myMatch: myMatch)
+            }
+            
+            if let guestId = invite.guestId, !guestId.isEmpty {
+                self?.observe(gameId: id, playerId: guestId)
+            } else {
+                let invitePath = "invites/\(id)"
+                let invitesObserverId = self?.database.child(invitePath).observe(.value) { (snapshot, error) in
+                    guard let dict = snapshot.value as? [String: AnyObject], let invite = try? GameInvite(dict: dict) else { return }
+                    // TODO: stop observing invite after gettin all necessary data from there
+                    guard let guestId = invite.guestId, !guestId.isEmpty else { return }
+                    self?.observe(gameId: id, playerId: guestId)
+                }
+                if let invitesObserverId = invitesObserverId {
+                    self?.addObserver(id: invitesObserverId, path: invitePath)
+                }
+            }
+        }
     }
     
     private func rejoinAsGuest(invite: GameInvite, id: String) {
