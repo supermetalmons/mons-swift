@@ -28,25 +28,30 @@ class MainMenuViewController: UIViewController {
         
         if !didAppear, let url = launchURL {
             launchURL = nil
-            connectToURL(url)
+            processUrl(url)
         }
         
         didAppear = true
     }
     
     @objc private func wasOpenedWithLink() {
-        if let url = launchURL, presentedViewController == nil {
+        if let url = launchURL {
             launchURL = nil
-            connectToURL(url)
+            processUrl(url)
         }
     }
     
-    @discardableResult private func connectToURL(_ url: URL) -> Bool {
+    private func processUrl(_ url: URL) {
         // TODO: process all kinds of urls here
-        guard let id = url.gameId else { return false }
+        
+        if let gameId = url.gameId, presentedViewController == nil {
+            connectToGame(id: gameId)
+        }
+    }
+    
+    private func connectToGame(id: String) {
         let controller = GameController(mode: .joinGameId(id))
         presentGameViewController(gameController: controller)
-        return true
     }
     
     private func presentGameViewController(gameController: GameController) {
@@ -73,7 +78,9 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func joinButtonTapped(_ sender: Any) {
-        guard let input = UIPasteboard.general.string, let url = URL(string: input), connectToURL(url) else {
+        if let input = UIPasteboard.general.string, let gameId = URL(string: input)?.gameId {
+            connectToGame(id: gameId)
+        } else {
             let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
             alert.addAction(okAction)
