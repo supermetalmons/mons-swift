@@ -130,7 +130,7 @@ class Connection {
                     }
                 }
             } else if invite.guestId == userId {
-                self?.rejoinAsGuest(invite: invite, id: id)
+                self?.rejoinAsGuest(invite: invite, id: id, lowPriorityEmojiId: emojiId)
             } else if let guestId = invite.guestId {
                 self?.watchMatch(id: id, hostId: invite.hostId, guestId: guestId)
             }
@@ -169,11 +169,16 @@ class Connection {
         }
     }
     
-    private func rejoinAsGuest(invite: GameInvite, id: String) {
+    private func rejoinAsGuest(invite: GameInvite, id: String, lowPriorityEmojiId: Int) {
         guard let userId = userId else { return }
         let matchPath = "players/\(userId)/matches/\(id)"
-        database.child(matchPath).getData { [weak self] _, snapshot in
-            guard let value = snapshot?.value, let myMatch = try? PlayerMatch(dict: value) else { return }
+        database.child(matchPath).getData { [weak self] error, snapshot in
+            guard let value = snapshot?.value, let myMatch = try? PlayerMatch(dict: value) else {
+                if error == nil {
+                    self?.getOpponentsMatch(id: id, emojiId: lowPriorityEmojiId, invite: invite, createOwnMatch: true)
+                }
+                return
+            }
             guard !myMatch.isIncompatibleFormat else {
                 DispatchQueue.main.async { self?.connectionDelegate?.didSeeIncompatibleVersion(.unknown) }
                 return
