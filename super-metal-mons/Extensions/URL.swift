@@ -4,10 +4,10 @@ import Foundation
 
 extension URL {
     
-    static let monsBaseURLString = "mons.link"
+    static let baseMonsLink = "mons.link"
     
     static func forGame(id: String) -> String {
-        return monsBaseURLString + "/" + id
+        return baseMonsLink + "/" + id
     }
     
     var gameId: String? {
@@ -19,7 +19,7 @@ extension URL {
             link = absoluteString
         }
         
-        let prefix = URL.monsBaseURLString + "/"
+        let prefix = URL.baseMonsLink + "/"
         
         if link.hasPrefix(prefix), link.count > prefix.count {
             let id = String(link.dropFirst(prefix.count))
@@ -27,6 +27,17 @@ extension URL {
         } else {
             return nil
         }
+    }
+    
+    var secretAppRequest: SecretAppRequest? {
+        guard host == "mons.rehab" && lastPathComponent == "app-request",
+              let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else { return nil }
+        var dict = [String: String]()
+        for item in queryItems {
+            dict[item.name] = item.value
+        }
+        return SecretAppRequest(dict: dict)
     }
     
 }

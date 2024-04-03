@@ -5,6 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:mons.link</string>
+		<string>applinks:mons.rehab</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
