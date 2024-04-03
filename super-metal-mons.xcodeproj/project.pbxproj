@@ -170,6 +170,8 @@
 		2C7E80D029FC60CA00114943 /* FenRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */; };
 		2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */; };
 		2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */; };
+		2CA6C7EE2BBD67230061E086 /* SecretAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6C7ED2BBD67230061E086 /* SecretAppRequest.swift */; };
+		2CA6C7EF2BBD67230061E086 /* SecretAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6C7ED2BBD67230061E086 /* SecretAppRequest.swift */; };
 		2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */; };
 		2CAC66EF2BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */; };
 		2CAC66F02BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */; };
@@ -297,6 +299,7 @@
 		2C7E80CD29FC54B300114943 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		2C7E80CF29FC60CA00114943 /* FenRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FenRepresentable.swift; sourceTree = "<group>"; };
 		2C7E80D129FC6AA400114943 /* AvailableMoveKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableMoveKind.swift; sourceTree = "<group>"; };
+		2CA6C7ED2BBD67230061E086 /* SecretAppRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretAppRequest.swift; sourceTree = "<group>"; };
 		2CAAA7AA2B8CB93D0011A55A /* firebase-rules.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "firebase-rules.json"; sourceTree = "<group>"; };
 		2CAC66EE2BBB0A01002C3B2B /* IncompatibleVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompatibleVersion.swift; sourceTree = "<group>"; };
 		2CAF14E429EB39CB0036C942 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -545,6 +548,7 @@
 			children = (
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
+				2CA6C7ED2BBD67230061E086 /* SecretAppRequest.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
 				2C27AFD62A113DE8003C959D /* AnimationKey.swift */,
 				2C779FF22B6CFA0400900EFE /* TestCase.swift */,
@@ -998,6 +1002,7 @@
 				2C3EA19A2B8E6FD3001F5B3B /* Storyboard.swift in Sources */,
 				2C3EA19B2B8E6FD3001F5B3B /* CircleView.swift in Sources */,
 				2C3EA19C2B8E6FD3001F5B3B /* Computer.swift in Sources */,
+				2CA6C7EF2BBD67230061E086 /* SecretAppRequest.swift in Sources */,
 				2C3EA19D2B8E6FD3001F5B3B /* Music.swift in Sources */,
 				2CAC66F02BBB0A01002C3B2B /* IncompatibleVersion.swift in Sources */,
 				2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */,
@@ -1036,6 +1041,7 @@
 				2CC4E21C29E9E60D002F3AC9 /* MainMenuViewController.swift in Sources */,
 				2CC770C129FA9D0500A59BEF /* BoardSquareView.swift in Sources */,
 				2C0255252A0EA1E600CB1808 /* GameInvite.swift in Sources */,
+				2CA6C7EE2BBD67230061E086 /* SecretAppRequest.swift in Sources */,
 				2C7E80CC29FC3F3900114943 /* Square.swift in Sources */,
 				2CB6D3B429F7310800605255 /* Mana.swift in Sources */,
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,

@@ -44,9 +44,11 @@ class MainMenuViewController: UIViewController {
     private func processUrl(_ url: URL) {
         if let gameId = url.gameId, presentedViewController == nil {
             connectToGame(id: gameId)
-        } else {
-            // TODO: process all kinds of urls here
-            showProcessingAlert()
+        } else if let secretAppRequest = url.secretAppRequest {
+            switch secretAppRequest {
+            case .createSecretInvite:
+                showProcessingAlert()
+            }
         }
     }
     
