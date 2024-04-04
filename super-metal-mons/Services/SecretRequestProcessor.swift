@@ -15,40 +15,50 @@ class SecretRequestProcessor {
     
     func cancel() {
         let response = SecretAppResponse.forRequest(request, cancel: true)
-        respond(response)
+        respond(response, isCancel: true)
     }
     
     func process() {
         switch request {
         case .createSecretInvite:
-            break
-            // TODO: inviteId, playerId, password
+            createSecretInvite()
         case let .recoverSecretInvite(id):
-            break
-            // TODO: inviteId, playerId, password, opponentId?
+            recoverSecretInvite(id: id)
         case let .acceptSecretInvite(id, password):
-            break
-            // TODO: inviteId, playerId, opponentId
+            acceptSecretInvite(id: id, password: password)
         case let .getSecretGameResult(id, signature):
-            break
-            // TODO: winnerId, inviteId, signed(winnerId+inviteId), signature, error
-        }
-        
-        // TODO: development tmp
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [weak self] in
-            if let request = self?.request {
-                let response = SecretAppResponse.forRequest(request, cancel: false)
-                self?.respond(response)
-                self?.onSuccess()
-            }
+            getSecretGameResult(id: id, signature: signature)
         }
     }
     
-    private func respond(_ dict: [String: String]) {
+    private func createSecretInvite() {
+        // TODO: inviteId, playerId, password
+        let response = SecretAppResponse.forRequest(request)
+        respond(response)
+    }
+    
+    private func recoverSecretInvite(id: String) {
+        // TODO: inviteId, playerId, password, opponentId?
+    }
+    
+    private func acceptSecretInvite(id: String, password: String) {
+        // TODO: inviteId, playerId, opponentId
+    }
+    
+    private func getSecretGameResult(id: String, signature: String) {
+        // TODO: winnerId, inviteId, signed(winnerId+inviteId), signature, error, isDraw
+    }
+    
+    private func respond(_ dict: [String: String], isCancel: Bool = false) {
         var components = URLComponents(string: "https://\(URL.baseMonsRehab)/app-response")
         components?.queryItems = dict.map { URLQueryItem(name: $0.key, value: $0.value) }
         guard let url = components?.url else { return }
-        UIApplication.shared.open(url)
+        DispatchQueue.main.async { [weak self] in
+            UIApplication.shared.open(url)
+            if !isCancel {
+                self?.onSuccess()
+            }
+        }
     }
     
 }
