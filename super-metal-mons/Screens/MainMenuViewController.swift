@@ -11,6 +11,9 @@ class MainMenuViewController: UIViewController {
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var localGameButton: UIButton!
     
+    private var secretRequestProcessor: SecretRequestProcessor?
+    private weak var processingProgressAlert: UIAlertController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: Notification.Name.wasOpenedWithLink, object: nil)
@@ -50,25 +53,24 @@ class MainMenuViewController: UIViewController {
     }
     
     private func processSecretAppRequest(_ request: SecretAppRequest) {
-        switch request {
-        case .createSecretInvite:
-            showProcessingAlert() // TODO: implement
-        case .recoverSecretInvite(id: let id):
-            showProcessingAlert() // TODO: implement
-        case .acceptSecretInvite(id: let id, password: let password):
-            showProcessingAlert() // TODO: implement
-        case .getSecretGameResult(id: let id, signature: let signature):
-            showProcessingAlert() // TODO: implement
+        secretRequestProcessor = SecretRequestProcessor(request: request) { [weak self] in
+            self?.processingProgressAlert?.dismiss(animated: true)
+            self?.secretRequestProcessor = nil
         }
+        secretRequestProcessor?.process()
+        showProcessingAlert()
     }
     
     private func showProcessingAlert() {
+        guard processingProgressAlert == nil else { return }
         let alert = UIAlertController(title: Strings.loading, message: nil, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { _ in
-            
+        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { [weak self] _ in
+            self?.secretRequestProcessor?.cancel()
+            self?.secretRequestProcessor = nil
         }
         alert.addAction(cancelAction)
         topmost.present(alert, animated: true)
+        processingProgressAlert = alert
     }
     
     private func connectToGame(id: String) {

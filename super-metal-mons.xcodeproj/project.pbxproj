@@ -17,8 +17,8 @@
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
 		2C162B7F2BBF09F700537639 /* SecretAppResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */; };
 		2C162B802BBF09F700537639 /* SecretAppResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */; };
-		2C162B822BBF0CB700537639 /* SecretInvitesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B812BBF0CB700537639 /* SecretInvitesManager.swift */; };
-		2C162B832BBF0CB700537639 /* SecretInvitesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B812BBF0CB700537639 /* SecretInvitesManager.swift */; };
+		2C162B822BBF0CB700537639 /* SecretRequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B812BBF0CB700537639 /* SecretRequestProcessor.swift */; };
+		2C162B832BBF0CB700537639 /* SecretRequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B812BBF0CB700537639 /* SecretRequestProcessor.swift */; };
 		2C1FD1142B66F92E00D4AC51 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1FD1132B66F92E00D4AC51 /* main.swift */; };
 		2C1FD1182B66F94100D4AC51 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
 		2C1FD1192B66F94100D4AC51 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
@@ -264,7 +264,7 @@
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretAppResponse.swift; sourceTree = "<group>"; };
-		2C162B812BBF0CB700537639 /* SecretInvitesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretInvitesManager.swift; sourceTree = "<group>"; };
+		2C162B812BBF0CB700537639 /* SecretRequestProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretRequestProcessor.swift; sourceTree = "<group>"; };
 		2C1FD1112B66F92E00D4AC51 /* tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tools; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1FD1132B66F92E00D4AC51 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2C1FD1282B66F98300D4AC51 /* test-data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "test-data"; sourceTree = "<group>"; };
@@ -577,7 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				2C266FDE2A0C26930016C1C5 /* Firebase.swift */,
-				2C162B812BBF0CB700537639 /* SecretInvitesManager.swift */,
+				2C162B812BBF0CB700537639 /* SecretRequestProcessor.swift */,
 				2C3F34232B92587900F3829D /* Keychain.swift */,
 				2CB7462329F12BA100ACC855 /* Defaults.swift */,
 			);
@@ -1022,7 +1022,7 @@
 				2C3EA1A32B8E6FD3001F5B3B /* Haptic.swift in Sources */,
 				2C3EA1A42B8E6FD3001F5B3B /* URL.swift in Sources */,
 				2C3F34222B92331600F3829D /* UIViewController.swift in Sources */,
-				2C162B832BBF0CB700537639 /* SecretInvitesManager.swift in Sources */,
+				2C162B832BBF0CB700537639 /* SecretRequestProcessor.swift in Sources */,
 				2C3EA1A52B8E6FD3001F5B3B /* CGFloat.swift in Sources */,
 				2C3EA1A62B8E6FD3001F5B3B /* MusicViewController.swift in Sources */,
 				2C3EA1A72B8E6FD3001F5B3B /* AvailableMoveKind.swift in Sources */,
@@ -1092,7 +1092,7 @@
 				2C02552B2A0EA71A00CB1808 /* Connection.swift in Sources */,
 				2C7E80C429FC372C00114943 /* Board.swift in Sources */,
 				2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */,
-				2C162B822BBF0CB700537639 /* SecretInvitesManager.swift in Sources */,
+				2C162B822BBF0CB700537639 /* SecretRequestProcessor.swift in Sources */,
 				2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */,
 				2C38121E2B0620AD000FDE18 /* Haptic.swift in Sources */,
 				2CC4FBE229F6C69900A90CDD /* URL.swift in Sources */,
