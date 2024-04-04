@@ -45,16 +45,20 @@ class MainMenuViewController: UIViewController {
         if let gameId = url.gameId, presentedViewController == nil {
             connectToGame(id: gameId)
         } else if let secretAppRequest = url.secretAppRequest {
-            switch secretAppRequest {
-            case .createSecretInvite:
-                showProcessingAlert() // TODO: implement
-            case .recoverSecretInvite(id: let id):
-                showProcessingAlert() // TODO: implement
-            case .acceptSecretInvite(id: let id, password: let password):
-                showProcessingAlert() // TODO: implement
-            case .getSecretGameResult(id: let id, signature: let signature):
-                showProcessingAlert() // TODO: implement
-            }
+            processSecretAppRequest(secretAppRequest)
+        }
+    }
+    
+    private func processSecretAppRequest(_ request: SecretAppRequest) {
+        switch request {
+        case .createSecretInvite:
+            showProcessingAlert() // TODO: implement
+        case .recoverSecretInvite(id: let id):
+            showProcessingAlert() // TODO: implement
+        case .acceptSecretInvite(id: let id, password: let password):
+            showProcessingAlert() // TODO: implement
+        case .getSecretGameResult(id: let id, signature: let signature):
+            showProcessingAlert() // TODO: implement
         }
     }
     
