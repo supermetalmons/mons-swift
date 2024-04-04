@@ -5,6 +5,7 @@ import Foundation
 extension URL {
     
     static let baseMonsLink = "mons.link"
+    static let baseMonsRehab = "mons.rehab"
     
     static func forGame(id: String) -> String {
         return baseMonsLink + "/" + id
@@ -30,7 +31,7 @@ extension URL {
     }
     
     var secretAppRequest: SecretAppRequest? {
-        guard host == "mons.rehab" && lastPathComponent == "app-request",
+        guard host == URL.baseMonsRehab && lastPathComponent == "app-request",
               let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return nil }
         var dict = [String: String]()

@@ -14,8 +14,8 @@ class SecretRequestProcessor {
     }
     
     func cancel() {
-        open("https://mons.rehab/app-response?cancel=true")
-        // TODO: mirror original request as well
+        let response = SecretAppResponse.forRequest(request, cancel: true)
+        respond(response)
     }
     
     func process() {
@@ -32,13 +32,18 @@ class SecretRequestProcessor {
         
         // TODO: development tmp
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [weak self] in
-            self?.open("https://mons.rehab/app-response?ok=true")
-            self?.onSuccess()
+            if let request = self?.request {
+                let response = SecretAppResponse.forRequest(request, cancel: false)
+                self?.respond(response)
+                self?.onSuccess()
+            }
         }
     }
     
-    private func open(_ urlString: String) {
-        guard let url = URL(string: urlString) else { return }
+    private func respond(_ dict: [String: String]) {
+        var components = URLComponents(string: "https://\(URL.baseMonsRehab)/app-response")
+        components?.queryItems = dict.map { URLQueryItem(name: $0.key, value: $0.value) }
+        guard let url = components?.url else { return }
         UIApplication.shared.open(url)
     }
     
