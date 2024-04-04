@@ -21,13 +21,17 @@ class SecretRequestProcessor {
     func process() {
         switch request {
         case .createSecretInvite:
-            break // TODO: implement
-        case .recoverSecretInvite(id: let id):
-            break // TODO: implement
-        case .acceptSecretInvite(id: let id, password: let password):
-            break // TODO: implement
-        case .getSecretGameResult(id: let id, signature: let signature):
-            break // TODO: implement
+            break
+            // TODO: inviteId, playerId, password
+        case let .recoverSecretInvite(id):
+            break
+            // TODO: inviteId, playerId, password, opponentId?
+        case let .acceptSecretInvite(id, password):
+            break
+            // TODO: inviteId, playerId, opponentId
+        case let .getSecretGameResult(id, signature):
+            break
+            // TODO: winnerId, inviteId, signed(winnerId+inviteId), signature, error
         }
         
         // TODO: development tmp
