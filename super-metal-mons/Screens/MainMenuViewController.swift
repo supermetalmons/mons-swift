@@ -47,7 +47,13 @@ class MainMenuViewController: UIViewController {
         } else if let secretAppRequest = url.secretAppRequest {
             switch secretAppRequest {
             case .createSecretInvite:
-                showProcessingAlert()
+                showProcessingAlert() // TODO: implement
+            case .recoverSecretInvite(id: let id):
+                showProcessingAlert() // TODO: implement
+            case .acceptSecretInvite(id: let id, password: let password):
+                showProcessingAlert() // TODO: implement
+            case .getSecretGameResult(id: let id, signature: let signature):
+                showProcessingAlert() // TODO: implement
             }
         }
     }
