@@ -15,6 +15,8 @@
 		2C02552D2A0ECB6400CB1808 /* didConnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C02552C2A0ECB6400CB1808 /* didConnect.wav */; };
 		2C09E3D829F6D0630082B774 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09E3D729F6D0630082B774 /* GameController.swift */; };
 		2C09E3DA29F6D2550082B774 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C09E3D929F6D2550082B774 /* Game.xcassets */; };
+		2C162B7F2BBF09F700537639 /* SecretAppResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */; };
+		2C162B802BBF09F700537639 /* SecretAppResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */; };
 		2C1FD1142B66F92E00D4AC51 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1FD1132B66F92E00D4AC51 /* main.swift */; };
 		2C1FD1182B66F94100D4AC51 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
 		2C1FD1192B66F94100D4AC51 /* MonsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C01C6A029CAF4D500A25465 /* MonsGame.swift */; };
@@ -259,6 +261,7 @@
 		2C02552C2A0ECB6400CB1808 /* didConnect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = didConnect.wav; sourceTree = "<group>"; };
 		2C09E3D729F6D0630082B774 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		2C09E3D929F6D2550082B774 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
+		2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretAppResponse.swift; sourceTree = "<group>"; };
 		2C1FD1112B66F92E00D4AC51 /* tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tools; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1FD1132B66F92E00D4AC51 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2C1FD1282B66F98300D4AC51 /* test-data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "test-data"; sourceTree = "<group>"; };
@@ -549,6 +552,7 @@
 				2CC4E21D29E9F932002F3AC9 /* Storyboard.swift */,
 				2CDB1AD029ED87C900C51230 /* SeparatorView.swift */,
 				2CA6C7ED2BBD67230061E086 /* SecretAppRequest.swift */,
+				2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
 				2C27AFD62A113DE8003C959D /* AnimationKey.swift */,
 				2C779FF22B6CFA0400900EFE /* TestCase.swift */,
@@ -990,6 +994,7 @@
 				2C3EA18E2B8E6FD3001F5B3B /* GameViewController.swift in Sources */,
 				2C3EA18F2B8E6FD3001F5B3B /* CircleCutoutView.swift in Sources */,
 				2C3EA1902B8E6FD3001F5B3B /* Consumable.swift in Sources */,
+				2C162B802BBF09F700537639 /* SecretAppResponse.swift in Sources */,
 				2C3EA1912B8E6FD3001F5B3B /* AppDelegate.swift in Sources */,
 				2C3EA1922B8E6FD3001F5B3B /* Input.swift in Sources */,
 				2C3EA1932B8E6FD3001F5B3B /* ButtonWithExtendedArea.swift in Sources */,
@@ -1089,6 +1094,7 @@
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,
 				2CC157262A351C7B009C2BF1 /* MusicViewController.swift in Sources */,
 				2C7E80D229FC6AA400114943 /* AvailableMoveKind.swift in Sources */,
+				2C162B7F2BBF09F700537639 /* SecretAppResponse.swift in Sources */,
 				2CC39E8229CA48B200EDF779 /* SceneDelegate.swift in Sources */,
 				2C27AFD72A113DE8003C959D /* AnimationKey.swift in Sources */,
 				2C53FC5C29CD280300F49668 /* Audio.swift in Sources */,
