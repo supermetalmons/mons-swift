@@ -58,8 +58,12 @@ class SecretRequestProcessor {
                     if error != nil {
                         self?.respondWithError()
                     } else if let request = self?.request {
-                        let response = SecretAppResponse.forRequest(request)
-                        // TODO: inviteId, playerId, password
+                        var response = SecretAppResponse.forRequest(request)
+                        
+                        response["inviteId"] = id
+                        response["userId"] = userId
+                        response["password"] = invite.password
+                        
                         self?.respond(response)
                     }
                 }
