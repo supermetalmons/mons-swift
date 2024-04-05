@@ -44,15 +44,15 @@ class Connection {
         observers[id] = path
     }
     
-    func addInvite(id: String, version: Int, hostColor: Color, emojiId: Int, fen: String) {
+    func addInvite(id: String, hostColor: Color, emojiId: Int, fen: String) {
         guard let userId = userId else {
             // TODO: retry login
             return
         }
-        let invite = GameInvite(version: version, hostId: userId, hostColor: hostColor, guestId: nil)
+        let invite = GameInvite(version: monsGameControllerVersion, hostId: userId, hostColor: hostColor, guestId: nil)
         database.child("invites/\(id)").setValue(invite.dict) // TODO: validate it was actually set, retry if not
         
-        let match = PlayerMatch(version: version, color: hostColor, emojiId: emojiId, fen: fen, status: .waiting)
+        let match = PlayerMatch(version: monsGameControllerVersion, color: hostColor, emojiId: emojiId, fen: fen, status: .waiting)
         myMatch = match
         database.child("players/\(userId)/matches/\(id)").setValue(match.dict) // TODO: validate it was actually set, retry if not
         
@@ -94,7 +94,7 @@ class Connection {
         database.child("players/\(userId)/matches/\(gameId)").setValue(myMatch.dict)
     }
 
-    func joinGame(version: Int, id: String, emojiId: Int, retryCount: Int = 0) {
+    func joinGame(id: String, emojiId: Int, retryCount: Int = 0) {
         guard let userId = userId, retryCount < 3 else {
             // TODO: retry login
             return
@@ -103,9 +103,9 @@ class Connection {
         database.child("invites/\(id)").getData { [weak self] _, snapshot in
             guard let value = snapshot?.value, let invite = try? GameInvite(dict: value) else { return }
             
-            guard invite.version == version else {
+            guard invite.version == monsGameControllerVersion else {
                 let incompatibleVersion: IncompatibleVersion
-                if invite.version < version {
+                if invite.version < monsGameControllerVersion {
                     incompatibleVersion = .askOpponentToUpdate
                 } else {
                     incompatibleVersion = .shouldUpdate
@@ -123,7 +123,7 @@ class Connection {
                 self?.database.child("invites/\(id)/guestId").setValue(userId) { error, _ in
                     if error != nil {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                            self?.joinGame(version: version, id: id, emojiId: emojiId, retryCount: retryCount + 1)
+                            self?.joinGame(id: id, emojiId: emojiId, retryCount: retryCount + 1)
                         }
                     } else {
                         self?.getOpponentsMatch(id: id, emojiId: emojiId, invite: invite, createOwnMatch: true)

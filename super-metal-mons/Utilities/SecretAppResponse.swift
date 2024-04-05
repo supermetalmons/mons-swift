@@ -4,7 +4,7 @@ import Foundation
 
 struct SecretAppResponse: Codable {
     
-    static func forRequest(_ request: SecretAppRequest, cancel: Bool = false) -> [String: String] {
+    static func forRequest(_ request: SecretAppRequest, cancel: Bool = false, error: Bool = false) -> [String: String] {
         var dict = [String: String]()
         switch request {
         case .createSecretInvite:
@@ -24,6 +24,10 @@ struct SecretAppResponse: Codable {
         
         if cancel {
             dict["cancel"] = "true"
+        }
+        
+        if error {
+            dict["error"] = "true"
         }
         
         return dict

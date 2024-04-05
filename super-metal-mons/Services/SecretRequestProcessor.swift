@@ -5,6 +5,12 @@ import FirebaseDatabase
 
 class SecretRequestProcessor {
     
+    private lazy var database = Database.database().reference()
+    
+    private var userId: String? {
+        return Firebase.userId
+    }
+    
     private let request: SecretAppRequest
     private let onSuccess: () -> Void
     
@@ -32,9 +38,33 @@ class SecretRequestProcessor {
     }
     
     private func createSecretInvite() {
-        // TODO: inviteId, playerId, password
-        let response = SecretAppResponse.forRequest(request)
-        respond(response)
+        guard let userId = userId else {
+            respondWithError()
+            return
+        }
+        
+        let color = Color.random
+        let id = String.newGameId
+        let emojiId = Images.randomEmojiId
+        
+        let invite = GameInvite(version: monsGameControllerVersion, hostId: userId, hostColor: color, guestId: nil, password: UUID().uuidString)
+        let match = PlayerMatch(version: monsGameControllerVersion, color: color, emojiId: emojiId, fen: MonsGame().fen, status: .waiting)
+        
+        database.child("invites/\(id)").setValue(invite.dict) { [weak self] error, _ in
+            if error != nil {
+                self?.respondWithError()
+            } else {
+                self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict) { error, _ in
+                    if error != nil {
+                        self?.respondWithError()
+                    } else if let request = self?.request {
+                        let response = SecretAppResponse.forRequest(request)
+                        // TODO: inviteId, playerId, password
+                        self?.respond(response)
+                    }
+                }
+            }
+        }
     }
     
     private func recoverSecretInvite(id: String) {
@@ -47,6 +77,11 @@ class SecretRequestProcessor {
     
     private func getSecretGameResult(id: String, signature: String) {
         // TODO: winnerId, inviteId, signed(winnerId+inviteId), signature, error, isDraw
+    }
+    
+    private func respondWithError() {
+        let response = SecretAppResponse.forRequest(request, error: true)
+        respond(response)
     }
     
     private func respond(_ dict: [String: String], isCancel: Bool = false) {

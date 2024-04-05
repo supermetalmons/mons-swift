@@ -2,6 +2,8 @@
 
 import UIKit
 
+let monsGameControllerVersion = 2
+
 protocol GameView: AnyObject {
     func didConnect()
     func updateOpponentEmoji()
@@ -260,8 +262,6 @@ class GameController {
     private let gameId: String
     private var connection: Connection?
     
-    private let version = 2
-    
     private weak var gameView: GameView?
 
     var inviteLink: String {
@@ -286,12 +286,12 @@ class GameController {
             self.gameId = id
             self.connection = Connection(gameId: id)
             playerSideColor = .random
-            connection?.addInvite(id: id, version: version, hostColor: playerSideColor, emojiId: emojiId, fen: game.fen)
+            connection?.addInvite(id: id, hostColor: playerSideColor, emojiId: emojiId, fen: game.fen)
         case .joinGameId(let gameId):
             self.gameId = gameId
             self.connection = Connection(gameId: gameId)
             playerSideColor = .random
-            connection?.joinGame(version: version, id: gameId, emojiId: emojiId)
+            connection?.joinGame(id: gameId, emojiId: emojiId)
         }
         
         connection?.setDelegate(self)
