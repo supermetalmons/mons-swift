@@ -110,7 +110,6 @@ class SecretRequestProcessor {
         let emojiId = Images.randomEmojiId
         
         let invite = GameInvite(version: monsGameControllerVersion, hostId: hostId, hostColor: hostColor, guestId: userId, password: password)
-        
         let match = PlayerMatch(version: monsGameControllerVersion, color: hostColor.other, emojiId: emojiId, fen: MonsGame().fen, status: .waiting)
         
         database.child("invites/\(id)").setValue(invite.dict) { [weak self] error, _ in
@@ -119,9 +118,7 @@ class SecretRequestProcessor {
             } else if let request = self?.request {
                 var response = SecretAppResponse.forRequest(request)
                 response["guestId"] = userId
-                // TODO: set new data for the response
-                // TODO: inviteId, playerId, opponentId
-                // TODO: create match as well
+                self?.database.child("players/\(userId)/matches/\(id)").setValue(match.dict)
                 self?.respond(response)
             }
         }
