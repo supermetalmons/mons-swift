@@ -121,6 +121,7 @@ class SecretRequestProcessor {
                 response["guestId"] = userId
                 // TODO: set new data for the response
                 // TODO: inviteId, playerId, opponentId
+                // TODO: create match as well
                 self?.respond(response)
             }
         }
