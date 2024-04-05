@@ -30,8 +30,8 @@ class SecretRequestProcessor {
             createSecretInvite()
         case let .recoverSecretInvite(id):
             recoverSecretInvite(id: id)
-        case let .acceptSecretInvite(id, password):
-            acceptSecretInvite(id: id, password: password)
+        case let .acceptSecretInvite(id, hostId, hostColor, password):
+            acceptSecretInvite(id: id, hostId: hostId, hostColor: hostColor, password: password)
         case let .getSecretGameResult(id, signature):
             getSecretGameResult(id: id, signature: signature)
         }
@@ -60,9 +60,10 @@ class SecretRequestProcessor {
                     } else if let request = self?.request {
                         var response = SecretAppResponse.forRequest(request)
                         
-                        response["inviteId"] = id
-                        response["userId"] = userId
+                        response["id"] = id
+                        response["hostId"] = userId
                         response["password"] = invite.password
+                        response["hostColor"] = color.rawValue
                         
                         self?.respond(response)
                     }
@@ -86,9 +87,10 @@ class SecretRequestProcessor {
             if let request = self?.request {
                 var response = SecretAppResponse.forRequest(request)
                 
-                response["inviteId"] = id
-                response["userId"] = userId
+                response["id"] = id
+                response["hostId"] = userId
                 response["password"] = password
+                response["hostColor"] = invite.hostColor.rawValue
                 
                 if let guestId = invite.guestId {
                     response["guestId"] = guestId
@@ -99,8 +101,29 @@ class SecretRequestProcessor {
         }
     }
     
-    private func acceptSecretInvite(id: String, password: String) {
-        // TODO: inviteId, playerId, opponentId
+    private func acceptSecretInvite(id: String, hostId: String, hostColor: Color, password: String) {
+        guard let userId = userId else {
+            respondWithError()
+            return
+        }
+        
+        let emojiId = Images.randomEmojiId
+        
+        let invite = GameInvite(version: monsGameControllerVersion, hostId: hostId, hostColor: hostColor, guestId: userId, password: password)
+        
+        let match = PlayerMatch(version: monsGameControllerVersion, color: hostColor.other, emojiId: emojiId, fen: MonsGame().fen, status: .waiting)
+        
+        database.child("invites/\(id)").setValue(invite.dict) { [weak self] error, _ in
+            if error != nil {
+                self?.respondWithError()
+            } else if let request = self?.request {
+                var response = SecretAppResponse.forRequest(request)
+                response["guestId"] = userId
+                // TODO: set new data for the response
+                // TODO: inviteId, playerId, opponentId
+                self?.respond(response)
+            }
+        }
     }
     
     private func getSecretGameResult(id: String, signature: String) {

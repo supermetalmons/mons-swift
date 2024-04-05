@@ -9,14 +9,16 @@ struct SecretAppResponse: Codable {
         switch request {
         case .createSecretInvite:
             dict["type"] = "createSecretInvite"
-        case .recoverSecretInvite(let id):
+        case let .recoverSecretInvite(id):
             dict["type"] = "recoverSecretInvite"
             dict["id"] = id
-        case .acceptSecretInvite(let id, let password):
+        case let .acceptSecretInvite(id, hostId, hostColor, password):
             dict["type"] = "acceptSecretInvite"
             dict["id"] = id
             dict["password"] = password
-        case .getSecretGameResult(let id, let signature):
+            dict["hostId"] = hostId
+            dict["hostColor"] = hostColor.rawValue
+        case let .getSecretGameResult(id, signature):
             dict["type"] = "getSecretGameResult"
             dict["id"] = id
             dict["signature"] = signature
