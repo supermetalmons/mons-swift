@@ -14,8 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         return true
     }
-
-    // MARK: - Utils
+    
+#if !targetEnvironment(macCatalyst)
     
     private func uploadClaimCodes(dropId: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
@@ -43,5 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return claimCodes
     }
+    
+#endif
     
 }
