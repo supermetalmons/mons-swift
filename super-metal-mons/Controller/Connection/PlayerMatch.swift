@@ -9,7 +9,7 @@ struct PlayerMatch: Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case color, emojiId, fen, movesFens, status, reaction, version
+        case color, emojiId, fen, movesFens, status, reaction, version, flatMovesString
     }
     
     let color: Color
@@ -60,6 +60,7 @@ struct PlayerMatch: Codable {
         
         let movesFens = moves.map { $0.fen }
         try container.encode(movesFens, forKey: .movesFens)
+        try container.encode(movesFens.joined(separator: "-"), forKey: .flatMovesString)
     }
 
     init(version: Int, color: Color, emojiId: Int, fen: String, status: Status) {
