@@ -72,7 +72,31 @@ class SecretRequestProcessor {
     }
     
     private func recoverSecretInvite(id: String) {
-        // TODO: inviteId, playerId, password, opponentId?
+        guard let userId = userId else {
+            respondWithError()
+            return
+        }
+        
+        database.child("invites/\(id)").getData { [weak self] _, snapshot in
+            guard let value = snapshot?.value, let invite = try? GameInvite(dict: value), let password = invite.password, !password.isEmpty else {
+                self?.respondWithError()
+                return
+            }
+            
+            if let request = self?.request {
+                var response = SecretAppResponse.forRequest(request)
+                
+                response["inviteId"] = id
+                response["userId"] = userId
+                response["password"] = password
+                
+                if let guestId = invite.guestId {
+                    response["guestId"] = guestId
+                }
+                
+                self?.respond(response)
+            }
+        }
     }
     
     private func acceptSecretInvite(id: String, password: String) {
