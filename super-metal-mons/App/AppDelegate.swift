@@ -15,6 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // MARK: - Utils
+    
+    private func uploadClaimCodes(dropId: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
+            if let userId = Firebase.userId, let codes = self?.loadClaimCodes() {
+                print(userId)
+                Firebase.createCodes(codes: codes, dropId: dropId)
+            } else {
+                print("🛑")
+            }
+        }
+    }
+    
     private func loadClaimCodes() -> [String] {
         guard let path = Bundle.main.path(forResource: "links", ofType: "csv"),
               let data = try? String(contentsOfFile: path, encoding: .utf8) else { return [] }

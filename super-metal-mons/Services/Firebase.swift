@@ -76,10 +76,10 @@ class Firebase: BaseFirebase {
         }
     }
     
-    static func createCodes(_ codes: [String]) {
+    static func createCodes(codes: [String], dropId: String) {
         let db = Firestore.firestore()
         for code in codes {
-            _ = db.collection("items").addDocument(data: [
+            _ = db.collection("drops").document(dropId).collection("items").addDocument(data: [
                 "claimed": false,
                 "code": code
             ]) { err in
