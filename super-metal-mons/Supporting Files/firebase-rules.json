@@ -3,12 +3,23 @@
     ".read": false,
     ".write": false,
     "invites": {
-      ".read": true,
       "$inviteId": {
-        ".write": "auth != null && !data.exists()",
+        ".read": "(data.child('hostId').exists() && data.child('guestId').exists()) || (auth != null && (!data.child('password').exists() || auth.uid === data.child('hostId').val()))",
+          ".write": "(auth != null && !data.exists()) || (auth != null && data.exists() && data.child('password').exists() && newData.child('password').val() === data.child('password').val() && newData.child('hostId').val() === data.child('hostId').val() && !data.child('guestId').exists() && newData.child('guestId').val() === auth.uid && newData.child('version').val() === data.child('version').val() && newData.child('hostColor').val() === data.child('hostColor').val())",
+        
+        "hostId": {
+          ".validate": "auth.uid === newData.val() || newData.val() === data.val()"
+        },
+          
+        "password": {
+          ".read": "auth != null && auth.uid === data.parent().child('hostId').val()",
+          ".write": "auth != null && !data.exists() && newData.isString() && data.parent().child('hostId').val() === auth.uid",
+          ".validate": "newData.isString()"
+        },
+          
         "guestId": {
-          ".write": "auth != null && !data.exists()",
-          ".validate": "newData.isString() && auth.uid === newData.val()"
+          ".write": "auth != null && !data.exists() && newData.isString() && auth.uid === newData.val()",
+          ".validate": "newData.isString() && auth.uid === newData.val() && (!data.parent().child('password').exists() || (data.parent().child('password').exists() && newData.parent().child('password').val() === data.parent().child('password').val()))"
         }
       }
     },
@@ -18,7 +29,14 @@
         ".write": "auth != null && auth.uid === $userId",
         "matches": {
           "$matchId": {
-            ".write": "auth != null && auth.uid === $userId"
+            ".write": "auth != null && auth.uid === $userId && data.child('fen').exists()",
+            "fen": {
+                  ".validate": "newData.isString()"
+                },
+            "flatMovesString": {
+              ".validate": "newData.isString() && (!data.exists() || newData.val().contains(data.val()))"
+            },
+            ".validate": "!data.hasChild('fen') || (!data.hasChild('flatMovesString') && !newData.hasChild('flatMovesString')) || (newData.hasChild('fen') && newData.hasChild('flatMovesString')) || (!newData.hasChild('fen') && !newData.hasChild('flatMovesString'))"
           }
         }
       }
