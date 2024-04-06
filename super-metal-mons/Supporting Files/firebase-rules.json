@@ -31,7 +31,7 @@
           "$matchId": {
             ".write": "auth != null && auth.uid === $userId && data.child('fen').exists()",
             "fen": {
-                  ".validate": "newData.isString()"
+                  ".validate": "newData.isString() && newData.val().length > 0"
                 },
             "flatMovesString": {
               ".validate": "newData.isString() && (!data.exists() || newData.val().contains(data.val()))"
