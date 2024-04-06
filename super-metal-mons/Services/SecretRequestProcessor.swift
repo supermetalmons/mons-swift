@@ -22,9 +22,11 @@ class SecretRequestProcessor {
     }
     
     func callTheFunction() {
-        functions.httpsCallable("hello").call(["text": "yo"]) { result, _ in
-            if let data = result?.data as? [String: Any], let text = data["message"] as? String {
-                print(text)
+        functions.httpsCallable("hello").call(["text": "yo"]) { result, error in
+            if let data = result?.data as? [String: Any] {
+                print(data)
+            } else {
+                print(error.debugDescription)
             }
         }
     }
