@@ -36,7 +36,7 @@
             "flatMovesString": {
               ".validate": "newData.isString() && (!data.exists() || newData.val().contains(data.val()))"
             },
-            ".validate": "!data.hasChild('fen') || (!data.hasChild('flatMovesString') && !newData.hasChild('flatMovesString')) || (newData.hasChild('fen') && newData.hasChild('flatMovesString')) || (!newData.hasChild('fen') && !newData.hasChild('flatMovesString'))"
+            ".validate": "!data.exists() || ((!data.child('flatMovesString').exists() || (data.child('flatMovesString').exists() && (data.child('fen').val() === newData.child('fen').val() || (data.child('fen').val() != newData.child('fen').val() && data.child('flatMovesString').val() != newData.child('flatMovesString').val())))) && (data.child('flatMovesString').exists() || data.child('fen').exists() && !data.child('flatMovesString').exists() && !newData.child('flatMovesString').exists()))"
           }
         }
       }
