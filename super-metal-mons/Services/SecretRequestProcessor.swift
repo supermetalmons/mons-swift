@@ -21,16 +21,6 @@ class SecretRequestProcessor {
         self.onSuccess = onSuccess
     }
     
-    func callTheFunction(id: String) {
-        functions.httpsCallable("gameResult").call(["id": id, "signature": "ed25519"]) { result, error in
-            if let data = result?.data as? [String: Any] {
-                print(data)
-            } else {
-                print(error.debugDescription)
-            }
-        }
-    }
-    
     func cancel() {
         let response = SecretAppResponse.forRequest(request, cancel: true)
         respond(response, isCancel: true)
@@ -137,7 +127,19 @@ class SecretRequestProcessor {
     }
     
     private func getSecretGameResult(id: String, signature: String) {
-        // TODO: winnerId, inviteId, signed(winnerId+inviteId), signature, error, isDraw
+        functions.httpsCallable("gameResult").call(["id": id, "signature": signature]) { [weak self] result, _ in
+            if let data = result?.data as? [String: Any], let request = self?.request {
+                var response = SecretAppResponse.forRequest(request)
+                for (key, value) in data {
+                    if let stringValue = value as? String, response[key] == nil {
+                        response[key] = stringValue
+                    }
+                }
+                self?.respond(response)
+            } else {
+                self?.respondWithError()
+            }
+        }
     }
     
     private func respondWithError() {
