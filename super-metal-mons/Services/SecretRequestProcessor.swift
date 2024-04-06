@@ -2,10 +2,12 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFunctions
 
 class SecretRequestProcessor {
     
     private lazy var database = Database.database().reference()
+    private lazy var functions = Functions.functions()
     
     private var userId: String? {
         return Firebase.userId
@@ -17,6 +19,14 @@ class SecretRequestProcessor {
     init(request: SecretAppRequest, onSuccess: @escaping () -> Void) {
         self.request = request
         self.onSuccess = onSuccess
+    }
+    
+    func callTheFunction() {
+        functions.httpsCallable("hello").call(["text": "yo"]) { result, _ in
+            if let data = result?.data as? [String: Any], let text = data["message"] as? String {
+                print(text)
+            }
+        }
     }
     
     func cancel() {
