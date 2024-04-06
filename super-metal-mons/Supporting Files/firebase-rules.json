@@ -26,10 +26,10 @@
     "players": {
       ".read": true,
       "$userId": {
-        ".write": "auth != null && auth.uid === $userId",
+        ".write": "auth != null && auth.uid === $userId && newData.exists() && newData.child('matches').exists()",
         "matches": {
           "$matchId": {
-            ".write": "auth != null && auth.uid === $userId && data.child('fen').exists()",
+            ".write": "auth != null && auth.uid === $userId && data.child('fen').exists() && newData.exists() && newData.child('fen').exists()",
             "fen": {
                   ".validate": "newData.isString() && newData.val().length > 0"
                 },
