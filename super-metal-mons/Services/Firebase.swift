@@ -2,10 +2,12 @@
 
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFunctions
 
 class BaseFirebase {
     
     static var userId: String?
+    private lazy var functions = Functions.functions()
     
     static func auth(competion: ((Bool) -> Void)? = nil) {
         Auth.auth().signInAnonymously { authResult, _ in

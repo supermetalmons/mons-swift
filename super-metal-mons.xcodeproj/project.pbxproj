@@ -213,6 +213,8 @@
 		2CD302762A097286009DFCC2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CD302752A097286009DFCC2 /* click.wav */; };
 		2CD3027A2A099124009DFCC2 /* CircleCutoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302792A099124009DFCC2 /* CircleCutoutView.swift */; };
 		2CD3027C2A099834009DFCC2 /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3027B2A099834009DFCC2 /* Highlight.swift */; };
+		2CDA63F32BC1BB9700396913 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 2CDA63F22BC1BB9700396913 /* FirebaseFunctions */; };
+		2CDA63F62BC1BBB300396913 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 2CDA63F52BC1BBB300396913 /* FirebaseFunctions */; };
 		2CDB1AD129ED87C900C51230 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD029ED87C900C51230 /* SeparatorView.swift */; };
 		2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2CDB1AE329EEF48E00C51230 /* pickupBomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD529EEF48E00C51230 /* pickupBomb.wav */; };
@@ -385,6 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CDA63F62BC1BBB300396913 /* FirebaseFunctions in Frameworks */,
 				2C3EA1AC2B8E6FD3001F5B3B /* FirebaseDatabaseSwift in Frameworks */,
 				2C3EA1AE2B8E6FD3001F5B3B /* FirebaseAuth in Frameworks */,
 			);
@@ -396,6 +399,7 @@
 			files = (
 				2C266FE42A0C2B7A0016C1C5 /* FirebaseDatabaseSwift in Frameworks */,
 				2CAAA7AD2B8CCAA50011A55A /* FirebaseAppCheck in Frameworks */,
+				2CDA63F32BC1BB9700396913 /* FirebaseFunctions in Frameworks */,
 				2C266FE22A0C2B7A0016C1C5 /* FirebaseAuth in Frameworks */,
 				2CA692AA2B8D2F670046AF86 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -482,6 +486,7 @@
 				2CC39E7E29CA48B200EDF779 /* super-metal-mons */,
 				2C1FD1122B66F92E00D4AC51 /* tools */,
 				2CC39E7D29CA48B200EDF779 /* Products */,
+				2CDA63F42BC1BBB300396913 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -636,6 +641,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2CDA63F42BC1BBB300396913 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2CDB1AD429EEF48E00C51230 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,6 +735,7 @@
 			packageProductDependencies = (
 				2C3EA1682B8E6FD3001F5B3B /* FirebaseAuth */,
 				2C3EA16A2B8E6FD3001F5B3B /* FirebaseDatabaseSwift */,
+				2CDA63F52BC1BBB300396913 /* FirebaseFunctions */,
 			);
 			productName = "super-metal-mons";
 			productReference = 2C3EA1F32B8E6FD3001F5B3B /* mons.app */;
@@ -747,6 +760,7 @@
 				2C266FE32A0C2B7A0016C1C5 /* FirebaseDatabaseSwift */,
 				2CAAA7AC2B8CCAA50011A55A /* FirebaseAppCheck */,
 				2CA692A92B8D2F670046AF86 /* FirebaseFirestoreSwift */,
+				2CDA63F22BC1BB9700396913 /* FirebaseFunctions */,
 			);
 			productName = "super-metal-mons";
 			productReference = 2CC39E7C29CA48B200EDF779 /* mons.app */;
@@ -1526,6 +1540,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAppCheck;
+		};
+		2CDA63F22BC1BB9700396913 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		2CDA63F52BC1BBB300396913 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C266FE02A0C2B7A0016C1C5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
