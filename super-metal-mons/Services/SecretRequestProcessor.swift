@@ -22,7 +22,7 @@ class SecretRequestProcessor {
     }
     
     func callTheFunction(id: String) {
-        functions.httpsCallable("gameResult").call(["id": id]) { result, error in
+        functions.httpsCallable("gameResult").call(["id": id, "signature": "ed25519"]) { result, error in
             if let data = result?.data as? [String: Any] {
                 print(data)
             } else {
