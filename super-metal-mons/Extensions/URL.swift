@@ -31,7 +31,7 @@ extension URL {
     }
     
     var secretAppRequest: SecretAppRequest? {
-        guard host == URL.baseMonsRehab && lastPathComponent == "app-request",
+        guard (host == URL.baseMonsRehab && lastPathComponent == "app-request") || scheme == "supermons",
               let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return nil }
         var dict = [String: String]()
