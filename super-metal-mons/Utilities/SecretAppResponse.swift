@@ -18,10 +18,13 @@ struct SecretAppResponse: Codable {
             dict["password"] = password
             dict["hostId"] = hostId
             dict["hostColor"] = hostColor.rawValue
-        case let .getSecretGameResult(id, signature):
+        case let .getSecretGameResult(id, signature, params):
             dict["type"] = "getSecretGameResult"
             dict["id"] = id
             dict["signature"] = signature
+            for (key, value) in params {
+                dict[key] = value
+            }
         }
         
         if cancel {

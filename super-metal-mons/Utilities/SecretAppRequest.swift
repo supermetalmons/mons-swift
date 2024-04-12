@@ -7,7 +7,7 @@ enum SecretAppRequest {
     case createSecretInvite
     case recoverSecretInvite(id: String)
     case acceptSecretInvite(id: String, hostId: String, hostColor: Color, password: String)
-    case getSecretGameResult(id: String, signature: String)
+    case getSecretGameResult(id: String, signature: String, params: [String: String])
     
     init?(dict: [String: String]) {
         switch dict["type"] {
@@ -25,7 +25,11 @@ enum SecretAppRequest {
             self = .acceptSecretInvite(id: id, hostId: hostId, hostColor: color, password: password)
         case "getSecretGameResult":
             guard let id = dict["id"], let signature = dict["signature"] else { return nil }
-            self = .getSecretGameResult(id: id, signature: signature)
+            var params = dict
+            params.removeValue(forKey: "id")
+            params.removeValue(forKey: "signature")
+            params.removeValue(forKey: "type")
+            self = .getSecretGameResult(id: id, signature: signature, params: params)
         default:
             return nil
         }

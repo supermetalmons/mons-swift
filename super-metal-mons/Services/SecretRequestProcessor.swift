@@ -34,8 +34,8 @@ class SecretRequestProcessor {
             recoverSecretInvite(id: id)
         case let .acceptSecretInvite(id, hostId, hostColor, password):
             acceptSecretInvite(id: id, hostId: hostId, hostColor: hostColor, password: password)
-        case let .getSecretGameResult(id, signature):
-            getSecretGameResult(id: id, signature: signature)
+        case let .getSecretGameResult(id, signature, params):
+            getSecretGameResult(id: id, signature: signature, params: params)
         }
     }
     
@@ -126,8 +126,8 @@ class SecretRequestProcessor {
         }
     }
     
-    private func getSecretGameResult(id: String, signature: String) {
-        functions.httpsCallable("gameResult").call(["id": id, "signature": signature]) { [weak self] result, _ in
+    private func getSecretGameResult(id: String, signature: String, params: [String: String]) {
+        functions.httpsCallable("gameResult").call(["id": id, "signature": signature, "params": params]) { [weak self] result, _ in
             if let data = result?.data as? [String: Any], let request = self?.request {
                 var response = SecretAppResponse.forRequest(request)
                 for (key, value) in data {
