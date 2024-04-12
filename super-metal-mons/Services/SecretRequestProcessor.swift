@@ -30,11 +30,11 @@ class SecretRequestProcessor {
         switch request {
         case .createSecretInvite:
             createSecretInvite()
-        case let .recoverSecretInvite(id):
+        case let .recoverSecretInvite(_, id):
             recoverSecretInvite(id: id)
-        case let .acceptSecretInvite(id, hostId, hostColor, password):
+        case let .acceptSecretInvite(_, id, hostId, hostColor, password):
             acceptSecretInvite(id: id, hostId: hostId, hostColor: hostColor, password: password)
-        case let .getSecretGameResult(id, signature, params):
+        case let .getSecretGameResult(_, id, signature, params):
             getSecretGameResult(id: id, signature: signature, params: params)
         }
     }
@@ -150,7 +150,12 @@ class SecretRequestProcessor {
     private func respond(_ dict: [String: String], isCancel: Bool = false) {
         var components = URLComponents(string: "https://\(URL.baseMonsRehab)/app-response")
         components?.queryItems = dict.map { URLQueryItem(name: $0.key, value: $0.value) }
-        guard let url = components?.url else { return }
+        guard var url = components?.url else { return }
+        if request.phr,
+           let encoded = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+           let phURL = URL(string: "https://phantom.app/ul/browse/\(encoded)?ref=mons") {
+            url = phURL
+        }
         DispatchQueue.main.async { [weak self] in
             UIApplication.shared.open(url)
             if !isCancel {
