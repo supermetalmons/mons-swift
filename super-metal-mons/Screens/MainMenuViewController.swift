@@ -46,7 +46,8 @@ class MainMenuViewController: UIViewController {
     
     private func processUrl(_ url: URL) {
         if let gameId = url.gameId, presentedViewController == nil {
-            connectToGame(id: gameId)
+            let controller = GameController(mode: .joinGameId(gameId))
+            presentGameViewController(gameController: controller)
         } else if let secretAppRequest = url.secretAppRequest {
             processSecretAppRequest(secretAppRequest)
         }
@@ -73,11 +74,6 @@ class MainMenuViewController: UIViewController {
         processingProgressAlert = alert
     }
     
-    private func connectToGame(id: String) {
-        let controller = GameController(mode: .joinGameId(id))
-        presentGameViewController(gameController: controller)
-    }
-    
     private func presentGameViewController(gameController: GameController) {
         Haptic.generate(.selectionChanged)
         let gameViewController = GameViewController.with(gameController: gameController)
@@ -102,8 +98,8 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func joinButtonTapped(_ sender: Any) {
-        if let input = UIPasteboard.general.string, let gameId = URL(string: input)?.gameId {
-            connectToGame(id: gameId)
+        if let input = UIPasteboard.general.string, let url = URL(string: input) {
+            processUrl(url)
         } else {
             let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
