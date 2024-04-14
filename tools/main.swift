@@ -4,6 +4,23 @@ import Foundation
 
 var count = 0
 
+func rewrite(data: Data) {
+    let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
+    
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .sortedKeys
+    
+    let newData = try! encoder.encode(testCase)
+    let name = String(newData.fnv1aHash())
+    
+    let newDataDirectory = FileManager.default.currentDirectoryPath + "/tools/tuned/"
+    let newFilePath = newDataDirectory + name
+    
+    if !FileManager.default.fileExists(atPath: newFilePath) {
+        FileManager.default.createFile(atPath: newFilePath, contents: newData)
+    }
+}
+
 func validate(data: Data) {
     let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
     let game = MonsGame(fen: testCase.fenBefore)!
@@ -38,7 +55,23 @@ for name in files {
     if name.hasPrefix(".") { continue }
     let filePath = testDataDirectory + "/" + name
     let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
+    
+    rewrite(data: data)
     validate(data: data)
 }
 
 print("all done")
+
+extension Data {
+    
+    func fnv1aHash() -> UInt64 {
+        let prime: UInt64 = 1099511628211
+        var hash: UInt64 = 14695981039346656037
+        forEach { byte in
+            hash ^= UInt64(byte)
+            hash = hash &* prime
+        }
+        return hash
+    }
+    
+}
