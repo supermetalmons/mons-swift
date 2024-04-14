@@ -104,7 +104,7 @@ class SecretRequestProcessor {
     }
     
     private func acceptSecretInvite(id: String, hostId: String, hostColor: Color, password: String) {
-        guard let userId = userId else {
+        guard let userId = userId, userId != hostId else {
             respondWithError()
             return
         }
