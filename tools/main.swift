@@ -2,8 +2,7 @@
 
 import Foundation
 
-var count = 0
-var freshCount = 0
+var okCount = 0
 
 func validate(data: Data) {
     let testCase = try! JSONDecoder().decode(TestCase.self, from: data)
@@ -17,8 +16,8 @@ func validate(data: Data) {
     let outputSame = result.fen == testCase.outputFen
     let fenSame = game.fen == testCase.fenAfter
     if outputSame && fenSame {
-        count += 1
-        print("✅ ok \(count)")
+        okCount += 1
+        print("✅ ok \(okCount)")
     } else {
         if !outputSame {
             print("🛑 output", result)
@@ -34,6 +33,7 @@ func validate(data: Data) {
 
 let testDataDirectory = FileManager.default.currentDirectoryPath + "/tools/test-data"
 let files = try! FileManager.default.contentsOfDirectory(atPath: testDataDirectory)
+var filesCount = files.count
 
 func validateAllFiles() {
     for name in files {
@@ -46,9 +46,8 @@ func validateAllFiles() {
 
 func createFreshTestData() {
     var currentInput = [Input]()
-    while freshCount < 1_000_000 {
+    while filesCount < 1_000_000 {
         let output = processInputWithLogging(currentInput)
-        print("✅ \(freshCount)")
         switch output {
         case .invalidInput:
             game = MonsGame()
@@ -63,13 +62,19 @@ func createFreshTestData() {
 }
 
 var game = MonsGame()
+var stuckCount = 0
 
 private func processInputWithLogging(_ input: [Input]) -> Output {
     let fenBefore = game.fen
     let output = game.processInput(input, doNotApplyEvents: false, oneOptionEnough: false)
     let testCase = TestCase(fenBefore: fenBefore, fenAfter: game.fen, inputFen: input.fen, outputFen: output.fen)
-    testCase.save()
-    return output
+    if testCase.save() {
+        return output
+    } else {
+        return .invalidInput
+    }
+    
+    
 }
 
 validateAllFiles()
@@ -84,17 +89,25 @@ struct TestCase: Codable, Hashable {
     let inputFen: String
     let outputFen: String
     
-    func save() {
+    func save() -> Bool {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys
         let newData = try! encoder.encode(self)
         let name = String(newData.fnv1aHash())
-        let newDataDirectory = FileManager.default.currentDirectoryPath + "/tools/fresh/"
-        let newFilePath = newDataDirectory + name
+        let newFilePath = testDataDirectory + name
         if !FileManager.default.fileExists(atPath: newFilePath) {
             FileManager.default.createFile(atPath: newFilePath, contents: newData)
-            freshCount += 1
+            filesCount += 1
+            stuckCount = 0
+            print("✅ \(filesCount)")
+        } else {
+            stuckCount += 1
+            if stuckCount == 10000 {
+                stuckCount = 0
+                return false
+            }
         }
+        return true
     }
     
 }
