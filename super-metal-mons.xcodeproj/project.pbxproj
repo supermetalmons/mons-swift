@@ -76,7 +76,6 @@
 		2C3EA17E2B8E6FD3001F5B3B /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7462329F12BA100ACC855 /* Defaults.swift */; };
 		2C3EA17F2B8E6FD3001F5B3B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3BB29F7320800605255 /* Location.swift */; };
 		2C3EA1802B8E6FD3001F5B3B /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA88902B02434600F99723 /* Reaction.swift */; };
-		2C3EA1812B8E6FD3001F5B3B /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
 		2C3EA1822B8E6FD3001F5B3B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4FBD829F69A3300A90CDD /* Notification.swift */; };
 		2C3EA1832B8E6FD3001F5B3B /* Mon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3B129F730F600605255 /* Mon.swift */; };
 		2C3EA1842B8E6FD3001F5B3B /* BoardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AA29F70FBF00605255 /* BoardStyle.swift */; };
@@ -163,8 +162,6 @@
 		2C3F34252B92587900F3829D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F34232B92587900F3829D /* Keychain.swift */; };
 		2C4387702A1B60C2003CFEA1 /* PixelBoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */; };
 		2C53FC5C29CD280300F49668 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C53FC5B29CD280300F49668 /* Audio.swift */; };
-		2C779FF32B6CFA0400900EFE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
-		2C779FF42B6CFA0700900EFE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C779FF22B6CFA0400900EFE /* TestCase.swift */; };
 		2C7AE8B829F294A50052F455 /* Emojis.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7AE8B729F294A50052F455 /* Emojis.xcassets */; };
 		2C7AE8BD29F448170052F455 /* ButtonWithExtendedArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */; };
 		2C7E80C429FC372C00114943 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C329FC372C00114943 /* Board.swift */; };
@@ -298,7 +295,6 @@
 		2C3F34232B92587900F3829D /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2C43876F2A1B60C2003CFEA1 /* PixelBoardSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelBoardSquareView.swift; sourceTree = "<group>"; };
 		2C53FC5B29CD280300F49668 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
-		2C779FF22B6CFA0400900EFE /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		2C7AE8B729F294A50052F455 /* Emojis.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Emojis.xcassets; sourceTree = "<group>"; };
 		2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithExtendedArea.swift; sourceTree = "<group>"; };
 		2C7E80C329FC372C00114943 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -563,7 +559,6 @@
 				2C162B7E2BBF09F700537639 /* SecretAppResponse.swift */,
 				2C7AE8BC29F448170052F455 /* ButtonWithExtendedArea.swift */,
 				2C27AFD62A113DE8003C959D /* AnimationKey.swift */,
-				2C779FF22B6CFA0400900EFE /* TestCase.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -956,7 +951,6 @@
 				2C1FD1272B66F94100D4AC51 /* Item.swift in Sources */,
 				2C1FD1202B66F94100D4AC51 /* Board.swift in Sources */,
 				2C1FD1242B66F94100D4AC51 /* Config.swift in Sources */,
-				2C779FF42B6CFA0700900EFE /* TestCase.swift in Sources */,
 				2C1FD1212B66F94100D4AC51 /* Input.swift in Sources */,
 				2C1FD1232B66F94100D4AC51 /* Color.swift in Sources */,
 				2C1FD1142B66F92E00D4AC51 /* main.swift in Sources */,
@@ -995,7 +989,6 @@
 				2C3EA17E2B8E6FD3001F5B3B /* Defaults.swift in Sources */,
 				2C3EA17F2B8E6FD3001F5B3B /* Location.swift in Sources */,
 				2C3EA1802B8E6FD3001F5B3B /* Reaction.swift in Sources */,
-				2C3EA1812B8E6FD3001F5B3B /* TestCase.swift in Sources */,
 				2C3EA1822B8E6FD3001F5B3B /* Notification.swift in Sources */,
 				2C3F34252B92587900F3829D /* Keychain.swift in Sources */,
 				2C3EA1832B8E6FD3001F5B3B /* Mon.swift in Sources */,
@@ -1071,7 +1064,6 @@
 				2CB7462429F12BA100ACC855 /* Defaults.swift in Sources */,
 				2CB6D3BC29F7320800605255 /* Location.swift in Sources */,
 				2CFA88912B02434600F99723 /* Reaction.swift in Sources */,
-				2C779FF32B6CFA0400900EFE /* TestCase.swift in Sources */,
 				2CC4FBD929F69A3300A90CDD /* Notification.swift in Sources */,
 				2C3F34242B92587900F3829D /* Keychain.swift in Sources */,
 				2CB6D3B229F730F600605255 /* Mon.swift in Sources */,
