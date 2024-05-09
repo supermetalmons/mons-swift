@@ -29,35 +29,6 @@
         }
       }
     },
-    "ask your friend to update the app" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ask your friend to update the app"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "友達にアプリを更新してもらってください"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "оппоненту нужно обновить приложение"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请您的朋友更新应用"
-          }
-        }
-      }
-    },
     "cancel" : {
       "localizations" : {
         "en" : {
@@ -198,35 +169,6 @@
         }
       }
     },
-    "enter link" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "enter link"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "リンクを入力"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "зайти по ссылке"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "输入链接"
-          }
-        }
-      }
-    },
     "loading..." : {
       "localizations" : {
         "en" : {
@@ -339,35 +281,6 @@
         }
       }
     },
-    "new link" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "new link"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新しいリンク"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "новая ссылка"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新链接"
-          }
-        }
-      }
-    },
     "ok" : {
       "localizations" : {
         "en" : {
@@ -396,35 +309,6 @@
         }
       }
     },
-    "opponent left the game" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "opponent left the game"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "対戦相手がゲームを去った"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "соперник вышел из игры"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "对手离开了游戏"
-          }
-        }
-      }
-    },
     "play here" : {
       "localizations" : {
         "en" : {
@@ -449,35 +333,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在这里玩"
-          }
-        }
-      }
-    },
-    "please update the app" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "please update the app"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アプリを更新してください"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "обновите приложение"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请更新应用"
           }
         }
       }
@@ -646,35 +501,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "对不起，出了些问题"
-          }
-        }
-      }
-    },
-    "there is no link" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "there is no link"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "リンクがありません"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "нет ссылки"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "没有链接"
           }
         }
       }

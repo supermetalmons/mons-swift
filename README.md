@@ -3,8 +3,6 @@
 
 ios / macos
 
-testflight @ [mons.link](https://mons.link)
-
 ![w](https://github.com/grachyov/super-metal-mons-swift/assets/7680193/dcf2e412-7acd-4355-bab5-306fbff61349)
 
 
