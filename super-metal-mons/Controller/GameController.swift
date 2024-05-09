@@ -120,14 +120,12 @@ class GameController {
     func useDifferentEmoji() -> UIImage {
         guard !isWatchOnly else { return Images.emoji(whiteEmojiId) }
         let emojiId = Images.randomEmojiId(except: whiteEmojiId, andExcept: blackEmojiId)
-        
-        switch playerSideColor {
+        switch versusComputer != nil ? playerSideColor : activeColor {
         case .white:
             whiteEmojiId = emojiId
         case .black:
             blackEmojiId = emojiId
         }
-        
         return Images.emoji(emojiId)
     }
     

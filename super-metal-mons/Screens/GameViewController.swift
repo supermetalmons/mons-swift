@@ -273,15 +273,19 @@ class GameViewController: UIViewController, GameView {
     
     @IBAction func didTapPlayerAvatar(_ sender: Any) {
         guard !isAnimatingPlayersAvatar else { return }
-        if !controller.isWatchOnly {
+        if controller.versusComputer != nil || controller.activeColor == .white {
             Audio.shared.play(.click)
+            playerImageView.image = controller.useDifferentEmoji()
         }
-        playerImageView.image = controller.useDifferentEmoji()
         animateAvatar(opponents: false, isUserInteraction: true)
     }
     
     @IBAction func didTapOpponentAvatar(_ sender: Any) {
         guard !isAnimatingOpponentsAvatar else { return }
+        if controller.versusComputer == nil && controller.activeColor == .black {
+            Audio.shared.play(.click)
+            opponentImageView.image = controller.useDifferentEmoji()
+        }
         animateAvatar(opponents: true, isUserInteraction: true)
     }
     
