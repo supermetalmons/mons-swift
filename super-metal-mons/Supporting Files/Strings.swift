@@ -6,10 +6,8 @@ struct Strings {
     
     static let ok = loc("ok")
     static let cancel = loc("cancel")
-    static let thereIsNoLink = loc("there is no link")
     static let copy = loc("copy")
     static let endTheGameConfirmation = loc("end the game?")
-    static let opponentLeft = loc("opponent left the game")
     static let somethingIsBroken = loc("sorry, something is broken")
     static let say = loc("say")
     static let rematch = loc("rematch")
@@ -24,11 +22,7 @@ struct Strings {
     static let itMightBeOver = loc("maybe it's over")
     static let youGotTheRock = loc("you got the rock")
     static let show = loc("show")
-    static let newLink =  loc("new link")
     static let playHere = loc("play here")
-    static let enterLink = loc("enter link")
-    static let askFriendToUpdate = loc("ask your friend to update the app")
-    static let pleaseUpdateTheApp = loc("please update the app")
     static let loading = loc("loading...")
     
     private static func loc(_ string: String.LocalizationValue) -> String {

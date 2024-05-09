@@ -4,74 +4,13 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
     
-    private var didAppear = false
-    
     @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var newGameButton: UIButton!
-    @IBOutlet weak var joinButton: UIButton!
-    @IBOutlet weak var localGameButton: UIButton!
-    
-    private var secretRequestProcessor: SecretRequestProcessor?
-    private weak var processingProgressAlert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(wasOpenedWithLink), name: Notification.Name.wasOpenedWithLink, object: nil)
-        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 32, weight: .bold)]
-        newGameButton.setAttributedTitle(NSAttributedString(string: Strings.newLink, attributes: attributes), for: .normal)
-        joinButton.setAttributedTitle(NSAttributedString(string: Strings.enterLink, attributes: attributes), for: .normal)
-        localGameButton.setAttributedTitle(NSAttributedString(string: Strings.playHere, attributes: attributes), for: .normal)
 #if !targetEnvironment(macCatalyst)
         searchButton.isHidden = false
 #endif
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if !didAppear, let url = launchURL {
-            launchURL = nil
-            processUrl(url)
-        }
-        
-        didAppear = true
-    }
-    
-    @objc private func wasOpenedWithLink() {
-        if let url = launchURL {
-            launchURL = nil
-            processUrl(url)
-        }
-    }
-    
-    private func processUrl(_ url: URL) {
-        if let gameId = url.gameId, presentedViewController == nil {
-            let controller = GameController(mode: .joinGameId(gameId))
-            presentGameViewController(gameController: controller)
-        } else if let secretAppRequest = url.secretAppRequest {
-            processSecretAppRequest(secretAppRequest)
-        }
-    }
-    
-    private func processSecretAppRequest(_ request: SecretAppRequest) {
-        secretRequestProcessor = SecretRequestProcessor(request: request) { [weak self] in
-            self?.processingProgressAlert?.dismiss(animated: true)
-            self?.secretRequestProcessor = nil
-        }
-        secretRequestProcessor?.process()
-        showProcessingAlert()
-    }
-    
-    private func showProcessingAlert() {
-        guard processingProgressAlert == nil else { return }
-        let alert = UIAlertController(title: Strings.loading, message: nil, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: Strings.cancel, style: .cancel) { [weak self] _ in
-            self?.secretRequestProcessor?.cancel()
-            self?.secretRequestProcessor = nil
-        }
-        alert.addAction(cancelAction)
-        topmost.present(alert, animated: true)
-        processingProgressAlert = alert
     }
     
     private func presentGameViewController(gameController: GameController) {
@@ -87,27 +26,21 @@ class MainMenuViewController: UIViewController {
 #endif
     }
     
-    @IBAction func newGameLinkButtonTapped(_ sender: Any) {
-        let controller = GameController(mode: .createInvite)
+    @IBAction func pvpButtonTapped(_ sender: Any) {
+        let controller = GameController()
         presentGameViewController(gameController: controller)
     }
     
-    @IBAction func localGameButtonTapped(_ sender: Any) {
-        let controller = GameController(mode: .localGame)
+    @IBAction func pvcButtonTapped(_ sender: Any) {
+        let controller = GameController()
+        controller.didSelectGameVersusComputer(.person)
         presentGameViewController(gameController: controller)
     }
     
-    @IBAction func joinButtonTapped(_ sender: Any) {
-        if let input = UIPasteboard.general.string, let url = URL(string: input) {
-            processUrl(url)
-        } else {
-            let alert = UIAlertController(title: Strings.thereIsNoLink, message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: Strings.ok, style: .default) { _ in }
-            alert.addAction(okAction)
-            present(alert, animated: true)
-            Haptic.generate(.error)
-            return
-        }
+    @IBAction func cvcButtonTapped(_ sender: Any) {
+        let controller = GameController()
+        controller.didSelectGameVersusComputer(.computer)
+        presentGameViewController(gameController: controller)
     }
     
 }

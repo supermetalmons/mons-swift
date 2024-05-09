@@ -2,11 +2,10 @@
 
 import UIKit
 
-// TODO: move protocol implementation to the extension
 class GameViewController: UIViewController, GameView {
     
     enum Overlay {
-        case none, pickupSelection, hostWaiting, guestWaiting, personOrComputer
+        case none, pickupSelection
     }
     
     static func with(gameController: GameController) -> GameViewController {
@@ -22,15 +21,7 @@ class GameViewController: UIViewController, GameView {
     private var latestOpponentReactionDate = Date.distantPast
     
     @IBOutlet weak var boardView: BoardView!
-    
-    @IBOutlet weak var shareLinkButton: UIButton!
-    @IBOutlet weak var inviteLinkLabel: UILabel!
     @IBOutlet weak var pickupSelectionOverlay: UIView!
-    @IBOutlet weak var hostWaitingOverlay: UIView!
-    @IBOutlet weak var personOrComputerOverlay: UIView!
-    @IBOutlet weak var joinActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var linkButtonsStackView: UIStackView!
-    
     @IBOutlet weak var boardOverlayView: UIVisualEffectView!
     @IBOutlet weak var bombButton: UIButton!
     @IBOutlet weak var potionButton: UIButton!
@@ -47,7 +38,6 @@ class GameViewController: UIViewController, GameView {
     @IBOutlet weak var opponentReactionLabel: UILabel!
     @IBOutlet weak var playerReactionLabel: UILabel!
     @IBOutlet weak var soundControlButton: UIButton!
-    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var musicButton: UIButton!
     @IBOutlet weak var voiceChatButton: UIButton!
     @IBOutlet weak var escapeButton: UIButton! {
@@ -72,8 +62,7 @@ class GameViewController: UIViewController, GameView {
         playerMovesTrailingConstraint.constant = 7
         opponentMovesTrailingConstraint.constant = 7
         #endif
-        moreButton.isHidden = true
-        playerImageView.image = Images.emoji(controller.whiteEmojiId) // TODO: refactor, could break for local when starts with black
+        playerImageView.image = Images.emoji(controller.whiteEmojiId)
         boardView.setup(board: controller.board, style: controller.boardStyle, delegate: self)
         updateSoundControlButton()
         NotificationCenter.default.addObserver(self, selector: #selector(updateSoundControlButton), name: .didEnableSounds, object: nil)
@@ -81,20 +70,12 @@ class GameViewController: UIViewController, GameView {
         controller.setGameView(self)
         setupVoiceChatButton()
         
-        switch controller.mode {
-        case .createInvite:
-            setGameInfoHidden(true)
-            showOverlay(.hostWaiting)
-        case .joinGameId:
-            setGameInfoHidden(true)
-            showOverlay(.guestWaiting)
-        case .localGame:
-            setGameInfoHidden(true)
-            showOverlay(.personOrComputer)
-        }
+        setGameInfoHidden(true)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSomewhere))
         view.addGestureRecognizer(tapGestureRecognizer)
+        
+        didConnect()
     }
     
     private func setupVoiceChatButton() {
@@ -114,12 +95,8 @@ class GameViewController: UIViewController, GameView {
     }
     
     private func rematch() {
-        // TODO: implement for remote game
-
-        // ok yeah this might be different when it-s mid-game rematch and when it's after game rematch
-        
         let versusComputer = controller.versusComputer
-        let newController = GameController(mode: .localGame)
+        let newController = GameController()
         self.controller = newController
         controller.setGameView(self)
         if let versusComputer = versusComputer {
@@ -139,13 +116,11 @@ class GameViewController: UIViewController, GameView {
             })
         ]
         
-        if !controller.mode.isRemoteGame {
-            items.append(
-                UIAction(title: Strings.rematch, image: Images.rematch, handler: { [weak self] _ in
-                    self?.rematch()
-                })
-            )
-        }
+        items.append(
+            UIAction(title: Strings.rematch, image: Images.rematch, handler: { [weak self] _ in
+                self?.rematch()
+            })
+        )
         
         let menu = UIMenu(title: Strings.endTheGameConfirmation, options: .destructive, children: items)
         escapeButton.menu = menu
@@ -173,8 +148,6 @@ class GameViewController: UIViewController, GameView {
         case .pickupSelection:
             processInput(.modifier(.cancel))
             showOverlay(.none)
-        case .hostWaiting, .guestWaiting, .personOrComputer:
-            return
         }
     }
     
@@ -187,7 +160,6 @@ class GameViewController: UIViewController, GameView {
             } else {
                 voiceChatButton.isEnabled = false
                 voiceChatButton.alpha = 0
-                controller.react(reaction)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10)) { [weak voiceChatButton] in
                     voiceChatButton?.isEnabled = true
                     voiceChatButton?.alpha = 1
@@ -217,36 +189,10 @@ class GameViewController: UIViewController, GameView {
         switch overlay {
         case .none:
             boardOverlayView.isHidden = true
-            personOrComputerOverlay.isHidden = true
             setupEscapeButtonToRequireConfirmation()
-        case .personOrComputer:
-            personOrComputerOverlay.isHidden = false
-            boardOverlayView.isHidden = true
-            pickupSelectionOverlay.isHidden = true
-            hostWaitingOverlay.isHidden = true
         case .pickupSelection:
             boardOverlayView.isHidden = false
-            personOrComputerOverlay.isHidden = true
             pickupSelectionOverlay.isHidden = false
-            hostWaitingOverlay.isHidden = true
-        case .hostWaiting:
-            boardOverlayView.isHidden = false
-            pickupSelectionOverlay.isHidden = true
-            personOrComputerOverlay.isHidden = true
-            hostWaitingOverlay.isHidden = false
-            joinActivityIndicator.isHidden = true
-            linkButtonsStackView.isHidden = false
-            inviteLinkLabel.text = controller.inviteLink
-        case .guestWaiting:
-            boardOverlayView.isHidden = false
-            personOrComputerOverlay.isHidden = true
-            pickupSelectionOverlay.isHidden = true
-            hostWaitingOverlay.isHidden = false
-            joinActivityIndicator.isHidden = false
-            joinActivityIndicator.startAnimating()
-            linkButtonsStackView.isHidden = true
-            inviteLinkLabel.text = controller.inviteLink
-            inviteLinkLabel.font = UIFont.systemFont(ofSize: 17)
         }
     }
     
@@ -305,24 +251,6 @@ class GameViewController: UIViewController, GameView {
         present(musicViewController, animated: true, completion: nil)
     }
     
-    @IBAction func watchButtonTapped(_ sender: Any) {
-        controller.didSelectGameVersusComputer(.computer)
-        didConnect()
-    }
-    
-    @IBAction func shareLinkButtonTapped(_ sender: Any) {
-        let shareViewController = UIActivityViewController(activityItems: [controller.inviteLink.withHttpsSchema], applicationActivities: nil)
-        shareViewController.popoverPresentationController?.sourceView = shareLinkButton
-        shareViewController.excludedActivityTypes = [.addToReadingList, .airDrop, .assignToContact, .openInIBooks, .postToFlickr, .postToVimeo, .markupAsPDF]
-        present(shareViewController, animated: true)
-        Haptic.generate(.selectionChanged)
-    }
-    
-    @IBAction func copyLinkButtonTapped(_ sender: Any) {
-        UIPasteboard.general.string = controller.inviteLink.withHttpsSchema
-        Haptic.generate(.selectionChanged)
-    }
-    
     @IBAction func bombButtonTapped(_ sender: Any) {
         processInput(.modifier(.selectBomb))
         showOverlay(.none)
@@ -333,21 +261,12 @@ class GameViewController: UIViewController, GameView {
         showOverlay(.none)
     }
     
-    @IBAction func computerButtonTapped(_ sender: Any) {
-        controller.didSelectGameVersusComputer(.person)
-        didConnect()
-    }
-    
-    @IBAction func personButtonTapped(_ sender: Any) {
-        didConnect()
-    }
-    
     @IBAction func boardOverlayTapped(_ sender: Any) {
         switch currentOverlay {
         case .pickupSelection:
             processInput(.modifier(.cancel))
             showOverlay(.none)
-        case .none, .hostWaiting, .guestWaiting, .personOrComputer:
+        case .none:
             break
         }
     }
@@ -366,12 +285,6 @@ class GameViewController: UIViewController, GameView {
         animateAvatar(opponents: true, isUserInteraction: true)
     }
     
-    @IBAction func moreButtonTapped(_ sender: Any) {
-        guard case .localGame = controller.mode else { return } // TODO: should not be possible when playing vs computer
-        controller.playerSideColor = controller.playerSideColor.other
-        setPlayerSide(color: controller.playerSideColor)
-    }
-    
     @objc private func updateSoundControlButton() {
         soundControlButton.configuration?.image = Audio.shared.isSoundDisabled ? Images.unmuteSounds : Images.muteSounds
     }
@@ -387,7 +300,6 @@ class GameViewController: UIViewController, GameView {
     }
     
     @objc private func endGame() {
-        controller.endGame()
         dismissBoardViewController()
     }
     
@@ -468,7 +380,7 @@ class GameViewController: UIViewController, GameView {
         opponentScoreLabel.isHidden = hidden
         playerMovesStackView.isHidden = hidden
         opponentMovesStackView.isHidden = hidden
-        let mightHaveVoiceChat = (controller.mode.isRemoteGame || controller.personVersusComputer) && !controller.isWatchOnly
+        let mightHaveVoiceChat = controller.personVersusComputer && !controller.isWatchOnly
         voiceChatButton.isHidden = hidden || !mightHaveVoiceChat
     }
     
@@ -510,18 +422,18 @@ class GameViewController: UIViewController, GameView {
             self?.rematch()
         }
 #if targetEnvironment(macCatalyst)
-        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
+        alert.addAction(rematchAction)
         alert.addAction(okAction)
 #else
         alert.addAction(okAction)
-        if !controller.mode.isRemoteGame { alert.addAction(rematchAction) }
+        alert.addAction(rematchAction)
 #endif
         present(alert, animated: true)
     }
     
     private func updateForNextTurn(color: Color) {
         let myTurn = controller.activeColor == controller.playerSideColor
-        if myTurn || controller.isWatchOnly {
+        if controller.versusComputer != nil && myTurn || controller.isWatchOnly {
             animateAvatar(opponents: myTurn, isUserInteraction: false)
         }
     }
@@ -537,10 +449,6 @@ class GameViewController: UIViewController, GameView {
                     didWin(color: winner)
                 }
             case .nextTurn:
-                if controller.shouldAutoFlipBoard {
-                   controller.playerSideColor = controller.playerSideColor.other
-                   setPlayerSide(color: controller.playerSideColor)
-                }
                 if controller.winnerColor == nil {
                     updateForNextTurn(color: controller.activeColor)
                 }

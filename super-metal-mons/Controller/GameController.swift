@@ -14,156 +14,8 @@ protocol GameView: AnyObject {
     func react(_ reaction: Reaction, byOpponent: Bool)
 }
 
-extension GameController: ConnectionDelegate {
-    
-    func didSeeIncompatibleVersion(_ version: IncompatibleVersion) {
-        let message: String
-        
-        switch version {
-        case .unknown, .shouldUpdate:
-            message = Strings.pleaseUpdateTheApp
-        case .askOpponentToUpdate:
-            message = Strings.askFriendToUpdate
-        }
-        
-        gameView?.showMessageAndDismiss(message: message)
-        connection = nil
-    }
-    
-    func enterWatchOnlyMode() {
-        isWatchOnly = true
-    }
-    
-    private func setInitiallyProcessedMovesCount(color: Color, count: Int) {
-        switch color {
-        case .black:
-            if !didSetBlackProcessedMovesCount {
-                blackProcessedMovesCount = count
-                didSetBlackProcessedMovesCount = true
-            }
-        case .white:
-            if !didSetWhiteProcessedMovesCount {
-                whiteProcessedMovesCount = count
-                didSetWhiteProcessedMovesCount = true
-            }
-        }
-    }
-    
-    func didRecover(myMatch: PlayerMatch) {
-        playerSideColor = myMatch.color
-        updateEmoji(color: myMatch.color, id: myMatch.emojiId)
-        
-        if let recoveredGame = MonsGame(fen: myMatch.fen) {
-            self.game = recoveredGame
-        }
-        
-        setInitiallyProcessedMovesCount(color: myMatch.color, count: myMatch.moves.count)
-    }
-    
-    func didUpdate(opponentMatch: PlayerMatch) {
-        let match = opponentMatch
-        
-        guard didConnect else {
-            didConnect = true
-            let isReconnect = connection?.didReconnect ?? false
-            
-            if isWatchOnly {
-                self.playerSideColor = .white
-                updateEmoji(color: match.color, id: match.emojiId)
-            } else {
-                self.playerSideColor = match.color.other
-                updateOpponentEmoji(id: match.emojiId)
-            }
-            
-            if isWatchOnly || isReconnect, let game = MonsGame(fen: match.fen) {
-                if isWatchOnly || (isReconnect && game.isLaterThan(game: self.game)) {
-                    self.game = game
-                }
-                gameView?.setNewBoard()
-                setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
-            }
-            
-            if isReconnect, let reaction = match.reaction {
-                processedReactions.insert(reaction.uuid)
-            }
-            
-            gameView?.didConnect()
-            return
-        }
-        
-        if isWatchOnly, !didSetBlackProcessedMovesCount || !didSetWhiteProcessedMovesCount {
-            if let newGame = MonsGame(fen: match.fen), newGame.isLaterThan(game: game) {
-                self.game = newGame
-                gameView?.setNewBoard()
-            }
-            setInitiallyProcessedMovesCount(color: match.color, count: match.moves.count)
-        }
-        
-        // TODO: do not update stuff that did not actually change
-        
-        if isWatchOnly {
-            updateEmoji(color: match.color, id: match.emojiId)
-            gameView?.updateEmoji(color: match.color)
-        } else {
-            updateOpponentEmoji(id: match.emojiId)
-            gameView?.updateOpponentEmoji()
-            
-            if let reaction = match.reaction, !processedReactions.contains(reaction.uuid) {
-                processedReactions.insert(reaction.uuid)
-                gameView?.react(reaction, byOpponent: true)
-            }
-        }
-        
-        let processedMoves = processedMovesCount(color: match.color)
-        let moves = match.moves
-        if moves.count > processedMoves {
-            for i in processedMoves..<moves.count {
-                processRemoteInputs(moves[i])
-            }
-            
-            setProcessedMovesCount(color: match.color, count: moves.count)
-            
-            if game.fen != match.fen {
-                gameView?.showMessageAndDismiss(message: Strings.somethingIsBroken)
-                connection = nil
-                return
-            }
-        }
-        
-        if match.status == .surrendered {
-            gameView?.showMessageAndDismiss(message: Strings.opponentLeft)
-            connection = nil
-        }
-        
-        // TODO: should update game statuses as well sometime – after connection as well – or use less statuses
-    }
-    
-}
 
-// TODO: refactor
 class GameController {
-    
-    private var processedReactions = Set<String>()
-    
-    func setProcessedMovesCount(color: Color, count: Int) {
-        switch color {
-        case .black: blackProcessedMovesCount = count
-        case .white: whiteProcessedMovesCount = count
-        }
-    }
-    
-    func processedMovesCount(color: Color) -> Int {
-        switch color {
-        case .black: return blackProcessedMovesCount
-        case .white: return whiteProcessedMovesCount
-        }
-    }
-    
-    private var didSetWhiteProcessedMovesCount = false
-    private var didSetBlackProcessedMovesCount = false
-    
-    private var whiteProcessedMovesCount = 0
-    private var blackProcessedMovesCount = 0
     
     enum VersusComputer {
         case person, computer
@@ -193,35 +45,11 @@ class GameController {
         }
     }
     
-    enum Mode {
-        case localGame
-        case createInvite
-        case joinGameId(String)
-        
-        var isRemoteGame: Bool {
-            switch self {
-            case .createInvite, .joinGameId:
-                return true
-            case .localGame:
-                return false
-            }
-        }
-    }
-    
     var didConnect = false
     var playerSideColor: Color
     var whiteEmojiId: Int
     var blackEmojiId: Int
     
-    var shouldAutoFlipBoard: Bool {
-        if case .localGame = mode, versusComputer == nil {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    // TODO: refactor, move somewhere
     enum AssistedInputKind {
         case keepSelectionAfterMove
         case findStartLocationsAfterInvalidInput
@@ -250,51 +78,21 @@ class GameController {
     
     let boardStyle = BoardStyle.pixel
     
-    // idk about this one
-    // yeah i feel like we should keep it private
     var board: Board {
         return game.board
     }
 
     private var game = MonsGame()
-    
-    let mode: Mode
     private let gameId: String
-    private var connection: Connection?
-    
     private weak var gameView: GameView?
-
-    var inviteLink: String {
-        return URL.forGame(id: gameId)
-    }
     
-    init(mode: Mode) {
-        self.mode = mode
-        
+    init() {
         let emojiId = Images.randomEmojiId
         whiteEmojiId = emojiId
         blackEmojiId = emojiId
-        
-        switch mode {
-        case .localGame:
-            gameId = ""
-            connection = nil
-            playerSideColor = .white
-            blackEmojiId = Images.randomEmojiId
-        case .createInvite:
-            let id = String.newGameId
-            self.gameId = id
-            self.connection = Connection(gameId: id)
-            playerSideColor = .random
-            connection?.addInvite(id: id, hostColor: playerSideColor, emojiId: emojiId, fen: game.fen)
-        case .joinGameId(let gameId):
-            self.gameId = gameId
-            self.connection = Connection(gameId: gameId)
-            playerSideColor = .random
-            connection?.joinGame(id: gameId, emojiId: emojiId)
-        }
-        
-        connection?.setDelegate(self)
+        gameId = ""
+        playerSideColor = .white
+        blackEmojiId = Images.randomEmojiId
     }
     
     func didSelectGameVersusComputer(_ versusComputer: VersusComputer) {
@@ -319,16 +117,9 @@ class GameController {
         self.gameView = gameView
     }
     
-    func react(_ reaction: Reaction) {
-        guard !isWatchOnly else { return }
-        connection?.react(reaction)
-    }
-    
     func useDifferentEmoji() -> UIImage {
         guard !isWatchOnly else { return Images.emoji(whiteEmojiId) }
-        
         let emojiId = Images.randomEmojiId(except: whiteEmojiId, andExcept: blackEmojiId)
-        connection?.updateEmoji(id: emojiId)
         
         switch playerSideColor {
         case .white:
@@ -337,25 +128,12 @@ class GameController {
             blackEmojiId = emojiId
         }
         
-        if !didConnect && mode.isRemoteGame {
-            whiteEmojiId = emojiId
-            blackEmojiId = emojiId
-        }
-        
         return Images.emoji(emojiId)
-    }
-    
-    func endGame() {
-        guard !isWatchOnly else { return }
-        if winnerColor == nil {
-            connection?.updateStatus(.surrendered)
-        }
     }
     
     private var inputs = [Input]()
     private var cachedOutput: Output?
     
-    // TODO: refactor
     private func processRemoteInputs(_ inputs: [Input]) {
         self.inputs = inputs
         self.inputs.removeLast()
@@ -384,12 +162,7 @@ class GameController {
     func processInput(_ input: Input?, assistedInputKind: AssistedInputKind? = nil, remoteOrComputerInput: Bool = false) -> [ViewEffect] {
         guard !isWatchOnly || remoteOrComputerInput else { return [] }
         
-        switch mode {
-        case .localGame:
-            guard versusComputer == nil || activeColor == playerSideColor || remoteOrComputerInput else { return [] }
-        case .createInvite, .joinGameId:
-            guard remoteOrComputerInput || activeColor == playerSideColor else { return [] }
-        }
+        guard versusComputer == nil || activeColor == playerSideColor || remoteOrComputerInput else { return [] }
         
         var viewEffects = [ViewEffect]()
         var highlights = [Highlight]()
@@ -401,7 +174,7 @@ class GameController {
         
         var output: Output
         
-        if case .localGame = mode, remoteOrComputerInput, inputs.isEmpty {
+        if remoteOrComputerInput, inputs.isEmpty {
             if computer == nil { computer = Computer(gameModel: game) }
             let computerColor = activeColor
             computer?.bestMoveForActivePlayer { [weak self] inputs in
@@ -422,10 +195,6 @@ class GameController {
                 
         switch output {
         case let .events(events):
-            if !remoteOrComputerInput {
-                connection?.makeMove(inputs: inputs, newFen: game.fen)
-            }
-            
             cachedOutput = nil
             inputs = []
             var locationsToUpdate = Set<Location>()
@@ -509,7 +278,7 @@ class GameController {
                     sounds.append(.endTurn)
                     viewEffects.append(.nextTurn)
                     if !isWatchOnly { Haptic.generate(.selectionChanged) }
-                    if case .localGame = mode, let versusComputer = versusComputer {
+                    if  let versusComputer = versusComputer {
                         switch versusComputer {
                         case .computer:
                             makeComputerMove()
