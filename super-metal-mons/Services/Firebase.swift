@@ -2,8 +2,10 @@
 
 import FirebaseCore
 import FirebaseAuth
+import FirebaseAppCheck
+import FirebaseFirestore
 
-class BaseFirebase {
+class Firebase {
     
     static var userId: String?
     
@@ -15,22 +17,10 @@ class BaseFirebase {
         }
     }
     
-    static func baseSetup() {
-        FirebaseApp.configure()
-        auth()
-    }
-    
-}
-
-#if !targetEnvironment(macCatalyst)
-import FirebaseAppCheck
-import FirebaseFirestore
-
-class Firebase: BaseFirebase {
-    
     static func setup() {
         AppCheck.setAppCheckProviderFactory(MonsAppCheckProviderFactory())
-        baseSetup()
+        FirebaseApp.configure()
+        auth()
     }
     
     private static var currentDrop: CurrentDrop?
@@ -108,15 +98,3 @@ struct CurrentDrop: Codable {
     let latitude: String
     let longitude: String
 }
-
-#else
-
-class Firebase: BaseFirebase {
-    
-    static func setup() {
-        baseSetup()
-    }
-    
-}
-
-#endif
