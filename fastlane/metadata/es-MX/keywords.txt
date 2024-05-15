@@ -1,0 +1,1 @@
+mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
