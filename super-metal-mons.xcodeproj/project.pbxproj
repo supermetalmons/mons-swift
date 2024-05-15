@@ -33,7 +33,6 @@
 		2C1FD1272B66F94100D4AC51 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6D3AD29F730B200605255 /* Item.swift */; };
 		2C22C8462B05073100E558C5 /* drop1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C22C8452B05073100E558C5 /* drop1.wav */; };
 		2C254BCD2BF3C0DD003C86B4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C254BCC2BF3C0DD003C86B4 /* main.swift */; };
-		2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C261C5C2A4366DB0014F9AC /* Scoring.swift */; };
 		2C266FCF2A0AF6B00016C1C5 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266FCE2A0AF6B00016C1C5 /* Sound.swift */; };
 		2C266FD12A0B00280016C1C5 /* endTurn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD02A0B00280016C1C5 /* endTurn.wav */; };
 		2C266FD62A0B024E0016C1C5 /* pickupPotion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */; };
@@ -98,7 +97,6 @@
 		2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80CD29FC54B300114943 /* Config.swift */; };
 		2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E80C329FC372C00114943 /* Board.swift */; };
 		2C3EA1A12B8E6FD3001F5B3B /* SparklingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD302712A092905009DFCC2 /* SparklingView.swift */; };
-		2C3EA1A22B8E6FD3001F5B3B /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C261C5C2A4366DB0014F9AC /* Scoring.swift */; };
 		2C3EA1A32B8E6FD3001F5B3B /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C38121D2B0620AD000FDE18 /* Haptic.swift */; };
 		2C3EA1A52B8E6FD3001F5B3B /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1AD229ED87E600C51230 /* CGFloat.swift */; };
 		2C3EA1A62B8E6FD3001F5B3B /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC157252A351C7B009C2BF1 /* MusicViewController.swift */; };
@@ -255,7 +253,6 @@
 		2C22C8452B05073100E558C5 /* drop1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop1.wav; sourceTree = "<group>"; };
 		2C254BCA2BF3C0DD003C86B4 /* translate */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = translate; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C254BCC2BF3C0DD003C86B4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		2C261C5C2A4366DB0014F9AC /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		2C266FCE2A0AF6B00016C1C5 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		2C266FD02A0B00280016C1C5 /* endTurn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = endTurn.wav; sourceTree = "<group>"; };
 		2C266FD22A0B024E0016C1C5 /* pickupPotion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupPotion.wav; sourceTree = "<group>"; };
@@ -788,7 +785,6 @@
 			isa = PBXGroup;
 			children = (
 				2CCF87222A42EAFE0060410C /* Computer.swift */,
-				2C261C5C2A4366DB0014F9AC /* Scoring.swift */,
 			);
 			path = Computer;
 			sourceTree = "<group>";
@@ -2125,7 +2121,6 @@
 				2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */,
 				2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */,
 				2C3EA1A12B8E6FD3001F5B3B /* SparklingView.swift in Sources */,
-				2C3EA1A22B8E6FD3001F5B3B /* Scoring.swift in Sources */,
 				2C3EA1A32B8E6FD3001F5B3B /* Haptic.swift in Sources */,
 				2C3F34222B92331600F3829D /* UIViewController.swift in Sources */,
 				2C3EA1A52B8E6FD3001F5B3B /* CGFloat.swift in Sources */,
@@ -2191,7 +2186,6 @@
 				2C7E80CE29FC54B300114943 /* Config.swift in Sources */,
 				2C7E80C429FC372C00114943 /* Board.swift in Sources */,
 				2CD302722A092905009DFCC2 /* SparklingView.swift in Sources */,
-				2C261C5D2A4366DB0014F9AC /* Scoring.swift in Sources */,
 				2C38121E2B0620AD000FDE18 /* Haptic.swift in Sources */,
 				2C3F34212B92331600F3829D /* UIViewController.swift in Sources */,
 				2CDB1AD329ED87E600C51230 /* CGFloat.swift in Sources */,

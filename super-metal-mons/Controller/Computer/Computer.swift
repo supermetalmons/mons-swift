@@ -9,14 +9,15 @@ class Computer {
     
     init(gameModel: MonsGame) {
         computerPlayers = [ComputerPlayer(color: .black), ComputerPlayer(color: .white)]
-        let minMaxStrategist = GKMinmaxStrategist()
-        minMaxStrategist.randomSource = GKLinearCongruentialRandomSource()
-        minMaxStrategist.maxLookAheadDepth = 3
-        minMaxStrategist.gameModel = gameModel
-        strategist = minMaxStrategist
+        let strategist = GKMonteCarloStrategist()
+        strategist.randomSource = GKLinearCongruentialRandomSource()
+        strategist.budget = 15
+        strategist.explorationParameter = 4
+        strategist.gameModel = gameModel
+        self.strategist = strategist
     }
     
-    func bestMoveForActivePlayer(completion: @escaping (([Input]) -> Void)) {
+    func bestMoveForActivePlayer(completion: @escaping (([[Input]]) -> Void)) {
         queue.async { [weak self] in
             let inputs = (self?.strategist.bestMoveForActivePlayer() as? ComputerMove)?.resultingInputs ?? []
             completion(inputs)
@@ -43,9 +44,9 @@ fileprivate class ComputerMove: NSObject, GKGameModelUpdate {
     
     var value: Int = 0
     
-    let resultingInputs: [Input]
+    let resultingInputs: [[Input]]
     
-    init(resultingInputs: [Input]) {
+    init(resultingInputs: [[Input]]) {
         self.resultingInputs = resultingInputs
     }
     
@@ -66,45 +67,27 @@ extension MonsGame: GKGameModel {
         updateWith(otherGame: otherGame)
     }
         
-    private func allNextMoves(inputs: [Input]) -> [ComputerMove] {
+    private func allNextMoves() -> [ComputerMove] {
         var moves = [ComputerMove]()
-        let output = processInput(inputs, doNotApplyEvents: true, oneOptionEnough: false)
-        switch output {
-        case .invalidInput:
-            break
-        case let .locationsToStartFrom(locations):
-            for location in locations {
-                let locationInput = Input.location(location)
-                moves += allNextMoves(inputs: [locationInput])
-            }
-        case .events:
-            moves.append(ComputerMove(resultingInputs: inputs))
-        case let .nextInputOptions(nextInputOptions):
-            for inputOption in nextInputOptions {
-                moves += allNextMoves(inputs: inputs + [inputOption.input])
-            }
-        }
+        // TODO: implement
         return moves
     }
     
     func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
         guard (player as? ComputerPlayer)?.color == activeColor else { return nil }
-        return allNextMoves(inputs: [])
+        return allNextMoves()
     }
     
     func apply(_ gameModelUpdate: GKGameModelUpdate) {
         guard let resultingInputs = (gameModelUpdate as? ComputerMove)?.resultingInputs else { return }
-        _ = processInput(resultingInputs, doNotApplyEvents: false, oneOptionEnough: false)
+        for inputs in resultingInputs {
+            _ = processInput(inputs, doNotApplyEvents: false, oneOptionEnough: false)
+        }
     }
     
     func isWin(for player: GKGameModelPlayer) -> Bool {
         guard let color = (player as? ComputerPlayer)?.color else { return false }
         return color == winnerColor
-    }
-    
-    func score(for player: GKGameModelPlayer) -> Int {
-        guard let color = (player as? ComputerPlayer)?.color else { return 0 }
-        return evaluateFor(color: color)
     }
     
     func copy(with zone: NSZone? = nil) -> Any {

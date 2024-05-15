@@ -131,6 +131,12 @@ class GameController {
     private var inputs = [Input]()
     private var cachedOutput: Output?
     
+    private func processComputerInputs(_ inputs: [[Input]]) {
+        for input in inputs {
+            processRemoteInputs(input)
+        }
+    }
+    
     private func processRemoteInputs(_ inputs: [Input]) {
         self.inputs = inputs
         self.inputs.removeLast()
@@ -167,7 +173,7 @@ class GameController {
             computer?.bestMoveForActivePlayer { [weak self] inputs in
                 guard !inputs.isEmpty else { return }
                 DispatchQueue.main.async {
-                    self?.processRemoteInputs(inputs)
+                    self?.processComputerInputs(inputs)
                     if self?.game.activeColor == computerColor {
                         self?.makeComputerMove()
                     }
