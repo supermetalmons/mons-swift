@@ -68,9 +68,43 @@ extension MonsGame: GKGameModel {
     }
         
     private func allNextMoves() -> [ComputerMove] {
-        var moves = [ComputerMove]()
-        // TODO: implement
-        return moves
+        return []
+//        let gameCopy = copy() as! MonsGame
+//        var moves = [ComputerMove]()
+//        
+//        // TODO: let's start outputting random ones
+//        // TODO: then let's add them all
+//        
+//        
+//        
+//        
+//        var currentMoveInputs = [Input]()
+//        
+//        
+//        let output = gameCopy.processInput(currentMoveInputs, doNotApplyEvents: true, oneOptionEnough: false)
+//        
+//        switch output {
+//        case .invalidInput:
+//            break
+//        case let .locationsToStartFrom(locations):
+//            for location in locations {
+//                let locationInput = Input.location(location)
+//                moves += allNextMoves(inputs: [locationInput])
+//            }
+//        case .events:
+//            moves.append(ComputerMove(resultingInputs: inputs))
+//        case let .nextInputOptions(nextInputOptions):
+//            for inputOption in nextInputOptions {
+//                moves += allNextMoves(inputs: inputs + [inputOption.input])
+//            }
+//        }
+//        
+//        
+//        
+//        let output = gameCopy.processInput(currentInput, doNotApplyEvents: true, oneOptionEnough: false)
+//        
+//        
+//        return moves
     }
     
     func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {

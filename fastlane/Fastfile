@@ -30,7 +30,7 @@ lane :deliver_all do
   end
 
   platform :mac do
-    gym(scheme: "mons-catalyst", output_directory: "fastlane/build", clean: true)
+    gym(scheme: "mons-catalyst", output_directory: "fastlane/build", clean: true, catalyst_platform: 'macos')
     deliver(
       metadata_path: "./fastlane/metadata",
       screenshots_path: "./fastlane/screenshots/macos",
