@@ -1,24 +1,45 @@
-lane :deliver_all do
+lane :update_and_login do
+  local_fastlane_password = ENV['FASTLANE_PASSWORD']
+  ENV['FASTLANE_PASSWORD'] = nil
+
+  require 'spaceship'
+  Spaceship::Tunes.login('ivan@ivan.lol')
 
   update_fastlane
+  ENV['FASTLANE_PASSWORD'] = local_fastlane_password
+end
+
+lane :clean do
+  sh "rm -rf #{File.expand_path('build')}"
+end
+
+lane :deliver_all do
+
+  update_and_login
   
   platform :ios do
+    gym(scheme: "mons-ios", output_directory: "fastlane/build", clean: true)
     deliver(
       metadata_path: "./fastlane/metadata",
       screenshots_path: "./fastlane/screenshots/ios",
       overwrite_screenshots: true,
       platform: "ios",
       run_precheck_before_submit: false,
+      force: true,
     )
   end
 
   platform :mac do
+    gym(scheme: "mons-catalyst", output_directory: "fastlane/build", clean: true)
     deliver(
       metadata_path: "./fastlane/metadata",
       screenshots_path: "./fastlane/screenshots/macos",
       overwrite_screenshots: true, 
       platform: "osx",
       run_precheck_before_submit: false,
+      force: true,
     )
   end
+
+  clean
 end
