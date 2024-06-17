@@ -1,3 +1,21 @@
+lane :bump do |options|
+  current_version = get_version_number(xcodeproj: "super-metal-mons.xcodeproj", target: "mons-ios")
+  version_parts = current_version.split(".").map(&:to_i)
+  version_parts[-1] += 1
+  new_version = options[:version] || version_parts.join(".")
+  sh("sed -i '' -e 's/MARKETING_VERSION \\= [^\\;]*\\;/MARKETING_VERSION = #{new_version};/' ../super-metal-mons.xcodeproj/project.pbxproj")
+  increment_version_number(version_number: new_version)
+  increment_build_number()
+
+  commit_version_bump(
+    message: "bump version to #{new_version} (#{get_build_number})",
+    xcodeproj: "super-metal-mons.xcodeproj",
+    force: true
+  )
+
+  push_to_git_remote
+end
+
 lane :update_and_login do
   local_fastlane_password = ENV['FASTLANE_PASSWORD']
   ENV['FASTLANE_PASSWORD'] = nil
@@ -13,7 +31,7 @@ lane :clean do
   sh "rm -rf #{File.expand_path('build')}"
 end
 
-lane :deliver_all do
+lane :release do
 
   update_and_login
   
@@ -26,6 +44,9 @@ lane :deliver_all do
       platform: "ios",
       run_precheck_before_submit: false,
       force: true,
+      submit_for_review: true,
+      automatic_release: true,
+      submission_information: { add_id_info_uses_idfa: false },
     )
   end
 
@@ -34,10 +55,13 @@ lane :deliver_all do
     deliver(
       metadata_path: "./fastlane/metadata",
       screenshots_path: "./fastlane/screenshots/macos",
-      overwrite_screenshots: true, 
+      overwrite_screenshots: true,
       platform: "osx",
       run_precheck_before_submit: false,
       force: true,
+      submit_for_review: true,
+      automatic_release: true,
+      submission_information: { add_id_info_uses_idfa: false },
     )
   end
 
