@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C3EA1672B8E6FD3001F5B3B"
-               BuildableName = "mons.app"
+               BuildableName = "Mons.app"
                BlueprintName = "mons-catalyst"
                ReferencedContainer = "container:super-metal-mons.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C3EA1672B8E6FD3001F5B3B"
-            BuildableName = "mons.app"
+            BuildableName = "Mons.app"
             BlueprintName = "mons-catalyst"
             ReferencedContainer = "container:super-metal-mons.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C3EA1672B8E6FD3001F5B3B"
-            BuildableName = "mons.app"
+            BuildableName = "Mons.app"
             BlueprintName = "mons-catalyst"
             ReferencedContainer = "container:super-metal-mons.xcodeproj">
          </BuildableReference>
