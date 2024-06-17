@@ -1,1 +1,1 @@
-mons,escacs,tauler,estratègia,joc,pokemon,batalla,2 jugadors,jugar localment,taula,pvp,casual
+mons,escacs,tauler,estratègia,joc,pokemon,batalla,2 jugadors,jugar localment,taula,pvp

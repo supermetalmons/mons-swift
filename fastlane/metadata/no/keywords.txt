@@ -1,1 +1,1 @@
-mons,sjakk,brett,strategi,spill,pokemon,kamp,2 spillere,spill lokalt,bordspill,pvp,casual,hurtig
+mons,sjakk,brett,strategi,spill,pokemon,kamp,2 spillere,spill lokalt,bordspill,pvp

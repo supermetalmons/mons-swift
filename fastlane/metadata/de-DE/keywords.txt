@@ -1,1 +1,1 @@
-Super Metal Mons,Schach,Brett,Strategie,Spiel,Pokemon,Kampf,2 Spieler,Lokalspiel,Tischspiel,PvP
+Super Metal Mons,Schach,Brett,Strategie,Spiel,Pokemon,Kampf,2 Spieler,Lokalspiel,Tischspiel

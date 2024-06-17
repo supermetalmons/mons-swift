@@ -1,1 +1,1 @@
-mons,schaken,bord,strategie,spel,pokemon,gevecht,2 spelers,lokale spel,tuintafel,pvp,casual,snelle
+mons,schaken,bord,strategie,spel,pokemon,gevecht,2 spelers,lokale spel,tuintafel,pvp

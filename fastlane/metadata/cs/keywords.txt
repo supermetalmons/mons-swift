@@ -1,1 +1,1 @@
-super metal mons,šachy,dosková hra,strategie,hra,pokemon,bitva,2 hráči,lokální hra,stolní,pvp
+super metal mons,šachy,dosková hra,strategie,hra,pokemon,bitva,2 hráči,lokální hra,stolní

@@ -1,1 +1,1 @@
-super metal mons,skak,bræt,strategi,spil,pokemon,kamp,2 spillere,spil lokalt,bordspil,pvp
+super metal mons,skak,bræt,strategi,spil,pokemon,kamp,2 spillere,spil lokalt,bordspil

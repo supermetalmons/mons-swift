@@ -1,1 +1,1 @@
-mons,xadrez,tabuleiro,estratégia,jogo,pokemon,batalha,2 jogadores,jogo local,super metal mons,mesa
+mons,xadrez,tabuleiro,estratégia,jogo,pokemon,batalha,2 jogadores,jogo local,super metal mons

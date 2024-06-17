@@ -1,1 +1,1 @@
-monsy,szachy,plansza,strategia,gra,pokemon,bitwa,dwa graczy,lokalnie,gry planszowe,pvp,casual,szybko
+monsy,szachy,plansza,strategia,gra,pokemon,bitwa,dwa graczy,lokalnie,gry planszowe,pvp

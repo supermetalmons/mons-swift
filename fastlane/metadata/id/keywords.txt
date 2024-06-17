@@ -1,1 +1,1 @@
-mons,catur,papan,strategi,game,pokemon,pertempuran,2 pemain,main lokal,meja,pvp,santai,cepat,nft
+mons,catur,papan,strategi,game,pokemon,pertempuran,2 pemain,main lokal,meja,pvp,santai

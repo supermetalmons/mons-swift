@@ -1,1 +1,1 @@
-play mons offline
+play offline
