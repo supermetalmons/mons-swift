@@ -2404,7 +2404,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
@@ -2421,7 +2421,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = Mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2443,7 +2443,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
@@ -2460,7 +2460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = Mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2598,7 +2598,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
@@ -2616,7 +2616,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2637,7 +2637,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
@@ -2655,7 +2655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.11;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "lol.ivan.super-metal-mons";
 				PRODUCT_NAME = mons;
 				PROVISIONING_PROFILE_SPECIFIER = "";
