@@ -2404,7 +2404,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
@@ -2443,7 +2443,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-catalyst.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-catalyst.plist";
@@ -2598,7 +2598,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
@@ -2637,7 +2637,7 @@
 				CODE_SIGN_ENTITLEMENTS = "super-metal-mons/Supporting Files/mons-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 8DXC3N7E7P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "super-metal-mons/Supporting Files/Info-ios.plist";
