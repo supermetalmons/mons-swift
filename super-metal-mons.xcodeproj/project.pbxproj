@@ -202,6 +202,8 @@
 		2CDB1AEC29EEF48E00C51230 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADE29EEF48E00C51230 /* move.wav */; };
 		2CDB1AED29EEF48E00C51230 /* scoreMana.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */; };
 		2CDB1AEE29EEF48E00C51230 /* mysticAbility.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */; };
+		2CE5D1742C2072C000EAA50A /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5D1732C2072C000EAA50A /* Scoring.swift */; };
+		2CE5D1752C2072C000EAA50A /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5D1732C2072C000EAA50A /* Scoring.swift */; };
 		2CE9A77C2BADC63B00579BF7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */; };
 		2CE9A77D2BADC63B00579BF7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */; };
 		2CEB9AF92A34C05300B3CD54 /* whale2.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB9ADC2A34C05100B3CD54 /* whale2.aac */; };
@@ -334,6 +336,7 @@
 		2CDB1ADE29EEF48E00C51230 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		2CDB1ADF29EEF48E00C51230 /* scoreMana.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scoreMana.wav; sourceTree = "<group>"; };
 		2CDB1AE029EEF48E00C51230 /* mysticAbility.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mysticAbility.wav; sourceTree = "<group>"; };
+		2CE5D1732C2072C000EAA50A /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		2CE9A77B2BADC63B00579BF7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2CEB9ADC2A34C05100B3CD54 /* whale2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = whale2.aac; sourceTree = "<group>"; };
 		2CEB9ADF2A34C05100B3CD54 /* organwhawha.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = organwhawha.aac; sourceTree = "<group>"; };
@@ -785,6 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				2CCF87222A42EAFE0060410C /* Computer.swift */,
+				2CE5D1732C2072C000EAA50A /* Scoring.swift */,
 			);
 			path = Computer;
 			sourceTree = "<group>";
@@ -2117,6 +2121,7 @@
 				2C3EA19B2B8E6FD3001F5B3B /* CircleView.swift in Sources */,
 				2C3EA19C2B8E6FD3001F5B3B /* Computer.swift in Sources */,
 				2CA6C7EF2BBD67230061E086 /* SecretAppRequest.swift in Sources */,
+				2CE5D1752C2072C000EAA50A /* Scoring.swift in Sources */,
 				2C3EA19D2B8E6FD3001F5B3B /* Music.swift in Sources */,
 				2C3EA19E2B8E6FD3001F5B3B /* Config.swift in Sources */,
 				2C3EA1A02B8E6FD3001F5B3B /* Board.swift in Sources */,
@@ -2165,6 +2170,7 @@
 				2C27AFDF2A12DEBB003C959D /* WaveView.swift in Sources */,
 				2C7E80CA29FC3BAA00114943 /* SquareColor.swift in Sources */,
 				2CB6D3BA29F731E100605255 /* ViewEffect.swift in Sources */,
+				2CE5D1742C2072C000EAA50A /* Scoring.swift in Sources */,
 				2C3F341E2B92322600F3829D /* MapViewController.swift in Sources */,
 				2CC4E21829E9B047002F3AC9 /* Colors.swift in Sources */,
 				2CC39E8429CA48B200EDF779 /* GameViewController.swift in Sources */,
