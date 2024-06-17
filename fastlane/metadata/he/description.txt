@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons הם דמויות מיניאטוריות עתיקות שנחצבו מאבני מנה שנפלו מהעננים לפני מזמן רב
 
-each type of mon has a specific role to play in a party
+לכל סוג של Mon יש תפקיד מסוים לשחק במסיבה
 
-each player starts with 5 mons and 5 mana pieces
+כל שחקן מתחיל עם 5 Mons ו-5 חתיכות מנה
 
-the aim is to be the first to score five mana points
+המטרה היא להיות הראשון לצבור חמישה נקודות מנה

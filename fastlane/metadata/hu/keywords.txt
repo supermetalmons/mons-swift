@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+sakk,stratégia,játék,pokemon,csata,2 játékos,helyben játszani,táblás,pvp,alkalmi,gyors,nft

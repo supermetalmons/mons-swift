@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+שחמט,מטלה,אסטרטגיה,משחק,פוקימון,קרב,2 שחקנים,שחק מקומית,שולחן עבודה,פוֹ.וֹ.וֹ,קז'ואל,מהיר,נ.פ.ט

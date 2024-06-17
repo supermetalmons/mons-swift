@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons เป็นตุ๊กตาเหล็กขนาดเล็กที่โบราณที่ขุดขึ้นจากหินมานาที่ตกจากเมฆเมื่อนานมาแล้ว 
 
-each type of mon has a specific role to play in a party
+แต่ละชนิดของมอน มีบทบาทเฉพาะที่จะทำในปาร์ตี้ 
 
-each player starts with 5 mons and 5 mana pieces
+ผู้เล่นแต่ละคนจะเริ่มต้นด้วย 5 มอน และ 5 ชิ้นหินมานา 
 
-the aim is to be the first to score five mana points
+เป้าหมายคือเพื่อเป็นคนแรกที่ทำคะแนนหินมานา 5 คะแนน

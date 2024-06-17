@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons는 옛날 구름에서 떨어진 마나 바위에서 채굴된 고대의 미니 피규어입니다.
 
-each type of mon has a specific role to play in a party
+각 종류의 Mons는 파티에서 특정 역할을 합니다.
 
-each player starts with 5 mons and 5 mana pieces
+각 플레이어는 시작할 때 5개의 Mons와 5개의 마나 조각을 갖게 됩니다.
 
-the aim is to be the first to score five mana points
+목표는 첫 번째로 5점의 마나 점수를 얻는 것입니다.

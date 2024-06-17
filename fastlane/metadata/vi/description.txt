@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons là những hình nhỏ cổ xưa được khai thác từ đá mana rơi xuống từ những đám mây từ lâu lắm rồi
 
-each type of mon has a specific role to play in a party
+Mỗi loại mon đều có một vai trò cụ thể trong một buổi tiệc
 
-each player starts with 5 mons and 5 mana pieces
+Mỗi người chơi bắt đầu với 5 mons và 5 mảnh mana
 
-the aim is to be the first to score five mana points
+Mục tiêu là trở thành người đầu tiên ghi được năm điểm mana

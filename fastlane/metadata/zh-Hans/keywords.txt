@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+超级金属mons,棋,棋盘,策略,游戏,宠物小精灵,战斗,2玩家,本地玩,桌游,PVP,休闲,快速,NFT

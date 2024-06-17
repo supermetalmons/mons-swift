@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+A Super Metal Mons ősi mini figurák, melyeket régen a felhőkből hullott mana kövekből bányásztak ki.
 
-each type of mon has a specific role to play in a party
+Minden monnak specifikus szerepe van a játékban.
 
-each player starts with 5 mons and 5 mana pieces
+Minden játékos 5 monnal és 5 mana darabbal kezd.
 
-the aim is to be the first to score five mana points
+A cél az, hogy elsőnek gyűjtsön össze öt mana pontot.

@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons adalah figur mini purba yang diperoleh dari batu mana yang jatuh dari awan dahulu kala
 
-each type of mon has a specific role to play in a party
+Setiap jenis Mons mempunyai peranan tertentu dalam satu parti
 
-each player starts with 5 mons and 5 mana pieces
+Setiap pemain bermula dengan 5 Mons dan 5 keping mana
 
-the aim is to be the first to score five mana points
+Matlamatnya adalah untuk menjadi yang pertama mendapat lima mata mana

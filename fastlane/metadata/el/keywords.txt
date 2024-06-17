@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+mons,σκάκι,διοίκησης,παιχνίδι,πόκεμον,μάχη,2 παίκτες,τοπικά,τραπεζιού,pvp,τυχαίο,γρήγορο,nft

@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons هي شخصيات صغيرة قديمة استخرجت من صخور المانا التي سقطت من السحاب منذ زمن بعيد
 
-each type of mon has a specific role to play in a party
+لكل نوع من أنواع المخلوقات دور محدد للعب في الحفلة
 
-each player starts with 5 mons and 5 mana pieces
+كل لاعب يبدأ بـ 5 من المخلوقات و 5 قطع من المانا
 
-the aim is to be the first to score five mana points
+الهدف هو أن تكون الأول في تسجيل خمس نقاط من المانا

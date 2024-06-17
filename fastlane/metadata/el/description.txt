@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Τα Super Metal Mons είναι αρχαία μικροσκοπικά αγάλματα που έχουν εξορυχθεί από πέτρες μάνας που έπεσαν από τα σύννεφα πριν από πολύ καιρό.
 
-each type of mon has a specific role to play in a party
+Κάθε είδος των Mons έχει έναν συγκεκριμένο ρόλο στο πάρτι.
 
-each player starts with 5 mons and 5 mana pieces
+Κάθε παίκτης ξεκινά με 5 Mons και 5 κομμάτια μάνας.
 
-the aim is to be the first to score five mana points
+Στόχος είναι να είσαι ο πρώτος που θα σκοράρει πέντε πόντους μάνας.

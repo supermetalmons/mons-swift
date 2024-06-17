@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+super metal mons,หมากรุก,กระดาน,กลยุทธ์,เกม,โปเกมอน,สู้,2ผู้เล่น,เล่นท้องถิ่น,หมากรุกแบบโต๊ะ,พวกพ้อง,รายงานความคืบหน้

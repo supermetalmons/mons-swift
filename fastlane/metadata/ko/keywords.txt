@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+슈퍼메탈몬스,체스,보드,전략,게임,포켓몬,대전,2인용,로컬플레이,탁상,플레이어대플레이어,캐주얼,빠른,NFT

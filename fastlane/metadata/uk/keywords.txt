@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+шахи,настільна гра,стратегія,покемон,нфт,монс,грати вдвоєм,локальна гра,пвп,super metal mons,швидка

@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons sind antike Mini-Figuren, die vor langer Zeit aus Mana-Steinen gewonnen wurden, die aus den Wolken gefallen sind.
 
-each type of mon has a specific role to play in a party
+Jeder Art von Mon hat eine spezifische Rolle in einer Gruppe zu spielen.
 
-each player starts with 5 mons and 5 mana pieces
+Jeder Spieler beginnt mit 5 Mons und 5 Mana-Teilen.
 
-the aim is to be the first to score five mana points
+Das Ziel ist es, der Erste zu sein, der fünf Mana-Punkte erzielt.

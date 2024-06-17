@@ -1,7 +1,9 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons एक प्राचीन मिनी फिगर हैं जो कई समय पहले बादलों से गिरे माना पत्थरों से खनन किए गए थे।
 
-each type of mon has a specific role to play in a party
+प्रत्येक प्रकार के mon का पार्टी में खेलने का एक विशेष रोल होता है। 
 
-each player starts with 5 mons and 5 mana pieces
+प्रत्येक खिलाड़ी 5 mons और 5 माना टुकड़ों के साथ शुरुआत करता है। 
 
-the aim is to be the first to score five mana points
+लक्ष्य यह है कि पहले पांच माना अंक स्कोर करना है।"
+
+"Super Metal Mons" ऐप का नाम है, और इसे अनुवादित नहीं किया जाना चाहिए, इसे ऐसा ही रखें।

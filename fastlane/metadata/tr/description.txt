@@ -1,7 +1,7 @@
-super metal mons are ancient mini figures mined from mana rocks that fell from the clouds long ago
+Super Metal Mons, bulutlardan uzun zaman önce düşen mana kayalarından çıkarılan antik mini figürlerdir
 
-each type of mon has a specific role to play in a party
+Her tür mon'un partide oynaması gereken belirli bir rolü vardır
 
-each player starts with 5 mons and 5 mana pieces
+Her oyuncu 5 mon ve 5 mana parçası ile başlar
 
-the aim is to be the first to score five mana points
+Amaç, ilk olarak beş mana puanı toplamaktır

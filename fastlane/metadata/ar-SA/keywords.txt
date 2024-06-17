@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+شطرنج,لعبة,مجلس,استراتيجية,بوكيمون,معركة,2 لاعبين,اللعب محليا,لعبة الطاولة,الدوري,غير رسمي,سريع

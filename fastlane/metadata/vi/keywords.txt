@@ -1,1 +1,1 @@
-mons,chess,board,strategy,game,pokemon,battle,2 players,play locally,tabletop,pvp,casual,quick,nft
+mons,cờ vua,bàn,cách chơi,pokemon,trận chiến,2 người chơi,super metal mons,chơi cục bộ,bàn cờ,pvp
