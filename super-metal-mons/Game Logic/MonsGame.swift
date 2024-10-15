@@ -399,11 +399,7 @@ class MonsGame: NSObject {
                     return nil
                 case .mana(let mana):
                     if let startMana = startItem.mana {
-                        if case .supermana = startMana {
-                            events.append(.supermanaBackToBase(from: startLocation, to: board.supermanaBase))
-                        } else {
-                            events.append(.manaDropped(mana: startMana, at: startLocation))
-                        }
+                        events.append(.manaDropped(mana: startMana, at: startLocation))
                     }
                     events.append(.pickupMana(mana: mana, by: startMon, at: targetLocation))
                 case .consumable(let consumable):
