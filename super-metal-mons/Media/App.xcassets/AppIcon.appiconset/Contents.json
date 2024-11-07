@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Group 39.png",
+      "filename" : "Frame 10.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "Frame 9.png",
+      "filename" : "12345.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -73,13 +73,13 @@
       "size" : "256x256"
     },
     {
-      "filename" : "m512.png",
+      "filename" : "m512 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "m512 1.png",
+      "filename" : "m512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
