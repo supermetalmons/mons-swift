@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ag2-m3-I9o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ag2-m3-I9o">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,12 +13,12 @@
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" id="BYZ-38-t0r" customClass="GameViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" id="BYZ-38-t0r" customClass="GameViewController" customModule="Mons" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTh-AV-1yS" customClass="BoardView" customModule="mons" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTh-AV-1yS" customClass="BoardView" customModule="Mons" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="242" width="393" height="393"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -308,19 +307,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P29-PV-UEw" userLabel="Navigation View">
                                 <rect key="frame" x="0.0" y="59" width="393" height="54"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-W8-eG0" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-W8-eG0" customClass="ButtonWithExtendedArea" customModule="Mons" customModuleProvider="target">
                                         <rect key="frame" x="335.33333333333331" y="4" width="49.666666666666686" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="escape" catalog="system"/>
                                     </button>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-OM-HDU" customClass="SeparatorView" customModule="mons" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-OM-HDU" customClass="SeparatorView" customModule="Mons" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="53" width="393" height="1"/>
                                         <color key="backgroundColor" systemColor="separatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Kh8-WA-onE"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haM-vj-jVh" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haM-vj-jVh" customClass="ButtonWithExtendedArea" customModule="Mons" customModuleProvider="target">
                                         <rect key="frame" x="282" y="4" width="45.333333333333314" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="speaker" catalog="system"/>
@@ -328,7 +327,7 @@
                                             <action selector="didTapSoundButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vAJ-ar-7is"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76Q-K9-7MO" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76Q-K9-7MO" customClass="ButtonWithExtendedArea" customModule="Mons" customModuleProvider="target">
                                         <rect key="frame" x="228.33333333333334" y="4" width="45.666666666666657" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="hifispeaker" catalog="system"/>
@@ -352,7 +351,7 @@
                                     <constraint firstAttribute="trailing" secondItem="KPn-OM-HDU" secondAttribute="trailing" id="qvF-Ca-NEe"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx" customClass="ButtonWithExtendedArea" customModule="mons" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iya-X5-Mzx" customClass="ButtonWithExtendedArea" customModule="Mons" customModuleProvider="target">
                                 <rect key="frame" x="343.66666666666669" y="778" width="41.333333333333314" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="sCa-RS-zeu"/>
@@ -444,117 +443,10 @@
             </objects>
             <point key="canvasLocation" x="1525.9541984732823" y="24.647887323943664"/>
         </scene>
-        <!--Map View Controller-->
-        <scene sceneID="0YK-y4-vQ3">
-            <objects>
-                <viewController storyboardIdentifier="MapViewController" id="HSR-aN-LDL" customClass="MapViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ngZ-b3-DT4">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-t4-rJP">
-                                <rect key="frame" x="0.0" y="59" width="393" height="393"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="gC7-t4-rJP" secondAttribute="height" multiplier="1:1" id="h74-fs-klW"/>
-                                </constraints>
-                                <standardMapConfiguration key="preferredConfiguration"/>
-                            </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ryr-03-icz">
-                                <rect key="frame" x="144" y="472" width="105" height="47.666666666666629"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="47.666666666666629" id="ZCQ-yV-4pl"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="search" cornerStyle="capsule">
-                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="actionButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="LDc-bQ-Ao9"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mons rocks / gems" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8O-vp-3Tg">
-                                <rect key="frame" x="20" y="539.66666666666663" width="353" height="20.333333333333371"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
-                                <color key="textColor" systemColor="secondaryLabelColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Drr-FT-KLi">
-                                <rect key="frame" x="139" y="772" width="115" height="23"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKu-e2-wNy">
-                                        <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="23" id="iA3-e0-r4h"/>
-                                            <constraint firstAttribute="width" constant="23" id="ryz-0U-mtl"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="fc"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="fcButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="0gB-GE-uEX"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g80-tY-vo9">
-                                        <rect key="frame" x="46" y="0.0" width="23" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="23" id="gTd-rJ-b8z"/>
-                                            <constraint firstAttribute="height" constant="23" id="lxe-UH-Ucm"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="x"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="xButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="lKQ-v0-Wq1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bM-RM-4cg">
-                                        <rect key="frame" x="92" y="0.0" width="23" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="23" id="Ddv-AU-igZ"/>
-                                            <constraint firstAttribute="height" constant="23" id="EPL-pw-mq9"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <backgroundConfiguration key="background" cornerRadius="0.0" image="github"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="githubButtonTapped:" destination="HSR-aN-LDL" eventType="touchUpInside" id="2F7-0w-00g"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="ojd-Ag-SnN"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="gC7-t4-rJP" secondAttribute="trailing" id="24V-E7-Pbw"/>
-                            <constraint firstItem="Drr-FT-KLi" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="7TD-lV-gTr"/>
-                            <constraint firstItem="Ryr-03-icz" firstAttribute="top" secondItem="gC7-t4-rJP" secondAttribute="bottom" constant="20" id="CZ5-Mo-VWQ"/>
-                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="trailing" secondItem="I8O-vp-3Tg" secondAttribute="trailing" constant="20" id="K4h-wY-BHW"/>
-                            <constraint firstItem="gC7-t4-rJP" firstAttribute="top" secondItem="ojd-Ag-SnN" secondAttribute="top" id="KVD-xQ-e9Z"/>
-                            <constraint firstItem="I8O-vp-3Tg" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" constant="20" id="UDY-K0-Beu"/>
-                            <constraint firstItem="ojd-Ag-SnN" firstAttribute="bottom" secondItem="Drr-FT-KLi" secondAttribute="bottom" constant="23" id="ZbW-ba-fiQ"/>
-                            <constraint firstItem="I8O-vp-3Tg" firstAttribute="top" secondItem="Ryr-03-icz" secondAttribute="bottom" constant="20" id="b7f-3S-nxL"/>
-                            <constraint firstItem="Ryr-03-icz" firstAttribute="centerX" secondItem="ojd-Ag-SnN" secondAttribute="centerX" id="cOx-l6-ntk"/>
-                            <constraint firstItem="gC7-t4-rJP" firstAttribute="leading" secondItem="ojd-Ag-SnN" secondAttribute="leading" id="kdw-EA-DVv"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="actionButton" destination="Ryr-03-icz" id="kQW-xJ-dRs"/>
-                        <outlet property="mapView" destination="gC7-t4-rJP" id="oro-Ij-gjs"/>
-                        <outlet property="statusLabel" destination="I8O-vp-3Tg" id="wjl-IL-Wma"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PZU-Ih-phu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2389" y="19"/>
-        </scene>
         <!--Music View Controller-->
         <scene sceneID="l6U-Ab-dyG">
             <objects>
-                <viewController storyboardIdentifier="MusicViewController" id="khw-7r-FqP" customClass="MusicViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicViewController" id="khw-7r-FqP" customClass="MusicViewController" customModule="Mons" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hfk-wC-PBn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -609,12 +501,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Iv-uv-xaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="581"/>
+            <point key="canvasLocation" x="2291" y="-138"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="M46-w3-48Z">
             <objects>
-                <viewController storyboardIdentifier="MainMenuViewController" id="Ag2-m3-I9o" customClass="MainMenuViewController" customModule="mons" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainMenuViewController" id="Ag2-m3-I9o" customClass="MainMenuViewController" customModule="Mons" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FYk-w3-Qsa">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -778,14 +670,6 @@
                                     <constraint firstAttribute="width" secondItem="asW-Wi-Sw3" secondAttribute="height" multiplier="784:480" id="OPP-S5-WT9"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVZ-eL-UdT">
-                                <rect key="frame" x="179.33333333333334" y="59" width="34.333333333333343" height="34.333333333333343"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" image="magnifyingglass" catalog="system" cornerStyle="capsule"/>
-                                <connections>
-                                    <action selector="searchButtonTapped:" destination="Ag2-m3-I9o" eventType="touchUpInside" id="zeB-Nb-iUY"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iKp-lT-Tno"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -798,14 +682,9 @@
                             <constraint firstItem="igJ-1y-p3U" firstAttribute="top" secondItem="asW-Wi-Sw3" secondAttribute="bottom" constant="20.000000000000114" id="NVG-Q2-6fX"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="width" relation="lessThanOrEqual" secondItem="FYk-w3-Qsa" secondAttribute="width" id="TtV-pS-oMc"/>
                             <constraint firstItem="asW-Wi-Sw3" firstAttribute="centerX" secondItem="FYk-w3-Qsa" secondAttribute="centerX" id="fhr-GJ-Ent"/>
-                            <constraint firstItem="DVZ-eL-UdT" firstAttribute="top" secondItem="iKp-lT-Tno" secondAttribute="top" id="jsO-Np-lMh"/>
-                            <constraint firstItem="DVZ-eL-UdT" firstAttribute="centerX" secondItem="iKp-lT-Tno" secondAttribute="centerX" id="mfU-wC-946"/>
                             <constraint firstItem="iKp-lT-Tno" firstAttribute="trailing" secondItem="igJ-1y-p3U" secondAttribute="trailing" priority="750" constant="20" id="tst-zw-tg3"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="searchButton" destination="DVZ-eL-UdT" id="beM-Up-GgY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeL-MP-W3j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -819,11 +698,8 @@
         <image name="emoji-52" width="420" height="420"/>
         <image name="emoji-53" width="420" height="420"/>
         <image name="escape" catalog="system" width="128" height="123"/>
-        <image name="fc" width="99" height="99"/>
-        <image name="github" width="93" height="93"/>
         <image name="hifispeaker" catalog="system" width="112" height="128"/>
         <image name="logo" width="1310" height="817"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="move-action" width="32" height="32"/>
         <image name="move-manaMove" width="32" height="32"/>
         <image name="move-monMove" width="32" height="32"/>
@@ -831,23 +707,22 @@
         <image name="opticaldisc" catalog="system" width="128" height="123"/>
         <image name="pixel/bomb" width="64" height="64"/>
         <image name="pixel/potion" width="64" height="64"/>
-        <image name="play.fill" catalog="system" width="117" height="128"/>
+        <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="speaker" catalog="system" width="128" height="123"/>
-        <image name="x" width="103" height="103"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
